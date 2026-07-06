@@ -1,0 +1,278 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: TraPPE United Atom</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"><font size="5"><b><font face="Arial,Helvetica,sans-serif">
+	 <a name="top"></a>MCCCS Towhee: TraPPE United Atom</font></b></font></div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the TraPPE United Atom (TraPPE-UA) force field as it is implemented into the towhee_ff_TraPPE-UA file in the ForceFields directory.
+      All of the Towhee atom types for the TraPPE United Atom force field are listed, along with a short description of their meanings.
+      For more information about the TraPPE United Atom force field see the <a href="../software.html#siepmann">Siepmann group web site</a>.
+      Note that TraPPE United Atom is a Lennard-Jones (12-6) force field and can only be combined with other Lennard-Jones (12-6) force fields.
+      I would like to acknowledge Collin D. Wick, Jeff Potoff, and J. Ilja Siepmann for providing very useful guidance about implementing TraPPE-UA.
+      Any discrepencies (especially typos) from the published TraPPE-UA force field force field are mentioned in this manual page along with a note about
+      why the implemented version differs from published accounts.
+      The detail presented here for the TraPPE-UA force field is greater than the general level of detail for other forcefields due to the
+      close relation between the authors of Towhee and TraPPE-UA.  If someone does find a discrepancy with the published values I would be extremely grateful
+      if they let me know about it.  I welcome feedback on how this implementation compares with other programs.
+     </ul>
+     <b>References for TraPPE-UA</b> 
+     <ul>
+      TraPPE-UA is still under development by the Siepmann group.  Here is the current list of references.
+      <ul>
+       <li><a href="../references.html#martin_siepmann_1998_jpcb">Martin and Siepmann 1998 (JPCB)</a></li>
+       <li><a href="../references.html#martin_siepmann_1998_tca">Martin and Siepmann 1998 (TCA)</a></li>
+       <li><a href="../references.html#martin_siepmann_1999">Martin and Siepmann 1999</a></li>
+       <li><a href="../references.html#wick_et_al_2000">Wick <i>et al.</i> 2000</a></li>
+       <li><a href="../references.html#chen_et_al_2001">Chen <i>et al.</i> 2001</a></li>
+       <li><a href="../references.html#kamath_et_al_2004">Kamath <i>et al.</i> 2004</a></li>
+       <li><a href="../references.html#stubbs_et_al_2004">Stubbs <i>et al.</i> 2004</a></li>
+       <li><a href="../references.html#kamath_et_al_2006">Kamath <i>et al.</i> 2006</a></li>
+      </ul>
+     </ul>
+     <b>Typos and comments for TraPPE-UA</b> 
+     <ul>
+      Here I list torsions that I believe are missing in the published TraPPE-UA papers.  These torsions are therefore not implemented into Towhee.
+      <dt><font color="red">alkanes</font></dt>
+      <ul>
+       <li>CH<sub>x</sub> - CH - C - CH<sub>y</sub> torsion is missing.  Example: 2,3,3-trimethylbutane.</li>
+       <li>CH<sub>x</sub> - C - C - CH<sub>y</sub> torsion is missing.  Example: 2,2,3,3-quatramethylbutane.</li>
+      </ul>
+      <dt><font color="red">alkenes</font></dt>
+      <ul>
+       <li>CH<sub>x</sub> - CH2(sp3) - C(sp2 double bonded to C) - CH<sub>y</sub> torsion is missing.  Example: 2-methyl-1-butene torsion involving
+        only single bonds.
+       </li>
+       <li>CH<sub>x</sub> - CH(sp3) - C(sp2 double bonded to C) - CH<sub>y</sub> torsion is missing.  Example: 2,3-dimethyl-1-butene torsion involving
+        only single bonds.
+       </li>
+       <li>CH<sub>x</sub> - C(sp3) - C(sp2 double bonded to C) - CH<sub>y</sub> torsion is missing.  Example: 2,3,3-trimethyl-1-butene torsion involving
+        only single bonds.
+       </li>
+      </ul>
+      <dt><font color="red">alcohols</font></dt>
+      <ul>
+       <li>CH<sub>x</sub> - CH2 - CH - OH torsion is missing.  Example: 1-methylethanol.</li>
+       <li>CH<sub>x</sub> - CH2 - C - OH torsion is missing.  Example: 1,1-dimethylethanol.</li>
+       <li>CH<sub>x</sub> - CH2 - C - OH torsion is missing.  Example: 1,1,1-trimethylethanol.</li>
+      </ul>
+      <dt><font color="red">ketones</font></dt>
+      <ul>
+       <li>CH<sub>x</sub> - CH2(sp3) - C(sp2 double bonded to O) - CH<sub>y</sub> torsion is missing.  Example: buta-2-one torsion involving only single
+        bonds.
+       </li>
+       <li>CH<sub>x</sub> - CH(sp3) - C(sp2 double bonded to O) - CH<sub>y</sub> torsion is missing.  Example: 3-methylbuta-2-one
+        torsion involving only single bonds.
+       </li>
+       <li>CH<sub>x</sub> - C(sp3) - C(sp2 double bonded to O) - CH<sub>y</sub> torsion is missing.  Example: 3,3-dimethylbuta-2-one
+        torsion involving only single bonds.
+       </li>
+      </ul>
+      <dt><font color="red">ethers</font></dt>
+      <ul>
+       <li>CH<sub>x</sub> - CH2(sp3) - CH(sp3) - O torsion is missing.  Example: sec-butyl ethyl ether.</li>
+       <li>CH<sub>x</sub> - CH(sp3) - CH(sp3) - O torsion is missing.  Example: 1,2-dimethylpropyl ethyl ether.</li>
+       <li>CH<sub>x</sub> - C(sp3) - CH(sp3) - O torsion is missing.  Example: 1,2,2-trimethylpropyl ethyl ether.</li>
+       <li>CH<sub>x</sub> - CH2(sp3) - C(sp3) - O torsion is missing.  Example: 1,1-dimethylpropyl ethyl ether.</li>
+       <li>CH<sub>x</sub> - CH(sp3) - C(sp3) - O torsion is missing.  Example: 1,1,2-trimethylpropyl ethyl ether.</li>
+       <li>CH<sub>x</sub> - C(sp3) - C(sp3) - O torsion is missing.  Example: 1,1,2,2-quatramethylpropyl ethyl ether.</li>
+      </ul>
+      <p></p>
+      A few angles for carboxylic acids were not listed in the <a href="../references.html#kamath_et_al_2004">Kamath <i>et al.</i> 2004</a> paper and
+      here I list the missing angle terms and then also list the terms Jeff Potoff suggested for use with these angles.
+      <ul>
+       <li>CH<sub>2</sub> - C(acid) - O in carboxylic acid is not listed.  I used the similar CH<sub>3</sub> - C(acid) - O parameters.</li>
+       <li>CH<sub>2</sub> - C(acid) = O in carboxylic acid is not listed.  I used the similar CH<sub>3</sub> - C(acid) = O parameters.</li>
+      </ul>
+      The functional form for one of the torsions was listed incorrectly in Equation 5 of the
+      <a href="../references.html#kamath_et_al_2004">Kamath <i>et al.</i> 2004</a> paper.  That paper lists the torsion as
+      <ul>U<sub>torsion</sub> = c<sub>1</sub>[ 1 + cos( &phi; + f<sub>1</sub> )] + c<sub>2</sub> [ 1 - cos(2 &phi;)]</ul>
+      but the actual torsion potential used in that work (according to personal communication with Jeff Potoff) is
+      <ul>U<sub>torsion</sub> = c<sub>1</sub>[ 1 + cos( &phi; + f<sub>1</sub> )] + c<sub>2</sub> [ 1 - cos<sup>2</sup>(&phi;)]</ul>
+      and this correction was made in Towhee beginning with version 4.6.1.
+      <dt>A few torsions for carboxylic acids were not listed in the <a href="../references.html#kamath_et_al_2004">Kamath <i>et al.</i> 2004</a> paper
+       and here I list the missing torsion terms and then also list the terms Jeff Pottof suggested for use with these torsions.
+       <ul>
+        <li>CH<sub>x</sub> - CH<sub>2</sub> - C(acid) = O in carboxylic acid is not listed.  This uses the OCOH carboxylic torsion.</li>
+        <li>CH<sub>x</sub> - CH<sub>2</sub> - C(acid) - O in carboxylic acid is not listed.  This uses the linear alkane 
+         CH<sub>x</sub> - CH<sub>2</sub> - CH<sub>2</sub> - CH<sub>x</sub> torsion.
+        </li>
+       </ul>
+       The functional form used for alkenes is listed incorrectly in Equation 5 of the
+       <a href="../references.html#wick_et_al_2000">Wick <i>et al.</i> 2000</a> paper.  That equation should read
+       <ul>u<sub>tors</sub> = d<sub>0</sub> (&phi; - &phi;<sub>0</sub>)<sup>2</sup></ul>
+      </dt>
+     </ul>
+
+     <b>TraPPE-UA in Towhee</b> 
+     <ul>
+      The official force field name for TraPPE United Atom in Towhee is 'TraPPE-UA'.
+      This list contains all of the TraPPE-UA atom names for use in the towhee_input file, along with a brief description.
+      I created these atom names in order to work with the molecule assembler.
+      TraPPE-UA is a united-atom force field that lumps hydrogens onto their neighboring carbons.
+      Note that hydrogens that are bonded to atoms other than carbon are not lumped onto their neighboring atoms.
+      The naming convention listed here began with version 4.4.1 as some changed were required in order to implement TraPPE-6.
+      The general pattern of the names is a list of the atoms that make up the group, followed by the types of atoms 
+      that they are single bonded to, followed by the atoms they are double bonded to (prefixed with an '='), and ending in a code that represents the
+      bonding pattern of the atom.
+      The <b>Bond Name</b> is also listed to facilitate comparision with the bond increment method listed down in the coulombic section.
+      Please note that the capitalization and spacing pattern is important and must be followed exactly as listed here.
+      <dt><font color="red">Argon</font></dt>
+      <ul>
+       <dt><b>'Ar'</b> : argon</dt>
+      </ul>
+      <dt><font color="red">Carbon (not bonded to any hydrogens)</font></dt>
+      <ul>
+       <dt><b>'Ccccc(sp3)'</b> : an sp<sup>3</sup> carbon.
+	This atom is single bonded to four carbon atoms.  
+        Bond name <b>Csp3</b>.
+       </dt>
+       <dt><b>'Cccco(sp3)'</b> : an sp<sup>3</sup> carbon.
+        This atom is single bonded to three carbon atoms and single bonded to one oxygen atom.
+        Bond name <b>Csp3</b>.
+       </dt>
+       <dt><b>'Ccc=c(sp2)'</b> : an sp<sup>2</sup> carbon.
+        This atom is single bonded to two carbon atoms and double bonded to one carbon atom.
+        Bond name <b>Csp2</b>.
+       </dt>
+       <dt><b>'Ccc=o(sp2)'</b> : an sp<sup>2</sup> carbon.
+        This atom is single bonded to two carbon atoms and double bonded to one oxygen atom.
+        Bond name <b>Ccc=o(sp2)</b>.
+       </dt>
+       <dt><b>'Cco=o(sp2)'</b> : an sp<sup>2</sup> carbon.
+        This atom is single bonded to one carbon atom, single bonded to one oxygen atom, and double bonded to one oxygen atom.
+        Bond name <b>Cco=o(sp2)</b>.
+       </dt>
+       <dt><b>'Caac(aro)'</b> : an aromatic carbon.
+        This atom is bonded to two aromatic carbon atoms and single bonded to one carbon atom.
+        Bond name <b>Caro</b>.
+       </dt>
+       <dt><b>'Caaa(aro)'</b> : an aromatic carbon.
+        This atom is bonded to three aromatic carbon atoms.
+        Bond name <b>Caro</b>.
+       </dt>
+      </ul>
+      <dt><font color="red">Carbon (united atom including 1 bonded hydrogen)</font></dt>
+      <ul>
+       <dt><b>'CHccc(sp3)'</b> : united-atom consisting of an sp<sup>3</sup> carbon and one bonded hydrogen.
+        This united-atom is single bonded to three carbon atoms.
+        Bond name <b>Csp3</b>.
+       </dt>
+       <dt><b>'CHcco(sp3)'</b> : united-atom consisting of an sp<sup>3</sup> carbon and one bonded hydrogen.
+        This united-atom is single bonded to two carbon atoms and single bonded to one oxygen atom.
+        Bond name <b>Csp3</b>.
+       </dt>
+       <dt><b>'CHc=c(sp2)'</b> : united-atom consisting of an sp<sup>2</sup> carbon and one bonded hydrogen.
+        This united-atom is single bonded to one carbon atom and double bonded to one carbon atom.
+        Bond name <b>Csp2</b>.
+       </dt>
+       <dt><b>'CHc=o(sp2)'</b> : united-atom consisting of an sp<sup>2</sup> carbon and one bonded hydrogen.
+        This united-atom is single bonded to one carbon atom and double bonded to one oxygen atom.
+        Bond name <b>CHc=o(sp2)</b>.
+       </dt>
+       <dt><b>'CHaa(aro)'</b> : united-atom consisting of an aromatic carbon and one bonded hydrogen.
+        This united-atom is bonded to two aromatic carbon atoms.
+        Bond name <b>Caro</b>.
+       </dt>
+      </ul>
+      <dt><font color="red">Carbon (united atom including 2 bonded hydrogens)</font></dt>
+      <ul>
+       <dt><b>'CH2**(sp3)'</b> : united-atom consisting of an sp<sup>3</sup> carbon and two bonded hydrogens.  
+        This united-atom is single bonded to any two non-hydrogen atoms.
+        Bond name <b>Csp3</b>.
+       </dt>
+       <dt><b>'CH2=*(sp2)'</b> : united-atom consisting of an sp<sup>2</sup> carbon and two bonded hydrogens.  
+        This united-atom is double bonded to any one non-hydrogen atom.
+        Bond name <b>Csp2</b>.
+       </dt>
+      </ul>
+      <dt><font color="red">Carbon (united atom including 3 bonded hydrogens)</font></dt>
+      <ul>
+       <dt><b>'CH3*(sp3)'</b> : united-atom consisting of an sp<sup>3</sup> carbon and three bonded hydrogens.  
+        This united-atom is single bonded to any non-hydrogen atom.
+        Bond name <b>Csp3</b>.
+       </dt>
+      </ul>
+      <dt><font color="red">Carbon (united atom including 4 bonded hydrogens)</font></dt>
+      <ul>
+       <dt><b>'CH4'</b> : methane</dt>
+      </ul>
+      <dt><font color="red">Helium</font></dt>
+      <ul>
+       <dt><b>'He'</b> : helium</dt>
+      </ul>
+      <dt><font color="red">Hydrogen (not bonded to a carbon)</font></dt>
+      <ul>
+       <dt><b>'Ho'</b> : hydrogen bonded to one oxygen.  Bond name <b>Ho</b>.</dt>
+       <dt><b>'Hoacid'</b> : hydrogen bonded to one oxygen in a carboxylic acid.  
+        Bond name <b>Hoacid</b>.
+       </dt>
+      </ul>
+      <dt><font color="red">Oxygen</font></dt>
+      <ul>
+       <dt><b>'Och(sp3)'</b> : sp<sup>3</sup> oxygen atom that is single bonded to one carbon atom and single bonded to one hydrogen atom.
+        Bond name <b>Och(sp3)</b>.
+       </dt>
+       <dt><b>'Occ(sp3)'</b> : sp<sup>3</sup> oxygen atom that is single bonded to two carbon atoms.
+        Bond name <b>Occ(sp3)</b>.
+       </dt>
+       <dt><b>'O=c(sp2)'</b> : sp<sup>2</sup> oxygen atom that is double bonded to one carbon atom.
+        Bond name <b>O=c(sp2)</b>.
+       </dt>
+      </ul>
+     </ul>
+     <b>TraPPE-UA and the Molecule Assembler</b> 
+     <ul>
+      The molecule builder is functional for TraPPE-UA.  In the case of alkenes, TraPPE-UA has different torsional potentials for cis and trans and these can
+      be distinguished using the options in the 'advanced connectivity map'.  
+     </ul>
+
+     <b>Coulombic interactions</b> 
+     <ul>
+      TraPPE-UA uses atom-centered point charges to represent the electrostatic interactions.  Generally, there is no charge on any of the hydrocarbons,
+      but there are exceptions once other atoms are mixed into the molecules.  Note that there is a 0.5 scaled 1-4 coulombic interaction built into the
+      most of the torsional potentials.  This general rule is contradicted by some of the torsions for carboxylic acids.  You can take a look at the
+      <a href="../references.html#force_fields_trappe">TraPPE-UA force field literature</a> to determine how to assign the charges, or you can try out 
+      the 'bond increment' method for assigning charges on these molecules.
+      Here I list the bond increments using the bond names listed above.  The value of the bond increment is added to the first atom listed and
+      subtracted from the second atom listed.
+      <ul>
+       <dt><b>Csp3</b> - <b>Csp3</b>: 0.0</dt>
+       <dt><b>Csp3</b> - <b>Csp2</b>: 0.0</dt>
+       <dt><b>Csp3</b> - <b>Caro</b>: 0.0</dt>
+       <dt><b>Csp2</b> - <b>Csp2</b>: 0.0</dt>
+       <dt><b>Caro</b> - <b>Caro</b>: 0.0</dt>
+       <dt><b>Ho</b> - <b>Och(sp3)</b>: 0.435</dt>
+       <dt><b>Csp3</b> - <b>Och(sp3)</b>: 0.265</dt>
+       <dt><b>Csp3</b> - <b>Occ(sp3)</b>: 0.25</dt>
+       <dt><b>CHc=o(sp2)</b> - <b>Csp3</b>: 0.043</dt>
+       <dt><b>CHc=o(sp2)</b> - <b>O=c(sp2)</b>: 0.482</dt>
+       <dt><b>Ccc=o(sp2)</b> - <b>O=c(sp2)</b>: 0.424</dt>
+       <dt><b>O=c(sp2)</b> - <b>Cco=o(sp2)</b>: -0.45</dt>
+       <dt><b>Csp3</b> - <b>Cco=o(sp2)</b>: 0.12</dt>
+       <dt><b>Och(sp3)</b> - <b>Cco=o(sp2)</b>: -0.09</dt>
+       <dt><b>Hoacid</b> - <b>Och(sp3)</b>: 0.37</dt>
+      </ul>
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

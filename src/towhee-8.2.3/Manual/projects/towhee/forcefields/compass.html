@@ -1,0 +1,185 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: COMPASSv1</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: COMPASSv1</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the COMPASSv1 force field as it is implemented into the towhee_ff_COMPASSv1 file in the ForceFields directory.
+      All of the Towhee atom types for the COMPASSv1 force field are listed, along with a short description of their meanings.
+      There used to be more information about the COMPASSv1 force field on the <a href="http://www.accelrys.com">Accelrys web site</a>, but I was unable to
+      find it now that they have been aquired by another company.
+      The COMPASSv1 force field was maintained by researchers at Accelrys and only a portion of it has been published in the peer-reviewed literature.
+      This file incorporates those parts that have been published. 
+      Note that COMPASSv1 is a Lennard-Jones (9-6) force field and can only be combined with other Lennard-Jones (9-6) force fields.
+      I would like to acknowledge David Rigby for providing very useful guidance about implementing COMPASSv1.
+      Any discrepencies (especially typos) from the published COMPASSv1 force field values are the sole responsibility of Marcus Martin, and 
+      I welcome feedback on how this implementation compares with other programs. 
+     </ul>
+     <b>References for COMPASSv1</b> 
+     <ul>
+      The COMPASS family of forcefield is an ongoing subject of further parameterization.  
+      The authors of the forcefield periodically revisit old parameters and refit them to additional data.
+      Towhee defines COMPASSv1 as the parameters published in the following series of papers.
+      <ul>
+       <li><a href="../references.html#rigby_et_al_1997">Rigby <i>et al.</i> 1997</a></li>
+       <li><a href="../references.html#sun_rigby_1997">Sun and Rigby 1997</a></li>
+       <li><a href="../references.html#sun_1998">Sun 1998</a></li>
+       <li><a href="../references.html#sun_et_al_1998">Sun <i>et al.</i> 1998</a></li>
+       <li><a href="../references.html#bunte_sun_2000">Bunte and Sun 2000</a></li>
+       <li><a href="../references.html#yang_et_al_2000">Yang <i>et al.</i> 2000</a></li>
+       <li><a href="../references.html#mcquaid_et_al_2003">McQuaid <i>et al.</i> 2003</a></li>
+      </ul>
+     </ul>
+     <b>Typos and clarifications for COMPASSv1</b> 
+     <ul>
+      With the large size of the COMPASSv1 force field it is not surprising that there are a few typos in the published literature.
+      Here I summarize and clarify differences in my implementation from the literature. 
+      <ul>
+       <li> There are full van der Waals and coulombic interactions between atoms connected by three bonds (1-4 interactions).</li>
+       <li> Rigby <i>et al.</i> 1997: In the angle-angle-torsion term for ha-c4-c4-o2 the ijk/jkl/ijkl constant is set to 20.2006 while it should actually 
+        be -20.2006 [personal communication between M.G. Martin and D. Rigby August 09, 2001]
+       </li>
+       <li> Sun 1998: The mixing rules for epsilon are stated incorrectly. 
+        The term in the denominator should read (r<sub>i</sub><sup>0</sup>)<sup>6</sup> + (r<sub>j</sub><sup>0</sup>)<sup>6</sup>.
+	The + is missing in that paper.
+       </li>
+       <li> Sun 1998: In the End Bond-Torsion for c4-c4-c4-c4 the K-L/I-J-K-L k1 value is set to 0.0000 and I think it should be set to the same 
+        value as the I-J/I-J-K-L k1 value of -0.0732.
+	This correction was made in Towhee.
+       </li>
+      </ul>
+     </ul>
+     <b>COMPASSv1 in Towhee</b> 
+     <ul>
+      The official force field name for COMPASSv1 in Towhee is 'COMPASSv1'.
+      Here I list all of the COMPASSv1 atom names for use in the towhee_input file, along with a brief description taken from the COMPASSv1 papers.
+      I have added some comments where I thought clarification was needed, these are all in [square brackets].
+      The COMPASSv1 naming convention has the first (one or two) letters as the element, the next character is the number of bonds to that element, 
+      and the final character is a bit of a wildcard.
+      Please note that the capitalization and spacing pattern is important and must be followed exactly as listed here. 
+      <dt><font color="red">Argon</font></dt>
+      <ul>
+       <dt>'<b>ar</b>' : argon</dt>
+      </ul>
+      <dt><font color="red">Carbon</font></dt>
+      <ul>
+       <dt>'<b>c1o</b>' : carbon in CO</dt>
+       <dt>'<b>c2=</b>' : carbon in CO<sub>2</sub> and CS<sub>2</sub></dt>
+       <dt>'<b>c3a</b>' : aromatic carbon [carbon with 3 bonds, aromatic]</dt>
+       <dt>'<b>c4</b>' : generic sp<sup>3</sup> carbon [carbon with 4 bonds, 
+        use only if none of the other c4 special cases are valid]</dt>
+       <dt>'<b>c43</b>' : sp<sup>3</sup> carbon with three heavy atoms attached</dt>
+       <dt>'<b>c44</b>' : sp<sup>3</sup> carbon with four heavy atoms attached</dt>
+       <dt>'<b>c4o</b>' : alpha carbon [sp<sup>3</sup> carbon bonded to an 
+        oxygen in an alcohol or ether]</dt>
+       <dt>'<b>c4z</b>' : carbon, sp<sup>3</sup>, bonded to -N<sub>3</sub></dt>
+      </ul>
+      <dt><font color="red">Helium</font></dt>
+      <ul>
+       <dt>'<b>he</b>' : helium</dt>
+      </ul>
+      <dt><font color="red">Hydrogen</font></dt>
+      <ul>
+       <dt>'<b>h1</b>' : nonpolar hydrogen [hydrogen bonded to carbon]</dt>
+       <dt>'<b>h1h</b>' : hydrogen in H<sub>2</sub></dt>
+       <dt>'<b>h1o</b>' : strongly polar hydrogen [hydrogen bonded to oxygen]</dt>
+      </ul>
+      <dt><font color="red">Krypton</font></dt>
+      <ul>
+       <dt>'<b>kr</b>' : krypton</dt>
+      </ul>
+      <dt><font color="red">Neon</font></dt>
+      <ul>
+       <dt>'<b>ne</b>' : neon</dt>
+      </ul>
+      <dt><font color="red">Nitrogen</font></dt>
+      <ul>
+       <dt>'<b>n1n</b>' : nitrogen in N<sub>2</sub></dt>
+       <dt>'<b>n1o</b>' : nitrogen in NO</dt>
+       <dt>'<b>n1z</b>' : nitrogen, terminal atom in -N<sub>3</sub></dt>
+       <dt>'<b>n2=</b>' : nitrogen [nitrogen with a single bond and a double 
+        bond]</dt>
+       <dt>'<b>n2o</b>' : nitrogen in NO<sub>2</sub></dt>
+       <dt>'<b>n2z</b>' : nitrogen, first atom in -N<sub>3</sub></dt>
+       <dt>'<b>n2t</b>' : nitrogen, central atom in -N<sub>3</sub></dt>
+       <dt>'<b>n3o</b>' : nitrogen in nitro group</dt>
+      </ul>
+      <dt><font color="red">Oxygen</font></dt>
+      <ul>
+       <dt>'<b>o1=</b>' : oxygen in NO<sub>2</sub> and SO<sub>2</sub></dt>
+       <dt>'<b>o1=*</b>' : oxygen in CO<sub>2</sub></dt>
+       <dt>'<b>o12</b>' : oxygen in nitro group (-NO<sub>2</sub>)</dt>
+       <dt>'<b>o1c</b>' : oxygen in CO</dt>
+       <dt>'<b>o1n</b>' : oxygen in NO</dt>
+       <dt>'<b>o1o</b>' : oxygen in O<sub>2</sub></dt>
+       <dt>'<b>o2</b>' : generic oxygen with two bonds</dt>
+       <dt>'<b>o2e</b>' : ether oxygen</dt>
+       <dt>'<b>o2h</b>' : hydroxyl oxygen [alcohol oxygen]</dt>
+       <dt>'<b>o2n</b>' : oxygen in nitrates</dt>
+      </ul>
+      <dt><font color="red">Phosphorous</font></dt>
+      <ul>
+       <dt>'<b>p4=</b>' : phosphorous [phosphorous with three single bonds and a double bond]</dt>
+      </ul>
+      <dt><font color="red">Silicon</font></dt>
+      <ul>
+       <dt>'<b>si4</b>' : generic silicon with four bonds attached</dt>
+       <dt>'<b>si4c</b>' : a subset of Si4, non-hydrogen atom attached</dt>
+      </ul>
+      <dt><font color="red">Sulfur</font></dt>
+      <ul>
+       <dt>'<b>s1=</b>' : sulfur in CS<sub>2</sub></dt>
+       <dt>'<b>s2=</b>' : sulfur in SO<sub>2</sub></dt>
+       <dt>'<b>xe</b>' : xenon</dt>
+      </ul>
+     </ul>
+     <b>Coulombic Interactions</b> 
+     <ul>
+      COMPASSv1 uses point charges to represent the electrostatic interactions on molecules.  
+      They have devised an automated system for assigning the point charges on each atom that depends on the atom types,
+      and the types of atoms bonded to each atom.
+      This system is implemented into Towhee Version 4.4.0 and later.
+      To anable automatic charge assignment set <b>charge_assignment</b> to 'bond increment' in either the basic or advanced
+      connectivity map options for the <b>input_style</b>.
+     </ul>
+     <b>Angle-Angle cross terms</b> 
+     <ul>
+      COMPASSv1 is a class 2 force field and includes angle-angle cross terms.
+      Automatic detection and type determination for COMPASSv1 is functional for the connectivity map options of <b>input_style</b>.
+      The other cross terms for COMPASSv1 are included in the bending angle and dihedral angle potentials. 
+     </ul>
+     <b>Improper torsions</b> 
+     <ul>
+      Improper torsions are not automatically generated for this forcefield as the rules for determining where they are applied are not always straight-forward. 
+      COMPASSv1 exclusively uses the out-of-plane version of the improper torsions, and they are typically centered on an sp<sup>2</sup> atom in order to 
+      enforce planarity with its three neighbors.
+      These torsions are listed in the COMPASSv1 literature as i-j-k-l where the angle is the dihedral between j-i-k and i-k-l,
+      and the bonding pattern is i, k, l all bonded to atom j, and also not bonded to each other.
+      In the towhee_input file this out-of-plane improper torsion is listed only for atom j, and the atom order there is i, k, l.
+      Unfortunately, I have not yet set up the automation for determining the improper types for COMPASSv1 yet as the impropers are 
+      almost exclusively used on aromatics, and I have not yet tested the code for those molecules.
+      You will need to look in <a href="../code/code_manual.html#ffcompass.F"><code>ffcompass.F</code></a> to find the improper torsion types for COMPASSv1. 
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

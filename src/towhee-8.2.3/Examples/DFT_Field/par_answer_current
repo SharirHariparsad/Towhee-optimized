@@ -1,0 +1,521 @@
+Towhee parstyle: 0 
+ MCCCS Towhee - Version 4.2.0 (November 03 2004)
+ Copyright (C) <2004> Marcus G. Martin
+ Code Contributors for 2004: Marcus G. Martin; Christian D. Lorenz;
+ Peter A. Schultz; Aidan P. Thompson; Jeffrey J. Potoff; Steve R. Lustig
+ Paul S. Crozier; Nicholas du Preez
+ Copyright (C) <2003> Marcus G. Martin
+ Code Contributors for 2003: Marcus G. Martin; Christian D. Lorenz;
+ David B. Ritch; Michael L. Greenfield; Yogesh Srivastava; Evangelos A Coutsias
+ Copyright (C) <2002> Marcus G. Martin, Chris D.
+  Lorenz, Aidan P. Thompson, Allen G. Sault
+ Copyright (C) <2000-2001> Marcus G. Martin
+ Copyright (C) <1999> J. Ilja Siepmann, Marcus G. Martin,
+ Bin Chen, Collin D. Wick, John Stubbs
+ This version is approved for distribution outside of 
+ Sandia National Laboratories (SAND 2001-3051P)
+
+ Direct comments about this code to Marcus G. Martin (marmart@sandia.gov)
+ See the MCCCS Towhee web site for more information 
+ including a users manual.
+ http://towhee.sourceforge.net
+
+ We would like to thank the following agencies for 
+ providing funding used to develop MCCCS Towhee
+ -Department of Energy Office of Industrial Technologies (MGM)
+ -National Science Foundation (JIS)
+ -Department of Energy Computational Science Graduate Fellowship (MGM,CDW)
+
+ We would like to thank the following institutions 
+ for providing support to the authors
+ -The University of Minnesota (Minneapolis MN)
+ -Sandia National Laboratories (Albuquerque NM)
+ Sandia is a multiprogram laboratory operated by 
+ Sandia Corporation, a Lockheed Martin company,
+ for the United States Department of Energy under contract DE-AC04-94AL-85000.
+
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+ Reading from towhee_input
+inputformat:Towhee         
+ RANLUX LUXURY LEVEL SET BY RLUXGO : 3     P= 223
+ RANLUX INITIALIZED BY RLUXGO FROM SEEDS     1302002           0           0
+ Testing random number generator
+    0.354084  0.719681  0.403250  0.706761  0.174308
+ensemble: nvt
+temperature:              1.00000
+nmolty:                   1
+nmolectyp:         1
+numboxes         1
+stepstyle:cycles  
+nstep:                  10
+printfreq:                   1
+blocksize:                   2
+moviefreq:              100000
+backupfreq:                1000
+loutpdb: T
+loutdft: T
+loutlammps: F
+pressurefreq:                  20
+trmaxdispfreq:                   2
+volmaxdispfreq:                   2
+chempotperstep:         0
+potentialstyle: classical                     
+ffnumber:                   1
+ff_filename:
+/towheebase/ForceFields/towhee_ff_LJium                                                             
+potentype: 0
+mixrule: 0
+lshift: T
+ltailc: F
+rmin:   0.50000
+rcut:   2.00000
+rcutin:   2.00000
+coulombstyle: none                
+ Setting up force field parameters from files
+ opening forcefield file:    1
+ Lorentz-Berthelot Mixing rules
+ Arithmetic mean of sigma
+ Geometric mean of epsilon
+nhrdfld:    0
+nljfld:    0
+numbfld:   0
+isolvtype:     3
+ Tramonto solvation
+linit: F
+initstyle Box:    1
+    0
+Box idim hmatrix:    1 1   15.00000    0.00000    0.00000
+Box idim hmatrix:    1 2    0.00000   15.00000    0.00000
+Box idim hmatrix:    1 3    0.00000    0.00000   15.00000
+Box idim hinverse:    1 1    0.06667    0.00000    0.00000
+Box idim hinverse:    1 2    0.00000    0.06667    0.00000
+Box idim hinverse:    1 3    0.00000    0.00000    0.06667
+Box:  1 initmol:         1
+Box:  1 inix,iniy,iniz:         1          1          1
+Box:  1 inimix:         1
+pm1boxcbswap: 0.000000
+pm1cbswmt: 1.000000
+pmavb1: 0.000000
+pmavb1in: 0.500000
+pmavb1mt: 1.000000
+moltyp:  1 pmavb1ct: 1.000000
+avb1rad:   1.00000
+pmavb2: 0.000000
+pmavb2in: 0.500000
+pmavb2mt: 1.000000
+moltyp:  1 pmavb2ct: 1.000000
+avb2rad:   1.00000
+pmavb3: 0.000000
+pmavb3mt: 1.000000
+moltyp:  1 pmavb3ct: 1.000000
+avb3rad:   1.00000
+pmcb: 1.000000
+pmcbmt: 1.000000
+pmall: 0.000000
+pmback: 0.000000
+pmbkmt: 1.000000
+pmpivot 0.000000
+pmpivmt: 1.000000
+pmconro 0.000000
+pmcrmt: 1.000000
+pmcrbac 0.000000
+pmcrbmt: 1.000000
+pmplane: 0.000000
+pmplanebox: 1.000000
+planewidth:   1.00000
+pmrow: 0.000000
+pmrowbox: 1.000000
+rowwidth:   1.00000
+pmtraat: 0.000000
+pmtamt: 1.000000
+rmtraa:   0.50000
+tatraa:   0.50000
+pmtracm:   0.00000
+pmtcmt: 1.000000
+rmtrac:   0.50000
+tatrac: 0.500000
+pmrotate: 0.000000
+pmromt: 1.000000
+rmrot:   0.05000
+tarot:   0.50000
+tor_cbstyle:  0
+ Use true distributions to generate torsions in config-bias
+bend_cbstyle:   0
+ Use true distributions to generate angles in config-bias
+vib_cbstyle:   0
+ Use true distributions to generate vibrations in config-bias
+vibrang:   0.85000    1.15000
+cdform: 0
+ Coupled-decoupled form from M.G. Martin;
+ J.I. Siepmann; J. Phys. Chem. B 103 2977-2980 (1999)
+nch_nb_one:        10
+nch_nb:        10
+nch_tor_out:         1
+nch_tor_in:       360
+nch_tor_in_con:       360
+nch_bend_a:       100
+nch_bend_b:       100
+nch_vib:         1
+inpstyle:   2
+nunit:         10
+nmaxcbmc:         10
+   Building the input file for molecule type:     1
+   using the LJium      force field
+unit:    1 name:lj1.0      charge:   0.00000
+unit:    2 name:lj1.0      charge:   0.00000
+unit:    3 name:lj1.0      charge:   0.00000
+unit:    4 name:lj1.0      charge:   0.00000
+unit:    5 name:lj1.0      charge:   0.00000
+unit:    6 name:lj1.0      charge:   0.00000
+unit:    7 name:lj1.0      charge:   0.00000
+unit:    8 name:lj1.0      charge:   0.00000
+unit:    9 name:lj1.0      charge:   0.00000
+unit:   10 name:lj1.0      charge:   0.00000
+ Verifying input structures are consistent
+Default total charge on molecule   1 is   0.00000
+Total charge in the simulation system:   0.00000
+Bond Types
+Type:   1 Style: Fixed  Length: 1.0000
+Angle Types
+Type:   1 Style: Nonbonded Interaction
+Torsion Types
+Type:   1 Style: LJium      Nonbonded terms only
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Improper Torsion Types
+   No Improper Types
+ Canonical ensemble
+ 3-dimensional periodic box
+ Additional Center-of-Mass cutoff
+ Dual Cutoff Configurational-bias Monte Carlo
+ Coupled-decoupled Configurational-bias MC
+
+Molecular mass for molecule type     1 is     6.0220 g/mol
+ Reading in initial conformation from towhee_inital
+Initial version:    3
+ new maximum displacements read from towhee_initial
+box:     1
+molecule type:     1
+ Max displacement for Atom translate:   0.500000
+ Max displacement for COM translate:   0.500000
+ Max displacement for rotation:   0.050000
+ Max disp. for 3D Volume:             0.1000E+04
+ Max disp. for unit cell perturbation
+
+ new box dimensions read from towhee_initial
+ Box  1 hmatrix(1,x):       15.00000       0.00000       0.00000
+ Box  1 hmatrix(2,x):        0.00000      15.00000       0.00000
+ Box  1 hmatrix(3,x):        0.00000       0.00000      15.00000
+
+ Energies exclusively from classical potentials
+ Nonbonded Force Field
+ Lennard-Jones 12-6 potential
+     with a shifted potential
+ u(r) = 4*epsilon[(sigma/r)^12 - (sigma/r)^6] - S
+Num. Atom(i)    Num. Atom(j)      sigma epsilon   shift  1-4sig  1-4eps
+   1 lj1.0         1 lj1.0        1.000   1.000  -0.062   1.000   1.000
+
+Number of MC cycles:                   10
+Number of molecules:                    1
+Temperature [K]:         1.00000
+
+Initial Energies for Box     1
+
+-----------------STARTING DFT CALCULATION----------------------------
+Total molecules in this box          1
+Molecules of type   1 :          1
+ total vibration            0.000 [K]         0.00000 [kcal/mol]
+    regular                 0.000 [K]         0.00000 [kcal/mol]
+    bond-bond(1-2)          0.000 [K]         0.00000 [kcal/mol]
+ total angle               -2.721 [K]        -0.00541 [kcal/mol]
+    regular                -2.721 [K]        -0.00541 [kcal/mol]
+    angle-angle             0.000 [K]         0.00000 [kcal/mol]
+ total torsion             -2.276 [K]        -0.00452 [kcal/mol]
+    regular                -2.276 [K]        -0.00452 [kcal/mol]
+    improper                0.000 [K]         0.00000 [kcal/mol]
+ total nonbond             -0.093 [K]        -0.00019 [kcal/mol]
+    intramolecular         -0.093 [K]        -0.00019 [kcal/mol]
+    2-body nonbond          0.000 [K]         0.00000 [kcal/mol]
+    3-body nonbond          0.000 [K]         0.00000 [kcal/mol]
+ external field             0.000 [K]         0.00000 [kcal/mol]
+ solvation                 17.510 [K]         0.03480 [kcal/mol]
+ total energy              12.420 [K]         0.02468 [kcal/mol]
+
+ initial pressure in box  1 =           4.09
+
+ +++++ start of markov chain +++++
+
+Cycle      Box   Energy [K]  Volume [A^3] Press. [kPa] Molecules
+
+-----------------STARTING DFT CALCULATION----------------------------
+         1 B: 1  0.1262E+02  0.3375E+04          4.1     1
+
+-----------------STARTING DFT CALCULATION----------------------------
+              Updating maximum translational/rotational displacements
+         2 B: 1  0.1514E+02  0.3375E+04          4.1     1
+Block Averages (BA) for block     1
+BA Box: 1 Specific density [g/ml] 0.29629633E-02
+BA Box: 1 Pressure [kPa] 0.00000000E+00
+BA Box: 1 Total Classical 0.13881237E+02
+BA Box: 1 Inter vdw       0.00000000E+00
+BA Box: 1 Angle           -.24510269E+01
+BA Box: 1 Torsion         -.98071741E+00
+BA Box: 1 Intra vdw       -.84611565E+00
+BA Box: 1 External Field  0.00000000E+00
+BA Box: 1 Vibration       0.00000000E+00
+BA Box: 1 Coulomb         0.00000000E+00
+BA Box: 1 Tail vdw        0.00000000E+00
+BA Box: 1 Solvation       0.18159097E+02
+BA Box: 1 Total Quantum   0.00000000E+00
+BA Box: 1 u (Gibbs Total) [K] Type   1 0.00000000E+00
+BA Box: 1 Number density [nm-3] Type   1 0.29629630E-03
+BA Box: 1 Mol Fraction Type   1 0.10000000E+01
+BA Box: 1 Stress Tensor S_xx     [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor S_yy     [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor S_zz     [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor S_xy     [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor S_xz     [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor S_yz     [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor P_tail   [kPa] 0.00000000E+00
+BA Box: 1 Radius of Gyration Type:  1        1.52299
+
+-----------------STARTING DFT CALCULATION----------------------------
+         3 B: 1  0.1460E+02  0.3375E+04          4.1     1
+
+-----------------STARTING DFT CALCULATION----------------------------
+              Updating maximum translational/rotational displacements
+         4 B: 1  0.1992E+02  0.3375E+04          4.1     1
+Block Averages (BA) for block     2
+BA Box: 1 Specific density [g/ml] 0.29629633E-02
+BA Box: 1 Pressure [kPa] 0.00000000E+00
+BA Box: 1 Total Classical 0.17256256E+02
+BA Box: 1 Inter vdw       0.00000000E+00
+BA Box: 1 Angle           0.10761270E+01
+BA Box: 1 Torsion         -.88034447E+00
+BA Box: 1 Intra vdw       -.53451470E-01
+BA Box: 1 External Field  0.00000000E+00
+BA Box: 1 Vibration       0.00000000E+00
+BA Box: 1 Coulomb         0.00000000E+00
+BA Box: 1 Tail vdw        0.00000000E+00
+BA Box: 1 Solvation       0.17113925E+02
+BA Box: 1 Total Quantum   0.00000000E+00
+BA Box: 1 u (Gibbs Total) [K] Type   1 0.00000000E+00
+BA Box: 1 Number density [nm-3] Type   1 0.29629630E-03
+BA Box: 1 Mol Fraction Type   1 0.10000000E+01
+BA Box: 1 Stress Tensor S_xx     [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor S_yy     [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor S_zz     [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor S_xy     [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor S_xz     [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor S_yz     [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor P_tail   [kPa] 0.00000000E+00
+BA Box: 1 Radius of Gyration Type:  1        1.59860
+
+-----------------STARTING DFT CALCULATION----------------------------
+         5 B: 1  0.1489E+02  0.3375E+04          4.1     1
+
+-----------------STARTING DFT CALCULATION----------------------------
+              Updating maximum translational/rotational displacements
+         6 B: 1  0.1489E+02  0.3375E+04          4.1     1
+Block Averages (BA) for block     3
+BA Box: 1 Specific density [g/ml] 0.29629633E-02
+BA Box: 1 Pressure [kPa] 0.00000000E+00
+BA Box: 1 Total Classical 0.14886924E+02
+BA Box: 1 Inter vdw       0.00000000E+00
+BA Box: 1 Angle           0.26723896E+01
+BA Box: 1 Torsion         -.72923890E+00
+BA Box: 1 Intra vdw       -.28754039E+01
+BA Box: 1 External Field  0.00000000E+00
+BA Box: 1 Vibration       0.00000000E+00
+BA Box: 1 Coulomb         0.00000000E+00
+BA Box: 1 Tail vdw        0.00000000E+00
+BA Box: 1 Solvation       0.15819177E+02
+BA Box: 1 Total Quantum   0.00000000E+00
+BA Box: 1 u (Gibbs Total) [K] Type   1 0.00000000E+00
+BA Box: 1 Number density [nm-3] Type   1 0.29629630E-03
+BA Box: 1 Mol Fraction Type   1 0.10000000E+01
+BA Box: 1 Stress Tensor S_xx     [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor S_yy     [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor S_zz     [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor S_xy     [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor S_xz     [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor S_yz     [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor P_tail   [kPa] 0.00000000E+00
+BA Box: 1 Radius of Gyration Type:  1        1.25335
+
+-----------------STARTING DFT CALCULATION----------------------------
+         7 B: 1  0.1489E+02  0.3375E+04          4.1     1
+
+-----------------STARTING DFT CALCULATION----------------------------
+              Updating maximum translational/rotational displacements
+         8 B: 1  0.1489E+02  0.3375E+04          4.1     1
+Block Averages (BA) for block     4
+BA Box: 1 Specific density [g/ml] 0.29629633E-02
+BA Box: 1 Pressure [kPa] 0.00000000E+00
+BA Box: 1 Total Classical 0.14886924E+02
+BA Box: 1 Inter vdw       0.00000000E+00
+BA Box: 1 Angle           0.26723896E+01
+BA Box: 1 Torsion         -.72923890E+00
+BA Box: 1 Intra vdw       -.28754039E+01
+BA Box: 1 External Field  0.00000000E+00
+BA Box: 1 Vibration       0.00000000E+00
+BA Box: 1 Coulomb         0.00000000E+00
+BA Box: 1 Tail vdw        0.00000000E+00
+BA Box: 1 Solvation       0.15819177E+02
+BA Box: 1 Total Quantum   0.00000000E+00
+BA Box: 1 u (Gibbs Total) [K] Type   1 0.00000000E+00
+BA Box: 1 Number density [nm-3] Type   1 0.29629630E-03
+BA Box: 1 Mol Fraction Type   1 0.10000000E+01
+BA Box: 1 Stress Tensor S_xx     [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor S_yy     [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor S_zz     [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor S_xy     [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor S_xz     [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor S_yz     [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor P_tail   [kPa] 0.00000000E+00
+BA Box: 1 Radius of Gyration Type:  1        1.25335
+
+-----------------STARTING DFT CALCULATION----------------------------
+         9 B: 1  0.1635E+02  0.3375E+04          4.1     1
+
+-----------------STARTING DFT CALCULATION----------------------------
+              Updating maximum translational/rotational displacements
+        10 B: 1  0.9186E+01  0.3375E+04          4.1     1
+Block Averages (BA) for block     5
+BA Box: 1 Specific density [g/ml] 0.29629633E-02
+BA Box: 1 Pressure [kPa] 0.00000000E+00
+BA Box: 1 Total Classical 0.12767310E+02
+BA Box: 1 Inter vdw       0.00000000E+00
+BA Box: 1 Angle           0.10711766E+00
+BA Box: 1 Torsion         -.15511264E+01
+BA Box: 1 Intra vdw       -.20634889E+01
+BA Box: 1 External Field  0.00000000E+00
+BA Box: 1 Vibration       0.00000000E+00
+BA Box: 1 Coulomb         0.00000000E+00
+BA Box: 1 Tail vdw        0.00000000E+00
+BA Box: 1 Solvation       0.16274807E+02
+BA Box: 1 Total Quantum   0.00000000E+00
+BA Box: 1 u (Gibbs Total) [K] Type   1 0.00000000E+00
+BA Box: 1 Number density [nm-3] Type   1 0.29629630E-03
+BA Box: 1 Mol Fraction Type   1 0.10000000E+01
+BA Box: 1 Stress Tensor S_xx     [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor S_yy     [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor S_zz     [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor S_xy     [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor S_xz     [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor S_yz     [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor P_tail   [kPa] 0.00000000E+00
+BA Box: 1 Radius of Gyration Type:  1        1.27452
+
+ +++++ end of markov chain +++++
+
+ Final hmatrix (general box dimensions) 
+Box:     1
+  hmatrix(1,x)      15.00000       0.00000       0.00000
+  hmatrix(2,x)       0.00000      15.00000       0.00000
+  hmatrix(3,x)       0.00000       0.00000      15.00000
+
+* Configurational-Bias REGROWTH Moves *
+ Molecule type:    1 Box:    1
+     Length  Attempts  Regrown  Accepted  %Regrown   %Accep.
+        2         2         2         2    100.00    100.00
+        3         1         1         1    100.00    100.00
+        5         2         2         1    100.00     50.00
+        6         2         2         2    100.00    100.00
+        8         1         1         1    100.00    100.00
+        9         2         2         0    100.00      0.00
+
+Final Energies for Box     1
+
+-----------------STARTING DFT CALCULATION----------------------------
+Total molecules in this box          1
+Molecules of type   1 :          1
+ total vibration            0.000 [K]         0.00000 [kcal/mol]
+    regular                 0.000 [K]         0.00000 [kcal/mol]
+    bond-bond(1-2)          0.000 [K]         0.00000 [kcal/mol]
+ total angle               -3.083 [K]        -0.00613 [kcal/mol]
+    regular                -3.083 [K]        -0.00613 [kcal/mol]
+    angle-angle             0.000 [K]         0.00000 [kcal/mol]
+ total torsion             -2.514 [K]        -0.00500 [kcal/mol]
+    regular                -2.514 [K]        -0.00500 [kcal/mol]
+    improper                0.000 [K]         0.00000 [kcal/mol]
+ total nonbond             -2.169 [K]        -0.00431 [kcal/mol]
+    intramolecular         -2.169 [K]        -0.00431 [kcal/mol]
+    2-body nonbond          0.000 [K]         0.00000 [kcal/mol]
+    3-body nonbond          0.000 [K]         0.00000 [kcal/mol]
+ external field             0.000 [K]         0.00000 [kcal/mol]
+ solvation                 16.952 [K]         0.03369 [kcal/mol]
+ total energy               9.186 [K]         0.01825 [kcal/mol]
+
+Averages            Type    Units      Box  1
+ Volume                      nm^3       3.375
+ Molecule Number       1                1.000
+ Molar Volume              ml/mol    2032.440
+ Specific Density            g/ml    0.002963
+ Number Density        1    /nm^3     0.29630
+ Mole Fraction         1            1.0000000
+ Radius of Gyration    1        A   1.3805637
+ Total Classical                K  0.1474E+02
+ Inter vdw                      K  0.0000E+00
+ Angle                          K  0.8154E+00
+ Torsion                        K -0.9741E+00
+ Intra vdw                      K -0.1743E+01
+ External Field                 K  0.0000E+00
+ Vibration                      K  0.0000E+00
+ Coulomb                        K  0.0000E+00
+ Tail vdw                       K  0.0000E+00
+ Solvation                      K  0.1664E+02
+ Total Quantum                  K  0.0000E+00
+ G: Sum{<u_i><N_i>}        kJ/mol  0.0000E+00
+ U                         kJ/mol  0.1225E+00
+ C_v                      J/K mol  0.5402E+02
+
+Block Averages (  5 blocks)                Average Standard Deviation
+ Specific Density            box  1 =  0.29630E-02 0.00000E+00
+ Pressure                    box  1 =         0.00        0.00
+ S_xx                        box  1 =         0.00        0.00
+ S_yy                        box  1 =         0.00        0.00
+ S_zz                        box  1 =         0.00        0.00
+ S_xy                        box  1 =         0.00        0.00
+ S_xz                        box  1 =         0.00        0.00
+ S_yz                        box  1 =         0.00        0.00
+ P_tail                      box  1 =         0.00        0.00
+ Total Classical             box  1 =  0.14736E+02 0.14835E+01
+ Inter vdw                   box  1 =  0.00000E+00 0.00000E+00
+ Angle                       box  1 =  0.81540E+00 0.19045E+01
+ Torsion                     box  1 = -0.97413E+00 0.30388E+00
+ Intra vdw                   box  1 = -0.17428E+01 0.11248E+01
+ External Field              box  1 =  0.00000E+00 0.00000E+00
+ Vibration                   box  1 =  0.00000E+00 0.00000E+00
+ Coulomb                     box  1 =  0.00000E+00 0.00000E+00
+ Tail vdw                    box  1 =  0.00000E+00 0.00000E+00
+ Solvation                   box  1 =  0.16637E+02 0.89589E+00
+ Total Quantum               box  1 =  0.00000E+00 0.00000E+00
+ u (Gibbs Total)     Type  1 box  1 =        0.000       0.000
+ Number Density nm-3 Type  1 box  1 =  0.29630E+00 0.80389E-10
+ Mole Fraction       Type  1 box  1 =    1.0000000   0.0000000
+ Molarity            Type  1 box  1 =  0.49219E+00 0.13354E-09
+ Radius of Gyration  Type  1 box  1 =      1.38056     0.14929
+
+ -----block averages ------
+Box:    1
+Block Energy         Density        Pressure       Mol fracs
+    1 0.13881237E+02 0.29629633E-02 0.00000000E+00 1.00000000
+    2 0.17256256E+02 0.29629633E-02 0.00000000E+00 1.00000000
+    3 0.14886924E+02 0.29629633E-02 0.00000000E+00 1.00000000
+    4 0.14886924E+02 0.29629633E-02 0.00000000E+00 1.00000000
+    5 0.12767310E+02 0.29629633E-02 0.00000000E+00 1.00000000
+Simulations complete 
+Total Time: 146.495943 
+Total time spent in Tramonto was 145.202985 

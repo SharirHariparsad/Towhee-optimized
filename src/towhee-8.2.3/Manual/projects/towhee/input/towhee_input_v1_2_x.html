@@ -1,0 +1,1918 @@
+<html>
+<head>
+  <title>MCCCS Towhee (towhee_input Version 1.2.x)</title>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000">
+<table width="675" border="0" cellspacing="0" cellpadding="0" height="590">
+  <tr> 
+    <td colspan="2" height="29"> 
+      <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif"><a name="top"></a>MCCCS 
+        Towhee (towhee_input Version 1.2.x)</font></b> </font> </div>
+    </td>
+  </tr>
+<A href="http://sourceforge.net"> 
+  <IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" width="210" height="62" border="0" 
+  alt="SourceForge.net Logo" align="right"/>
+</A>
+  <tr> 
+    <td width="18" height="371" valign="top"> 
+      <p>&nbsp; </p>
+      <p>&nbsp;</p>
+    </td>
+
+    <td width="697" valign="top"> <b>Overview</b> 
+      <ul>
+        This section covers the variables that are set in the towhee_input file 
+        Version 1.2.x. Each variable is listed along with its type (logical, character, 
+        integer, or double precision). towhee_input is the main input file for 
+        Towhee and is generally the only file that needs to be edited on a regular 
+        basis. It has a regimented style to the input. The variables are described 
+        here in the order they appear in this file. Please look at one of the 
+        example files (available with the code package) for the precise file format. 
+        <p>&nbsp;</p>
+      </ul>
+
+      <b>Variable explanations for towhee_input</b> 
+      <ul>
+        <dt><b>temperature (double precision)</b> 
+          <ul>
+            <li> The temperature in Kelvin. 
+          </ul>
+
+        <dt><b>pressure (double precision)</b> 
+          <ul>
+            <li> The external pressure in kPa. This in only used if lnpt = .true., 
+              but you have to list a value regardless. 
+          </ul>
+
+        <dt><b>nchain (integer)</b> 
+          <ul>
+            <li> The total number of molecules (chains) in the simulation. This 
+              must be less than NMAX (see <a href="../code/code_manual.html#preproc">preproc.h</a>). 
+          </ul>
+
+        <dt><b>nmolty (integer)</b> 
+          <ul>
+            <li> The total number of molecule types in the simulation. This must 
+              be less then or equal to NTMAX (see <a href="../code/code_manual.html#preproc">preproc.h</a>). 
+          </ul>
+        <dt><b>moltyp (integer)</b> 
+          <ul>
+            <li> The number of molecules of each type (listed sequentially on 
+              a single line). These values must add up to the total number of 
+              chains (nchain) specified above. 
+          </ul>
+        <dt><b>numboxes (integer)</b> 
+          <ul>
+            <li> The number of simulation boxes in the system. This value must 
+              be less than or equal to MAXBOXES (set in <a href="../code/code_manual.html#preproc">preproc.h</a>). Note that 
+              many of the variables below depend upon numboxes as you will have 
+              to provide information for each box (such as box lengths). 
+          </ul>
+        <dt><b>lcycles (logical)</b> 
+          <ul>
+            <li> .true. if nstep is the number of cycles, where a cycle is nchain 
+              Monte Carlo moves (nchain is the number of molecules in the system). 
+            <li> .false. if nstep is the number of Monte Carlo moves. 
+          </ul>
+        <dt><b>nstep (integer)</b> 
+          <ul>
+            <li> The number of Monte Carlo steps to perform. If lcycles = .true. 
+              then each step is a cycle, otherwise each step is a single move. 
+          </ul>
+        <dt><b>iprint (integer)</b> 
+          <ul>
+            <li> Every iprint Monte Carlo steps information about the system is 
+              output to stdout (fort.6). The information is the number of Monte 
+              Carlo steps performed thus far during the run, the total energy 
+              in each box, the x-box length of each box, the pressure of each 
+              box, and the number of molecules of each type in each box. 
+          </ul>
+        <dt><b>iblock (integer)</b> 
+          <ul>
+            <li> The size of the blocks for computing block averages. If you want 
+              this to be meaningful then iblock should divide cleanly into nstep. 
+              The quantities that are averaged (in each simulation box) are the 
+              specific density, the pressure, all of the energy terms, the chemical 
+              potential of each molecule type, number density of each molecule 
+              type, and the mole fractions. 
+          </ul>
+        <dt><b>imovie (integer)</b> 
+          <ul>
+            <li> The number of steps between outputting the system conformations 
+              to the towhee_movie file. This file is analyzed after the run using 
+              the analyze_movie.F routine to compute a variety of distribution 
+              functions. This file can get pretty big if you output frequently 
+              so be careful if you have a limited amount of hard disk space available. 
+          </ul>
+        <dt><b>ibackup (integer)</b> 
+          <ul>
+            <li> Every ibackup Monte Carlo steps the code will write a file named 
+              towhee_backup that is suitable for use as a restart file. It overwrites 
+              the previous version of towhee_backup each time so it does not take 
+              up much space. Typically I set ibackup so that I get around 10 backups 
+              during a run. For more information about restart files look at the 
+              manual entries for towhee_initial, towhee_backup, and towhee_final. 
+          </ul>
+        <dt><b>loutpdb (logical)</b> 
+          <ul>
+            <li> .true. if you wish to output Protein Data Bank (pdb) files for 
+              each simulation box at the end of the run. These files are named 
+              box_xx.pdb where xx is the simulation box number. 
+            <li> .false. if you do not want to output pdb files. 
+          </ul>
+        <dt><b>loutdft (logical)</b> 
+          <ul>
+            <li> .true. if you wish to output files for use with the Tramonto 
+              classical density functional theory code. This outputs dft_surfaces.dat 
+              and dft_decode.dat. See the Tramonto code for information on what 
+              these files mean. 
+            <li> .false. if you do not want to output dft files. 
+          </ul>
+        <dt><b>loutlammps (logical)</b> 
+          <ul>
+            <li> .true. if you wish to output files for use with the LAMMPS massively 
+              parallel molecular dynamics code. This outputs lammps_input and 
+              lammps_data# where the number is each of the simulation box numbers. 
+              See the LAMMPS documentation for more information on how to read 
+              in these files. 
+            <li> .false. if you do not want to output LAMMPS files. 
+          </ul>
+        <dt><b>iratp (integer)</b> 
+          <ul>
+            <li> Towhee computes the pressure in each box every iratp Monte Carlo 
+              steps. Be aware that computing the pressure is a fairly expensive 
+              task (especially for large systems) so if you don't really care 
+              about the computed pressure then it will pay to set iratp to a high 
+              value. 
+          </ul>
+        <dt><b>iratio (integer)</b> 
+          <ul>
+            <li> The maximum translational (atom and center-of-mass) and rotational 
+              displacements are updated every iratio Monte Carlo steps. They are 
+              adjusted to try and achieve the target acceptance rates (see tatraa, 
+              tatrac, and tarot). It is a good idea to do this fairly frequently 
+              at the start of the simulation (every step or every 10 steps) in 
+              order to get good values for the maximum displacements. Once the 
+              acceptance rates are near their desired values I typically set iratio 
+              to do 10 updates during a run. 
+          </ul>
+
+        <dt><b>iratv (integer)</b> 
+          <ul>
+            <li> The maximum volume displacements are updated every iratv Monte 
+              Carlo steps. They are adjusted to try and achieve the target acceptance 
+              rates (see tavol). It is a good idea to do this fairly frequently 
+              at the start of the simulation (every few steps) in order to get 
+              good values for the maximum displacements. Once the acceptance rates 
+              are near their desired values I typically set iratv to do 10 updates 
+              during a run. 
+          </ul>
+        <dt><b>potentyp (integer)</b> 
+          <ul>
+            <li> potentyp = 0: 12-6 Lennard-Jones van der Waals potential 
+            <li> potentyp = 1: 9-6 Lennard-Jones van der Waals potential 
+            <li> potentyp = 2: Exponential-6 van der Waals potential 
+            <li> potentyp = 3: Hard Sphere van der Waals potential 
+            <li> potentyp = 4: Exponential plus 12-6 Lennard-Jones van der Waals 
+              potential 
+          </ul>
+        <dt><b>mixrule (integer)</b> 
+          <ul>
+            <li> mixrule = 0: Lorentz-Berthelot (arithmetic mean of sigma, geometric 
+              mean of epsilon) mixing rules. Only valid for potentyp = 0. 
+            <li> mixrule = 1: Geometric (geometric mean of sigma and epsilon) 
+              mixing rules. Only valid for potentyp = 0. 
+            <li> mixrule = 2: Compass (sixth order combination of sigma and epsilon) 
+              mixing rules. Only valid for potentyp = 1. 
+            <li> mixrule = 3: Gromos (geometric mean of sigma and epsilon with 
+              some special cases) mixing rules. Only valid for potentyp = 0. 
+            <li> mixrule = 4: Explicit (defined in ffnonbond.F) mixing rules. 
+              Only valid for potentyp = 2 or potentyp = 4. 
+            <li> mixrule = 5: Hard sphere (arithmetic mean of sigmas) mixing rules. 
+              Only valid for potentyp = 3. 
+          </ul>
+        <dt><b>lshift (logical)</b> 
+          <ul>
+            <li> .true. if you want the nonbonded van der Waals potential to be 
+              shifted so that it is zero at the cutoff. 
+            <li> .false. if you do not want to shift the nonbonded van der Waals 
+              potential. 
+          </ul>
+        <dt><b>ltailc (logical)</b>
+          <ul>
+            <li> .true. if you want to apply analytical tail corrections for the 
+              portion of the van der Waals potential that is past the cutoff. 
+              Note that you cannot have a shifted potential and tail corrections 
+              at the same time. 
+            <li> .false. if you do not want analytical tail corrections for van 
+              der Waals. 
+          </ul>
+        <dt><b>rmin (double precision)</b> 
+          <ul>
+            <li> A hard inner cutoff that can speed computation for Lennard-Jones 
+              systems, and is required to avoid the potential hitting infinity 
+              for exponential repulsion systems which also contain point charges. 
+              This should be set smaller than the smallest radius of any atom. 
+              Generally I set this to 0.5 or 1.0 Angstroms. 
+          </ul>
+        <dt><b>rcut (double precision)</b> 
+          <ul>
+            <li> The van der Waals potential cutoff in Angstroms. 
+          </ul>
+        <dt><b>rcutin (double precision)</b> 
+          <ul>
+            <li> The inner nonbonded cutoff used in configurational-bias Monte 
+              Carlo moves. This dual-cutoff method can speed configurational-bias 
+              computations by at least a factor of 2, without affecting the acceptance 
+              rate. The inner cutoff is used during the growth procedure, and 
+              the full potential is calculated at the end of the move and everything 
+              is fixed up in the acceptance criteria. I typically set this to 
+              5 Angstroms for noncoulombic simulations, and to 10 Angstroms for 
+              coulombic simulations. 
+          </ul>
+        <dt><b>lewald (logical)</b> 
+          <ul>
+            <li> .true. if you want to use an Ewald sum to handle the long range 
+              electrostatics. The Ewald sum is performed in Towhee by computing 
+              all of the minimum image charge interactions using an alpha that 
+              depends upon the x-dimension box length (kalp/boxlx), while the 
+              number of Fourier space vectors is constant (kmax). 
+            <li> .false. if you do want to use an Ewald sum. In this case the 
+              minimum image convention is used to compute all interactions in 
+              order to avoid nasty effects that come from an atom-based cutoff 
+              for electrostatics. 
+          </ul>
+        <dt><b>kalp (double precision)</b> 
+          <ul>
+            <li> Value used in the Ewald sum to compute alpha. The minimum value 
+              you can use is 5.0 (and that is also the recommended value) Even 
+              if you are not using the Ewald sum you still have to list this parameter, 
+              though it is not used. 
+          </ul>
+
+        <dt><b>kmax (integer)</b> 
+          <ul>
+            <li> Maximum number of inverse space vectors to use in any dimension 
+              for the Ewald sum. Recommended value of this parameter is 5. If 
+              you want to set this to a larger value to may have to increase VECTORMAX 
+              (see <a href="../code/code_manual.html#preproc">preproc.h</a>). 
+          </ul>
+        <dt><b>nhrdfld (integer)</b> 
+          <ul>
+            <li> Number of hard walls you wish to include in the simulation. As 
+              this is not typically used, it has a slightly different input style 
+              from normal. If nhrdfld = 0 then none of the hrd* variables are 
+              required in the input file. Otherwise for next nhrdfld lines each 
+              line should contain the values for hrdbox(ifield), hrdxyz(ifield), 
+              hrdcen(ifield), hrdrad(ifield) where those variables have the following 
+              meanings. 
+            <li><b>hrdbox (integer)</b> 
+
+              <ul>
+
+                <li> This is the number of the simulation box which contains this 
+
+                  hard wall. Must range from 1 to numboxes. 
+
+              </ul>
+
+            <li><b>hrdxyz (integer)</b> 
+
+              <ul>
+
+                <li> 1: hard wall is perpendicular to the x-axis (in the yz plane) 
+
+                <li> 2: hard wall is perpendicular to the y-axis (in the xz plane) 
+
+                <li> 3: hard wall is perpendicular to the z-axis (in the xy plane) 
+
+              </ul>
+
+            <li><b>hrdcen (double precision)</b> 
+
+              <ul>
+
+                <li> Position of the center of the hard wall. Must be between 
+
+                  0.0 and the box length of the axis that is perpendicular to 
+
+                  the wall. 
+
+              </ul>
+
+            <li><b>hrdrad (double precision)</b> 
+
+              <ul>
+
+                <li> Radius of the hard wall. The wall will exclude all atoms 
+
+                  whose centers are within this radius regardless of the potentyp 
+
+                  or any of the atom parameters. Yes I know this is a strange 
+
+                  way to run a hard wall. The wall is felt through the periodic 
+
+                  boundaries. 
+
+              </ul>
+
+          </ul>
+
+        <dt><b>nljfld (integer)</b> 
+
+          <ul>
+
+            <li> Number of 9-3 Lennard-Jones walls you wish to include in the 
+
+              simulation. As this is not typically used, it has a slightly different 
+
+              input style from normal. If nljfld = 0 then none of the ljf* variables 
+
+              are required in the input file. Otherwise for next nljfld lines 
+
+              each line should contain the values for ljfbox(ifield), ljfxyz(ifield), 
+
+              ljfcen(ifield), ljfsig(ifield), ljfeps(ifield) ,ljfcut(ifield), 
+
+              and ljfdir(ifield) where those variables have the following meanings. 
+
+            <li><b>ljfbox (integer)</b> 
+
+              <ul>
+
+                <li> This is the number of the simulation box which contains this 
+
+                  Lennard-Jones wall. Must range from 1 to numboxes. 
+
+              </ul>
+
+            <li><b>ljfxyz (integer)</b> 
+
+              <ul>
+
+                <li> 1: Lennard-Jones wall is perpendicular to the x-axis (in 
+
+                  the yz plane) 
+
+                <li> 2: Lennard-Jones wall is perpendicular to the y-axis (in 
+
+                  the xz plane) 
+
+                <li> 3: Lennard-Jones wall is perpendicular to the z-axis (in 
+
+                  the xy plane) 
+
+              </ul>
+
+            <li><b>ljfcen (double precision)</b> 
+
+              <ul>
+
+                <li> Position of the center of the Lennard-Jones wall. Must be 
+
+                  between 0.0 and the box length of the axis that is perpendicular 
+
+                  to the wall. 
+
+              </ul>
+
+            <li><b>ljfsig (double precision)</b> 
+
+              <ul>
+
+                <li> Sigma parameter for the 9-3 Lennard-Jones wall. 
+
+              </ul>
+
+            <li><b>ljfeps (double precision)</b> 
+
+              <ul>
+
+                <li> Epsilon parameter for the 9-3 Lennard-Jones wall. All atoms 
+
+                  in the system interact with the wall via the potential U = sqrt(2/5) 
+
+                  ljfeps [ (1/5) (ljfsig/r)^9 - (3/2) (ljfsig/r)^3 ] regardless 
+
+                  of the potentyp and parameters of each atom. Yes I know this 
+
+                  is a strange way to run a 9-3 Lennard-Jones wall, but I don't 
+
+                  use it much. 
+
+              </ul>
+
+            <li><b>ljfcut (double precision)</b> 
+
+              <ul>
+
+                <li> The distance beyond which the wall-atom interactions are 
+
+                  not computed. This potential is cut, not shifted, and never 
+
+                  has tail corrections no matter how lshift and ltailc are set. 
+
+              </ul>
+
+            <li><b>ljfdir (integer)</b> 
+
+              <ul>
+
+                <li> -1: Atoms only interact with the "left" face of this wall. 
+
+                  This extends through the periodic boundary. 
+
+                <li> 1: Atoms only interact with the "right" face of this wall. 
+
+                  This extends through the periodic boundary. 
+
+              </ul>
+
+          </ul>
+
+        <dt><b>linit (logical)</b> 
+
+          <ul>
+
+            <li> .true. if you are starting the simulation and wish to generate 
+
+              the positions of all of the atoms, assign initial box lengths and 
+
+              maximum displacements. 
+
+            <li> .false. if you want to continue the simulation by reading in 
+
+              box lengths, maximum displacements, and coordinates from towhee_initial 
+
+          </ul>
+
+        <dt><b>initstyle (integer)</b> 
+
+          <ul>
+
+            One line for each simulation box in the system. Each line contains 
+
+            a value for each molecule type. 
+
+            <li> 0: A template for this molecule type is created using configurational-bias. 
+
+              This template is then replicated throughout the simulation box to 
+
+              generate an initial configuration. 
+
+            <li> 1: A template for this molecule type is read from towhee_template. 
+
+              This template is then replicated throughout the simulation box to 
+
+              generate an initial configuration. 
+
+            <li> 2: The coordinates for each atom are read from towhee_coords. 
+
+              This is useful if you are starting from a different file format 
+
+              (such as pdb), or have another code for building an initial configuration. 
+
+          </ul>
+
+        <dt><b>boxlx, boxly, boxlz (double precision)</b> 
+
+          <ul>
+
+            <li> The initial box length (Angstroms) in the x,y, and z dimensions 
+
+              for each box (one line per box). 
+
+          </ul>
+
+        <dt><b>initmol (integer)</b> 
+
+          <ul>
+
+            <li> The initial number of each type of molecule in each box (one 
+
+              line per box). 
+
+          </ul>
+
+        <dt><b>inix, iniy, iniz (integer)</b> 
+
+          <ul>
+
+            <li> The initial number of molecules in each direction in each box. 
+
+              The product of inix*iniy*iniz must be greater than or equal to the 
+
+              initial number of molecules in that box (the sums of initmol). 
+
+          </ul>
+
+        <dt><b>inimix (integer)</b> 
+
+          <ul>
+
+            <li> -1: molecules are initially placed in each box in alternating 
+
+              order. 
+
+            <li> 0: molecules are initially placed in each box in random order. 
+
+            <li> 1: molecules are initially placed in each box order. Thus all 
+
+              molecules of type 1 are placed in a box before any molecules of 
+
+              type 2. If you are using initstyle = 2 then this is the only valid 
+
+              option and the other options will be reset to this option by the 
+
+              code. 
+
+          </ul>
+
+        <dt><b>rmtraa (double precision)</b> 
+
+          <ul>
+
+            <li> The initial Atom-translation maximum displacement (Angstroms) 
+
+              for all molecules types in all boxes. As the simulation progresses, 
+
+              these values will be updated independently to give the desired acceptance 
+
+              rate for each molecule type in each dimension of each box (see iratio). 
+
+          </ul>
+
+        <dt><b>rmtrac (double precision)</b> 
+
+          <ul>
+
+            <li> The initial Center-of-mass translation maximum displacement (Angstroms) 
+
+              for all molecule types in all boxes. As the simulation progresses, 
+
+              these values will be updated independently to give the desired acceptance 
+
+              rate for each molecule type in each dimension of each box (see iratio). 
+
+          </ul>
+
+        <dt><b>rmrot (double precision)</b> 
+
+          <ul>
+
+            <li> The initial molecular rotation maximum displacement (radians) 
+
+              for all molecule types in all boxes. As the simulation progresses, 
+
+              these values will be updated independently to give the desired acceptance 
+
+              rate for each molecule type about each axis of each box (see iratio). 
+
+          </ul>
+
+        <dt><b>rmvol (double precision)</b> 
+
+          <ul>
+
+            <li> The initial volume maximum displacement. If this is an isobaric-isothermal 
+
+              ensemble (lnpt = .true.) then this is the initial maximum volume 
+
+              displacement (cubic Angstroms) in each box. If this is the canonical 
+
+              Gibbs ensemble (lnpt = .false. and numboxes > 1 ) then this is the 
+
+              maximum displacement (logarithmic space) for each pair of boxes. 
+
+              As the simulation progresses, these values will be updated for each 
+
+              box, or each pair of boxes (see iratv). 
+
+          </ul>
+
+        <dt><b>tatraa (double precision)</b> 
+
+          <ul>
+
+            <li> The target acceptance rate for the atom translation move. Must 
+
+              be a value between 0.0 and 1.0. The maximum atom translational displacement 
+
+              (rmtraa) is periodically adjusted (see iratio) to yield this acceptance 
+
+              rate. I typically use a value of 0.5, though some researchers prefer 
+
+              smaller values. 
+
+          </ul>
+
+        <dt><b>tatrac (double precision)</b> 
+
+          <ul>
+
+            <li> The target acceptance rate for the center-of-mass translation 
+
+              move. Must be a value between 0.0 and 1.0. The maximum center-of-mass 
+
+              translational displacement (rmtrac) is periodically adjusted (see 
+
+              iratio) to yield this acceptance rate. I typically use a value of 
+
+              0.5, though some researchers prefer smaller values. 
+
+          </ul>
+
+        <dt><b>tarot (double precision)</b> 
+
+          <ul>
+
+            <li> The target acceptance rate for the rotation move. Must be a value 
+
+              between 0.0 and 1.0. The rotation displacement (rmrot) is periodically 
+
+              adjusted (see iratio) to yield this acceptance rate. I typically 
+
+              use a value of 0.5, though some researchers prefer smaller values. 
+
+          </ul>
+
+        <dt><b>tavol (double precision)</b> 
+
+          <ul>
+
+            <li> The target acceptance rate for the volume move. Must be a value 
+
+              between 0.0 and 1.0. The volume displacement (rmvol) is periodically 
+
+              adjusted (see iratv to yield this acceptance rate. I typically use 
+
+              a value of 0.5, though some researchers prefer smaller values. 
+
+          </ul>
+
+        <dt><b>lnpt (logical)</b> 
+
+          <ul>
+
+            <li> .true. if you want the volume moves to be performed in an exchange 
+
+              with an external pressure bath (isobaric isothermal ensemble or 
+
+              isobaric-isothermal Gibbs ensemble) 
+
+            <li> .false. if you do want the total volume of the system to be conserved. 
+
+              In the case of a multi-box simulation this exchanges volume between 
+
+              pairs of boxes (canonical Gibbs ensemble), in a single box case 
+
+              no volume moves are allowed (canonical ensemble). 
+
+          </ul>
+
+          <li> Note: the pm* variables are used to determine which move type to 
+
+            perform every time we want to do a Monte Carlo move. A move is selected 
+
+            by choosing a random number between 0.0 and 1.0 and then going down 
+
+            the list of pm* until you find one which has a value higher than the 
+
+            random number. If none of them are higher then you perform a rotation 
+
+            move (in a sense pmrot is hardwired to 1.0). A similar procedure is 
+
+            performed when we want to determine which boxes or molecule types 
+
+            to perform the selected move upon. These are done using the pm**pr 
+
+            and pm**mt arrays. 
+
+        <dt><b>pmvol (double precision)</b> 
+
+          <ul>
+
+            <li> Probability of performing a volume move. If (lnpt = .true.) then 
+
+              a single box is selected and it exchanges volume with an external 
+
+              pressure bath (see pressure). If (lnpt = .false. and numboxes > 
+
+              1) a pair of boxes are selected and volume is exchanged between 
+
+              them. 
+
+          </ul>
+
+        <dt><b>pmvlpr (double precision)</b> 
+
+          <ul>
+
+            <li> Probability of performing a volume move on a particular box, 
+
+              or box pair. All of these variables are listed on a single line 
+
+              If (lnpt = .true.) then a value of pmvlpr is listed for each box. 
+
+              If (lnpt = .false.) then a value is listed for each pair of simulation 
+
+              boxes where the pairs are ordered (1,2), (1,3), ... (1,numboxes), 
+
+              (2,3), ... (numboxes-1,numboxes). 
+
+          </ul>
+
+        <dt><b>pmswap, pmswmt (double precision)</b> 
+
+          <ul>
+
+            <li> pmswap is the probability of performing an interbox molecule 
+
+              transfer move. This move takes a molecule out of one box and tries 
+
+              to place it in another box. The molecule is grown using coupled-decoupled 
+
+              configurational-bias Monte Carlo. See the nch** variables down below 
+
+              for more information about configurational-bias. 
+
+            <li> pmswmt is the probability of performing an interbox molecule 
+
+              transfer move on each type of molecule in the system. 
+
+          </ul>
+
+        <dt><b>pmswpr (double precision)</b> 
+
+          <ul>
+
+            <li> Probability of performing an interbox molecule transfer move 
+
+              between each pair of boxes in the system. The box pairs are ordered 
+
+              (1,2), (1,3), ... (1,numboxes), (2,3), ... (numboxes-1,numboxes). 
+
+          </ul>
+
+        <dt><b>pmiswp, pmismt (double precision)</b> 
+
+          <ul>
+
+            <li> pmiswp is the probability of performing an intrabox molecule 
+
+              transfer move. This move takes a molecule out of one box and tries 
+
+              to place it back into the same box. The molecule is grown using 
+
+              coupled-decoupled configurational-bias Monte Carlo. See the nch** 
+
+              variables down below for more information about configurational-bias. 
+
+            <li> pmismt is the probability of performing an intrabox molecule 
+
+              transfer move on each type of molecule in the system. 
+
+          </ul>
+
+        <dt><b>pmcb, pmcbmt (double precision)</b> 
+
+          <ul>
+
+            <li> pmcb is the probability of performing a molecule regrowth move 
+
+              on a molecule without regard to which box the molecule is currently 
+
+              located in. This move chooses a molecule of the appropriate type 
+
+              at random, selects an atom of the molecule at random, and then regrows 
+
+              the molecule either entirely (if a random number < pmall) or in 
+
+              all directions except for one. See the nch** variables down below 
+
+              for more information about configurational-bias. 
+
+            <li> pmcbmt is the probability of performing a molecule regrowth on 
+
+              each type of molecule in the system. 
+
+          </ul>
+
+        <dt><b>pmall (double precision)</b> 
+
+          <ul>
+
+            <li> pmall is the probability that a molecule regrowth move will regrow 
+
+              the entire molecule. This is listed for each molecule type in the 
+
+              simulation. 
+
+          </ul>
+
+        <dt><b>pmtraat, pmtamt (double precision)</b> 
+
+          <ul>
+
+            <li> pmtraa is the probability of performing a single-atom translation 
+
+              move a molecule without regard to which box the molecule is currently 
+
+              located in. This move chooses a molecule of the appropriate type 
+
+              at random, selects an atom of the molecule at random, chooses the 
+
+              x,y, or z direction at random, and then attempts to displace the 
+
+              atom a random distance between -rmtraa and +rmtraa in that direction. 
+
+            <li> pmtamt is the probability of performing a single-atom translation 
+
+              move on each type of molecule in the system. 
+
+          </ul>
+
+        <dt><b>pmtracm, pmtcmt (double precision)</b> 
+
+          <ul>
+
+            <li> pmtrac is the probability of performing a center-of-mass translation 
+
+              move a molecule without regard to which box the molecule is currently 
+
+              located in. This move chooses a molecule of the appropriate type 
+
+              at random, chooses the x,y, or z direction at random, and then attempts 
+
+              to displace the entire molecule a random distance between -rmtrac 
+
+              and +rmtrac in that direction. 
+
+            <li> pmtcmt is the probability of performing a center-of-mass translation 
+
+              move on each type of molecule in the system. 
+
+          </ul>
+
+        <dt><b>pmromt (double precision)</b> 
+
+          <ul>
+
+            <li> There is no specified value of pmrot as it is the move that is 
+
+              performed if none of the other moves were selected. Thus it essentially 
+
+              has a default value of 1.0. This move chooses a molecule of the 
+
+              appropriate type at random, chooses the x,y, or z direction at random, 
+
+              and then attempts to rotate the entire molecule about an x,y, or 
+
+              z axis that runs through the center-of-mass a random number of radians 
+
+              between -rmrot and +rmrot. 
+
+            <li> pmromt is the probability of performing a rotation move on each 
+
+              type of molecule in the system. 
+
+          </ul>
+
+        <dt><b>nchoi1 (integer)</b> 
+
+          <ul>
+
+            <li> This is the number of trial positions that are sampled for the 
+
+              first atom inserted during a configurational-bias molecule exchange 
+
+              move (see pmswp and pmiswp). I typically use a value of 10. The 
+
+              value must be less than or equal to NCHMAX (see <a href="../code/code_manual.html#preproc">preproc.h</a>). 
+
+          </ul>
+
+        <dt><b>nchoi (integer)</b> 
+
+          <ul>
+
+            <li> This is the number of trial positions that are sampled for all 
+
+              atoms except for the first atom inserted during a configurational-bias 
+
+              molecule exchange move (see pmswp and pmiswp). This is used for 
+
+              all atoms in a configurational-bias regrowth move (see pmcb). I 
+
+              typically use a value of 10. The value must be less than or equal 
+
+              to NCHMAX (see <a href="../code/code_manual.html#preproc">preproc.h</a>). 
+
+          </ul>
+
+        <dt><b>nchtor (integer)</b> 
+
+          <ul>
+
+            <li> This is the number of trial dihedral angles that are sampled 
+
+              during configurational-bias moves. I typically use a value in the 
+
+              range 100 to 360. The value must be less than or equal to NCHTOR_MAX 
+
+              (see <a href="../code/code_manual.html#preproc">preproc.h</a>). 
+
+          </ul>
+
+        <dt><b>nchconn (integer)</b> 
+
+          <ul>
+
+            <li> This is the number of trial dihedral angles that are sampled 
+
+              during configurational-bias moves when we have grown the molecule 
+
+              such that we need to connect back up with atoms that already exist. 
+
+              This is needed in order to regrow cyclic molecules, and also could 
+
+              be used to regrow the interiors of large molecules (not yet implemented). 
+
+              I typically use a value in the range 200 to 360. The value must 
+
+              be less than or equal to NCHTOR_MAX (see <a href="../code/code_manual.html#preproc">preproc.h</a>). 
+
+          </ul>
+
+        <dt><b>nchbna (integer)</b> 
+
+          <ul>
+
+            <li> This is the number of trial angles that are sampled during configurational-bias 
+
+              moves when we are selecting the iugrow-iufrom-iuprev angle (see 
+
+              the section on configurational-bias). I typically use a value of 
+
+              1000. 
+
+          </ul>
+
+        <dt><b>nchbnb (integer)</b> 
+
+          <ul>
+
+            <li> This is the number of trial angles that are sampled during configurational-bias 
+
+              moves when we are selecting the rotation about a cone of one of 
+
+              the iugrow angles relative to the others (see the section on configurational-bias). 
+
+              I typically use a value of 1000. 
+
+          </ul>
+
+        <dt><b>nchvib (integer)</b> 
+
+          <ul>
+
+            <li> This is the number of trial bond lengths that are sampled during 
+
+              configurational-bias moves when we are growing atoms. I typically 
+
+              use a value of 1000 unless I am using a fixed-bond length force 
+
+              field, in which case you might as well use 1. 
+
+          </ul>
+
+        <dt><b>vibrang (double precision, double precision)</b> 
+
+          <ul>
+
+            <li> This is the range of bond lengths to sample via configurational-bias 
+
+              Monte Carlo. The range is expressed as a fraction of the equilibrium 
+
+              bond length for the lower bound and the upper bound. I usually values 
+
+              of 0.85 and 1.15. 
+
+          </ul>
+
+          <li> The final section of towhee_input contains the information that 
+
+            is used to construct the forcefield for the molecule types in the 
+
+            system. There are three different ways to set up this section that 
+
+            depend on inpstyle. The first way requires an explicit declaration 
+
+            of the entire force field and while it allows the most flexibility, 
+
+            is quite a burden to set up for any molecule with more than 10 atoms. 
+
+            The second option is an automated builder which works for any molecule, 
+
+            so long as the force field you wish to use has been implemented properly 
+
+            into the code. The final option is a builder for proteins, or other 
+
+            amino acid sequences. The choice of inpstyle determines what happens 
+
+            below it so all of the remaining variables are described in each case 
+
+            of inpstyle. <dt>
+
+        <b>inpstyle (integer)</b> 
+
+        <ul>
+
+          <li> 0: Explicit declaration of all terms of the force field that describes 
+
+            this molecule type. This is the hardest way to set up the molecule 
+
+            information, but it also allows for the most flexibility. I do not 
+
+            recommend using this option unless it is not possible to use the more 
+
+            sophisticated options for the molecule of interest. <dt>
+
+          <b>nunit (integer) </b> 
+
+          <ul>
+
+            <li> The number of atoms (or united-atoms) in this molecule. Must 
+
+              be less than or equal to NUMAX (see <a href="../code/code_manual.html#preproc">preproc.h</a>). 
+
+          </ul>
+
+          <dt><b>nmaxcbmc (integer)</b> 
+
+            <ul>
+
+              <li> The maximum number of atoms to regrow during a configurational-bias 
+
+                regrowth. Generally I set this to the same value as nunit, but 
+
+                occasionally a molecule is so large that almost none of the moves 
+
+                which regrow large portions are accepted. In this case I set nmaxcbmc 
+
+                to be around 1/2 of nunit so that only smaller regrowths are performed. 
+
+            </ul>
+
+          <dt><b>lelect (logical) </b> 
+
+            <ul>
+
+              <li> .true. if you want coulombic interactions computed for this 
+
+                molecule 
+
+              <li> .false. if you only want the van der Waals terms. The code 
+
+                runs a bit faster if lelect is false so it is worth setting if 
+
+                you are not using coulombic terms. 
+
+            </ul>
+
+          <dt><b>lpdb (logical) </b> 
+
+            <ul>
+
+              <li> .true. if you want to input information about the pdb (protein 
+
+                data bank) atom name, amino acid number, amino acid name. This 
+
+                information is needed in order to use the cartoon feature of certain 
+
+                pdb viewers (such as Rasmol). 
+
+              <li> .false. if you don't need that feature. A pdb file will still 
+
+                be output using the atom types defined in ffnonbond so you can 
+
+                still view the system, you just can not use the cartoon feature. 
+
+            </ul>
+
+            <p><font color="red"> The variables listed immediately below (unit 
+
+              through improper stereo) are listed as a group for each atom in 
+
+              the molecule. Thus, you input all of the information about the first 
+
+              atom before you list information for the subsequent atoms.</font> 
+
+          <dt><b>unit (integer), ntype (integer), qqatom (double precision) </b>	
+
+            <ul>
+
+              <li> unit is the number of the atom in order starting from atom 
+
+                number 1. This is only used to help the user keep track of the 
+
+                molecule as they are building it in the input file. If the unit 
+
+                number listed in towhee_input does not match the running total 
+
+                of unit numbers in Towhee then the code will stop with an error 
+
+                message. 
+
+              <li> ntype is the integer that ffnonbond uses to determine the force 
+
+                field parameters. You will need to look in ffnonbond.F in order 
+
+                to find the number that you wish to use. 
+
+              <li> qqatom is the charge on this atom. This value is not used (but 
+
+                must still be input) if lelect is false. 
+
+            </ul><dt>
+
+          <b>pdbname (character), aminonum (integer), aminoshort (character) </b>	
+
+          <ul><dt>
+
+            These variables only need to be listed if lpdb = .true. 
+
+            <li> pdbname: A four letter/number string that is output in the pdb 
+
+              file. The precise spacing is important if you want to get most pdb 
+
+              viewers to recognize the atoms as the pdb file is extremely specific. 
+
+            <li> aminonum: The number of each amino acid starting from the N-terminus. 
+
+            <li> aminoshort: The three letter code for each amino acid, or other 
+
+              group (such as caps on the C or N termini). 
+
+          </ul><dt>
+
+          <b>vibration</b> 
+
+          <ul><dt>
+
+            <b>invib (integer) </b> 
+
+            <ul>
+
+              <li> The first line under the vibration heading is the number of 
+
+                atoms that are bonded to the current atom. Must be a number between 
+
+                0 and NNBOND (see <a href="../code/code_manual.html#preproc">preproc.h</a>). 
+
+            </ul>
+
+            <dt><b>ijvib (integer), itvib (integer) </b> 
+
+              <ul>
+
+                <li> The next <b>invib</b> lines underneath the vibration heading 
+
+                  are a list of the bond partner and bond force field number (see 
+
+                  ffbond.F) for the <b>invib</b> atoms that are bonded to the 
+
+                  current atom. Thus if you have 4 vibrations the next 4 lines 
+
+                  will list the bond partner and bond force field number for each 
+
+                  bond. 
+
+              </ul>
+
+          </ul><dt>
+
+          <b>bending</b> 
+
+          <ul><dt>
+
+            <b>inben (integer) </b> 
+
+            <ul>
+
+              <li> The first line under the bending heading is the number of bond 
+
+                bending angles that terminate at the current atom. You must list 
+
+                all bond bending angles which have the current atom at one of 
+
+                the ends, but you do not list bond bending angles which contain 
+
+                the current atom in the center. Must be a number between 0 and 
+
+                NNBOND*(NNBOND-1) (see <a href="../code/code_manual.html#preproc">preproc.h</a>). 
+
+            </ul>
+
+            <dt><b>ijben2 (integer), ijben3(integer), itben (integer) </b> 
+
+              <ul>
+
+                <li> The next <b>inben</b> lines underneath the bending heading 
+
+                  are a list of the other atoms in the bond bending angle and 
+
+                  the bond bending angle force field number (see ffangle.F) for 
+
+                  the <b>inben</b> angles that contain the current atom at one 
+
+                  of the ends. The format for listing the angle is to consider 
+
+                  the current atom in the first position of an angle between atoms 
+
+                  current-ijben2-ijben3 so you only need to list atoms ijben2 
+
+                  and ijben3 and the bending type on each line, where there is 
+
+                  one angle per line of towhee_input. 
+
+              </ul>
+
+          </ul><dt>
+
+          <b>torsion</b> 
+
+          <ul><dt>
+
+            <b>intor (integer) </b> 
+
+            <ul>
+
+              <li> The first line under the torsion heading is the number of dihedral 
+
+                angles (regular torsions) that terminate at the current atom. 
+
+                You must list all regular torsion angles which have the current 
+
+                atom at one of the ends, but you do not list regular torsion angles 
+
+                which contain the current atom in the center. Must be a number 
+
+                between 0 and NNBOND*(NNBOND-1)*(NNBOND-1) (see <a href="../code/code_manual.html#preproc">preproc.h</a>). 
+
+            </ul>
+
+            <dt><b>ijtor2 (integer), ijtor3(integer), ijtor4 (integer), ittor 
+
+              (integer) </b> 
+
+              <ul>
+
+                <li> The next <b>intor</b> lines underneath the torsion heading 
+
+                  are a list of the other atoms in the regular torsion angle and 
+
+                  the torsion force field number (see fftorsion.F) for the <b>intor</b> 
+
+                  torsions that contain the current atom at one of the ends. The 
+
+                  format for listing the regular torsion angle is to consider 
+
+                  the current atom in the first position of a dihedral between 
+
+                  atoms current-ijtor2-ijtor3-ijtor4 so you only need to list 
+
+                  atoms ijtor2, ijtor3, and ijtor4 and the torsion type on each 
+
+                  line, where there is one regular torsion per line of towhee_input. 
+
+              </ul>
+
+          </ul><dt>
+
+          <b>angle-angle</b> 
+
+          <ul><dt>
+
+            <b>inaa (integer) </b> 
+
+            <ul>
+
+              <li> The first line under the angle-angle heading is the number 
+
+                of angle-angle terms which have their shared central atom located 
+
+                at the current atom. You must list all angle-angle terms which 
+
+                have the current atom at the shared central position, but you 
+
+                do not list angle-angle terms which contain the current atom at 
+
+                one of the ends. Must be a number between 0 and (NNBOND*(NNBOND-1))/2 
+
+                (see <a href="../code/code_manual.html#preproc">preproc.h</a>). 
+
+            </ul>
+
+            <dt><b>ijaa0 (integer), ijaa1(integer), ijaa2 (integer), itaa (integer) 
+
+              </b> 
+
+              <ul>
+
+                <li> The next <b>inaa</b> lines underneath the angle-angle heading 
+
+                  are a list of the other atoms in the angle-angle term and and 
+
+                  the angle-angle force field number (see ffangang.F) for the 
+
+                  <b>inaa</b> angle-angle terms that contain the current atom 
+
+                  at the shared central atom. The format for listing the regular 
+
+                  torsion angle is to consider the current atom as the central 
+
+                  shared atom in the angle-angle term between the angles ijaa0-current-ijaa1 
+
+                  and ijaa0-current-ijaa2. Each angle-angle term is listed on 
+
+                  one line according to the format ijaa0, ijaa1, ijaa2 and itaa 
+
+                  (the angle-angle type). 
+
+              </ul>
+
+          </ul><dt>
+
+          <b>improper oop</b> 
+
+          <ul><dt>
+
+            <b>inimpc (integer) </b> 
+
+            <ul>
+
+              <li> The first line under the improper oop heading is the number 
+
+                of improper torsions (out-of-plane) which have the central atom 
+
+                located at the current atom. You must list all improper torsions 
+
+                (out-of-plane) which have the current atom at the central position, 
+
+                but you do not list improper torsions (out-of-plane) which contain 
+
+                the current atom at one of the ends. Must be a number between 
+
+                0 and ((NNBOND-1)*(NNBOND-2))/2 (see <a href="../code/code_manual.html#preproc">preproc.h</a>). 
+
+            </ul>
+
+            <dt><b>ijimpc2 (integer), ijimpc3(integer), ijimpc4 (integer), itimpc 
+
+              (integer) </b> 
+
+              <ul>
+
+                <li> The next <b>inimpc</b> lines underneath the improper torsion 
+
+                  (out-of-plane) heading are a list of the other atoms in the 
+
+                  improper torsion (oop) and the torsion force field number (see 
+
+                  fftorsion.F) for the <b>inimpc</b> improper torsions (oop) that 
+
+                  contain the current atom at the central atom. This type of improper 
+
+                  torsion works the same way as a regular torsion, except that 
+
+                  the first atom is generally bonded to the three other atoms. 
+
+                  The format for listing the improper torsion (oop) is to consider 
+
+                  the current atom in the first position of a dihedral between 
+
+                  atoms current-ijimpc2-ijimpc3-ijimpc4 so you only need to list 
+
+                  atoms ijimpc2, ijimpc3, and ijimpc4 and the torsion type on 
+
+                  each line, where there is one improper torsion (oop) per line 
+
+                  of towhee_input. 
+
+              </ul>
+
+          </ul><dt>
+
+          <b>improper stereo</b> 
+
+          <ul><dt>
+
+            <b>inimpc (integer) </b> 
+
+            <ul>
+
+              <li> The first line under the improper stereo heading is the number 
+
+                of improper torsions (stereogenic) which have the central atom 
+
+                located at the current atom. You must list all improper torsions 
+
+                (stereo) which have the current atom at the central position, 
+
+                but you do not list improper torsions (stereo) which contain the 
+
+                current atom at one of the ends. Must be a number between 0 and 
+
+                ((NNBOND-1)*(NNBOND-2))/2 (see <a href="../code/code_manual.html#preproc">preproc.h</a>). 
+
+            </ul>
+
+            <dt><b>ijimpa2 (integer), ijimpa3(integer), ijimpa4 (integer), itimpa 
+
+              (integer) </b> 
+
+              <ul>
+
+                <li> The next <b>inimpa</b> lines underneath the improper torsion 
+
+                  (stereo) heading are a list of the other atoms in the improper 
+
+                  torsion (stereo) and the torsion force field number (see fftorsion.F) 
+
+                  for the <b>inimpa</b> improper torsions (stereo) that contain 
+
+                  the current atom at the central atom. This type of improper 
+
+                  torsion works by computing the dihedral angle between the planes 
+
+                  formed by the atoms ijimpa2-current-ijimpa3 and ijimpa2-current-ijimpa4. 
+
+                  This was originally used as a means to enforce planarity, but 
+
+                  is also useful for enforcing stereochemistry. The format for 
+
+                  the improper torsion (stereo) is to list atoms ijimpa2, ijimpa3, 
+
+                  and ijimpa4 and the torsion type (itimpa) on each line, where 
+
+                  there is one improper torsion (stereo) per line of towhee_input. 
+
+              </ul>
+
+          </ul>
+
+          <dt><font color="red"> This is the end of the section that is repeated 
+
+            for each atom for inpstyle=0 </font> 
+
+            <p>&nbsp;</p>
+
+            <li> 1: Polypeptide builder which sets up everything using buildprot 
+
+              and assemble routines. This sets up everything for proteins from 
+
+              a list of the amino acids. This routine also could be used to build 
+
+              polymers, but I have not yet coded in any non-peptide monomers. 
+
+              I am working on some documentation of the currently available monomers, 
+
+              but until that is complete you will have to look into buildprot.F 
+
+              to see what is available. 
+
+          <dt><b>nunit (integer) </b> 
+
+            <ul>
+
+              <li> The number of monomers in this molecule. Must be less than 
+
+                or equal to NUMAX (see <a href="../code/code_manual.html#preproc">preproc.h</a>) and there is also a check in 
+
+                the builder to make sure you do not exceed NUMAX with the number 
+
+                of atoms that all of your monomers require. 
+
+            </ul>
+
+          <dt><b>nmaxcbmc (integer)</b> 
+
+            <ul>
+
+              <li> The nmaxcbmc variable determines the largest number of atoms 
+
+                that are regrown during a configurational-bias regrowth. Since 
+
+                we only know the number of amino acids at this stage, and not 
+
+                the number of atoms, the final value of nmaxcbmc is computed as 
+
+                the product of the final number of atoms in the molecule times 
+
+                the input value of nmaxcbmc divided by the input value of nunit. 
+
+            </ul>
+
+          <dt><b>lelect (logical) </b> 
+
+            <ul>
+
+              <li> .true. if you want coulombic interactions computed for this 
+
+                molecule 
+
+              <li> .false. if you only want the van der Waals terms. The code 
+
+                runs a bit faster if lelect is false so it is worth setting if 
+
+                you are not using coulombic terms. 
+
+            </ul>
+
+          <dt><b>forcefield (character) </b> 
+
+            <ul>
+
+              <li> The forcefield that you want to use to build this molecule. 
+
+                I'm working on better documentation of which force fields are 
+
+                implemented, but until that is finished just take a look in ffnonbond.F 
+
+            </ul>
+
+          <dt><b>protgeom (character) </b> 
+
+            <ul>
+
+              <li> linear: The polypeptide will be generated starting from the 
+
+                N-terminus and finishing at the C-terminus. 
+
+              <li> cyclic: The polypeptide is cyclic so the first amino acid is 
+
+                bonded to the final amino acid. 
+
+            </ul>
+
+            <p><font color="red"> The variables listed immediately below are listed 
+
+              as a group for each amino acid in the molecule. There is only one 
+
+              line of input per building block in the molecule.</font> 
+
+          <dt><b>pepname (character), stereochem (character), bondpartner (integer) 
+
+            </b> 
+
+            <ul>
+
+              <li> pepname is a two letter code for the building blocks of the 
+
+                molecule. Peptides use a code where the first letter is the one 
+
+                letter code for each amino acid. The second character is generally 
+
+                the charge state of the side chain, but has some different meanings 
+
+                for histidine and cysteine. Until the documentation is in place 
+
+                you need to look in buildprot.F to find a complete list of valid 
+
+                pepnames. 
+
+              <li> stereochem is a single letter which determines the stereochemistry 
+
+                of the peptide. The valid options are l (L-amino acid), d (D-amino 
+
+                acid) and r (racemic). 
+
+              <li> bondpartner is the number of the amino acid which is bonded 
+
+                to this amino acid through the side chain. This is only used for 
+
+                cysteines which have a disulfide bridge (type cs), otherwise just 
+
+                set this value to 0. The bondpartner integers refer to the amino 
+
+                acids starting with the first amino acid listed in towhee_input 
+
+                as amino acid #1. 
+
+            </ul>
+
+          <dt><font color="red"> This is the end of the section that is repeated 
+
+            for each atom for inpstyle=1 </font> 
+
+            <p>&nbsp;</p>
+
+            <li> 2: Atom-based connectivity map, with the details of the force 
+
+              field parameters determined via the buildmolec and assemble routines. 
+
+              This is the easiest way to set up any molecule that is not a series 
+
+              of amino acids. You must choose a forcefield and then input the 
+
+              appropriate parameter names for that force field. I'm working on 
+
+              better documentation of the atom names used in Towhee, but until 
+
+              that is complete you have to look in ffnonbond.F The program will 
+
+              sort out all of the vibration types, bending angles, bending types, 
+
+              regular torsion angles, regular torsion types, angle-angle terms, 
+
+              angle-angle types, improper torsion (oop) types, and improper torsion 
+
+              (stereo) types that are implied by the bonding structure of the 
+
+              molecule. I have not automated the atom assignment for the improper 
+
+              torsions as some of the force fields do not have general rules (at 
+
+              least not rules I can decipher) for determining where the improper 
+
+              torsions belong. 
+
+          <dt><b>nunit (integer) </b> 
+
+            <ul>
+
+              <li> The number of atoms (or united-atoms) in this molecule. Must 
+
+                be less than or equal to NUMAX (see <a href="../code/code_manual.html#preproc">preproc.h</a>). 
+
+            </ul>
+
+          <dt><b>nmaxcbmc (integer)</b> 
+
+            <ul>
+
+              <li> The maximum number of atoms to regrow during a configurational-bias 
+
+                regrowth. Generally I set this to the same value as nunit, but 
+
+                occasionally a molecule is so large that almost none of the moves 
+
+                which regrow large portions are accepted. In this case I set nmaxcbmc 
+
+                to be around 1/2 of nunit so that only smaller regrowths are performed. 
+
+            </ul>
+
+          <dt><b>lelect (logical) </b> 
+
+            <ul>
+
+              <li> .true. if you want coulombic interactions computed for this 
+
+                molecule 
+
+              <li> .false. if you only want the van der Waals terms. The code 
+
+                runs a bit faster if lelect is false so it is worth setting if 
+
+                you are not using coulombic terms. 
+
+            </ul>
+
+          <dt><b>forcefield (character) </b> 
+
+            <ul>
+
+              <li> The forcefield that you want to use to build this molecule. 
+
+                I'm working on better documentation of which force fields are 
+
+                implemented, but until that is finished just take a look in ffnonbond.F 
+
+            </ul>
+
+            <p><font color="red"> The variables listed immediately below (unit 
+
+              through improper stereo) are listed as a group for each atom in 
+
+              the molecule. Thus, you input all of the information about the first 
+
+              atom before you list information for the subsequent atoms.</font> 
+
+          <dt><b>unit (integer), type (character), qqatom (double precision) </b>	
+
+            <ul>
+
+              <li> unit is the number of the atom in order starting from atom 
+
+                number 1. This is only used to help the user keep track of the 
+
+                molecule as they are building it in the input file. If the unit 
+
+                number listed in towhee_input does not match the running total 
+
+                of unit numbers in Towhee then the code will stop with an error 
+
+                message. 
+
+              <li> ntype is the character string that contains the atom type for 
+
+                the forcefield. I'm working on better documentation for the available 
+
+                atom types, but until that is ready you will need to look in ffnonbond.F. 
+
+                I generally use the same atom types as the original authors of 
+
+                the force field, but sometimes I have to add information to those 
+
+                atom types in order to automate the assembly process. 
+
+              <li> qqatom is the charge on this atom. This value is not used (but 
+
+                must still be input) if lelect is false. 
+
+            </ul><dt>
+
+          <b>vibration</b> 
+
+          <ul><dt>
+
+            <b>invib (integer) </b> 
+
+            <ul>
+
+              <li> The first line under the vibration heading is the number of 
+
+                atoms that are bonded to the current atom. Must be a number between 
+
+                0 and NNBOND (see <a href="../code/code_manual.html#preproc">preproc.h</a>). 
+
+            </ul>
+
+            <dt><b>ijvib (integer)</b> 
+
+              <ul>
+
+                <li> The second line contains the atom numbers for all <b>invib</b> 
+
+                  atoms that are bonded to the current atom. 
+
+              </ul>
+
+          </ul><dt>
+
+          <b>improper oop</b> 
+
+          <ul><dt>
+
+            <b>inimpc (integer) </b> 
+
+            <ul>
+
+              <li> The first line under the improper oop heading is the number 
+
+                of improper torsions (out-of-plane) which have the central atom 
+
+                located at the current atom. You must list all improper torsions 
+
+                (out-of-plane) which have the current atom at the central position, 
+
+                but you do not list improper torsions (out-of-plane) which contain 
+
+                the current atom at one of the ends. Must be a number between 
+
+                0 and ((NNBOND-1)*(NNBOND-2))/2 (see <a href="../code/code_manual.html#preproc">preproc.h</a>). 
+
+            </ul>
+
+            <dt><b>ijimpc2 (integer), ijimpc3(integer), ijimpc4 (integer), itimpc 
+
+              (integer) </b> 
+
+              <ul>
+
+                <li> The next <b>inimpc</b> lines underneath the improper torsion 
+
+                  (out-of-plane) heading are a list of the other atoms in the 
+
+                  improper torsion (oop) and the torsion force field number (see 
+
+                  fftorsion.F) for the <b>inimpc</b> improper torsions (oop) that 
+
+                  contain the current atom at the central atom. This type of improper 
+
+                  torsion works the same way as a regular torsion, except that 
+
+                  the first atom is generally bonded to the three other atoms. 
+
+                  The format for listing the improper torsion (oop) is to consider 
+
+                  the current atom in the first position of a dihedral between 
+
+                  atoms current-ijimpc2-ijimpc3-ijimpc4 so you only need to list 
+
+                  atoms ijimpc2, ijimpc3, and ijimpc4 and the torsion type on 
+
+                  each line, where there is one improper torsion (oop) per line 
+
+                  of towhee_input. If you want the program to determine the improper 
+
+                  torsion (oop) type then just enter an itimpc value of 0. 
+
+              </ul>
+
+          </ul><dt>
+
+          <b>improper stereo</b> 
+
+          <ul><dt>
+
+            <b>inimpc (integer) </b> 
+
+            <ul>
+
+              <li> The first line under the improper stereo heading is the number 
+
+                of improper torsions (stereogenic) which have the central atom 
+
+                located at the current atom. You must list all improper torsions 
+
+                (stereo) which have the current atom at the central position, 
+
+                but you do not list improper torsions (stereo) which contain the 
+
+                current atom at one of the ends. Must be a number between 0 and 
+
+                ((NNBOND-1)*(NNBOND-2))/2 (see <a href="../code/code_manual.html#preproc">preproc.h</a>). 
+
+            </ul>
+
+            <dt><b>ijimpa2 (integer), ijimpa3(integer), ijimpa4 (integer), itimpa 
+
+              (integer) </b> 
+
+              <ul>
+
+                <li> The next <b>inimpa</b> lines underneath the improper torsion 
+
+                  (stereo) heading are a list of the other atoms in the improper 
+
+                  torsion (stereo) and the torsion force field number (see fftorsion.F) 
+
+                  for the <b>inimpa</b> improper torsions (stereo) that contain 
+
+                  the current atom at the central atom. This type of improper 
+
+                  torsion works by computing the dihedral angle between the planes 
+
+                  formed by the atoms ijimpa2-current-ijimpa3 and ijimpa2-current-ijimpa4. 
+
+                  This was originally used as a means to enforce planarity, but 
+
+                  is also useful for enforcing stereochemistry. The format for 
+
+                  the improper torsion (stereo) is to list atoms ijimpa2, ijimpa3, 
+
+                  and ijimpa4 and the torsion type (itimpa) on each line, where 
+
+                  there is one improper torsion (stereo) per line of towhee_input. 
+
+                  If you want the program to figure out the improper torsion (stereo) 
+
+                  type then just input an itimpa value of 0. 
+
+              </ul>
+
+          </ul>
+
+          <dt><font color="red"> This is the end of the section that is repeated 
+
+            for each atom for inpstyle=2 </font> 
+
+        </ul>
+
+      </ul>
+
+      <a href="../index.html">Return to the main towhee web page</a> 
+
+      <p>&nbsp;</p>
+
+    </td>
+
+  </tr>
+
+</table>
+
+<hr width="715" align="left">
+<i><font size="2">Send comments to:</font></i> <font size="2"> <a href="mailto:marcus_martin@users.sourceforge.net">Marcus 
+G. Martin</a><br>
+<i>Last updated:</i> 
+<!-- #BeginDate format:Am1 -->September 15, 2004<!-- #EndDate -->
+</font> <br>
+</body>
+</html>
+
+

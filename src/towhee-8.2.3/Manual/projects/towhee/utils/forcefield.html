@@ -1,0 +1,71 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: forcefield</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table width="675" border="0" cellspacing="0" cellpadding="0" height="590">
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif"><a name="top"></a>MCCCS Towhee: forcefield</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"> 
+    <IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" width="210" height="62" border="0" alt="SourceForge.net Logo" align="right"/>
+   </A>
+   <tr> 
+    <td width="18" height="371" valign="top"> 
+     <p>&nbsp; </p>
+     <p>&nbsp;</p>
+    </td>
+    <td width="697" valign="top"> 
+     <dt><b>Overview</b> 
+      <ul>
+       This section explains the forcefield utility program.  This program is designed to translate the native units of many different forcefields
+       into the Towhee units and then output a towhee_ff file with the current format.
+      </ul>
+     </dt>
+     <dt><b>Compiling</b> 
+      <ul>
+       Unlike most of the other utility programs, forcefield is compiled in the Source directory instead of the Utils directory because it shares several
+       subroutines with towhee.  Some of the subroutines in this utility program are very large and cause many common optimizers to overload memory.
+       Therefore if you have limited RAM you should turn off the optimizers when compiling this utility.
+       <ul>
+        <dt><code>cd /towheebase</code></dt>
+        <dt><code>./configure FFLAGS=''</code></dt>
+        <dt><code>cd Source</code></dt>
+        <dt><code>make clean</code></dt>
+        <dt><code>make forcefield</code></dt>
+       </ul>
+       This creates a <code>forcefield</code> executable that is run from the command line.
+      </ul>
+     </dt>
+     <dt><b>Features</b> 
+      <ul>
+       When you run this program from the command line it prompts you to choose from a list of force field names to generate.  Most of these commands
+       simply translate the appropriate built in subroutine of data to output a force field file that should be identical to the one provided with 
+       the distribution.  Here are some of the other options that do something other than just generate the specified force field file.
+       <ul>
+        <li><b>All</b>: this command generates all of the force field files that are simple translations of the subroutines that are included in the main
+         Towhee distribution.  This command is useful for regenerating all of those forcefield files after making a change to the force field format.
+        </li>
+        <li><b>CharmmFile</b>: translates certain kinds of charmm force field files into a Towhee force field file.</li>
+        <li><b>PMF</b>: this command translates a sequence of potential of mean force (PMF) files into a tabulated potential and outputs a towhee_ff_PMF file.
+         For more information about generating PMF file please see the <a href="rdf2pmfpair.html">rdf2pmfpair</a> utility.
+        </li>
+        <li><b>Setfl</b>: this command translates an Embedded Atom Method potential in the Setfl format into the Towhee format.</li>
+       </ul>
+      </ul>
+     </dt>
+     <a href="utility_summary.html">Return to the Utility Summary page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->March 28, 2018<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

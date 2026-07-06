@@ -1,0 +1,75 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: Alavi et al 2005</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: Alavi <i>et al.</i> 2005</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the Alavi <i>et al.</i> 2005 (Alavi2005) force field as it is implemented into 
+      the towhee_ff_Alavi2005 file in the ForceFields directory.  All of the Towhee atom types for 
+      this force field are listed, along with a short description of their meanings.
+      Note that this a Lennard-Jones (12-6) force field and can only be combined with
+      other Lennard-Jones (12-6) force fields.
+      Any discrepencies (especially typos) from the published values are the sole responsibility of 
+      Marcus Martin, and I welcome feedback on how this implementation compares with other programs.
+     </ul>
+     <b>References for Alavi2005</b> 
+     <ul>
+      This force field was published in a single paper where it was used along with the 
+      <a href="spce.html">SPC/E</a> force field for water.
+      <ul>
+       <li><a href="../references.html#alavi_et_al_2005">Alavi <i>et al.</i> 2005</a></li>
+      </ul>
+     </ul>	
+     <b>Alavi <i>et al.</i> 2005 in Towhee</b> 
+     <ul>
+      The official force field name for Alavi <i>et al.</i> 2005 in Towhee is 'Alavi2005'.
+      This list contains all the atom names for use in the towhee_input file, along with a brief description.
+      I created these atom names in order to work with the molecule assembler.
+      This force field was designed to work with the <a href="spce.html">SPC/E</a> water model.
+      This force field uses a three site model for H<sub>2</sub> as described below.
+      Please note that the capitalization and spacing pattern is important and must be followed exactly as listed here.
+      <ul>
+       <dt>'<b>H2-com</b>' : the center of mass of an H<sub>2</sub> molecule.  This atom type has no mass itself 
+	and should be bonded to 2 <b>H2-end</b> sites.
+       </dt>
+       <dt>'<b>H2-end</b>' : hydrogen atom in H<sub>2</sub>.  This atom type represents the mass point for 
+	each hydrogen atom and should be bonded to the <b>H2-com</b> site.
+       </dt>
+      </ul>
+     </ul>
+     <b>Coulombic interactions</b> 
+     <ul>
+      Alavi2005 assigns a point charge to the H<sub>2</sub> mass sites and also to the center of mass location.
+      The bond increment method is implemented for this forcefield and can be used to automatically assign 
+      appropriate charges.
+      Here is a list of the bond increments using the bond names listed above.  The value of the bond increment is added 
+      to the first atom listed and subtracted from the second atom listed.
+      <ul>
+       <li><b>H2-end</b> - <b>H2-com</b>: 0.4932</li>
+      </ul>
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>
+
+

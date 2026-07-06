@@ -1,0 +1,3 @@
+SUBDIRS = \
+LJ \
+SPC_E_WATER

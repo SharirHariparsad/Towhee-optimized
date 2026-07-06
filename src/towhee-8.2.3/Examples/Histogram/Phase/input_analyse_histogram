@@ -1,0 +1,18 @@
+ncomp
+1
+box volume
+343.
+lweight
+.false.
+lphase 
+.true.
+lpvt
+.false.
+lold
+.true.
+noldfiles
+3
+old file input data file
+towhee_weights
+lnew
+.false.

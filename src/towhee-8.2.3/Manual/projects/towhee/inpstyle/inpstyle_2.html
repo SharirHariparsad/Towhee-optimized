@@ -1,0 +1,138 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: input_style 'basic connectivity map'</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0">
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif"><a name="top">
+	 </a>MCCCS Towhee: input_style 'basic connectivity map'</font></b></font>
+     </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"> 
+    <IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/>
+   </A>
+   <tr> 
+    <td valign="top"> 
+     <p>&nbsp; </p>
+     <p>&nbsp;</p>
+    </td>
+    <td valign="top"> 
+     This section describes the input parameters associated with an <b>input_style</b> setting of 'basic connectivity map' where the details of the force 
+     field parameters are determined via the <a href="../code/code_manual.html#buildmolec.F"><code>buildmolec.F</code></a> and
+     <a href="../code/code_manual.html#assemble.F"><code>assemble.F</code></a> subroutines.
+     This documentation is maintained for the current version of the code and was 
+     last modified for Version 8.0.0.  The '<a href="inpstyle_6.html">advanced connectivity map</a>' option is a more powerful and flexible version of this builder. 
+     The 'basic connectivity map' option requires the specification of a forcefield and the appropriate parameter names for that force field.
+     See the individual manual pages for each force field (summarized on <a href="../towhee_capabilities.html">Towhee Capabilities</a>) for detailed information about
+     the atom names.  This feature enables the automatic determination of all of the vibration types, bending angles, bending types, regular torsion angles,
+     regular torsion types, angle-angle terms, angle-angle types, and improper torsion types that are implied by the bonding structure of the molecule.
+     However, automatic determination of atoms that require an improper torsion is not possible with this option and users who require that feature should use the
+     '<a href="inpstyle_6.html">advanced connectivity map</a>' option. 
+     <dt><a name="nunit"><b>nunit (integer)</b></a>
+      <ul>
+       The number of atoms (or united-atoms) in this molecule. Must be less than or equal to <a href="../code/code_manual.html#numax">NUMAX</a>.
+      </ul>
+     </dt>
+     <dt><a name="nmaxcbmc"><b>nmaxcbmc (integer)</b></a> 
+      <ul>
+       The maximum number of atoms to regrow during a <a href="../algorithm/cbmc.html">configurational-bias</a> regrowth move.
+       It is safe to set this to the value of <a href="#nunit"><b>nunit</b></a>, but no configurational-bias regrowth moves beyond
+       a certain size are ever accepted then it is more efficient to set this to the largest value where moves are accepted to avoid
+       wasting effort on move that are very likely to fail.
+      </ul>
+     </dt>
+     <dt><a name="lpdbnames"><b>lpdbnames (logical)</b></a>
+      <ul>
+       <li><code><b>.TRUE.</b></code> input information about the pdb (protein data bank) atom name, amino acid number, amino acid name. This 
+        information is needed in order to use the cartoon feature of certain pdb viewers (such as <a href="../software.html#rasmol">Rasmol</a>).
+       </li>
+       <li><code><b>.FALSE.</b></code> do not input additional pdb information.
+	This does not disable the output of a pdb file, it just means things like the protein cartoon feature might
+        not work properly in <a href="../software.html#rasmol">Rasmol</a>.
+       </li>
+      </ul>
+     </dt>
+     <dt><a name="forcefield"><b>forcefield (character*10)</b></a>
+      <ul>
+       The forcefield that you want to use to build this molecule.  A summary of available force fields is provided on the 
+       <a href="../towhee_capabilities.html">Towhee Capabilities</a> page.
+      </ul>
+     </dt>
+     <dt><a name="charge_assignment"><b>charge_assignment (character*30)</b></a>
+      <ul>
+       <li>'bond increment': the bond increment method is used to assign the charges on each atom and the parameter <a href="#charge"><b>charge</b></a> is not required.
+        Note that this method is only functional for certain forcefields.  Please check the individual force field documentation to see if this is
+        available for your force field of interest.
+       </li>
+       <li>'manual': the charges on each atom are manually specified in the towhee_input file as the parameter <a href="#charge"><b>charge</b></a>
+	in the following section.</li>
+       <li>'none': a zero charge is assigned to each atom and the parameter <a href="#charge"><b>charge</b></a> is not required.</li>
+      </ul>
+     </dt>
+     <hr></hr>
+     <font color="red">This section is repeated for each atom in the molecule.</font> 
+     <dt><a name="unit"><b>unit (integer)</a>, <a name="atomname">atomname (character)</a>, <a name="charge">charge (double precision)</b></a>
+      <ul>
+       Three parameters listed on a single line.
+       First, <b>unit</b> is the number of the atom in order starting from atom number 1. This is used to help the user keep track of the 
+       molecule as they are building it in the input file. If the unit number listed in towhee_input does not match the running total 
+       of unit numbers in Towhee then the code will stop with an error message.
+       Second, <b>atomname</b> is the character string that contains the atom type for the forcefield.  Information about valid atomtypes is found 
+       in the documentation for each force field (summarized on the <a href="../towhee_capabilities.html">Towhee Capabilities</a> page).
+       Finally, <b>charge</b> is the charge on this atom.
+       This is only required if the <a href="#charge_assignment"><b>charge_assignment</b></a> is set to 'manual'.
+      </ul>
+     </dt>
+     <dt><a name="pdbname"><b>pdbname (character), aminonum (integer), aminoshort (character)</b></a>
+      <em>only if <a href="#lpdbnames"><b>lpdbnames</b></a> is <code><b>.TRUE.</b></code></em>
+      <ul>
+       Three parameters on a single line.
+       First, a four letter/number string that is output in the pdb file. The precise spacing is important if you want to get most pdb 
+       viewers to recognize the atoms as the pdb file is extremely specific.
+       Second, the number of each amino acid starting from the N-terminus.
+       Third, the three letter code for each amino acid, or other group (such as caps on the C or N termini).
+      </ul>
+     </dt>
+     <dt><b>vibration</b> 
+      <ul>
+       <li>The first line under the vibration heading is the number of atoms that are bonded to the current atom (internally <b>invib</b>).
+	Must range from 0 to <a href="../code/code_manual.html#nnbond">NNBOND</a>.
+       </li>
+       <li>The second line contains the atom numbers for all <b>invib</b> atoms that are bonded to the current atom. </li>
+      </ul>
+     </dt>
+     <dt><b>improper torsion</b> 
+      <ul>
+       <li>The first line under the improper heading is the number of improper torsions (any form) which have the central atom located at the current
+        atom (internally <b>inimprop</b>.
+	You must list all improper torsions which have the current atom at the central position, but you do not list improper torsions which contain 
+        the current atom at one of the ends. Must be a number between 0 and <a href="../code/code_manual.html#maximprop">MAXIMPROP</a>.
+       </li>
+       <li>The next <b>inimprop</b> lines underneath the improper torsion heading are a list of the other atoms in the improper torsion
+	(internally <b>ijimprop2</b>, <b>ijimprop3</b>, <b>ijimprop4</b>)
+	and the improper force field number (internally <b>itimprop</b>)
+	for the <b>inimprop</b> improper torsions that contain the current atom at the central atom.  There are currently three different 
+        forms of improper torsions, and these forms are specified in the force field.  In all cases, the three atoms must all be bound to the current atom.  
+        If you want Towhee to automatically determine the improper torsion type then enter an <b>itimprop</b> value of 0.
+       </li>
+      </ul>
+     </dt>
+     <dt><font color="red">The end of the section that is repeated for each atom for input_style 'basic connectivity map'</font></dt>
+     <hr></hr>
+     <a href="../index.html">Return to the main towhee web page</a> 
+     <p>&nbsp;</p>
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

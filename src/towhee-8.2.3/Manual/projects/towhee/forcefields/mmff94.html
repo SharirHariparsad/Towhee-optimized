@@ -1,0 +1,342 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: MMFF94</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif"><a name="top"></a>MCCCS Towhee: MMFF94</font></b></font></div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the MMFF94 force field as it is implemented into the towhee_ff_MMFF94 file in the ForceFields directory.  This force field was
+      parameterized for a wide variety of organic liquids.  Note that this is a Class-2 'Buffered 14-7' force field that uses the 'MMFF' mixing rules.
+      Any discrepencies (especially typos) from the published values are the sole responsibility of Marcus Martin, and I welcome feedback on how
+      this implementation compares with other programs.
+     </ul>
+     <b>References for MMFF94</b> 
+     <ul>
+      This forcefield is described in a series of papers, and the supplementary information for those papers.
+      <ul>
+       <li><a href="../references.html#halgren_jcc_1996_I">Halgren 1996 (I)</a></li>
+       <li><a href="../references.html#halgren_jcc_1996_II">Halgren 1996 (II)</a></li>
+       <li><a href="../references.html#halgren_jcc_1996_III">Halgren 1996 (III)</a></li>
+       <li><a href="../references.html#halgren_nachbar_jcc_1996">Halgren and Nachbar 1996 (IV)</a></li>
+       <li><a href="../references.html#halgren_jcc_1996_V">Halgren 1996 (V)</a></li>
+       <li><a href="../references.html#halgren_jcc_1999">Halgren 1999 (VII)</a></li>
+      </ul>
+     </ul>
+     <b>Typos and comments for MMFF94</b>
+     <ul>
+      <li>
+       The supplementary information is very useful and is available via anonymous ftp at <b>ftp.wiley.com</b> in the
+       <b>/public/journals/jcc/suppmat/17/490</b> directory.  Those files are the primary source for the implementation in Towhee.
+      </li>
+      <li>A useful test suite of compounds and MMFF energies is available at <a href="http://www.ccl.net/cca/data/MMFF94/">http://www.ccl.net/cca/data/MMFF94/</a>.
+       The Towhee implementation was validated for a handful of these compounds startimg with version 7.2.0 and this led to the discovery (and resolution)
+       of many mistakes that existed in previous implementations.
+       This implmentation is still not fully validated for the entire test suite so testing is highly recomended before using this forcefield.
+      </li>
+     </ul>
+     <b>MMFF94 in Towhee</b> 
+     <ul>
+      The official force field name for MMFF94 in Towhee is 'MMFF94'.  This section provides a complete list of the implemented nonbonded parameter names
+      for use in the towhee_input file, along with a brief description.  The names and descriptions are taken from the MMFFSYMB.PAR section of appendix B in
+      the supplementary information file.  The (MMFF number) included in the description is the integer code used in the internals of the MMFF force field.
+      If two atom types have the same number then they have the same interactions.  That means there are redundant atom types in the MMFF force field.
+      These names and descriptions are from Table III of 
+      <a href="../references.html#halgren_jcc_1996_I">Halgren 1996 (I)</a>.
+      A note is added when the base charge of the atom (before applying the bond increment method of charge assignement) is nonzero.
+      Note that the capitalization and spacing pattern is important and must be followed exactly as listed here.
+      <dt><font color="red">Bromine</font></dt>
+      <ul>
+       <dt>'<b>BR  </b>' : (MMFF number 13)  BROMINE                                          </dt>
+       <dt>'<b>BR- </b>' : (MMFF number 91)  BROMIDE ANION                                    </dt>
+      </ul>
+      <dt><font color="red">Calcium</font></dt>
+      <ul>
+       <dt>'<b>CA+2</b>' : (MMFF number 96)  DIPOSITIVE CALCIUM                               </dt>
+      </ul>
+      <dt><font color="red">Carbon</font></dt>
+      <ul>
+       <dt>'<b>CR  </b>' : (MMFF number  1) ALKYL CARBON, SP3                                 </dt>
+       <dt>'<b>C=C </b>' : (MMFF number  2)  VINYLIC CARBON, SP2                              </dt>
+       <dt>'<b>CSP2</b>' : (MMFF number  2)  GENERIC SP2 CARBON                               </dt>
+       <dt>'<b>C=O </b>' : (MMFF number  3)  GENERAL CARBONYL CARBON                          </dt>
+       <dt>'<b>C=N </b>' : (MMFF number  3)  SP2 CARBON IN C=N                                </dt>
+       <dt>'<b>CGD </b>' : (MMFF number  3)  GUANIDINE CARBON, DOUBLY BONDED TO N             </dt>
+       <dt>'<b>C=OR</b>' : (MMFF number  3)  KETONE OR ALDEHYDE CARBONYL CARBON               </dt>
+       <dt>'<b>C=ON</b>' : (MMFF number  3)  AMIDE CARBONYL CARBON                            </dt>
+       <dt>'<b>CONN</b>' : (MMFF number  3)  UREA CARBONYL CARBON                             </dt>
+       <dt>'<b>COO </b>' : (MMFF number  3)  CARBOXYLIC ACID OR ESTER CARBONYL CARBON         </dt>
+       <dt>'<b>COON</b>' : (MMFF number  3)  CARBAMATE CARBONYL CARBON                        </dt>
+       <dt>'<b>COOO</b>' : (MMFF number  3)  C ARBONIC ACID OR ESTER CARBONYL CARBON          </dt>
+       <dt>'<b>C=OS</b>' : (MMFF number  3)  THIOESTER CARBONYL CARBON, DOUBLE BONDED TO O    </dt>
+       <dt>'<b>C=S </b>' : (MMFF number  3)  THIOESTER CARBON, DOUBLY BONDED TO S             </dt>
+       <dt>'<b>C=SN</b>' : (MMFF number  3)  THIOAMIDE, CARBON, DOUBLY BONDED TO S            </dt>
+       <dt>'<b>CSO2</b>' : (MMFF number  3)  CARBON IN >C=SO2                                 </dt>
+       <dt>'<b>CS=O</b>' : (MMFF number  3)  CARBON IN >C=S=O (SULFINYL GROUP)                </dt>
+       <dt>'<b>CSS </b>' : (MMFF number  3)  THIOCARBOXYLIC ACID OR ESTER CARBONYL CARBON     </dt>
+       <dt>'<b>C=P </b>' : (MMFF number  3)  CARBON DOUBLE BONDED TO PHOSPHOROUS              </dt>
+       <dt>'<b>CSP </b>' : (MMFF number  4)  ACETYLENIC CARBON                                </dt>
+       <dt>'<b>=C= </b>' : (MMFF number  4)  ALLENIC CARBON                                   </dt>
+       <dt>'<b>CR4R</b>' : (MMFF number 20)  CARBON IN 4-MEMBERED RINGS                       </dt>
+       <dt>'<b>CR3R</b>' : (MMFF number 22)  CARBON IN A 3-MEMBERED RING                      </dt>
+       <dt>'<b>CE4R</b>' : (MMFF number 30)  OLEFINIC CARBON IN 4-MEMBERED RINGS              </dt>
+       <dt>'<b>CB  </b>' : (MMFF number 37)  CARBON AS IN BENZENE, PYRROLE                    </dt>
+       <dt>'<b>CO2M</b>' : (MMFF number 41)  CARBOXYLATE ANION CARBON (base charge -0.5)      </dt>
+       <dt>'<b>CS2M</b>' : (MMFF number 41)  CARBON IN THIOCARBOXYLATE ANION                  </dt>
+       <dt>'<b>CGD+</b>' : (MMFF number 57)  GUANIDINIUM CARBON                               </dt>
+       <dt>'<b>CNN+</b>' : (MMFF number 57)  C IN +N=C-N RESONANCE STRUCTURES                 </dt>
+       <dt>'<b>C%  </b>' : (MMFF number 60)  ISONITRILE CARBON                                </dt>
+       <dt>'<b>C5A </b>' : (MMFF number 63)  ALPHA CARBON IN 5-MEMBERED HETEROAROMATIC RING   </dt>
+       <dt>'<b>C5B </b>' : (MMFF number 64)  BETA CARBON IN 5-MEMBERED HETEROAROMATIC RING    </dt>
+       <dt>'<b>C5  </b>' : (MMFF number 78)  GENERAL CARBON IN 5-MEMBERED HETEROAROMATIC RING </dt>
+       <dt>'<b>CIM+</b>' : (MMFF number 80)  C IN N-C-N IN IMIDAZOLIUM ION                    </dt>
+      </ul>
+      <dt><font color="red">Chlorine</font></dt>
+      <ul>
+       <dt>'<b>CL  </b>' : (MMFF number 12)  CHLORINE                                         </dt>
+       <dt>'<b>CLO4</b>' : (MMFF number 77)  CHLORINE IN PERCHLORATE ANION, CLO4(-)           </dt>
+       <dt>'<b>CL- </b>' : (MMFF number 90)  CHLORIDE ANION                                   </dt>
+      </ul>
+      <dt><font color="red">Copper</font></dt>
+      <ul>
+       <dt>'<b>CU+1</b>' : (MMFF number 97)  MONOPOSITIVE COPPER                              </dt>
+       <dt>'<b>CU+2</b>' : (MMFF number 98)  DIPOSITIVE COPPER                                </dt>
+      </ul>
+      <dt><font color="red">Fluorine</font></dt>
+      <ul>
+       <dt>'<b>F   </b>' : (MMFF number 11)  FLUORINE                                         </dt>
+       <dt>'<b>F-  </b>' : (MMFF number 89)  FLUORIDE ANION                                   </dt>
+      </ul>
+      <dt><font color="red">Hydrogen</font></dt>
+      <ul>
+       <dt>'<b>HC  </b>' : (MMFF number  5)  H  ATTACHED TO C                                 </dt>
+       <dt>'<b>HSI </b>' : (MMFF number  5)  H ATTACHED TO SI                                 </dt>
+       <dt>'<b>HOR </b>' : (MMFF number 21)  HYDROGEN IN ALCOHOLS                             </dt>
+       <dt>'<b>HO  </b>' : (MMFF number 21)  GENERAL H ON OXYGEN                              </dt>
+       <dt>'<b>HOM </b>' : (MMFF number 21)  HYDROGEN IN HYDROXIDE ANION                      </dt>
+       <dt>'<b>HNR </b>' : (MMFF number 23)  H-N(SP3)                                         </dt>
+       <dt>'<b>H3N </b>' : (MMFF number 23)  H-N(SP3), AMMONIA                                </dt>
+       <dt>'<b>HPYL</b>' : (MMFF number 23)  H-N IN PYRROLE                                   </dt>
+       <dt>'<b>HNOX</b>' : (MMFF number 23)  H-N IN IN A N-OXIDE                              </dt>
+       <dt>'<b>HNM </b>' : (MMFF number 23)  H ON DICOORD, NEGATIVELY CHARGED NITROGEN        </dt>
+       <dt>'<b>HN  </b>' : (MMFF number 23)  GENERAL H ON NITROGEN                            </dt>
+       <dt>'<b>HOCO</b>' : (MMFF number 24)  H-O IN CARBOXYLIC ACIDS                          </dt>
+       <dt>'<b>HOP </b>' : (MMFF number 24)  HYDROGEN ON OXYGEN ATTACHED TO PHOSPHOROUS       </dt>
+       <dt>'<b>HN=N</b>' : (MMFF number 27)  AZO HYDROGEN                                     </dt>
+       <dt>'<b>HN=C</b>' : (MMFF number 27)  IMINE HYDROGEN                                   </dt>
+       <dt>'<b>HNCO</b>' : (MMFF number 28)  AMIDE HYDROGEN                                   </dt>
+       <dt>'<b>HNCS</b>' : (MMFF number 28)  THIOAMIDE HYDROGEN                               </dt>
+       <dt>'<b>HNCC</b>' : (MMFF number 28)  H-N IN ENAMINES                                  </dt>
+       <dt>'<b>HNCN</b>' : (MMFF number 28)  H-N IN H-N-C=N                                   </dt>
+       <dt>'<b>HNNC</b>' : (MMFF number 28)  H-N IN H-N-N=C                                   </dt>
+       <dt>'<b>HNNN</b>' : (MMFF number 28)  H-N IN H-N-N=N                                   </dt>
+       <dt>'<b>HNSO</b>' : (MMFF number 28)  H-N IN SULFONAMIDE                               </dt>
+       <dt>'<b>HNPO</b>' : (MMFF number 28)  H-N IN PHOSPHONAMIDE                             </dt>
+       <dt>'<b>HNC%</b>' : (MMFF number 28)  HYDROGEN ON N ATTACHED TO TRIPLY BONDED CARBON   </dt>
+       <dt>'<b>HSP2</b>' : (MMFF number 28)  GENERAL H ON SP2 NITROGEN                        </dt>
+       <dt>'<b>HOCC</b>' : (MMFF number 29)  H-O IN ENOLS AND PHENOLS                         </dt>
+       <dt>'<b>HOCN</b>' : (MMFF number 29)  H-O IN HO-C=N                                    </dt>
+       <dt>'<b>HOH </b>' : (MMFF number 31)  HYDROGEN IN H2O                                  </dt>
+       <dt>'<b>HOS </b>' : (MMFF number 33)  H ON OXYGEN ATTACHED TO SULFUR                   </dt>
+       <dt>'<b>HNR+</b>' : (MMFF number 36)  H ON QUATERNARY NITROGEN                         </dt>
+       <dt>'<b>HIM+</b>' : (MMFF number 36)  H ON IMIDAZOLIUM-TYPE NITROGEN                   </dt>
+       <dt>'<b>HPD+</b>' : (MMFF number 36)  H ON PROTONATED PYRIDINE NITROGEN                </dt>
+       <dt>'<b>HNN+</b>' : (MMFF number 36)  H ON AMIDINIUM-TYPE NITROGEN                     </dt>
+       <dt>'<b>HNC+</b>' : (MMFF number 36)  H ON PROTONATED IMINE NITROGEN                   </dt>
+       <dt>'<b>HGD+</b>' : (MMFF number 36)  H ON GUANIDINIUM-TYPE NITROGEN                   </dt>
+       <dt>'<b>HN5+</b>' : (MMFF number 36)  H ON N5+, N5A+ OR N5B+                           </dt>
+       <dt>'<b>HO+ </b>' : (MMFF number 50)  HYDROGEN ON O+ OXYGEN                            </dt>
+       <dt>'<b>HO=+</b>' : (MMFF number 52)  HYDROGEN ON OXENIUM OXYGEN                       </dt>
+       <dt>'<b>HS  </b>' : (MMFF number 71)  H ATTACHED TO DIVALENT, DICOORDINATE S           </dt>
+       <dt>'<b>HS=N</b>' : (MMFF number 71)  H ATTACHED TO TETRAVALENT, TRICOODR S DBL BONDED </dt>
+       <dt>'<b>HP  </b>' : (MMFF number 71)  H ATTACHED TO TRI- OR TETRACOORDINATE PHOSPHORUS </dt>
+      </ul>
+      <dt><font color="red">Iodine</font></dt>
+      <ul>
+       <dt>'<b>I   </b>' : (MMFF number 14)  IODINE                                           </dt>
+      </ul>
+      <dt><font color="red">Iron</font></dt>
+      <ul>
+       <dt>'<b>FE+2</b>' : (MMFF number 87)  IRON +2 CATION                                   </dt>
+       <dt>'<b>FE+3</b>' : (MMFF number 88)  IROM +3 CATION                                   </dt>
+      </ul>
+      <dt><font color="red">Lithium</font></dt>
+      <ul>
+       <dt>'<b>LI+ </b>' : (MMFF number 92)  LITHIUM CATION                                   </dt>
+      </ul>
+      <dt><font color="red">Magnesium</font></dt>
+      <ul>
+       <dt>'<b>MG+2</b>' : (MMFF number 99)  DIPOSITIVE MAGNESIUM CATION                      </dt>
+      </ul>
+      <dt><font color="red">Nitrogen</font></dt>
+      <ul>
+       <dt>'<b>NR  </b>' : (MMFF number  8)  NITROGEN IN ALIPHATIC AMINES                     </dt>
+       <dt>'<b>N=C </b>' : (MMFF number  9)  NITROGEN IN IMINES                               </dt>
+       <dt>'<b>N=N </b>' : (MMFF number  9)  NITROGEN IN AZO COMPOUNDS                        </dt>
+       <dt>'<b>NC=O</b>' : (MMFF number 10)  NITROGEN IN AMIDES                               </dt>
+       <dt>'<b>NC=S</b>' : (MMFF number 10)  NITROGEN IN N-C=S, THIOAMIDE                     </dt>
+       <dt>'<b>NN=C</b>' : (MMFF number 10)  NITROGEN IN N-N=C                                </dt>
+       <dt>'<b>NN=N</b>' : (MMFF number 10)  NITROGEN IN N-N=N                                </dt>
+       <dt>'<b>NR+ </b>' : (MMFF number 34)  QUATERNARY NITROGEN, SP3, POSITIVELY CHARGED     </dt>
+       <dt>'<b>NPYD</b>' : (MMFF number 38)  NITROGEN, AS IN PYRIDINE                         </dt>
+       <dt>'<b>NPYL</b>' : (MMFF number 39)  NITROGEN, AS IN PYRROLE                          </dt>
+       <dt>'<b>NC=C</b>' : (MMFF number 40)  NITROGEN ON N-C=C                                </dt>
+       <dt>'<b>NC=N</b>' : (MMFF number 40)  NITROGEN IN N-C=N                                </dt>
+       <dt>'<b>NC=P</b>' : (MMFF number 40)  NITROGEN IN N-C=P                                </dt>
+       <dt>'<b>NC%C</b>' : (MMFF number 40)  NITROGEN ATTACHED TO C-C TRIPLE BOND             </dt>
+       <dt>'<b>NSP </b>' : (MMFF number 42)  NITROGEN, TRIPLE BONDED                          </dt>
+       <dt>'<b>NSO2</b>' : (MMFF number 43)  NITROGEN IN SULFONAMIDES                         </dt>
+       <dt>'<b>NSO3</b>' : (MMFF number 43)  NITROGEN IN SULFONAMIDES, THREE O'S ON S         </dt>
+       <dt>'<b>NPO2</b>' : (MMFF number 43)  NITROGEN IN PHOSPHONAMIDES                       </dt>
+       <dt>'<b>NPO3</b>' : (MMFF number 43)  NITROGEN IN PHOSPHONAMIDES, THREE O'S ON P       </dt>
+       <dt>'<b>NC%N</b>' : (MMFF number 43)  NITROGEN ATTACHED TO CYANO GROUP                 </dt>
+       <dt>'<b>NO2 </b>' : (MMFF number 45)  NITRO GROUP NITROGEN                             </dt>
+       <dt>'<b>NO3 </b>' : (MMFF number 45)  NITRATE GROUP NITROGEN                           </dt>
+       <dt>'<b>N=O </b>' : (MMFF number 46)  NITROSO NITROGEN                                 </dt>
+       <dt>'<b>NAZT</b>' : (MMFF number 47)  TERMINAL NITROGEN IN AZIDO OR DIAZO GROUP        </dt>
+       <dt>'<b>NSO </b>' : (MMFF number 48)  DIVALENT NITROGEN REPLACING MONOVALENT O IN SO2 G</dt>
+       <dt>'<b>=N= </b>' : (MMFF number 53)  NITROGEN IN C=N=N OR -N=N=N                      </dt>
+       <dt>'<b>N+=C</b>' : (MMFF number 54)  POSITIVELY CHARGED IMINIUM NITROGEN              </dt>
+       <dt>'<b>N+=N</b>' : (MMFF number 54)  POSITIVELY CHARGED NITROGEN DOUBLE-BONDED TO N   </dt>
+       <dt>'<b>NCN+</b>' : (MMFF number 55)  N IN +N=C-N RESONANCE STRUCTURES - FORMAL CHARGE=1/2</dt>
+       <dt>'<b>NGD+</b>' : (MMFF number 56)  GUANIDINIUM-TYPE NITROGEN - FORMAL CHARGE=1/3    </dt>
+       <dt>'<b>NPD+</b>' : (MMFF number 58)  PYRIDINIUM-TYPE NITROGEN - FORMAL CHARGE=1       </dt>
+       <dt>'<b>NR% </b>' : (MMFF number 61)  ISONITRILE NITROGEN [FC = 0] OR DIAZO NITROGEN [F</dt>
+       <dt>'<b>NM  </b>' : (MMFF number 62)  DEPROTONATED SULFONAMIDE N-; FORMAL CHARGE=-1    </dt>
+       <dt>'<b>N5A </b>' : (MMFF number 65)  ALPHA AROM HETEROCYCLIC 5-RING  NITROGEN         </dt>
+       <dt>'<b>N5B </b>' : (MMFF number 66)  BETA AROM HETEROCYCLIC 5-RING  NITROGEN          </dt>
+       <dt>'<b>N2OX</b>' : (MMFF number 67)  SP2-HYDRIDIZED N-OXIDE NITROGEN                  </dt>
+       <dt>'<b>N3OX</b>' : (MMFF number 68)  SP3-HYDRIDIZED N-OXIDE NITROGEN                  </dt>
+       <dt>'<b>NPOX</b>' : (MMFF number 69)  PYRIDINE N-OXIDE NITROGEN                        </dt>
+       <dt>'<b>N5M </b>' : (MMFF number 76)  NEGATIVELY CHARGED N IN, E.G, TRI- OR TETRAZOLE A</dt>
+       <dt>'<b>N5  </b>' : (MMFF number 79)  GENERAL NITROGEN IN 5-MEMBERED HETEROCYCLIC RING </dt>
+       <dt>'<b>NIM+</b>' : (MMFF number 81)  IMIDAZOLIUM-TYPE NITROGEN - FORMAL CHARGE=1/2    </dt>
+       <dt>'<b>N5A+</b>' : (MMFF number 81)  POSITIVE N5A NITROGEN - FORMAL CHARGE=1          </dt>
+       <dt>'<b>N5B+</b>' : (MMFF number 81)  POSITIVE N5B NITROGEN - FORMAL CHARGE=1          </dt>
+       <dt>'<b>N5+ </b>' : (MMFF number 81)  POSITIVE N5 NITROGEN - FORMAL CHARGE=1           </dt>
+       <dt>'<b>N5AX</b>' : (MMFF number 82)  N-OXIDE NITROGEN IN 5-RING ALPHA POSITION        </dt>
+       <dt>'<b>N5BX</b>' : (MMFF number 82)  N-OXIDE NITROGEN IN 5-RING BETA POSITION         </dt>
+       <dt>'<b>N5OX</b>' : (MMFF number 82)  N-OXIDE NITROGEN IN GENERAL 5-RING POSITION      </dt>
+      </ul>
+      <dt><font color="red">Oxygen</font></dt>
+      <ul>
+       <dt>'<b>OR  </b>' : (MMFF number  6)  ALCOHOL OR ETHER OXYGEN                          </dt>
+       <dt>'<b>OC=O</b>' : (MMFF number  6)  ESTER OR CARBOXYLIC ACID -O-                     </dt>
+       <dt>'<b>OC=C</b>' : (MMFF number  6)  ENOLIC OR PHENOLIC OXYGEN                        </dt>
+       <dt>'<b>OC=N</b>' : (MMFF number  6)  DIVALENT OXYGEN                                  </dt>
+       <dt>'<b>OC=S</b>' : (MMFF number  6)  THIOESTER OR THIOACID -O-                        </dt>
+       <dt>'<b>ONO2</b>' : (MMFF number  6)  DIVALENT NITRATE "ETHER" OXYGEN                  </dt>
+       <dt>'<b>ON=O</b>' : (MMFF number  6)  DIVALENT NITRITE "ETHER" OXYGEN                  </dt>
+       <dt>'<b>OSO3</b>' : (MMFF number  6)  DIVALENT OXYGEN ATTACHED TO SULFUR               </dt>
+       <dt>'<b>OSO2</b>' : (MMFF number  6)  DIVALENT OXYGEN ATTACHED TO SULFUR               </dt>
+       <dt>'<b>OSO </b>' : (MMFF number  6)  DIVALENT OXYGEN ATTACHED TO SULFUR               </dt>
+       <dt>'<b>OS=O</b>' : (MMFF number  6)  DIVALENT OXYGEN ATTACHED TO SULFOXIDE SULFUR     </dt>
+       <dt>'<b>-OS </b>' : (MMFF number  6)  GENERAL DIVALENT OX ATTACHED TO S                </dt>
+       <dt>'<b>OPO3</b>' : (MMFF number  6)  DIVALENT OXYGEN ATTACHED TO PHOSPHOROUS          </dt>
+       <dt>'<b>OPO2</b>' : (MMFF number  6)  DIVALENT OXYGEN ATTACHED TO PHOSPHOROUS          </dt>
+       <dt>'<b>OPO </b>' : (MMFF number  6)  DIVALENT OXYGEN ATTACHED TO PHOSPHOROUS          </dt>
+       <dt>'<b>-OP </b>' : (MMFF number  6)  DIVALENT OXYGEN ATTACHED TO PHOSPHOROUS          </dt>
+       <dt>'<b>-O- </b>' : (MMFF number  6)  GENERAL DIVALENT O                               </dt>
+       <dt>'<b>O=C </b>' : (MMFF number  7)  GENERAL C=O                                      </dt>
+       <dt>'<b>O=CN</b>' : (MMFF number  7)  CARBONYL OXYGEN, AMIDES                          </dt>
+       <dt>'<b>O=CR</b>' : (MMFF number  7)  CARBONYL OXYGEN, ALDEHYDES AND KETONES           </dt>
+       <dt>'<b>O=CO</b>' : (MMFF number  7)  CARBONYL OXYGEN, CARBOXYLIC ACIDS AND ESTERS     </dt>
+       <dt>'<b>O=N </b>' : (MMFF number  7)  NITROSO OXYGEN                                   </dt>
+       <dt>'<b>O=S </b>' : (MMFF number  7)  O=S IN SULFOXIDES                                </dt>
+       <dt>'<b>O=S=</b>' : (MMFF number  7)  O=S ON SULFUR DOUBLY BONDED TO, E.G., CARBON     </dt>
+       <dt>'<b>O2CM</b>' : (MMFF number 32)  OXYGEN IN CARBOXYLATE ANION (base charge -0.25)  </dt>
+       <dt>'<b>OXN </b>' : (MMFF number 32)  N-OXIDE OXYGEN                                   </dt>
+       <dt>'<b>O2N </b>' : (MMFF number 32)  NITRO OXYGEN                                     </dt>
+       <dt>'<b>O2NO</b>' : (MMFF number 32)  NITRO-GROUP OXYGEN IN NITRATE                    </dt>
+       <dt>'<b>O3N </b>' : (MMFF number 32)  NITRATE ANION OXYGEN                             </dt>
+       <dt>'<b>O-S </b>' : (MMFF number 32)  SINGLE TERMINAL OXYGEN ON TETRACOORD SULFUR      </dt>
+       <dt>'<b>O2S </b>' : (MMFF number 32)  TERMINAL O-S IN SULFONES AND SULFONAMIDES        </dt>
+       <dt>'<b>O3S </b>' : (MMFF number 32)  TERMINAL O IN SULFONATES                         </dt>
+       <dt>'<b>O4S </b>' : (MMFF number 32)  TERMINAL O IN SO4(-3)                            </dt>
+       <dt>'<b>OSMS</b>' : (MMFF number 32)  TERM O IN THIOSULFINATE ANION - FORMAL CHARGE=-0.</dt>
+       <dt>'<b>OP  </b>' : (MMFF number 32)  TERMINAL O IN PHOSPHOXIDES                       </dt>
+       <dt>'<b>O2P </b>' : (MMFF number 32)  TERMINAL O IN PHOSPHINATES                       </dt>
+       <dt>'<b>O3P </b>' : (MMFF number 32)  TERMINAL OXYGEN IN PHOSPHONATES                  </dt>
+       <dt>'<b>O4P </b>' : (MMFF number 32)  TERMINAL OXYGEN IN PHOSPHATES AND PHOSPHODIESTERS</dt>
+       <dt>'<b>O4CL</b>' : (MMFF number 32)  OXYGEN IN CLO4(-) ANION - FORMAL CHARGE=-0.25    </dt>
+       <dt>'<b>OM  </b>' : (MMFF number 35)  ALKOXIDE OXYGEN, NEGATIVELY CHARGED              </dt>
+       <dt>'<b>OM2 </b>' : (MMFF number 35)  OXIDE OXYGEN ON SP2 CARBON, NEGATIVELY CHARGED   </dt>
+       <dt>'<b>O+  </b>' : (MMFF number 49)  POSITIVELY CHARGED OXONIUM (TRICOORDINATE) OXYGEN</dt>
+       <dt>'<b>O=+ </b>' : (MMFF number 51)  POSITIVELY CHARGED OXENIUM (DICOORDINATE) OXYGEN </dt>
+       <dt>'<b>OFUR</b>' : (MMFF number 59)  AROMATIC OXYGEN AS IN FURAN                      </dt>
+       <dt>'<b>OH2 </b>' : (MMFF number 70)  OXYGEN ON WATER                                  </dt>
+      </ul>
+      <dt><font color="red">Phosphorus</font></dt>
+      <ul>
+       <dt>'<b>PO4 </b>' : (MMFF number 25)  PHOSPHOROUS IN PHOSPHATES AND PHOSPHODIESTERS    </dt>
+       <dt>'<b>PO3 </b>' : (MMFF number 25)  TETRACOORDINATE P WITH THREE ATTACHED OXYGENS    </dt>
+       <dt>'<b>PO2 </b>' : (MMFF number 25)  TETRACOORDINATE P WITH TWO ATTACHED OXYGENS      </dt>
+       <dt>'<b>PO  </b>' : (MMFF number 25)  TETRACOORDINATE P WITH ONE ATTACHED OXYGEN       </dt>
+       <dt>'<b>PTET</b>' : (MMFF number 25)  GENERAL TETRACOORDINATE PHOSPHORUS               </dt>
+       <dt>'<b>P   </b>' : (MMFF number 26)  TRICOORDINATE P, AS IN PHOSPHINES                </dt>
+       <dt>'<b>-P=C</b>' : (MMFF number 75)  PHOSPHOROUS DOUBLY BONDED TO CARBON              </dt>
+      </ul>
+      <dt><font color="red">Potassium</font></dt>
+      <ul>
+       <dt>'<b>K+  </b>' : (MMFF number 94)  POTASSIUM CATION                                 </dt>
+      </ul>
+      <dt><font color="red">Silicon</font></dt>
+      <ul>
+       <dt>'<b>SI  </b>' : (MMFF number 19)  SILICON                                          </dt>
+      </ul>
+      <dt><font color="red">Sodium</font></dt>
+      <ul>
+       <dt>'<b>NA+ </b>' : (MMFF number 93)  SODIUM CATION                                    </dt>
+      </ul>
+      <dt><font color="red">Sulfur</font></dt>
+      <ul>
+       <dt>'<b>S   </b>' : (MMFF number 15)  SULFUR IN THIOETHERS AND MERCAPTANS              </dt>
+       <dt>'<b>S=C </b>' : (MMFF number 16)  TERMINAL SULFUR DOUBLY BONDED TO CARBON          </dt>
+       <dt>'<b>S=O </b>' : (MMFF number 17)  SULFUR IN SULFOXIDES                             </dt>
+       <dt>'<b>>S=N</b>' : (MMFF number 17)  SULFUR, TRICOORD, DOUBLY BONDED TO N             </dt>
+       <dt>'<b>SO2 </b>' : (MMFF number 18)  SULFUR IN SULFONES                               </dt>
+       <dt>'<b>SO2N</b>' : (MMFF number 18)  SULFUR IN SULFONAMIDES                           </dt>
+       <dt>'<b>SO3 </b>' : (MMFF number 18)  SULFONATE SULFUR                                 </dt>
+       <dt>'<b>SO4 </b>' : (MMFF number 18)  SULFATE SULFUR                                   </dt>
+       <dt>'<b>=SO2</b>' : (MMFF number 18)  SULFONE SULPHER DOUBLY BONDED TO CARBON          </dt>
+       <dt>'<b>SNO </b>' : (MMFF number 18)  SULFUR IN NITROGEN ANALOG OF A SULFONE           </dt>
+       <dt>'<b>STHI</b>' : (MMFF number 44)  SULFUR AS IN THIOPHENE                           </dt>
+       <dt>'<b>S-P </b>' : (MMFF number 72)  TERMINAL SULFUR BONDED TO PHOSPHORUS             </dt>
+       <dt>'<b>S2CM</b>' : (MMFF number 72)  TERMINAL SULFUR IN THIOCARBOXYLATE ANION         </dt>
+       <dt>'<b>SM  </b>' : (MMFF number 72)  TERMINAL SULFUR - FORMAL CHARGE=-1               </dt>
+       <dt>'<b>SSMO</b>' : (MMFF number 72)  TERMINAL SULFUR IN THIOSULFINATE GROUP           </dt>
+       <dt>'<b>SO2M</b>' : (MMFF number 73)  SULFUR IN NEGATIVELY CHARGED SULFINATE GROUP     </dt>
+       <dt>'<b>SSOM</b>' : (MMFF number 73)  TRICOORD SULFUR IN THIOSULFINATE GROUP           </dt>
+       <dt>'<b>=S=O</b>' : (MMFF number 74)  SULFINYL SULFUR, EG. IN C=S=O                    </dt>
+      </ul>
+      <dt><font color="red">Zinc</font></dt>
+      <ul>
+       <dt>'<b>ZINC</b>' : (MMFF number 95)  DIPOSITIVE ZINC                                  </dt>
+       <dt>'<b>ZN+2</b>' : (MMFF number 95)  DIPOSITIVE ZINC                                  </dt>
+      </ul>
+     </ul>
+     <b>Coulombic interactions</b> 
+     <ul>
+      This force field uses point charges and has been set up to assign the point charges using the bond increment method.
+      A nonzero base charge is applied to some atoms as noted in the atom descriptions seen above.
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

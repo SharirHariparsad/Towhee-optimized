@@ -1,0 +1,130 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: Morrow2002</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: Morrow and Maginn 2002</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the Morrow and Maginn 2002 (Morrow2002) force field as it is implemented into the towhee_ff_Morrow2002 file in the ForceFields directory.
+      This force field was designed for an ionic liquid of 1-<i>n</i>-butyl-3-methylimidazolium [bmim] hexafluorophosphate [PF<sub>6</sub>].
+      Note that this is a Lennard-Jones force field that uses the 'Lorentz-Berthelot' mixing rules.
+      Any discrepencies (especially typos) from the published values are the sole responsibility of Marcus Martin,
+      and I welcome feedback on how this implementation compares with other programs.
+     </ul>
+     <b>References for Morrow and Maginn 2002</b> 
+     <ul>
+      This forcefield is described in a single paper and an erratum.
+      <ul>
+       <li><a href="../references.html#morrow_maginn_2002">Morrow and Maginn 2002</a></li>
+       <li><a href="../references.html#morrow_maginn_2003">Morrow and Maginn 2003</a> erratum</li>
+      </ul>
+     </ul>	
+     <b>Typos and comments for Morrow and Maginn 2002</b>
+     <ul>
+      <li>The parameters implemented for this force field are from the erratum.</li>
+      <li>All bonds involving hydrogen were held rigid in their work using SHAKE, and are therefore implemented here as rigid bonds.</li>
+      <li>Full Lennard-Jones interactions are used for 1-4 interactions, while the Coulombic 1-4 terms are scaled by 1/2 
+       [personal communication between E.J. Maginn and M.G. Martin 04-21-2006].
+      </li>
+      <li>The second to last angle term in Table 2 of the erratum should read N-C<sub>7</sub>-H<sub>7,8</sub> instead of 
+       N-C<sub>7</sub>-H<sub>8,9</sub> [personal communication between E.J. Maginn and M.G. Martin 04-21-2006].
+      </li>
+      <li>No value for the H-C8-C9-H dihedral was specified in their papers.  It has been implemented here using the published 
+       H-C7-C8-H term.
+      </li>
+      <li>The authors claim that the charge on PF<sub>6</sub> adds up to -0.904, and the charge on bmim adds up to 0.904.  However, 
+       the partial charges they list for PF<sub>6</sub> using assymmetric charge assignments adds up to -0.903, which does not properly 
+       balance the charge of the bmin.  I have adjusted this by utlizing the stated charges on the Fluorines, and placing the remainder of 
+       the charge on the Phosphorous.
+     </ul>
+     <b>Morrow and Maginn 2002 in Towhee</b> 
+     <ul>
+      The official force field name for Morrow and Maginn 2002 in Towhee is 'Morrow2002'.
+      This list contains atom names for use in the towhee_input file, along with a brief description.
+      These names correspond to those used in <a href="../references.html#morrow_maginn_2002">Morrow and Maginn 2002</a>.
+      Please note that the capitalization and spacing pattern is important and must be followed exactly as listed here.
+      <ul>
+       <dt>'<b>N1</b>' : Ring Nitrogen bonded to C2, C5, and C7 in bmim</dt>
+       <dt>'<b>C2</b>' : Ring Carbon bonded to N1, N3, and H1 in bmim</dt>
+       <dt>'<b>N3</b>' : Ring Nitrogen bonded to C2, C4, and C6 in bmim</dt>
+       <dt>'<b>C4</b>' : Ring Carbon bonded to N3, C5, and H2 in bmim</dt>
+       <dt>'<b>C5</b>' : Ring Carbon bonded to N1, C4, and H3 in bmim</dt>
+       <dt>'<b>C6</b>' : methyl Carbon bonded to N3, H4, H5, and H6 in bmim</dt>
+       <dt>'<b>C7</b>' : methylene Carbon bonded to N1, C8, H7, and H8 in bmim</dt>
+       <dt>'<b>C8</b>' : methylene Carbon bonded to C7, C9, H9, and H10 in bmim</dt>
+       <dt>'<b>C9</b>' : methylene Carbon bonded to C8, C10, H11, and H12 in bmim</dt>
+       <dt>'<b>C10</b>' : methyl Carbon bonded to C9, H13, H14, and H15 in bmim</dt>
+       <dt>'<b>H1</b>' : Hydrogen bonded to C2 in bmim</dt>
+       <dt>'<b>H2</b>' : Hydrogen bonded to C4 in bmim</dt>
+       <dt>'<b>H3</b>' : Hydrogen bonded to C5 in bmim</dt>
+       <dt>'<b>H4</b>' : Hydrogen bonded to C6 in bmim</dt>
+       <dt>'<b>H5</b>' : Hydrogen bonded to C6 in bmim</dt>
+       <dt>'<b>H6</b>' : Hydrogen bonded to C6 in bmim</dt>
+       <dt>'<b>H7</b>' : Hydrogen bonded to C7 in bmim</dt>
+       <dt>'<b>H8</b>' : Hydrogen bonded to C7 in bmim</dt>
+       <dt>'<b>H9</b>' : Hydrogen bonded to C8 in bmim</dt>
+       <dt>'<b>H10</b>' : Hydrogen bonded to C8 in bmim</dt>
+       <dt>'<b>H11</b>' : Hydrogen bonded to C9 in bmim</dt>
+       <dt>'<b>H12</b>' : Hydrogen bonded to C9 in bmim</dt>
+       <dt>'<b>H13</b>' : Hydrogen bonded to C10 in bmim</dt>
+       <dt>'<b>H14</b>' : Hydrogen bonded to C10 in bmim</dt>
+       <dt>'<b>H15</b>' : Hydrogen bonded to C10 in bmim</dt>
+       <dt>'<b>P</b>' : P in hexafluorophosphate</dt>
+       <dt>'<b>F</b>' : generic F in hexafluorophosphate if you want to use the symmetric charge distribution 
+	version of that molecule.
+       </dt>
+       <dt>'<b>F1</b>' : specific F in hexafluorophosphate if you want to use the assymmetric charge distribution 
+	version of that molecule.
+       </dt>
+       <dt>'<b>F2</b>' : specific F in hexafluorophosphate if you want to use the assymmetric charge distribution 
+	version of that molecule.
+       </dt>
+       <dt>'<b>F3</b>' : specific F in hexafluorophosphate if you want to use the assymmetric charge distribution 
+	version of that molecule.
+       </dt>
+       <dt>'<b>F4</b>' : specific F in hexafluorophosphate if you want to use the assymmetric charge distribution 
+	version of that molecule.
+       </dt>
+       <dt>'<b>F5</b>' : specific F in hexafluorophosphate if you want to use the assymmetric charge distribution 
+	version of that molecule.
+       </dt>
+       <dt>'<b>F6</b>' : specific F in hexafluorophosphate if you want to use the assymmetric charge distribution 
+	version of that molecule.
+       </dt>
+      </ul>
+     </ul>
+     <b>Coulombic interactions</b> 
+     <ul>
+      This force field uses point charges and has been set up to assign the point charges using the bond increment method.
+      The charges for bmim are assigned according to Table 1 of 
+      <a href="../references.html#morrow_maginn_2002">Morrow and Maginn 2002</a>.
+      There are two possible charge distributions for hexafluorophosphate.  If you specify each of the Fluorine atoms (F1, ..., F6) 
+      then the charges are assigned according to Table 1 of
+      <a href="../references.html#morrow_maginn_2002">Morrow and Maginn 2002</a>, with the exception that the P charge is 1.457 instead 
+      of the stated 1.478 (see the notes above).  If you specify a generic Fluorine atom (F), then
+      the charge on the Phosphorous is the same as in Table 1, while the Fluorines are assigned symmetric charges in order to achieve 
+      a total molecule charge of -0.904.
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+     <p>&nbsp;</p>
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

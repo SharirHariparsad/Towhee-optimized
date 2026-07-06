@@ -1,0 +1,75 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: Charmm27 Rigid Water</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: Charmm27 Rigid Water</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the Charmm27 Rigid Water force field as it is implemented into the towhee_ff_C27rigid file in the ForceFields directory.  
+      All of the Towhee atom types for this force field are listed, along with a short description of their meanings.  
+      This is a Lennard-Jones (12-6) force field and typically uses the Lorentz-Berthelot mixing rules.
+      It uses the same parameters as the regular <a href="charmm27.html">Charmm27</a> force field, with the notable exception that all 
+      of the intramolecular terms are rigid.
+      Any discrepencies (especially typos) from the published force field values are the sole responsibility of Marcus Martin,
+      and I welcome feedback on how this implementation compares with other programs.
+     </ul>
+     <b>References for Charmm27 Rigid Water</b> 
+     <ul>
+      The best literature references for the Charmm27 forcefield parameters are
+      <ul>
+       <li><a href="../references.html#foloppe_mackerell_2000">Foloppe and MacKerell 2000</a></li>
+      </ul>
+      and 
+      <ul>
+       <li><a href="../references.html#mackerell_et_al_1998">MacKerell <i> et al.</i> 1998</a>.</li>
+      </ul>
+      More information about the Charmm27 forcefield is available on the Towhee 
+      <a href="charmm27.html">Charmm27</a> web manual page.  C27rigid is simply a rigid implementation 
+      of the Charmm27 water model where the equilibrium values of the bond and angle are set to be rigid 
+      instead of flexible.  This force field was implemented to allow comparison with simulations using the 
+      standard molecular dynamics practice of freezing out intramolecular motion in water in order to speed the simuluations.
+     </ul>
+     <b>C27rigid in Towhee</b> 
+     <ul>
+      The official force field name for Charmm27 Rigid Water in Towhee is 'C27rigid'.
+      This list contains all of the atom names for use in the towhee_input file, along with a brief description.
+      Please note that the capitalization and spacing pattern is important and must be followed exactly as listed here.
+      <ul>
+       <dt><font color="red">Hydrogen</font></dt>
+       <dt>'<b>HT</b>' : Water hydrogen, modified TIP3P model</dt>
+       <dt><font color="red">Oxygen</font></dt>
+       <dt>'<b>OT</b>' : Water oxygen, modified TIP3P model</dt>
+      </ul>
+     </ul>
+     <b>Coulombic Interactions</b> 
+     <ul>
+      Charmm27 Rigid Water utilizes point charges on atomic centers to represent the charge distribution on a molecule.
+      The 'bond increment' method for assigning charges is implemented for this force field.
+      Here I list the bond increments for the atom names listed above.  The value of the bond increment is added 
+      to the first atom listed and subtracted from the second atom listed.
+      <ul>
+       <dt><b>HT</b> - <b>OT</b>: 0.417</dt>
+      </ul>
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

@@ -1,0 +1,934 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: Code Manual</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: Code Manual</font></b> </font>
+     </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"> 
+    <IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/>
+   </A>
+   <tr> 
+    <td valign="top"> 
+     <p>&nbsp; </p>
+     <p>&nbsp;</p>
+    </td>
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section explains the general structure of the Towhee program and also includes instructions on compiling Towhee.  This page is only maintained
+      for the current version of the Towhee code.  It was last updated for version 8.0.0.
+     </ul>
+     <b>Compiling</b> 
+     <ul>
+      Towhee versions 3.9.8 or later have a configure and Makefile setup that allows automatic setting of the Makefile parameters on
+      most platforms.  This requires the use of two fairly standard freely available programs.
+      <dt><a href="http://ftp.gnu.org/gnu/autoconf/">autoconf</a> Version 2.59 or later and</dt>
+      <dt><a href="http://www.gnu.org/software/automake/">automake</a> Version 1.7.4 or later</dt>
+      <p></p>
+      <font color="red">Compiling on a Unix/Linux Operating System using compilers similar to GNU</font>
+      <dt>In the top level directory issue the command</dt>
+      <dt><code>./configure</code></dt>
+      This should automatically set up Makefiles in the Source directory which will create an optimal build for your machine.  Then go into the Source
+      directory
+      <ul><code>cd Source</code></ul>
+      and type
+      <ul><code>make towhee</code></ul> 
+      Please note that older Linux distributions might require the
+      <ul><code>./configure --enable-fix-GNU</code></ul>
+      option.  Please see the Configure Options Section below for more information.
+      <p></p>
+      <font color="red">Compiling on an Apple OS-X Operating System</font>
+      <dt>Useful instructions and software for high performance computing on OS-X is available at
+       <a href="http://hpc.sourceforge.net/">http://hpc.sourceforge.net/</a>.
+      </dt>
+      <dt>Compiling Towhee on OS-X is very similar to compiling on a Unix/Linux operating system.  Users on older versions 
+       of OS-X may experience something similar to the following error message when they compile.
+       <ul>
+        <dt><code>ld: Undefined symbols:</code></dt>
+        <dt><code>restFP</code></dt>
+        <dt><code>saveFP</code></dt>
+        <dt><code>make: *** [towhee] Error 1</code></dt>
+       </ul>
+      </dt>
+      If this happens then you need to configure including the following option
+      <ul><code>./configure LDFLAGS=-lcc_dynamic</code></ul>
+      and recompile.
+      <p></p>
+      <font color="red">Compiling on a Windows 10 Operating System using the Linux Subsystem</font>
+      <dt>Towhee is designed for compilation in a Unix style environment and the easiest way to get that on a Windows 10 computer is to install the linux subsystem.
+       Microsoft has a <a href ="https://docs.microsoft.com/en-us/windows/wsl/install-win10">Windows 10 linux subsystem installation guide</a>.  Once you have that
+       running you just need to follow the usual Linux directions to install all the required compilation packages.
+      </dt>
+      <p></p>
+      <font color="red">Compiling on a Windows Operating System using Cygwin</font>
+      <dt>Towhee is designed for compilation in a Unix style environment.  Previously, we suggested Windows users should utilize the freely available
+       <a href="http://www.cygwin.com/">Cygwin</a> software, but Windows 10 now supports a linux installation that is the suggested best option.
+       For those still using the Cygwin environment, once you have installed Cygwin and the appropriate additional software
+       (Fortran compiler, C compiler, autoconf and automake) you then follow the normal Towhee compilation procedure with one important exception.  Cygwin 
+       appends a '.exe' to any executable so the commands for compilation include an extra '.exe' compared with the Unix/Linux environment.
+      </dt>
+      <ul>
+       <dt><code>./configure</code></dt>
+       <dt><code>cd Source</code></dt>
+       <dt><code>make towhee.exe</code></dt>
+      </ul>
+      <p></p>
+      <font color="red">Compiling on a Windows Operating System using Intel's Visual Fortran and Microsoft's Visual C++. </font>
+      <dt> In addition to the standard towhee code, the following standard unix functionality is provided:
+       <ul>
+	<li>
+	 dirent.h : <a href="http://pubs.opengroup.org/onlinepubs/7908799/xsh/dirent.h.html">dirent</a> API for MSVC++ (located in towhee-x.x.xx\vs_towhee\dirent)
+	</li>
+	<li>unistd.h : a subset of the complete Unix file is used (located in towhee-x.x.xx\vs_towhee\dirent)</li>
+	<li>getopt: <a href="http://argtable.sourceforge.net">atgtable</a> is an ANSI C library for parsing GNU style command line 
+         options (located in towhee-x.x.xx\vs_towhee\argtable2-12)
+	</li>
+       </ul>
+      </dt>
+      <dt>Microsoft Visual Studio 2008 and Intel Visual Fortran (11.1.xxx) should be installed. Fortran libraries path should be added
+       in the CV++ directories (Tools/Options | Projects and Solutions | VC++ Directories). Open the towhee solution 
+       (towhee-x.x.xx\vs_towhee\towhee\towhee.sln), select the desired configuration and press build. The produced executables will
+       be placed under towhee-x.x.xx\vs_towhee\towhee\Release directory for the release configuration. Please note that the mpi
+       version is not currently supported.</dt>
+      <p></p>
+      <font color="red">Configure options in Towhee</font>
+      <ul>
+       <li><code>./configure --enable-safe-compare</code>
+        <dt>Using this flag turns on some slightly more expensive comparison routines that serve to make the results for the Examples exactly match between
+         different machines.  It also sets bounds checking and turns on compiler warning messages.  This option is used to create the answer_current 
+         and par_answer_current files in the Examples directory.
+	</dt>
+       </li>
+       <li><code>./configure --enable-mpi</code>
+        <dt>This option builds an MPI version of Towhee.  Note that for some machines it is actually easier to get the machine to compile using the MPI 
+         options and you can still run single processor jobs with this version.  Consult the 
+         <a href="../towhee_parallel.html">towhee_parallel</a> manual for more information about this option.
+        </dt>
+       </li>
+       <li><code>./configure --enable-fix-GNU</code>
+        <dt>This option turns on the -fno-second-underscore flag on the fortran compile line in order to remove double underscores trailing a routine when there
+         is already an underscore in the routine name.  If you are seeing errors that involve double underscores, such as
+         <ul>undefined reference to '_twh_moltyp__'</ul>
+         and you are using the GNU compilers, then this option might solve your problems.
+	</dt>
+       </li>
+       <li><code>./configure --enable-internal</code>
+        <dt>Some compilers do not include the error function intrinsics.  Towhee includes some internal versions of the error function routines for use
+         when the intrinsics are lacking and this option forces Towhee to use the internally provided functions instead of the intrinsic versions.
+        </dt>
+       </li>
+       <li><code>./configure FFLAGS='-fbounds-check'</code>
+        <dt>where the items between the single quotes are the flags used for the Fortran compilation.</dt>
+       </li>
+       <li><code>./configure F77='pgf77' CC='pgcc'</code>
+        <dt>Sets the Fortran and C compilers to user specified values.  This example shows the command needed to set the compilers to PGI pgf77 and pgcc</dt>
+       </li>
+       <li><code>./configure ADDLIB='-L/usr/whoever/lib/'</code>
+        <dt>Adds user specified libraries into the link command.</dt>
+       </li>
+       <li><code>./configure --enable-tramonto</code>
+        <dt>Links the Tramonto classical density functional code into Towhee for use as a really fancy implicit solvent.  This option requires access to
+         the Tramonto code compiled as a library.  See the <a href="../software.html#tramonto">Tramonto</a> software link for more information.
+        </dt>
+       </li>
+       <li><code>./configure --disable-command-line-args</code>
+        <dt>Removes the ability of the code to read command line arguments.  This also defaults to a parallel style of "jobfarm" when combined with
+         an --enable-mpi configure option.  This option exists for users whose machines are unable to properly handle command line arguments, especially
+         for certain parallel machines.
+        </dt>
+       </li>
+       <li><code>./configure FFLAGS=''</code>
+        <dt>This turns off all of the Fortran compiler flags.  This is useful when compiling the forcefield utility as some of the subroutines for assigning
+         force field parameters are so large that optmization can cause some machines to run out of memory.
+        </dt>
+       </li>
+      </ul>
+      <p></p>
+      <font color="red">Compiling the forcefield utlitity</font>
+      <ul>
+       This utility is used to turn the force field implementation files (ffnameofforcefield.F) into text based towhee_ff file (towhee_ff_nameofforcefield).
+       Please note that the forcefield utility is only required for users who wish to generate new towhee_ff files, while the typical user will simply use
+       the towhee_ff files provided in the ForceFields directory.
+       <ul>
+	<dt><code>cd Source</code></dt>
+	<dt><code>make forcefield</code></dt>
+       </ul>
+       The majority of the official release towhee_ff files provided in the ForceFields directory are created using the following procedure.
+       <ul>
+	<dt><code>cd /towheebase/ForceFields</code></dt>
+	<dt><code>/towheebase/Source/forcefield</code></dt>
+	<dt><code>All</code></dt>
+       </ul>
+      </ul>
+     </ul>
+     <b>The .h files</b>
+     <ul>
+      <li><b><a name="preproc">preproc.h</a></b>
+       <dt>The preproc.h file is the only program file that a casual user will ever need to modify.  This file contains parameters which control the
+        dimensions of many of the most important arrays in Towhee.  Depending on your preproc.h settings, and the simulation you are trying to perform,
+        the code may produce an error message informing you that some variable exceeds some other variable.  If that is the case then you will need to 
+        modify the appropriate variable in preproc.h in order to accommodate your system.  You also might need to decrease some of the variables in
+        preproc.h if your machine does not have enough memory for the arrays.  Finally, some of the variables in preproc.h control certain settings that
+        almost never change, but may be useful for debugging purposes.
+       </dt>
+      </li>
+      <ul>
+       <li><b><a name="MAXBOX">MAXBOX</a></b> the maximum number of simulation boxes in the system.  
+        Minimum value of MAXBOX is 1.  No Maximum value for MAXBOX, but if it is set to more than 10 boxes then the pdb output will no longer function 
+        properly.
+       </li>
+       <li><b><a name="NUMAX">NUMAX</a></b> the maximum number of atoms in any molecule.  Minimum value is 1.  No maximum value.</li>
+       <li><b><a name="NTMAX">NTMAX</a></b> the maximum number of types of molecules in the simulation.  Minimum value is 1.  No maximum value.</li>
+       <li><b><a name="MAXKMAX">MAXKMAX</a></b> the maximum value for <b>kmax</b> in the Ewald sum.  Minimum value is 1.  No maximum value.</li>
+       <li><b><a name="VECTORMAX">VECTORMAX</a></b> the maximum number of reciprocal space vectors in the Ewald sum.
+        Starting with version 3.17.0 this variable is set based upon the value of <b>MAXKMAX</b>.
+       </li>
+       <li><b><a name="MAXBLOCK">MAXBLOCK</a></b> the maximum number of blocks for the block averaging.  Minimum value is 1.  No maximum value.</li>
+       <li><b><a name="FLDMAX">FLDMAX</a></b> the maximum number of external fields in the system.  Minimum value is 1.  No maximum value.</li>
+       <li><b><a name="NNTYPE">NNTYPE</a></b> the maximum number of different types of atoms allowed in the simulation.</li>
+       <li><b><a name="CROSSTYPEMAX">CROSSTYPEMAX</a></b> the maximum number of cross types, currently set to depend upon NNTYPE.</li>
+       <li><b><a name="MAXTABTYPE">MAXTABTYPE</a></b> the maximum number of types of atoms for tabular potentials.
+        Minimum value is 1.  Maximum value is NNTYPE.
+       </li>
+       <li><b><a name="MAXTABLE">MAXTABLE</a></b> the maximum number of entries to describe a tabular potential.
+        Minimum value is 1.  Maximum value is NNTYPE.
+       </li>
+       <li><b><a name="TVIBMAX">TVIBMAX</a></b> the maximum number of different types of vibrations in the simulation.</li>
+       <li><b><a name="TBENMAX">TBENMAX</a></b> the maximum number of different types of bending angles in the simulation.</li>
+       <li><b><a name="TTORMAX">TTORMAX</a></b> the maximum number of different types of regular torsions in the simulation.</li>
+       <li><b><a name="TIMPMAX">TIMPMAX</a></b> the maximum number of different types of improper torsions in the simulation.</li>
+       <li><b><a name="TAAMAX">TAAMAX</a></b> the maximum number of different types of angle-angle terms in the simulation.</li>
+       <li><b><a name="TOFMAX">TOFMAX</a></b> the maximum number of different types of special one-five terms in the simulation.</li>
+       <li><b><a name="THBONDMAX">THBONDMAX</a></b> the maximum number of different types of special hydrogen bond force field terms in the simulation.</li>
+       <li><b><a name="TBIMAX">TBIMAX</a></b> the maximum number of different types of bond increment terms in the simulation.</li>
+       <li><b><a name="NNBOND">NNBOND</a></b> the maximum number of bonds from any atom.
+        Minimum value is 1.  No maximum value, and currently set to a default of 6.
+       </li>
+       <li><b><a name="MMBOND">MMBOND</a></b> the maximum number of bonds from any atom for use in computing the maximum number of all of the intramolecular
+        terms that are  not just the number of vibrations.  It is completely safe to set this to the same value as <b>NNBOND</b>, but that can lead to 
+        overly large arrays dimensions beyond a value of 4.  Current default value is 4 and that should work for almost all systems as the larger value of 
+        <b>NNBOND</b> is there mainly for small molecule ions.
+       </li>
+       <li><b><a name="SMALLEST">SMALLEST</a></b> a value close to the smallest double precision number a computer can handle.
+        This is usually set to 1d-300.  There is no reason to adjust this unless your machine can handle significantly smaller numbers.
+       </li>
+       <li><b><a name="MAXPBOX">MAXPBOX</a></b> maximum number of simulation box combinations for the volume moves.
+        Currently set as a function of MAXBOX.
+       </li>
+       <li><b><a name="MAXTOR">MAXTOR</a></b> maximum number torsions originating from any single atom.  Currently set as a function of NNBOND.</li>
+       <li><b><a name="MAXBEND">MAXBEND</a></b> maximum number angles originating from any single atom.  Currently set as a function of NNBOND.</li>
+       <li><b><a name="MAXAA">MAXAA</a></b> maximum number of angle-angle terms originating from any single atom.  Currently set as a function of NNBOND.</li>
+       <li><b><a name="MAXIMPROP">MAXIMPROP</a></b> maximum number of improper torsion terms originating from any single atom.
+        Currently set as a function of NNBOND.
+       </li>
+       <li><b><a name="MAXOF">MAXOF</a></b> maximum number of special one-five terms originating from any single atom.
+        Currently set as a function of NNBOND.
+       </li>
+       <li><b><a name="MAXDIRLENGTH">MAXDIRLENGTH</a></b> maximum number of characters in the directory length.
+        This is used with some of the parallel features.
+       </li>
+       <li><b><a name="MAXIMPLICITTYPE">MAXIMPLICITTYPE</a></b> maximum number of types of atoms for the implicit force fields.</li>
+       <li><b><a name="MAXPIVOTBIN">MAXPIVOTBIN</a></b> maximum number of bins for the pivot bookkeeping.</li>
+       <li><b><a name="NDUMPHIST">NDUMPHIST</a></b> maximum allowable number of histogram computations before an output to file.</li>
+       <li><b><a name="MAXBAPROP">MAXBAPROP</a></b> maximum number of properties to average using the block averages routine.</li>
+       <li><b><a name="MAX_FOREIGN_LAMBDA">MAX_FOREIGN_LAMBDA</a></b> maximum number of (lambda_lj,lambda_c) pairs for which energy evaluations will
+        take place.  Relevant only for Scaled Lennard-Jones classical potential.
+       </li>
+       <li><b>Pound define aliases</b> the remainder of this file contains a series of variables that are pound defined to be integers.  This allows us
+        to use sensible variables to describe things like classical potential styles, but still have the computational expediency of integer compares
+        versus the relative expense of character string compares.
+       </li>
+      </ul>
+      <li><b><a name="globalc.h">globalc.h</a></b>
+       <dt>contains all of the global variables for the C portion of the code.</dt>
+      </li>
+     </ul>
+     <b>The .F files</b> 
+     <ul>
+      The bulk of Towhee is written in a slightly enhanced FORTRAN 77.  All of the FORTRAN subroutines and functions end with .F and they also contain
+      preprocessor directives.  All modern FORTRAN 77 compilers that I have tried are capable of handling the slight enhancements to standard FORTRAN 77
+      that are used in Towhee.  Below I list all of the .F files that are in Towhee.  These are broken up into several different classes of
+      subroutines/functions in order to make it easier to follow the logic of the code.
+      <dt><font color="red">Main program</font>
+       <ul>
+        <li><a name="mainloop.F"><b>mainloop.F</b>: this subroutine is the main control of the towhee code.  It calls readinput to read in the input files.
+          It initializes many of the statistics and safety features, and it determines which move to perform each step, and then calls the appropriate move
+          subroutine.  It also prints out most of the measured quantities at the end of the simulation.</a>
+        </li>
+       </ul>
+      <dt><font color="red">Input and Initialization</font>
+       <ul>
+        <li><a name="readinput.F"><b>readinput.F</b>: this subroutine opens the towhee_input and towhee_altinp files.  It then reads in the
+          <b>inputformat</b> variable from towhee_input.  This variable determines whether to call readtowhee, readlammps, or readdatabase.</a>
+        </li>
+        <li><a name="readtowhee.F"><b>readtowhee.F</b>: this subroutine reads in the data from towhee_input and towhee_initial.  It calls the other
+          input routines if they are needed, it calls the force field routines to initialize parameters, and it performs some error checking.  If the
+          code stops before performing any Monte Carlo moves, then readinput is the first place to check.</a>
+        </li>
+        <li><a name="rwcbmc.F"><b>rwcbmc.F</b>: this subroutine reads in from towhee_input or write out to towhee_altinp all of the variables related
+          to the configurational-bias Monte Carlo move settings.</a>
+        </li>
+        <li><a name="readlammps.F"><b>readlammps.F</b>: this subroutine reads information from the lammps_input and lammps_data files in order to create
+          towhee files for use in a Towhee simulation run.  This subroutine outputs lammps_coords_## files, a towhee_altinp file, and a towhee_ff file.</a>
+        </li>
+        <li><a name="rwforcefield.F"><b>rwforcefield.F</b>: this subroutine either reads or writes all of the force field information to towhee_ff.</a></li>
+        <li><a name="readclassical.F"><b>readclassical.F</b>: this subroutine reads all of the variables that are required when <b>potentialstyle</b>
+          is 'classical'</a>
+        </li>
+        <li><a name="setpotentiallogic.F"><b>setpotentiallogic.F</b>: this subroutine sets up all of logicals that determine which additional terms are
+          read or written for each kind of <b>classical_potential</b></a>
+        </li>
+        <li><a name="buildhelix.F"><b>buildhelix.F</b>: this subroutine constructs a helical initial configuration using the helix_keyatom and then uses
+          configurational-bias to grow in the rest of the atoms.</a>
+        </li>
+        <li><a name="helixpos.F"><b>helixpos.F</b>: this subroutine returns a position on a helix.</a></li>
+        <li><a name="buildmolec.F"><b>buildmolec.F</b>: this subroutine constructs the molecule information arrays for any molecule that has an inpstyle
+          of 2.  It reads in all of the data for those molecules, and then calls assemble to put everything together.</a>
+        </li>
+        <li><a name="buildna.F"><b>buildna.F</b>: this subroutine constructs the molecules information arrays for any molecule that has an inpstyle of 3.
+          It read in all of the data for those molecules, constructs a map of atom names and vibrations using the various polyxxx.F routines, 
+          and then calls assemble to put everything together.</a>
+        </li>
+        <li><a name="buildnanotube.F"><b>buildnanotube.F</b>: this subroutine constructs an initial nanotube conformation and also assigns all of the
+          bonded terms needed to construct a nanotube molecule.  This is called when using inpstyle 4.</a>
+        </li>
+        <li><a name="buildprot.F"><b>buildprot.F</b>: this subroutine constructs the molecules information arrays for any molecule that has an
+          inpstyle of 1.  It read in all of the data for those molecules, constructs a map of atom names and vibrations using the various polyxxx.F routines, 
+          and then calls assemble to put everything together.</a>
+        </li>
+        <li><a name="polyamber96.F"><b>polyamber96.F</b>: this subroutine contains templates for the amino acids for use with the Amber96 force field.
+          This routine is called by buildprot.F</a>
+        </li>
+        <li><a name="polyc19eef.F"><b>polyc19eef.F</b>: this subroutine contains templates for the amino acids for use with the C19eef force field.
+          This routine is called by buildprot.F</a>
+        </li>
+        <li><a name="polycharmm19.F"><b>polycharmm19.F</b>: this subroutine contains templates for the amino acids for use with the Charmm19 force field.
+          This routine is called by buildprot.F</a>
+        </li>
+        <li><a name="polycharmm22.F"><b>polycharmm22.F</b>: this subroutine contains templates for the amino acids for use with the Charmm22 force field.
+          This routine is called by buildprot.F</a>
+        </li>
+        <li><a name="polycharmm27.F"><b>polycharmm27.F</b>: this subroutine contains templates for the amino acids for use with the Charmm27 force field.
+          This routine is called by buildprot.F.</a>
+        </li>
+        <li><a name="polycharmm27.F"><b>polycharmm27na.F</b>: this subroutine contains templates for the nucleic acids for use with the Charmm27 force
+          field.  This routine is called by buildna.F.</a>
+        </li>
+        <li><a name="polysafetycheck.F"><b>polysafetycheck.F</b>: this subroutine checks to see if there is enough memory left in the molecule template
+          arrays for the requested new atoms when building molecules using the poly*.F routines.</a>
+        </li>
+        <li><a name="monomers.F"><b>monomers.F</b>: contains shared information for each monomer that is used in the poly*.F routines.</a></li>
+        <li><a name="assemble.F"><b>assemble.F</b>: this subroutine takes atom names and a vibration map and determines all of the parameters needed for
+          atoms, vibrations, bending angles, regular torsions, and angle-angle terms.  It also determines the type of any improper torsion interactions.</a>
+        </li>
+        <li><a name="createmolecule.F"><b>createmolecule.F</b>: this subroutine is used with the readlammps functionality.  This takes the connectivity
+          map generated in readlammps and turns it into the molecule data structures needed for Towhee.</a>
+        </li>
+        <li><a name="comparestruc.F"><b>comparestruc.F</b>: this subroutine is used with the readlammps functionality.  It compares two molecule data
+          structures to see if they are identical.</a>
+        </li>
+        <li><a name="getelement.F"><b>getelement.F</b>: this subroutine is used with the readlammps functionality.  This takes an elemental mass read in
+          by readlammps and turns it into an element name for use with the pdb writer.</a>
+        </li>
+        <li><a name="setmixterms.F"><b>setmixterms.F</b>: this subroutine sets up all of nonbonded cross terms according to the mixing rule.  It also
+          converts all of the angles into radians.</a>
+        </li>
+        <li><a name="checkstruc.F"><b>checkstruc.F</b>: this subroutine sets up the bond-bond information, and it also performs extensive error checking
+          on all of the molecules to make sure that they are set up in a consistent manner.</a>
+        </li>
+        <li><a name="findrings.F"><b>findrings.F</b>: this subroutine sets up data structures that are used when performing configurational-bias on
+          molecules which contain cyclic moieties, or on proteins.</a>
+        </li>
+        <li><a name="initaverages.F"><b>initaverages.F</b>: this subroutine initializes all of the quantities that are tracked by the averages.F
+          subroutine.  Called from mainloop.F</a>
+        </li>
+        <li><a name="initconf.F"><b>initconf.F</b>: this subroutine sets up an initial conformation when linit is true.  Otherwise the initial
+          conformation is read from towhee_initial.</a>
+        </li>
+        <li><a name="initialize.F"><b>initialize.F</b>: this subroutine initializes many of the input variables.  It is called from readinput before
+          any variable are read from the input files.</a>
+        </li>
+       </ul>
+      </dt>
+      <dt><font color="red">Monte Carlo Moves and Move Support</font></dt>
+      <ul>
+       <li><a name="volumemoves.F"><b>volumemoves.F</b>: these subroutines perform volume change moves on either a single box (NPT) or on a pair of
+	 simulation boxes (NVT) and the move is accepted based on the energy change, number density, and (in the NPT case) the specified external pressure.
+	 The molecule positions are all scaled based upon their centers of mass so there are no changes to the bonded energies, although the intramolecular
+	 energy could change if you are using periodic boundary conditions with a large molecule.  Note that you cannot currently use this move with a molecule
+	 that is bonded through the periodic boundary condition (eg cannot handle breathing modes of a flexible zeolite).</a>
+       </li>
+       <li><a name="updatevolmaxdisp.F"><b>updatevolmaxdisp.F</b>: this subroutine periodically update the maximum volume displacements in an attempt
+         to achieve the target acceptance rate set by the user.
+       </li>
+       <li><a name="swapmoves.F"><b>swapmoves.F</b>: this subroutine performs all of the molecule swap moves.  This includes 2-box configurational-bias
+         molecule transfer, 1-box configurational-bias molecule reinsertion, 2-box rotational-bias molecule transfer, and the aggregation-volume-bias
+         moves.
+       </li>
+       <li><a name="cbregrow.F"><b>cbregrow.F</b>: this subroutine performs a configurational-bias molecule regrowth move.  This is different from
+         the intrabox molecule transfer move because at least one atom of the target molecule remains in the same location.  This subroutine performs
+         either the standard regrowth (pmcb), or a special backbone regrowth move (pmback) using the 
+         <a href="../algorithm/cbmc.html">configurational-bias</a> algorithm.</a>
+       </li>
+       <li><a name="conrot.F"><b>conrot.F</b>: this subroutine performs a concerted rotation move.  This move is designed to change the torsional
+         conformation of several interior atoms simultaneously while keeping the bond lengths and bending angles constant.</a>
+       </li>
+       <li><a name="initloopclosure.F"><b>initloopclosure.F</b>: this subroutine initializes the variables used in a concerted rotation move.</a></li>
+       <li><a name="loopclosure.F"><b>loopclosure.F</b>: this subroutine performs the loop closure for the concerted rotation move.</a></li>
+       <li><a name="pivot.F"><b>pivot.F</b>: this subroutine performs the pivot move.  This move is designed to rotate part of the molecule around
+         a single torsional bond.</a>
+       </li>
+       <li><a name="atomshift.F"><b>atomshift.F</b>: this subroutine performs the plane-shift and row-shift moves.  These moves are designed to move
+         groups of molecules at the same time.</a>
+       </li>
+       <li><a name="tranatom.F"><b>tranatom.F</b>: this subroutine performs a translation move (in a random direction) upon one randomly selected atom
+         of a molecule.  The move is accepted based upon the energy change.  This move is useful for large networked molecules (like zeolites),
+         or for large molecules for which the configurational-bias moves have a low acceptance rate (like proteins).</a>
+       </li>
+       <li><a name="trancom.F"><b>trancom.F</b>: this subroutine attempts to move an entire molecule in a random direction.  The move is accepted based
+         upon the energy change.</a>
+       </li>
+       <li><a name="rotate.F"><b>rotate.F</b>: this subroutine attempts to rotate a molecule about a random axis that runs through the center of mass
+         of the molecule.  This move will not work properly for a molecule that is bonded through the periodic boundaries (like zeolites).  The move
+         is accepted based upon the energy change.</a>
+       </li>
+       <li><a name="updatetrmaxdisp.F"><b>updatetrmaxdisp.F</b>: this subroutine periodically updates the maximum translation and rotation values in
+         an attempt to achieve the target acceptance rate set in towhee_input.
+       </li>
+       <li><a name="reseteamrho.F"><b>reseteamrho.F</b>: this subroutine sets the EAM densities to the new values when a move is accepted using the
+         Embedded Atom Method potential.</a>
+       </li>
+       <li><a name="resetewald.F"><b>resetewald.F</b>: this subroutine sets the Ewald sum parameters either at the beginning of the simulation, or when
+         a volume change is attempted.</a>
+       </li>
+      </ul>
+      <dt><font color="red">Configurational-bias support routines</font></dt>
+      <ul>
+       <li><a name="schedule.F"><b>schedule.F</b>: this subroutine sets up the growth schedule for all of the moves that use the 
+         <a href="../algorithm/cbmc.html">configurational-bias</a> algorithm.  This is the heart of the logic that controls the configurational-bias moves so you
+         should be very careful about making changes in this subroutine.</a>
+       </li>
+       <li><a name="rosenbluth.F"><b>rosenbluth.F</b>: this subroutine is the main control for all of the moves that use the 
+         <a href="../algorithm/cbmc.html">configurational-bias</a> algorithm.  It grows either the new or old conformation of the molecule according to the plan
+         determined in schedule.</a>
+       </li>
+       <li><a name="getcbbond.F"><b>getcbbond.F</b>: this subroutine constructs the bond lengths during a configurational-bias move.</a></li>
+       <li><a name="getcbangle.F"><b>getcbangle.F</b>: this subroutine constructs the bond bending angles during a configurational-bias move.</a></li>
+       <li><a name="getcbdihed.F"><b>getcbdihed.F</b>: this subroutine constructs the dihedral angles during a configurational-bias move.</a></li>
+       <li><a name="setcbdihed.F"><b>setcbdihed.F</b>: this subroutine constructs the logic needed to generate dihedral angles during a
+         configurational-bias move.</a>
+       </li>
+       <li><a name="dihedral_distribution.F"><b>dihedral_distribution.F</b>: this subroutine generates the dihedral trial conformations according to
+         the appropriate arbitrary trial distribution.
+       </li>
+       <li><a name="getweight.F"><b>getweight.F</b>: this subroutine turns a trial energy into a Rosenbluth weight.  It makes sure that the weight
+         returned does not go below machine precision by returning the weight as an integer scale factor and a double precision residual weight.</a>
+       </li>
+       <li><a name="resetcbmc.F"><b>resetcbmc.F</b>: this subroutine resets all of the energy and weight variables at the start of a cbmc or
+         rotational-bias move.</a>
+       </li>
+       <li><a name="cone.F"><b>cone.F</b>: this subroutine is used to convert between Cartesian coordinates and spherical coordinates.</a></li>
+       <li><a name="coneangle.F"><b>coneangle.F</b>: this subroutine takes two unit vectors in spherical coordinates and computes the angle between
+         them.</a>
+       </li>
+       <li><a name="sphere.F"><b>sphere.F</b>: this subroutine randomly generates a unit vector on the unit sphere.</a></li>
+       <li><a name="gaussian.F"><b>gaussian.F</b>: this function returns a number from a specified gaussian distribution.</a></li>
+       <li><a name="gaussprob.F"><b>gaussprob.F</b>: this function returns the probability density for taking a number from a specified gaussian
+         distribution.</a>
+       </li>
+       <li><a name="febias.F"><b>febias.F</b>: this function computes the bias that is used when performing a fixed-endpoint configurational-bias
+         move.</a>
+       </li>
+       <li><a name="findtarget.F"><b>findtarget.F</b>: this subroutine finds a target molecule for all of the swapmoves when they need to find a
+         molecule that is in a certain region of space.</a>
+       </li>
+       <li><a name="rotationmatrix.F"><b>rotationmatrix.F</b>: this subroutine performs a rotation about the x, y, and z axes.  This is used with
+         both the rotation move, and with the rotational-bias move.</a>
+       </li>
+       <li><a name="updatetwobondbias.F"><b>updatetwobondbias.F</b>: this subroutine periodically updates the variables associated with self-adapting
+         two-bond fixed-endpoint biasing.
+       </li>
+       <li><a name="updatethreebondbias.F"><b>updatethreebondbias.F</b>: this subroutine periodically updates the variables associated with self-adapting
+         three-bond fixed-endpoint biasing.
+       </li>
+       <li><a name="atd_cbmc_setup.F"><b>atd_cbmc_setup.F</b>: this subroutine sets up all of the arbitrarty trial distribution parameters required
+	 when using advanced CBMC growth strategies.
+       </li>
+      </ul>
+      <dt><font color="red">Energy and Pressure Routines</font></dt>
+      <ul>
+       <li><a name="engtotal.F"><b>engtotal.F</b>: this subroutine computes the total energy for one of the simulation boxes.  There is a special option
+         for volume move calls to this routine that computes the total energy, except for the bonded intramolecular terms.  All nonbonded inter- and
+         intra-molecular terms are computed.</a>
+       </li>
+       <li><a name="energy_change.F"><b>energy_change.F</b>: the subroutines in this file compute the energy change of a subset of atoms or molecules
+         with the rest of the system.</a>
+       </li>
+       <li><a name="energy.F"><b>energy.F</b>: this subroutines in this file compute the energy of a subset of atoms or molecules with the rest of the
+         system.</a>
+       </li>
+       <li><a name="engatom.F"><b>engatom.F</b>: this subroutine computes the energy of a list of atoms with the rest of the atoms in one simulation box.
+         This is used with the configurational-bias moves.</a>
+       </li>
+       <li><a name="bondorder.F"><b>bondorder.F</b>: this subroutine computes the bond order for use with multibody force fields.</a></li>
+       <li><a name="vbond.F"><b>vbond.F</b>: this function computes a single bond vibration energy.</a></li>
+       <li><a name="vbonbon.F"><b>vbonbon.F</b>: this function computes a single Class 2 bond-bond energy.</a></li>
+       <li><a name="vangle.F"><b>vangle.F</b>: this function computes a single bending angle energy.</a></li>
+       <li><a name="vangang.F"><b>vangang.F</b>: this function computes a single Class 2 angle-angle energy.</a></li>
+       <li><a name="vcoulomb.F"><b>vcoulomb.F</b>: this function computes real-space coulombic energy between two atoms.</a></li>
+       <li><a name="vfield.F"><b>vfield.F</b>: this function computes the interaction energy of an atom with all of the external fields.</a></li>
+       <li><a name="vimproper.F"><b>vimproper.F</b>: this function computes an improper torsion energy.</a></li>
+       <li><a name="vtorsion.F"><b>vtorsion.F</b>: this function computes a regular torsion energy.</a></li>
+       <li><a name="vtwobody.F"><b>vtwobody.F</b>: this function computes the van der Waals energy between two atoms.</a></li>
+       <li><a name="vthreebody.F"><b>vthreebody.F</b>: this function computes a three-body term between three atoms which are not bonded to each other
+         but interact via a three body force field</a>
+       </li>
+       <li><a name="vembed.F"><b>vembed.F</b>: this function computes the embedding energy for the EAM potential</a></li>
+       <li><a name="veefone.F"><b>veefone.F</b>: this function computes the solvation energy using the EEF1 implicit solvent.</a></li>
+       <li><a name="vsasa.F"><b>vsasa.F</b>: this function computes the solvation energy using the SASA implicit solvent.</a></li>
+       <li><a name="fielddft.F"><b>fielddft.F</b>: this subroutine controls the computation of the solvation free energies using the molecular
+         density functional theory program Tramonto.</a>
+       </li>
+       <li><a name="stresstensor.F"><b>stresstensor.F</b>: this subroutine computes the stress tensor and pressure in a simulation box.</a></li>
+       <li><a name="wtwobody.F"><b>wtwobody.F</b>: this subroutine computes the intermolecular pair virial function divided by r<sup>2</sup> as defined
+          by equation 2.60 in <a href="../references.html#allen_and_tildesley">Allen and Tildesley</a></a>
+       </li>
+       <li><a name="recip.F"><b>recip.F</b>: this subroutine updates the stored sums that are used to reduce the cost of the Ewald sum for single
+         molecule moves.</a>
+       </li>
+       <li><a name="recippress.F"><b>recippress.F</b>: this subroutine computes the reciprocal space contribution to the pressure using the Ewald
+         sum</a>
+       </li>
+       <li><a name="recipsum.F"><b>recipsum.F</b>: this subroutine computes the reciprocal space portion of the Ewald sum for an entire simulation
+         box.</a>
+       </li>
+       <li><a name="tail.F"><b>tail.F</b>: this subroutine calculates the values needed to compute analytical tail corrections to the energy and
+         pressure.</a>
+       </li>
+       <li><a name="interpolate.F"><b>interpolate.F</b>: this file contains several functions that interpolate the cubic splines used with the embedded
+         atom potential.</a>
+       </li>
+       <li><a name="spline.F"><b>spline.F</b>: this subroutine sets up the cubic splines that are used in the lookup tables for the embedded-atom
+         potential.</a>
+       </li>
+      </ul>
+      <dt><font color="red">Output and Averages</font></dt>
+      <ul>
+       <li><a name="averages.F"><b>averages.F</b>: this subroutine keeps track of the data structures used to perform the regular and block averaging
+         during the simulation.</a>
+       </li>
+       <li><a name="accumulateaverages.F"><b>accumulateaverages.F</b>: this subroutine controls the averaging operations that occur at the end each
+         move.</a>
+       </li>
+       <li><a name="pupdate.F"><b>pupdate.F</b>: this subroutine controls the averaging operations that occur at the end of a block.</a></li>
+       <li><a name="openfile.F"><b>openfile.F</b>: this subroutine opens up a file in the appropriate directory.</a></li>
+       <li><a name="rwconf.F"><b>rwconf.F</b>: this subroutine either inputs a configuration file from towhee_initial or outputs a configuration
+         file to either towhee_backup or towhee_final.</a>
+       </li>
+       <li><a name="writeaverages.F"><b>writeaverages.F</b>: this subroutine outputs all of the total average and block average information at the
+         end of the run.</a>
+       </li>
+       <li><a name="writedynamo.F"><b>writedynamo.F</b>: this subroutine outputs the embedded atom method potential using the dynamo format.</a></li>
+       <li><a name="writeintro.F"><b>writeintro.F</b>: this subroutine outputs information about the Towhee project and the GNU public license at the
+         start of the run.  Called by mainloop.F.</a>
+       </li>
+       <li><a name="writelammps.F"><b>writelammps.F</b>: this subroutine outputs files of the final configuration that are suitable for use as inputs
+         to the molecular dynamics code <a href="../software.html#lammps">LAMMPS</a>.</a>
+       </li>
+       <li><a name="writemovie.F"><b>writemovie.F</b>: this subroutine outputs snapshots of the simulation to the towhee_movie file for later analysis
+         with the analyse_movie utility.</a>
+       </li>
+       <li><a name="writepdb.F"><b>writepdb.F</b>: this subroutine outputs files of the final configuration in the pdb format.  These are useful for
+         visualization of the simulation using a tool such as <a href="../software.html#rasmol">RasMol</a>.</a>
+       </li>
+       <li><a name="writeruntime.F"><b>writeruntime.F</b>: this subroutine writes run-time information to standard output with a frequency that is set
+         by the <b>printfreq</b> variable.
+       </li>
+       <li><a name="writetowhee.F"><b>writetowhee.F</b>: this subroutine outputs the towhee_altinp file.  This file is suitable for use as a
+         towhee_input file in subsequent simulations.</a>
+       </li>
+       <li><a name="writetramonto.F"><b>writetramonto.F</b>: this subroutine outputs files of the final configuration that are suitable for use as
+         inputs to the classical density functional code Tramonto.</a>
+       </li>
+       <li><a name="writeangang.F"><b>writeangang.F</b>: this subroutine outputs all of the constants for all of the angle-angle terms used in the
+         simulation.</a>
+       </li>
+       <li><a name="writeangle.F"><b>writeangle.F</b>: this subroutine outputs all of the constants for all of the angle terms used in the
+         simulation.</a>
+       </li>
+       <li><a name="writebond.F"><b>writebond.F</b>: this subroutine outputs all of the constants for all of the bond terms used in the simulation.</a></li>
+       <li><a name="writeimproper.F"><b>writeimproper.F</b>: this subroutine outputs all of the constants for all of the improper torsion terms used
+         in the simulation.</a>
+       </li>
+       <li><a name="writetorsion.F"><b>writetorsion.F</b>: this subroutine outputs all of the constants for all of the regular torsion terms used in
+         the simulation.</a>
+       </li>
+       <li><a name="writenonbond.F"><b>writenonbond.F</b>: this subroutine outputs the constants for all of the nonbonded terms used in the
+         simulation.</a>
+       </li>
+      </ul>
+      <dt><font color="red">Global Data, Coordinates and Periodic Boundaries</font></dt>
+      <ul>
+       <li><a name="arbtocart.F"><b>arbtocart.F</b>: transforms from the arbitrary coordinate system (based on the hmatrix) into the Cartesian coordinate
+         system.</a>
+       </li>
+       <li><a name="carttoarb.F"><b>carttoarb.F</b>: transforms from the Cartesian coordinate system into the arbitrary coordinate system.</a></li>
+       <li><a name="checkhmatrix.F"><b>checkhmatrix.F</b>: checks to make sure that all three vectors of the hmatrix have an angle of at least 45 degrees
+         between them.  This is needed as a safety check on the simplified version of the minimum image convention.</a>
+       </li>
+       <li><a name="inverthmatrix.F"><b>inverthmatrix.F</b>: inverts the hmatrix and computes the boxvolume.  The inverse hmatrix is used to transform
+         between the Cartesian and arbitrary coordinate systems.</a>
+       </li>
+       <li><a name="getnbtype.F"><b>getnbtype.F</b>: this subroutine determines the array index for the interactions between two types of atoms.</a></li>
+       <li><a name="globaldata.F"><b>globaldata.F</b>: this file contains many subroutines that contain the global data structures
+         with localized data that is accessed via subroutine calls.</a>
+       </li>
+       <li><a name="globalaccess.F"><b>globalaccess.F</b>: this file contains functions and subroutines that make it easier to access the data
+         structures that are now contained in globaldata.F.</a>
+       </li>
+       <li><a name="mimage.F"><b>mimage.F</b>: this subroutine enforces the minimum image convention on a set of distances.</a></li>
+       <li><a name="minboxlength.F"><b>minboxlength.F</b>: this subroutine returns the minimum box length.</a></li>
+       <li><a name="maxboxlength.F"><b>maxboxlength.F</b>: this subroutine returns the maximum box length.</a></li>
+       <li><a name="putarbinbox.F"><b>putarbinbox.F</b>: this subroutine takes a set of arbitrary coordinates and puts them back into the central
+         box image.</a>
+       </li>
+       <li><a name="putcartinbox.F"><b>putcartinbox.F</b>: this subroutine takes a set of Cartesian coordinates and puts them back into the central
+         box image.</a>
+       </li>
+       <li><a name="uniformbox.F"><b>uniformbox.F</b>: this subroutine generates the Cartesian coordinates of an atom that is selected uniformly from
+         the entire central simulation box.</a>
+       </li>
+      </ul>
+      <dt><font color="red">Other Routines</font></dt>
+      <ul>
+       <li><a name="arccos.F"><b>arccos.F</b>: this is a safe implementation of the standard FORTRAN function dacos.  It does not crash when taking
+         the arc-cosine of a number that is just a bit larger than 1.0 or a bit smaller than -1.0.</a>
+       </li>
+       <li><a name="crossproduct.F"><b>crossproduct.F</b>: this subroutine computes the cross product of two vectors.</a></li>
+       <li><a name="ctrmas.F"><b>ctrmas.F</b>: this subroutine computes the center-of-mass of molecules and also the maximum distance from any atom
+         to the center-of-mass.</a>
+       </li>
+       <li><a name="distance.F"><b>distance.F</b>: this function computes the distance given a three dimensional vector.</a></li>
+       <li><a name="dotproduct.F"><b>dotproduct.F</b>: this function computes the normalized dot product of two vectors.</a></li>
+       <li><a name="expon.F"><b>expon.F</b>: this function computes exponential of a number in a safe way so that if the value inside the exponential
+         would result in a number that is less than SMALLEST, the function instead returns zero.  Thus, this function will never result in an underflow
+         error, although an overflow is still possible as there are other checks in the code to prevent an overflow.</a>
+       </li>
+       <li><a name="internal.F"><b>internal.F</b>: this file contains subroutines that are normally handled by intrinsic functions, but occasionally
+         need explicit support on machines that do not have the appropriate intrinsic libraries.
+       </li>
+       <li><a name="linclude.F"><b>linclude.F</b>: this file contains a subroutine (setinclude) and a function (linclude) which are used to determine
+         if two atoms on the same molecule have nonbonded interactions.</a>
+       </li>
+       <li><a name="minimizer.F"><b>minimizer.F</b>: this subroutine performs a minimization of the coordinates and box dimensions.</a></li>
+       <li><a name="problem.F"><b>problem.F</b>: this subroutine is called when there is a problem in the code and we need to exit.  Currently it only
+         sets a logical, but in the future it will handle the graceful exit of the code during a multiprocessor simulation.</a>
+       </li>
+       <li><a name="random.F"><b>random.F</b>: a file which contains one function (random) which controls the generation of random numbers.  There are
+         other functions and subroutines in this file which generate the random numbers.</a>
+       </li>
+      </ul>
+      <dt><font color="red">forcefield Program Routines (not needed to compile towhee)</font></dt>
+      <ul>
+       <li><b>createff.F</b>: the main driver for the forcefield program.</li>
+       <li><b>ffcheck.F</b>: this subroutine performs bounds checking on the force field generation routines.</li>
+       <li><b>ffackl2004.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/ackl2004.html">Ackland <i>et al.</i> 2004</a> force field.
+       </li>
+       <li><b>ffalavi2005.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/alavi2005.html">Alavi <i>et al.</i> 2005</a> force field.
+       </li>
+       <li><b>ffamber96.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/amber_param96.html">Amber96</a> force field.
+       </li>
+       <li><b>ffaqvist.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/aqvist.html">Aqvist</a> force field.
+       </li>
+       <li><b>ffbelash2006.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/belash2006.html">Belashchenko 2006</a> force field.
+       </li>
+       <li><b>ffbelash2013.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/belash2013.html">Belashchenko 2013</a> force field.
+       </li>
+       <li><b>ffc19eef1.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/c19eef1.html">C19eef1</a> force field.
+       </li>
+       <li><b>ffc19sasa.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/c19sasa.html">C19sasa</a> force field.
+       </li>
+       <li><b>ffc27rigid.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/c27rigid.html">C27rigid</a> force field.
+       </li>
+       <li><b>ffcatlowfaux.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/catlow_faux.html">CatlowFaux</a> force field.
+       </li>
+       <li><b>ffcharmm19.F</b>: this subroutine sets all of the parameters needed to build the 
+        Charmm19 force field.  For an unknown reason the manual page for Charmm19 is currently missing.
+       </li>
+       <li><b>ffcharmm22.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/charmm22.html">Charmm22</a> force field.
+       </li>
+       <li><b>ffcharmm22fe.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/charmm22fe.html">Charmm22fe</a> supplemental force field.
+       </li>
+       <li><b>ffcharmm27.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/charmm27.html">Charmm27</a> force field.
+       </li>
+       <li><b>ffcharmm27x.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/charmm27x.html">Charmm27x</a> force field supplement.
+       </li>
+       <li><b>ffclayff.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/clayff.html">ClayFF</a> force field.
+       </li>
+       <li><a name="ffcompass.F"><b>ffcompass.F</b></a>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/compass.html">COMPASSv1</a> force field.
+       </li>
+       <li><b>ffcoon1987.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/coon1987.html">Coon1987</a> force field.
+       </li>
+       <li><b>ffcui1998.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/cui1998.html">Cui <i>et al.</i> 1998</a> force field.
+       </li>
+       <li><b>ffcui2002.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/cui2002.html">Cui and Elliott 2002</a> force field.
+       </li>
+       <li><b>ffdacnisua.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/dacnisua.html">DACNIS-UA</a> force field.
+       </li>
+       <li><b>ffdick1994.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/dick1994.html">Dick and Ritchie 1994</a> force field.
+       </li>
+       <li><b>ffding1986.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/ding1986.html">Ding1986</a> force field.
+       </li>
+       <li><b>ffdreiding.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/dreiding.html">DREIDING</a> force field.
+       </li>
+       <li><b>ffdubb2004.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/dubb2004.html">Dubb2004</a> force field.
+       </li>
+       <li><b>ffelli2002.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/elli2002.html">Elliott 2002</a> force field.
+       </li>
+       <li><b>ffepm.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/epm.html">EPM</a> force field.
+       </li>
+       <li><b>fffris2003.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/fris2003.html">Fris2003</a> force field.
+       </li>
+       <li><b>fffris2008.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/fris2008.html">Fris2008</a> force field.
+       </li>
+       <li><b>ffgala1994.F</b>: this subroutine sets all of the parameters needed to build the
+        <a href="../forcefields/gala1994.html">Gala1994</a> force field.
+       </li>
+       <li><b>ffgordon.F</b>: this subroutine sets all of the parameters needed to build the
+        <a href="../forcefields/gordon.html">Gordon</a> force field.
+       </li>
+       <li><b>ffgromos43a1.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/gromos43a1.html">Gromos43A1</a> force field.
+       </li>
+       <li><a name="ffhardsphere.F"><b>ffhardsphere.F</b></a>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/hardsphere.html">HardSphere</a> force field.
+       </li>
+       <li><b>ffhoyt2003.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/hoyt2003.html">Hoyt <i>et al.</i> 2003</a> force field.
+       </li>
+       <li><b>ffjaramillo.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/jaramillo.html">Jaramillo <i>et al.</i> 2001</a> force field.
+       </li>
+       <li><b>ffkbff.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/kbff.html">Kirkwood-Buff</a> force field.
+       </li>
+       <li><b>ffkfvbvs.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/kfvbvs.html">KFvBvS</a> force field.
+       </li>
+       <li><b>fflast1993.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/last1993.html">Last1993</a> force field.
+       </li>
+       <li><b>fflgm.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/lgm.html">LGM</a> force field.
+       </li>
+       <li><b>ffljium.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/ljium.html">LJium</a> force field.
+       </li>
+       <li><b>ffmcy1976.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/mcy1976.html">MCY 1976</a> force field.
+       </li>
+       <li><b>ffmend2003.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/mend2003.html">Mendelev <i>et al.</i> 2003</a> force field.
+       </li>
+       <li><b>ffmgmstereo.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/mgmstereo.html">MGM stereochemistry enforcer</a> force field supplement.
+       </li>
+       <li><b>ffmm2.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/mm2.html">MM2</a> force field.
+       </li>
+       <li><b>ffmmff94.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/mmff94.html">MMFF94</a> force field.
+       </li>
+       <li><b>ffmorrow2002.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/morrow2002.html">Morrow and Maginn 2002</a> force field.
+       </li>
+       <li><b>ffnerdv1.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/nerdv1.html">NERD Version 1</a> force field.
+       </li>
+       <li><b>ffnerdv2.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/nerdv2.html">NERD Version 2</a> force field.
+       </li>
+       <li><b>ffnerdv3.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/nerdv3.html">NERD Version 3</a> force field.
+       </li>
+       <li><b>ffopls1996.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/opls1996.html">OPLS-1996</a> force field.
+       </li>
+       <li><b>ffopls2001.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/opls2001.html">OPLS-2001</a> force field.
+       </li>
+       <li><b>ffoplsaa.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/oplsaa.html">OPLS-aa</a> force field.
+       </li>
+       <li><b>ffoplsua.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/oplsua.html">OPLS-ua</a> force field.
+       </li>
+       <li><b>ffpana1989.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/pana1989.html">Panagiotopoulos 1989</a> force field.
+       </li>
+       <li><b>ffpmf.F</b>: this subroutine reads in radial distribution function and converts it into a potential of mean force tabulated potential.</li>
+       <li><b>ffpotter1997.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/potter1997.html">Potter <i>et al.</i> 1997</a> force field.
+       </li>
+       <li><b>ffqmff_viii.F</b>: this subroutine contains a partial implementation of the <a href="../forcefields/qmff_viii.html">QMFF-VIII</a> force field.</li>
+       <li><b>ffreadcharmmfile.F</b>: this subroutine reads in a native Charmm force field file and populates the Towhee force field data structure.</li>
+       <li><b>ffreadsetflfile.F</b>: this subroutine reads in an EAM setfl file and populates the Towhee force field data structure.</li>
+       <li><b>ffrichar1995.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/richar1995.html">Richards <i>et al.</i> 1995</a> force field.
+       </li>
+       <li><b>ffshah2004.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/shah2004.html">Shah and Maginn 2004</a> force field.
+       </li>
+       <li><b>ffshukla1987.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/shukla1987.html">Shukla 1987</a> force field.
+       </li>
+       <li><b>ffsks.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/sks.html">SKS</a> force field.
+       </li>
+       <li><b>ffsmith1994.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/smith1994.html">Smith and Dang 1994</a> force field.
+       </li>
+       <li><b>ffsmmkmain.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/smmkmain.html">SMMK main</a> force field.
+       </li>
+       <li><b>ffsmmknaip.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/smmknaip.html">SMMK Note Added in Proof</a> force field.
+       </li>
+       <li><b>ffspce.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/spce.html">SPC-E</a> force field.
+       </li>
+       <li><a name="ffsquarewell.F"><b>ffsquarewell.F</b></a>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/squarewell.html">SquareWell</a> force field.
+       </li>
+       <li><b>ffstil1985.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/stil1985.html">Stil1985</a> force field.
+       </li>
+       <li><b>ffsum2003.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/sum2003.html">Sum2003</a> force field.
+       </li>
+       <li><b>fftele1987.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/tele1987.html">Tele1987</a> force field.
+       </li>
+       <li><b>fftip3p.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/tip3p.html">TIP3P</a> force field.
+       </li>
+       <li><b>fftip4p.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/tip4p.html">TIP4P</a> force field.
+       </li>
+       <li><b>fftip5p.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/tip5p.html">TIP5P</a> force field.
+       </li> 
+       <li><b>fftrappeeh.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/trappeeh.html">TraPPE-EH</a> force field.
+       </li>
+       <li><b>fftrappeua.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/trappeua.html">TraPPE-UA</a> force field.
+       </li>
+       <li><b>fftrappeuaf.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/trappeuaf.html">TraPPE-UA flexible</a> force field.
+       </li>
+       <li><b>ffuff.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/uff.html">UFF</a> force field.
+       </li>
+       <li><b>ffunlu2004.F</b>: this subroutine contains a partial implementation of the Unlu and Elliott 2004 force field.</li>
+       <li><b>ffvahid.F</b>: a partial implementation of the SPEAD model of Vahid and Elliot.</li>
+       <li><b>ffvega1992.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/vega1992.html">Vega <i>et al.</i> 1992</a> force field.
+       </li>
+       <li><b>ffvink2001.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/vink2001.html">Vink2001</a> force field.
+       </li>
+       <li><b>ffwalt2001.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/walt2001.html">Walt2001</a> force field.
+       </li>
+       <li><b>ffweiner1984.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/weiner1984.html">Weiner <i>et al.</i> 1984</a> force field.
+       </li>
+       <li><b>ffweiner1986.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/weiner1986.html">Weiner <i>et al.</i> 1986</a> force field.
+       </li>
+       <li><b>ffwielop1985.F</b>: this subroutine sets all of the parameters needed to build the 
+        <a href="../forcefields/wielop1985.html">Wielopolski and Smith 1985</a> force field.
+       </li>
+      </ul>
+     </ul>
+     <b>The .c files</b> 
+     <ul>
+      <dt><font color="red">C routines</font></dt>
+      <ul>
+       <li><a name="towhee.c"><b>towhee.c</b>: This is where everything begins (main).  If using the MPI version of towhee this handles the
+         initialization of MPI and also reads from the towhee_parallel file.  Otherwise it just handles the command line variables sent to Towhee and
+         then calls <b>mainloop.F</b>.</a>
+       </li>
+       <li><a name="control.c"><b>control.c</b>: This set of routines is used to handle some of the MPI calls and to serve as an interface between
+         Towhee and the Tramonto codes.</a>
+       </li>
+       <li><a name="jobfarm.c"><b>jobfarm.c</b>: This set of routines handles the MPI calls required to run a parallel simulation that farms out a list
+         of jobs over several processors, where each processor runs a single job at a time.</a>
+       </li>
+       <li><a name="rex.c"><b>rex.c</b>: Implementation of Replica Exchange functionality.  Replica Exchange requires MPI to run.  While functional, it
+         is currently at an early stage of development.</a>
+       </li>
+       <li><a name="sturm.c"><b>sturm.c</b>: These routines handle much of the mathematics required for the concerted rotation moves.</a></li>
+      </ul>
+     </ul>
+     <b>Bug Reports</b> 
+     <ul>
+      In a code of this magnitude there will invariably be bugs from time to time.  Hopefully all of the big ones are out of the code, but there is
+      a continual process of adding features (rebugging) and testing the features (debugging).  If you do find a problems with the code, please let us
+      know so we can fix it for the benefit of everyone who is using the program.  The more detail you can provide in your bug report the better.  
+      If you have a specific case that crashes then sending copies of the input files will greatly expedite the debugging process.  We are now using the
+      Bug Tracking software at SourceForge.  To submit a bug just head to the
+      <a href="https://sourceforge.net/tracker/?atid=581786&group_id=87039&func=browse">Towhee Bug Tracker</a> site and click on the "submit new" button.
+      The best option is for you to log into SourceForge (creating an account is free) and use that account to submit the bug, in which case it will
+      automatically notify you of the progress resolving the bug.  Alternatively, you can send an email about your bug to 
+      <a href="mailto:towhee-bugs@lists.sourceforge.net">towhee-bugs@lists.sourceforge.net</a>.  Your posting to this list is automatically held until
+      we can verify it is not spam.
+     </ul>
+     <a href="../index.html">Return to the main towhee web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

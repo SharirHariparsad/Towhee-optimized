@@ -1,0 +1,99 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: Developers Manual</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table width="800" border="0" cellspacing="0" cellpadding="0" height="590">
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"><font size="5"><b><font face="Arial, Helvetica, sans-serif"><a name="top"></a>MCCCS Towhee: Developers Manual</font></b></font></div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"> 
+    <IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" width="210" height="62" border="0" alt="SourceForge.net Logo" align="right"/>
+   </A>
+   <tr> 
+    <td width="18" height="371" valign="top"> 
+     <p>&nbsp; </p>
+     <p>&nbsp;</p>
+    </td>
+    <td width="697" valign="top"> 
+     <p></p>
+     <b>Overview</b> 
+     <ul>
+      This section covers the basic information that is required in order to become a Towhee developer
+      and also some suggested practices and overall guidelines for working with the Towhee development team.
+     </ul>
+     <p></p>
+     <b>Becoming a Developer</b> 
+     <ul>
+      Towhee is an open-source project so anyone is welcome to download the package, including all of the 
+      source code, and start modifying it for their own purposes.  Here we are concerned with 
+      people who want to develop Towhee in conjunction with the current team of developers.  One way to 
+      help is to report any problems you discover in the code to the developers via the
+      <a href="mailto:towhee-bugs@lists.sourceforge.net">towhee-bugs@lists.sourceforge.net</a> mailing list.
+      This is also a great way to communicate minor code changes, especially those that fix bugs, to the 
+      developers for them to include in the next release.
+      <p></p>
+      Those wishing to make substantial changes to the code, such as implementing new algorithms, are better 
+      served by joining the Towhee developer team in order to gain full access to the code repositories at 
+      SourceForge.  If you are interested then you need to sign up for a free username at SourceForge 
+      (<a href="http://sourceforge.net/">http://sourceforge.net/</a>), and send an email indicating your 
+      interest to <a href="mailto:marcus_martin@users.sourceforge.net">Marcus G. Martin</a>.
+     </ul>
+     <p></p>
+     <b>Subversion Access</b>
+     <ul>
+      In order to get started using Subersion (svn) you will need to checkout the current version of the code into a workspace 
+      on one of your machines.  Directions for checking out the code are found by following the "Code" link from the
+      <a href="http://sourceforge.net/projects/towhee/">Towhee SourceForge</a> site.
+      If you are intending to contribute your changes into the distribution then you will need to log into SourceForge and make sure
+      you are checking out a version using the developer access directions, and not the anonymous access directions.
+      The checkout command should be similar to the following.
+      <dt><code>svn checkout --username=yourusername svn+ssh://yourusername@svn.code.sf.net/p/towhee/code/ towhee-code</code></dt>
+      Where <code>yourusername</code> is replaced with your SourceForge username.
+      This command creates a directory named <code><b>towhee-code</b></code> that contains all of the Towhee files and directories. 
+      <p></p>
+     </ul>
+     <p></p>
+     <b>Test Suite</b>
+     <ul>
+      The Towhee <a href="examples/example_manual.html">example manual</a> also doubles as the test suite for the code.  Before 
+      you commit changes to the repository you should build the <b>towhee</b> executable, using the <b>--enable-safe-compare</b> 
+      configure flag and run it through the test suite in order to make sure you have not caused any unintentional damage to 
+      the rest of the code while implementing your new features.
+      This is done using the <b>./run_serial_test</b>
+      command in the Examples directory.  This sequentially works through the examples producing files named <b>answer_new</b> 
+      in each of the directories.  At the conclusion of the script it creates a file named <b>test_report</b> that contains 
+      the Unix diff of all of the <b>answer_new</b> files with their respective <b>answer_current</b> files.  Once you are 
+      satisfied that the differences between the files are an obvious and intended result of your changes then you can copy 
+      all of the <b>answer_new</b> files to <b>answer_current</b> files using the <b>./reset_new_to_current</b> script in 
+      the Examples directory.
+      <p></p>
+      If you are working on parallel programming features of Towhee then you will also want to run the <b>./run_para_test</b>
+      script in the Examples directory.  This script then called the <b>./execute_parallel</b> script that is in the 
+      Parallel_Test directory.  The <b>./execute_parallel</b> script is no longer included in the distribution because 
+      it is a machine specific script that executes a parallel job in that directory.  If you are on a machine that 
+      allows direct submission of parallel jobs then your <b>./execute_parallel</b> script would look something like
+      <ul>
+       <code>mpirun -np 2 /towheebase/Source/towhee</code>
+      </ul>
+      This will execute a job that utilizes the <b>towhee_parallel</b> file in the Parallel_Test directory to run a jobfarm that 
+      executes the test suite jobs to produce output files named <b>par_answer_current</b>.  Running the <b>./run_para_diff</b>
+      script in the Examples directory produces the <b>para_test_report</b> file that contains the diffs from all of the 
+      <b>par_answer_current</b> and their respective <b>answer_current</b> files.  These files should be identical so the 
+      <b>para_test_report</b> file should only contain the directory names of the test suite.
+     </ul>
+     <a href="index.html">Return to the main towhee web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->March 28, 2018<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

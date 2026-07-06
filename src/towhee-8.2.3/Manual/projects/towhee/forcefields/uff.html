@@ -1,0 +1,303 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: UFF</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: UFF</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the Universal Force Field (UFF) as it is implemented into the towhee_ff_UFF file in the ForceFields directory.
+      All of the Towhee atom types for this force field are listed, along with a short description of their meanings.
+      Note that UFF is a Lennard-Jones style force field, but has some special additional parameters and so cannot be directly combined with other force fields.
+      You need to use the classical_potential 'UFF 12-6' for the UFF force field and the suggested mixing rules are 'Geometric'.
+      Please note that the UFF paper contains a method to generate Exponential-6 potentials from their data set as well as the 12-6.
+      If anyone is interested in an Exponential-6 version of this force field please let me know and I'll consider implementing that as well.
+      I would like to acknowledge Anthony Rappe for kindly answering my questions about this force field.
+      Any discrepencies (especially typos) from the published force field values are the sole responsibility of Marcus Martin,
+      and I welcome feedback on how this implementation compares with other programs. 
+     </ul>
+     <b>References for UFF</b> 
+     <ul>
+      Most of the parameters for UFF are published in Table~1 of the primary reference for UFF.
+      <ul>
+       <li><a href="../references.html#rappe_et_al_1992">Rappe <i>et al.</i> 1992</a></li>
+      </ul>
+      However, that paper refers to another paper (their reference 13) as submitted, that unfortunately 
+      appears never to have been published.  The "GMP electronegativies" (<i>X</i>) in that reference 
+      are required in order to compute the bonded force constants and equilibrium distances.  A partial 
+      list of the GMP Electronegativies is available in a related paper.
+      <ul>
+       <li><a href="../references.html#rappe_goddard_1991">Rappe and Goddard 1991</a></li>
+      </ul>
+      I also managed to get ahold of the unpublished parameter files for UFF and used this to 
+      fill in the rest of the missing elements.
+     </ul>
+     <b>Typos and comments for UFF</b> 
+     <ul>
+      There are some obvious typos in the UFF paper, and I believe there are a few subtle ones 
+      as well.  Here I list places where my implementation does not completely agree with what is 
+      written in the UFF paper.
+      <ul>
+       <li>Equation (2) of <a href="../references.html#rappe_et_al_1992">Rappe <i>et al.</i> 1992</a> 
+	is written as follows.
+	<dt>r<sub>IJ</sub> = r<sub>I</sub> + r<sub>J</sub> + r<sub>BO</sub> + r<sub>EN</sub></dt>
+	However, this method does not result in agreement with their published equilibrium bond 
+	lengths.  Anthony Rappe informed me that this equation is in error and I have instead implemented the following 
+	(beginning with Version 4.4.2).
+	<dt>r<sub>IJ</sub> = r<sub>I</sub> + r<sub>J</sub> + r<sub>BO</sub> - r<sub>EN</sub></dt>
+       </li>
+       <li>Equation (13) of <a href="../references.html#rappe_et_al_1992">Rappe <i>et al.</i> 1992</a> 
+	is written with some mistakes in the superscripts and subscripts.  Here is the equation as 
+	implemented into Towhee (beginning with Version 4.4.2).
+	<dt>K<sub>IJK</sub> = beta ( Z<sub>I</sub><sup>*</sup> Z<sub>K</sub><sup>*</sup> / r<sub>IK</sub><sup>5</sup> ) 
+	 r<sub>IJ</sub> r<sub>JK</sub> [ 3 r<sub>IJ</sub> r<sub>JK</sub> (1 - Cos<sup>2</sup>(theta<sub>0</sub>) )
+	 - r<sub>IK</sub><sup>2</sup> Cos( theta<sub>0</sub> ) ]</dt>
+       </li>
+       <li>The final sentence before Equation (19) of 
+	<a href="../references.html#rappe_et_al_1992">Rappe <i>et al.</i> 1992</a> suggests that the two 
+	different methods for determining the inversion angle differ by a factor of Pi.  These two 
+	methods actually differ by a factor of Pi/2.
+       </li>
+       <li>Lawrencium is named <b>Lw6+3</b> in <a href="../references.html#rappe_et_al_1992">Rappe <i>et al.</i> 1992</a>, but 
+	this is not consistent with the accepted abrieviation for that element.  Therefore this element is listed as 
+	<b>Lr6+3</b> in Towhee.
+       </li>
+       <li>The paragraph following Equation 17 in <a href="../references.html#rappe_et_al_1992">Rappe <i>et al.</i> 1992</a> is 
+	confusing because it refers to default values for the "first through sixth periods", but then only lists five values.
+	Originally, I assigned these 5 values to the first through fifth periods, but after discussions with Jon Baker I now 
+	believe these values are appropriate for the second through sixth periods.  Begining with verion 4.7.11 the default 
+	values for nbcoeff(12) are as follows.
+	<ul>
+	 <li>Period 2 (Li through Ne): 2.0</li>
+	 <li>Period 3 (Na through Ar): 1.25</li>
+	 <li>Period 4 (K through Kr): 0.7</li>
+	 <li>Period 5 (Rb through Xe): 0.2</li>
+	 <li>Period 6 (Cs through Rn): 0.1</li>
+	</ul>
+       </li>
+       <li>Equation 10 and the preceding text in <a href="../references.html#rappe_et_al_1992">Rappe <i>et al.</i> 1992</a> 
+	does not accurately reflect the implementation of bending angles in UFF.
+	For the linear case the equation should actually read
+	<ul>
+	 U = K<sub>IJK</sub>/n<sup>2</sup> [ 1 + Cos(n theta)]
+	</ul>
+	In addition, this equation is used for tetrahedral cases (3rd character is '3') when the equilibrium angle is 90.0.
+	It is correct as written for the other cases.  This change was made to Towhee starting with version 4.11.0.  Previously 
+	the Equation 10 was used as written.  Thanks to Jon Baker for identifying this problem.
+      </ul>
+      <p>
+       There are a handful of final parameters listed in <a href="../references.html#rappe_et_al_1992">Rappe <i>et al.</i> 1992</a> that allow 
+       a comparison of the Towhee implementation with their work.
+       <ul>
+	<li> Towhee has an equilibrium <b>C_R - N_R</b> bond length of 1.3568 &Aring; in good agreement with
+	 the statement on page 10026 of <a href="../references.html#rappe_et_al_1992">Rappe <i>et al.</i> 1992</a> that their 
+	 bond length agrees well with 1.366 &Aring;)
+	</li>
+	<li> Towhee has a <b>C_R - N_R</b> force constant of 325378.3 K = 646.59 kcal/mol that is half of the force constant 
+	 of 1293 kcal/mol on page 10027 of <a href="../references.html#rappe_et_al_1992">Rappe <i>et al.</i> 1992</a>.  In the same sentence 
+	 they reference the <a href="weiner1986.html">Weiner1986</a> force field and claim it has a force constant of 980 kcal/mol*&Aring;<sup>2</sup>.
+	 The table in the appendix of <a href="../references.html#weiner_et_al_1986">Weiner <i>et al.</i> 1986.</a> states a <b>C-N</b> force constant 
+	 of 490 kcal/mol*&Aring;<sup>2</sup> and Equation 1 of that same paper uses a harmonic potential of form K<sub>R</sub>(R - R<sub>0</sub>)<sup>2</sup>.
+	 It appears that the UFF authors doubled all of the force constants in this sentence, perhaps to bring the force constants into agreement with the 
+	 frequently used 1/2 K(R - R<sub>0</sub>)<sup>2</sup> form of the harmonic potential.
+	</li>
+	<li> Towhee has a <b>C_3 - N_R - C_R</b> force constant of 106165.606 K = 210.97397 kcal/mol rad<sup>2</sup> that is almost exactly twice the force constant of 
+	 105.5 kcal/mol*rad<sup>2</sup> stated on page 10028 of <a href="../references.html#rappe_et_al_1992">Rappe <i>et al.</i> 1992</a>.
+	 In the same sentence they reference the <a href="weiner1986.html">Weiner1986</a> force field and claim it has a force constant of 100 kcal/mol*rad<sup>2</sup>.
+	 The table in the appendix of <a href="../references.html#weiner_et_al_1986">Weiner <i>et al.</i> 1986.</a> states a <b>C-N-CT</b> force constant of 
+	 50 kcal/mol*rad<sup>2</sup> and Equation 1 of that same paper uses a harmonic angle potential of form
+	 K<sub>&theta;</sub>(&theta; - &theta;<sub>0</sub>)<sup>2</sup>.
+	 Perhaps the UFF authors accidentally halved their reported force constant instead of doubling it for comparison with the other force fields.
+	</li>
+       </ul>
+     </ul>
+     <b>UFF in Towhee</b> 
+     <ul>
+      The official force field name for UFF in Towhee is 'UFF'.
+      This list contains all of the atom names for use in the towhee_input file, along with a brief description taken from the UFF literature.
+      UFF uses a five-character label to describe every element.
+      The first two letters are the chemical symbol (appended with an underscore for single letter elements).
+      The third character describes the geometry of the molecule as follows.
+      <ul>
+       <dt>1: linear</dt>
+       <dt>2: trigonal</dt>
+       <dt>R: resonant</dt>
+       <dt>3: tetrahedral</dt>
+       <dt>4: square planar</dt>
+       <dt>5: trigonal bipyramidal</dt>
+       <dt>6: octahedral</dt>
+      </ul>
+      The fourth and fifth characters are there to help distinguish between otherwise similar atoms (for example, the charge state of metals and special characters for 
+      certain hydrogen and oxygen atoms).
+      Towhee follows the UFF naming convension exactly, except for Lawrencium where the correct 'Lr' abreviation is used instead of the 'Lw' in the original paper.
+      The element names are generally obvious (given the rules above), but a notes are added to some potentially confusing elements. 
+      Please note that the capitalization and spacing pattern is important and must be followed exactly as listed here. 
+      <ul>
+       <dt>'<b>H_</b>'</dt>
+       <dt>'<b>H_b</b>': hydrogen bridging between two boron atoms</dt>
+       <dt><b>He4+4</b>: helium</dt>
+       <dt>'<b>Li</b>'</dt>
+       <dt>'<b>Be3+2</b>'</dt>
+       <dt>'<b>B_3</b>'</dt>
+       <dt>'<b>B_2</b>'</dt>
+       <dt>'<b>C_3</b>'</dt>
+       <dt>'<b>C_R</b>'</dt>
+       <dt>'<b>C_2</b>'</dt>
+       <dt>'<b>C_1</b>'</dt>
+       <dt>'<b>N_3</b>'</dt>
+       <dt>'<b>N_R</b>'</dt>
+       <dt>'<b>N_2</b>'</dt>
+       <dt>'<b>N_1</b>'</dt>
+       <dt>'<b>O_3</b>'</dt>
+       <dt>'<b>O_3_z</b>': oxygen in a zeolite framework</dt>
+       <dt>'<b>O_R</b>'</dt>
+       <dt>'<b>O_2</b>'</dt>
+       <dt>'<b>O_1</b>'</dt>
+       <dt>'<b>F_</b>'</dt>
+       <dt>'<b>Ne4+4</b>'</dt>
+       <dt>'<b>Na</b>'</dt>
+       <dt>'<b>Mg3+2</b>'</dt>
+       <dt>'<b>Al3</b>'</dt>
+       <dt>'<b>Si3</b>'</dt>
+       <dt>'<b>P_3+3</b>'</dt>
+       <dt>'<b>P_3+5</b>'</dt>
+       <dt>'<b>P_3+q</b>'</dt>
+       <dt>'<b>S_3+2</b>'</dt>
+       <dt>'<b>S_3+4</b>'</dt>
+       <dt>'<b>S_3+6</b>'</dt>
+       <dt>'<b>S_R</b>'</dt>
+       <dt>'<b>S_2</b>'</dt>
+       <dt>'<b>Cl</b>'</dt>
+       <dt>'<b>Ar4+4</b>'</dt>
+       <dt>'<b>K_</b>'</dt>
+       <dt>'<b>Ca6+2</b>'</dt>
+       <dt>'<b>Sc3+3</b>'</dt>
+       <dt>'<b>Ti3+4</b>'</dt>
+       <dt>'<b>V_3+5</b>'</dt>
+       <dt>'<b>Cr6+3</b>'</dt>
+       <dt>'<b>Mn6+2</b>'</dt>
+       <dt>'<b>Fe3+2</b>'</dt>
+       <dt>'<b>Fe6+2</b>'</dt>
+       <dt>'<b>Co6+3</b>'</dt>
+       <dt>'<b>Ni4+2</b>'</dt>
+       <dt>'<b>Cu3+1</b>'</dt>
+       <dt>'<b>Zn3+2</b>'</dt>
+       <dt>'<b>Ga3+3</b>'</dt>
+       <dt>'<b>Ge3</b>'</dt>
+       <dt>'<b>As3+3</b>'</dt>
+       <dt>'<b>Se3+2</b>'</dt>
+       <dt>'<b>Br</b>'</dt>
+       <dt>'<b>Kr4+4</b>'</dt>
+       <dt>'<b>Rb</b>'</dt>
+       <dt>'<b>Sr6+2</b>'</dt>
+       <dt>'<b>Y_3+3</b>'</dt>
+       <dt>'<b>Zr3+4</b>'</dt>
+       <dt>'<b>Nb3+5</b>'</dt>
+       <dt>'<b>Mo6+6</b>'</dt>
+       <dt>'<b>Mo3+6</b>'</dt>
+       <dt>'<b>Tc6+5</b>'</dt>
+       <dt>'<b>Ru6+2</b>'</dt>
+       <dt>'<b>Rh6+3</b>'</dt>
+       <dt>'<b>Pd4+2</b>'</dt>
+       <dt>'<b>Ag1+1</b>'</dt>
+       <dt>'<b>Cd3+2</b>'</dt>
+       <dt>'<b>In3+3</b>'</dt>
+       <dt>'<b>Sn3</b>'</dt>
+       <dt>'<b>Sb3+3</b>'</dt>
+       <dt>'<b>Te3+2</b>'</dt>
+       <dt>'<b>I_</b>'</dt>
+       <dt>'<b>Xe4+4</b>'</dt>
+       <dt>'<b>Cs</b>'</dt>
+       <dt>'<b>Ba6+2</b>'</dt>
+       <dt>'<b>La3+3</b>'</dt>
+       <dt>'<b>Ce6+3</b>'</dt>
+       <dt>'<b>Pr6+3</b>'</dt>
+       <dt>'<b>Nd6+3</b>'</dt>
+       <dt>'<b>Pm6+3</b>'</dt>
+       <dt>'<b>Sm6+3</b>'</dt>
+       <dt>'<b>Eu6+3</b>'</dt>
+       <dt>'<b>Gd6+3</b>'</dt>
+       <dt>'<b>Tb6+3</b>'</dt>
+       <dt>'<b>Dy6+3</b>'</dt>
+       <dt>'<b>Ho6+3</b>'</dt>
+       <dt>'<b>Er6+3</b>'</dt>
+       <dt>'<b>Tm6+3</b>'</dt>
+       <dt>'<b>Yb6+3</b>'</dt>
+       <dt>'<b>Lu6+3</b>'</dt>
+       <dt>'<b>Hf3+4</b>'</dt>
+       <dt>'<b>Ta3+5</b>'</dt>
+       <dt>'<b>W_6+6</b>'</dt>
+       <dt>'<b>W_3+4</b>'</dt>
+       <dt>'<b>W_3+6</b>'</dt>
+       <dt>'<b>Re6+5</b>'</dt>
+       <dt>'<b>Re3+7</b>'</dt>
+       <dt>'<b>Os6+6</b>'</dt>
+       <dt>'<b>Ir6+3</b>'</dt>
+       <dt>'<b>Pt4+2</b>'</dt>
+       <dt>'<b>Au4+3</b>'</dt>
+       <dt>'<b>Hg1+2</b>'</dt>
+       <dt>'<b>Tl3+3</b>'</dt>
+       <dt>'<b>Pb3</b>'</dt>
+       <dt>'<b>Bi3+3</b>'</dt>
+       <dt>'<b>Po3+2</b>'</dt>
+       <dt>'<b>At</b>'</dt>
+       <dt>'<b>Rn4+4</b>'</dt>
+       <dt>'<b>Fr</b>'</dt>
+       <dt>'<b>Ra6+2</b>'</dt>
+       <dt>'<b>Ac6+3</b>'</dt>
+       <dt>'<b>Th6+4</b>'</dt>
+       <dt>'<b>Pa6+4</b>'</dt>
+       <dt>'<b>U_6+4</b>'</dt>
+       <dt>'<b>Np6+4</b>'</dt>
+       <dt>'<b>Pu6+4</b>'</dt>
+       <dt>'<b>Am6+4</b>'</dt>
+       <dt>'<b>Cm6+3</b>'</dt>
+       <dt>'<b>Bk6+3</b>'</dt>
+       <dt>'<b>Cf6+3</b>'</dt>
+       <dt>'<b>Es6+3</b>'</dt>
+       <dt>'<b>Fm6+3</b>'</dt>
+       <dt>'<b>Md6+3</b>'</dt>
+       <dt>'<b>No6+3</b>'</dt>
+       <dt>'<b>Lr6+3</b>'</dt>
+      </ul>
+     </ul>
+     <b>Coulombic interactions</b> 
+     <ul>
+      The UFF parameters were derived without the use of point charges on the atoms and 
+      I believe the consensus of the original authors is to use this force field without any additional charges.  
+      One notable proponent of not using partial charges for UFF is A.K. Rappe who states this quite strongly in his UFF FAQ (no longer available).
+      If you feel an overwhelming desire to assign partial charges then that is allowed in Towhee, but there 
+      is no <i>official</i> reference for UFF with partial charges.  However, if you were so inclined then   
+      the QEq method of <a href="../references.html#rappe_goddard_1991">Rappe and Goddard (1991)</a> 
+      might be appropriate.	
+     </ul>
+     <b>Improper torsions</b> 
+     <ul>
+      UFF uses an improper torsion (called an inversion in their paper) on any atom (I) that is 
+      bonded to exactly three other atoms (J,K, and L).  The improper considers the angle each of 
+      the vectors (IJ, IK or IL) makes with a plane described by the other substituants.  For 
+      example, the angle between the IJ vector and the IKL plane.  Towhee options currently require 
+      the user to specify all improper torsions, but you may toggle the type to 0 to allow Towhee 
+      to automatically determine the appropriate parameters for each improper torsion.
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

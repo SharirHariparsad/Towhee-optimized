@@ -1,0 +1,108 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: ClayFF</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: ClayFF</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the ClayFF force field as it is implemented into the towhee_ff_ClayFF file in the ForceFields directory.
+      All of the Towhee atom types for the ClayFF force	field are listed, along with a short description of their meanings. 
+      Any discrepencies (especially typos) from the published force field values are the sole responsibility of Marcus Martin,
+      and I welcome feedback on how this implementation compares with other programs.
+     </ul>
+     <b>References for ClayFF</b> 
+     <ul>
+      There is currently one source for ClayFF.
+      <ul>
+       <li><a href="../references.html#cygan_et_al_2004">Cygan <i>et al.</i> 2004</a></li>
+      </ul>
+     </ul>	
+     <b>ClayFF in Towhee</b> 
+     <ul>
+      The official force field name for these parameters is 'ClayFF'.
+      This list contains all of the ClayFF atom names for use in the towhee_input file, along with a brief description.
+      Please note that the capitalization and spacing pattern is important and must be followed exactly as listed here.
+      <ul>
+       <dt>'<b>h*</b>' : water hydrogen</dt>
+       <dt>'<b>ho</b>' : hydroxyl hydrogen</dt>
+       <dt>'<b>o*</b>' : water oxygen</dt>
+       <dt>'<b>oh</b>' : hydroxyl oxygen</dt>
+       <dt>'<b>ob</b>' : bridging oxygen</dt>
+       <dt>'<b>obos</b>' : bridging oxygen with octahedral substitution</dt>
+       <dt>'<b>obts</b>' : bridging oxygen with tetrahedral substitution</dt>
+       <dt>'<b>obss</b>' : bridging oxygen with double substitution</dt>
+       <dt>'<b>ohs</b>' : hydroxyl oxygen with substitution</dt>
+       <dt>'<b>st</b>' : tetrahedral silicon</dt>
+       <dt>'<b>ao</b>' : octahedral aluminum</dt>
+       <dt>'<b>at</b>' : tetrahedral aluminum</dt>
+       <dt>'<b>mgo</b>' : octahedral magnesium</dt>
+       <dt>'<b>mgh</b>' : hydroxide magnesium</dt>
+       <dt>'<b>cao</b>' : octahedral calcium</dt>
+       <dt>'<b>cah</b>' : hydroxide calcium</dt>
+       <dt>'<b>feo</b>' : octahedral iron</dt>
+       <dt>'<b>lio</b>' : octahedral lithium</dt>
+       <dt>'<b>Na</b>' : aqueous sodium ion</dt>
+       <dt>'<b>K</b>' : aqueous potassium ion</dt>
+       <dt>'<b>Cs</b>' : aqueous cesium ion</dt>
+       <dt>'<b>Ca</b>' : aqueous calcium ion</dt>
+       <dt>'<b>Ba</b>' : aqueous barium ion</dt>
+       <dt>'<b>Cl</b>' : aqueous chloride ion</dt>
+      </ul>
+     </ul>
+     <b>Coulombic Interactions</b> 
+     <ul>
+      This force field uses point charges on atomic centers.  Here we list suggested charges for each of the 
+      atom types in this force field.  
+      <ul>
+       <dt>'<b>h*</b>' : 0.4100</dt>
+       <dt>'<b>ho</b>' : 0.4250</dt>
+       <dt>'<b>o*</b>' : -0.8200 </dt>
+       <dt>'<b>oh</b>' : -0.9500 </dt>
+       <dt>'<b>ob</b>' : -1.0500 </dt>
+       <dt>'<b>obos</b>' : -1.1808</dt>
+       <dt>'<b>obts</b>' : -1.1688</dt>
+       <dt>'<b>obss</b>' : -1.2996</dt>
+       <dt>'<b>ohs</b>' : -1.0808 </dt>
+       <dt>'<b>st</b>' : 2.1000 </dt>
+       <dt>'<b>ao</b>' : 1.5750 </dt>
+       <dt>'<b>at</b>' : 1.5750 </dt>
+       <dt>'<b>mgo</b>' : 1.3600</dt>
+       <dt>'<b>mgh</b>' : 1.0500</dt>
+       <dt>'<b>cao</b>' : 1.3600</dt>
+       <dt>'<b>cah</b>' : 1.0500</dt>
+       <dt>'<b>feo</b>' : 1.5750</dt>
+       <dt>'<b>lio</b>' : 0.5250</dt>
+       <dt>'<b>Na</b>' : 1.0 </dt>
+       <dt>'<b>K</b>' : 1.0 </dt>
+       <dt>'<b>Cs</b>' : 1.0</dt>
+       <dt>'<b>Ca</b>' : 2.0</dt>
+       <dt>'<b>Ba</b>' : 2.0</dt>
+       <dt>'<b>Cl</b>' : -1.0</dt>
+      </ul>
+     </ul>
+     <b>Improper torsions</b> 
+     <ul>
+      There are no improper torsions in this force field.
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

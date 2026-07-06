@@ -1,0 +1,688 @@
+ensemble
+'nvt'
+temperature
+300.0d0
+nmolty
+2
+nmolectyp
+1 1
+numboxes
+1
+stepstyle
+'cycles'
+nstep
+100
+printfreq
+10   
+blocksize
+20
+moviefreq
+100
+backupfreq  
+1000
+runoutput
+'full'
+pdb_output_freq
+10
+loutdft 
+F
+loutlammps
+.false.
+pressure_virial_freq
+2000
+trmaxdispfreq
+10
+volmaxdispfreq
+5000
+linit   
+.true. 
+initboxtype
+'dimensions'
+initstyle
+'coords' 'coords'
+initlattice
+'none' 'none'
+initmol
+1 1
+inix iniy iniz
+3    1    1
+hmatrix
+100.0 0.0 0.0
+0.0 100.0 0.0
+0.0 0.0 100.0
+pmpivot
+1.0d0
+          pmpivmt
+          1.0d0 0.0d0
+cbmc_formulation
+'Martin and Siepmann 1999 + Martin and Thompson 2004'
+cbmc_setting_style
+'explicit'
+cbmc_nb_one_generation
+'uniform' 'uniform'
+nch_nb_one
+10 10
+nch_nb
+10 10
+cbmc_dihedral_generation
+'global gaussian'
+sdevtor
+20.0d0
+nch_tor
+360 1 
+nch_tor_connect
+360 1 
+cbmc_bend_generation
+'global gaussian'
+sdevbena
+10.0d0
+sdevbenb
+20.0d0
+nch_bend_a
+100 1 
+nch_bend_b
+100 1 
+cbmc_bond_generation
+'global gaussian'
+sdevvib
+0.1d0
+nch_vib
+100 1 
+two_bond_fixed_endpoint_bias_style
+'analytic Boltzmann dihedral energy sum'
+three_bond_fixed_endpoint_bias_style
+'analytic using max and min 2-4 distance'
+ffnumber
+2
+ff_filename
+/towheebase/ForceFields/towhee_ff_Charmm27
+/towheebase/ForceFields/towhee_ff_Aqvist
+classical_potential
+'Lennard-Jones'       
+classical_mixrule
+'Lorentz-Berthelot'
+lshift
+.false.
+ltailc
+.false.
+rmin  
+0.1d0 
+rcut  
+10.0d0
+rcutin 
+10.0d0 
+electrostatic_form
+'coulomb'
+#heme
+input_style
+'basic connectivity map'
+nunit
+73
+nmaxcbmc
+73
+lpdbnames
+F
+forcefield
+'Charmm27'
+charge_assignment
+'manual'
+unit type qqatom
+1    'FE' 0.24d0
+vibration
+4
+6 17 25 33
+improper
+0
+unit type qqatom
+2    'CPM' -0.10d0
+vibration
+3
+7 37 44
+improper
+1
+7 37 44 0
+unit type qqatom
+3    'CPM' -0.10d0
+vibration
+3
+10 18 45
+improper
+1
+18 10 45 0
+unit type qqatom
+4    'CPM' -0.10d0
+vibration
+3
+21 26 46
+improper
+1
+26 21 46 0
+unit type qqatom
+5    'CPM' -0.10d0
+vibration
+3
+29 34 47
+improper
+1
+34 29 47 0
+unit type qqatom
+6    'NPH' -0.18d0
+vibration
+3
+1 7 10
+improper
+1
+7 10 1 0
+unit type qqatom
+7    'CPA' 0.12d0
+vibration
+3
+2 6 8
+improper
+1
+8 2 6 0
+unit type qqatom
+8    'CPB' -0.06d0
+vibration
+3
+7 9 12
+improper
+1
+7 9 12 0
+unit type qqatom
+9    'CPB' -0.06d0
+vibration
+3
+8 10 11
+improper
+1
+8 10 11 0
+unit type qqatom
+10   'CPA' 0.12d0
+vibration
+3
+6 9 3
+improper
+1
+9 3 6 0
+unit type qqatom
+11   'CT3' -0.27d0
+vibration
+4
+9 48 49 50
+improper
+0
+unit type qqatom
+12   'CT2' -0.18d0
+vibration
+4
+8 13 51 52
+improper
+0
+unit type qqatom
+13    'CT2' -0.28d0
+vibration
+4
+12 14 53 54
+improper
+0
+unit type qqatom
+14    'CC' 0.62d0
+vibration
+3
+13 15 16
+improper
+1
+13 16 15 0
+unit type qqatom
+15    'OC' -0.76d0
+vibration
+1
+14
+improper
+0
+unit type qqatom
+16    'OC' -0.76d0
+vibration
+1
+14
+improper
+0
+unit type qqatom
+17    'NPH' -0.18d0
+vibration
+3
+1 18 21
+improper
+1
+18 21 1 0
+unit type qqatom
+18    'CPA' 0.12d0
+vibration
+3
+17 3 19
+improper
+1
+19 3 17 0
+unit type qqatom
+19    'CPB' -0.06d0
+vibration
+3
+18 20 22
+improper
+1
+18 20 22 0
+unit type qqatom
+20    'CPB' -0.06d0
+vibration
+3
+19 21 23
+improper
+1
+19 21 23 0
+unit type qqatom
+21    'CPA' 0.12d0
+vibration
+3
+17 20 4
+improper
+1
+20 4 17 0
+unit type qqatom
+22    'CT3' -0.27d0
+vibration
+4
+19 55 56 57
+improper
+0
+unit type qqatom
+23    'C' -0.20d0
+vibration
+3
+20 24 58
+improper
+1
+24 20 58 0
+unit type qqatom
+24    'C' -0.20d0
+vibration
+3
+23 59 60
+improper
+1
+23 59 60 0
+unit type qqatom
+25    'NPH' -0.18d0
+vibration
+3
+1 26 29
+improper
+1
+26 29 1 0
+unit type qqatom
+26    'CPA' 0.12d0
+vibration
+3
+4 25 27
+improper
+1
+27 4 25 0
+unit type qqatom
+27    'CPB' -0.06d0
+vibration
+3
+26 28 30
+improper
+1
+26 28 30 0
+unit type qqatom
+28    'CPB' -0.06d0
+vibration
+3
+27 29 31
+improper
+1
+27 29 31 0
+unit type qqatom
+29    'CPA' 0.12d0
+vibration
+3
+25 28 5
+improper
+1
+28 5 25 0
+unit type qqatom
+30    'CT3' -0.27d0
+vibration
+4
+27 61 62 63
+improper
+0
+unit type qqatom
+31    'C' -0.20d0
+vibration
+3
+28 32 64
+improper
+1
+32 28 64 0
+unit type qqatom
+32    'C' -0.20d0
+vibration
+3
+31 65 66
+improper
+1
+31 65 66 0
+unit type qqatom
+33    'NPH' -0.18d0
+vibration
+3
+1 34 37
+improper
+1
+34 37 1 0
+unit type qqatom
+34    'CPA' 0.12d0
+vibration
+3
+33 35 5
+improper
+1
+35 5 33 0
+unit type qqatom
+35    'CPB' -0.06d0
+vibration
+3
+34 36 38
+improper
+1
+34 36 38 0
+unit type qqatom
+36    'CPB' -0.06d0
+vibration
+3
+35 37 39
+improper
+1
+35 37 39 0
+unit type qqatom
+37    'CPA' 0.12d0
+vibration
+3
+33 36 2
+improper
+1
+36 2 33 0
+unit type qqatom
+38    'CT3' -0.27d0
+vibration
+4
+35 67 68 69
+improper
+0
+unit type qqatom
+39    'CT2' -0.18d0
+vibration
+4
+36 40 70 71
+improper
+0
+unit type qqatom
+40    'CT2' -0.28d0
+vibration
+4
+39 41 72 73
+improper
+0
+unit type qqatom
+41    'CC' 0.62d0
+vibration
+3
+40 42 43
+improper
+1
+40 43 42 0
+unit type qqatom
+42    'OC' -0.76d0
+vibration
+1
+41
+improper
+0
+unit type qqatom
+43    'OC' -0.76d0
+vibration
+1
+41
+improper
+0
+unit type qqatom
+44    'HA' 0.10d0
+vibration
+1
+2
+improper
+0
+unit type qqatom
+45    'HA' 0.10d0
+vibration
+1
+3
+improper
+0
+unit type qqatom
+46    'HA' 0.10d0
+vibration
+1
+4
+improper
+0
+unit type qqatom
+47    'HA' 0.10d0
+vibration
+1
+5
+improper
+0
+unit type qqatom
+48    'HA' 0.09d0
+vibration
+1
+11
+improper
+0
+unit type qqatom
+49    'HA' 0.09d0
+vibration
+1
+11
+improper
+0
+unit type qqatom
+50    'HA' 0.09d0
+vibration
+1
+11
+improper
+0
+unit type qqatom
+51    'HA' 0.09d0
+vibration
+1
+12
+improper
+0
+unit type qqatom
+52    'HA' 0.09d0
+vibration
+1
+12
+improper
+0
+unit type qqatom
+53    'HA' 0.09d0
+vibration
+1
+13
+improper
+0
+unit type qqatom
+54    'HA' 0.09d0
+vibration
+1
+13
+improper
+0
+unit type qqatom
+55    'HA' 0.09d0
+vibration
+1
+22
+improper
+0
+unit type qqatom
+56    'HA' 0.09d0
+vibration
+1
+22
+improper
+0
+unit type qqatom
+57    'HA' 0.09d0
+vibration
+1
+22
+improper
+0
+unit type qqatom
+58    'HA' 0.20d0
+vibration
+1
+23
+improper
+0
+unit type qqatom
+59    'HA' 0.10d0
+vibration
+1
+24
+improper
+0
+unit type qqatom
+60    'HA' 0.10d0
+vibration
+1
+24
+improper
+0
+unit type qqatom
+61    'HA' 0.09d0
+vibration
+1
+30
+improper
+0
+unit type qqatom
+62    'HA' 0.09d0
+vibration
+1
+30
+improper
+0
+unit type qqatom
+63    'HA' 0.09d0
+vibration
+1
+30
+improper
+0
+unit type qqatom
+64    'HA' 0.20d0
+vibration
+1
+31
+improper
+0
+unit type qqatom
+65    'HA' 0.10d0
+vibration
+1
+32
+improper
+0
+unit type qqatom
+66    'HA' 0.10d0
+vibration
+1
+32
+improper
+0
+unit type qqatom
+67    'HA' 0.09d0
+vibration
+1
+38
+improper
+0
+unit type qqatom
+68    'HA' 0.09d0
+vibration
+1
+38
+improper
+0
+unit type qqatom
+69    'HA' 0.09d0
+vibration
+1
+38
+improper
+0
+unit type qqatom
+70    'HA' 0.09d0
+vibration
+1
+39
+improper
+0
+unit type qqatom
+71    'HA' 0.09d0
+vibration
+1
+39
+improper
+0
+unit type qqatom
+72    'HA' 0.09d0
+vibration
+1
+40
+improper
+0
+unit type qqatom
+73    'HA' 0.09d0
+vibration
+1
+40
+improper
+0
+#Ca ion
+input_style
+'basic connectivity map'
+nunit
+1
+nmaxcbmc
+1
+lpdbnames
+F
+forcefield
+'Aqvist'
+charge_assignment
+'manual'
+unit type qqatom
+1    'Ca+2' 2.0d0
+vibration
+0
+improper
+0

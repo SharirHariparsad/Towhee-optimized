@@ -1,0 +1,177 @@
+<html>
+ <head><title>MCCCS Towhee: towhee_restart</title></head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table width="800" border="0" cellspacing="0" cellpadding="0" height="590">
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"><b><font face="Arial,Helvetica,sans-serif"><a name="top"></a>MCCCS Towhee: towhee_restart</font></b></font></div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"> 
+    <IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" width="210" height="62" border="0" alt="SourceForge.net Logo" align="right"/>
+   </A>
+   <tr> 
+    <td width="18" height="371" valign="top"> 
+     <p>&nbsp; </p>
+     <p>&nbsp;</p>
+    </td>
+    <td width="697" valign="top"> <b>Overview</b> 
+     <ul>
+      This section describes the format that is used to specify Towhee restart files (towhee_backup, towhee_final, and towhee_initial) for the current version
+      of those file (currently version 8).  This documentation was last updated for version 8.0.0.
+      The version number of this file corresponds with the first section of the MCCCS Towhee version number.
+      This file is not intended to be user generated, but some advanced users will occasionally want to directly modify these files under special circumstances.
+     </ul>
+     <b>Differences from previous versions</b>
+     <ul>
+      Towhee strives for backwards compatability so users can utilize restart files generated from previous versions of the code.
+      <li>Version 8: Changed rmvol and rmcell so they are output for each simulation box and for each simulation box pair.</li>
+      <li>Version 7: Added a random number generator parameter to specify which random number generator to use when restarting from the previous random number
+       sequence.
+      </li>
+      <li>Version -6: A manual fix when attempting to read in restart files generated using versions 6.2.16 through 6.2.19.  You must change the version number from
+       6 to -6 in that file in order to properly read those files into any later version of Towhee.
+      </li>
+      <li>Version 6: Added the number of molecules types to the restart file.</li>
+      <li>Version 5: Added random number restart variables, but only for the RANLUX random number generator.</li>
+      <li>Version 4: Changed the format for the molecule rotation move so it no longer stores separate x, y, and z azis rotational displacements.</li>
+      <li>Version 3: Changed the format for storing the unit cell adjustment move maximum displacements.</li>
+      <li>Version 2: Added maximum displacements for the unit cell adjustment move.</li>
+      <li>Version 1: Removed the charges for each atom in the system (used to be x, y, z positions and then charge for each atom).</li>
+      <li>Version 0: An original version from before there was even a version number at the top of the file.</li>
+     </ul>
+     <dt><b>Variable explanations for towhee_restart</b></dt>
+     Most of the data is written to the restart files in an unformatted manner.  Unlike most of the input files there are no text headers.
+     <ul>
+      <dt><b>restart version</b>
+       <ul>
+        <li>The Version number of the restart file.</li>
+       </ul>
+      </dt>
+     </ul>
+     <ul>
+      <dt><b>random_code</b>
+       <ul>
+        An integer code for the random number generators.  These values are listed in preproc.h.
+       </ul>
+      </dt>
+     </ul>
+     <ul>
+      <dt><b>rngsave nrng</b>
+       <ul>
+        <li>The number of integers required to restart this random number generator.</li>
+       </ul>
+      </dt>
+     </ul>
+     <ul>
+      <dt><b>rngsave irng</b>
+       <ul>
+        <li>The integer values required to restart the random number generator.</li>
+       </ul>
+      </dt>
+     </ul>
+     <ul>
+      <dt><b>ncycle, numboxes, nmolty</b>
+       <ul>
+        <li>Current total cycle (or move) number, number of simulation boxes, number of molecule types.</li>
+       </ul>
+      </dt>
+     </ul>
+     <ul>
+      <dt><b>rmtraa, rmtrac, rmrot</b>
+       <ul>
+        <li>
+         This section is looped over the total number of boxes and then each molecule type.  Three lines appear for each box and molecule type combination and those 
+         are the values of the rmtraa (single atom maximum attempted translation), rmtrac (center of mass maximum attempted translation), and rmrot (maximum rotation).
+        </li>
+       </ul>
+      </dt>
+     </ul>
+     <ul>
+      <dt><b>rmvol</b>
+       <ul>
+        <li>
+         The maximum volume displacements listed one per line first for each box and then for each pair of boxes in the simulation.
+        </li>
+       </ul>
+      </dt>
+     </ul>
+     <ul>
+      <dt><b>rmcell</b>
+       <ul>
+        <li>
+         The maximum non-isotropic volume displacements listed in matrix form of 3 lines of 3 data points.
+	 This matrix of displacements is listed first for each box and then for each pair of boxes in the simulation.
+        </li>
+       </ul>
+      </dt>
+     </ul>
+     <ul>
+      <dt><b>hmatrix</b>
+       <ul>
+        <li>
+         The matrix that describes the box shape is listed in matrix form of 3 lines of 3 data points.  This matrix is listed for each box in the simulation.
+        </li>
+       </ul>
+      </dt>
+     </ul>
+     <ul>
+      <dt><b>activechain</b>
+       <ul>
+        <li>
+         This is the total number of molecules in the simulation that are not in the ideal box 0.
+	 This is equivalent to <b>nchain</b> except for Grand Canonical simulations.
+        </li>
+       </ul>
+      </dt>
+     </ul>
+     <ul>
+      <dt><b>nunit</b>
+       <ul>
+        <li>
+         The number of units/atoms in each molecule in the simulation.  Listed for each molecule in the system on a single line.
+        </li>
+       </ul>
+      </dt>
+     </ul>
+     <ul>
+      <dt><b>moltype</b>
+       <ul>
+        <li>
+         The molecule type of each molecule in the simulation.  Listed for each <b>activechain</b> on a single (typically very long) line.
+        </li>
+       </ul>
+      </dt>
+     </ul>
+     <ul>
+      <dt><b>nboxi</b>
+       <ul>
+        <li>
+         The box location for each molecule in the simulation.  Listed for each <b>activechain</b> on a single (typically very long) line.
+        </li>
+       </ul>
+      </dt>
+     </ul>
+     <ul>
+      <dt><b>coordinates</b>
+       <ul>
+        <li>
+         The three dimenesional coordinates for each unit/atom in the simulation.
+	 Listed for each unit/atom of each <b>activechain</b> in the simlulation with each trio of (x,yz) on a line for each unit/atom.
+        </li>
+       </ul>
+      </dt>
+     </ul>
+     <a href="index.html">Return to the main towhee web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->March 28, 2018<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

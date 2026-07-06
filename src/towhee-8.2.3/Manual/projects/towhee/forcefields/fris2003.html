@@ -1,0 +1,71 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: Fris2003</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: Fris2003</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the Frischknecht and Curro United-Atom force field for poly(dimethylsiloxane) as it is implemented in
+      the towhee_ff_Fris2003 file in the ForceFields directory.  All of the Towhee atom types for this force field are listed,
+      along with a short description of their meanings.  Note that this force field is a hybrid of Lennard-Jones (12-6) and
+      Lennard-Jones (9-6) which ends up being a 12-9-6 potential and their implementation does not have general mixing rules for
+      combination with other potentials.  I would like to acknowledge Amalie L. Frischknecht for providing very useful
+      guidance about implementing this force field.  Any	discrepencies (especially typos) from the published force
+      field values are the sole responsibility of Marcus Martin, and I welcome feedback on how this implementation compares
+      with other programs.
+     </ul>
+     <b>References for Frischknecht and Curro (Fris2003)</b> 
+     <ul>
+      This force field is a hybrid of an earlier version of the Compass force field and a united-atom forcefield 
+      of Sok <i>et al.</i>.  Please see the following reference for more details.
+      <ul>
+       <li><a href="../references.html#frischknecht_curro_2003">Frischknecht and Curro 2003</a></li>
+      </ul>
+      with the exception that there is a typo in Table 1 of that paper which states the units for the angle force constant 
+      are kcal/(mol deg<sup>2</sup>).
+      They are in fact listed in the more typical kcal/(mol rad<sup>2</sup>) [personal communication between M.G. Martin and A.L. Frischknecht October 2003].
+     </ul>	
+     <b>Frischknecht and Curro in Towhee</b> 
+     <ul>
+      The official force field name for these parameters is 'Fris2003' (starting with version 3.13.0) Here I list all of the 
+      atom names for use in the towhee_input file, along with a brief description of what atoms we are talking about.
+      Please note that the capitalization and spacing pattern is important and must be followed exactly as listed here.
+      <ul>
+       <dt>'<b>CH3</b>' : united-atom methyl group (one carbon and 3 hydrogens)</dt>
+       <dt>'<b>O</b>' : oxygen</dt>
+       <dt>'<b>Si</b>' : silicon</dt>
+      </ul>
+     </ul>
+     <b>Coulombic Interactions</b> 
+     <ul>
+      This force field uses point charges on atomic centers.  They offer several possible charge sets in their paper, 
+      but it looks like they recomend two possible models.  In the first, the charge is set to 0.0 on every atom (that is, 
+      there are no coulombic interactions).  In the second, the charge is still 0.0 on the methyl groups, Si has a 0.3 charge, 
+      and O has a -0.3 charge.
+     </ul>
+     <b>Improper torsions</b> 
+     <ul>
+      There are no improper torsions for this force field.
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+   </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July, 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

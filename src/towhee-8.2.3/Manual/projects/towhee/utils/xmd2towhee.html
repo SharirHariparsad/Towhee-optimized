@@ -1,0 +1,60 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: xmd2towhee</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table width="675" border="0" cellspacing="0" cellpadding="0" height="590">
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif"><a name="top"></a>MCCCS Towhee: xmd2towhee</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"> 
+    <IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" width="210" height="62" border="0" alt="SourceForge.net Logo" align="right"/>
+   </A>
+   <tr> 
+    <td width="18" height="371" valign="top"> 
+     <p>&nbsp; </p>
+     <p>&nbsp;</p>
+    </td>
+    <td width="697" valign="top"> 
+     <dt><b>Overview</b> 
+      <ul>
+       This section descrbes the <code>xmd2towhee</code> Towhee utility program.
+       This program converts EAM force field files that are in the <a href="http://xmd.sourceforge.net/doc/potformat/potformat.html">XMD format</a> into a format
+       suitable for use in Towhee.
+      </ul>
+     </dt>
+     <dt><b>Compiling</b> 
+      <ul>
+       <code>xmd2towhee</code> is compiled using the Utility Makefile.
+       <ul>
+        <dt><code>cd /towheebase/Utils</code></dt>
+        <dt><code>make xmd2towhee</code></dt>
+       </ul>
+       This creates the <code>xmd2towhee</code> executable that is run from the command line.
+      </ul>
+     </dt>
+     <dt><b>Features</b> 
+      <ul>
+       When you run this program from the command line it asks for the name of an XMD format file to read in and it will output Towhee force
+       field information to the file <b>towhee_eam</b>.  In order for this translation routine to function properly you must reorder the XMD files slightly.
+       The data in the XMD file must first be the pair potential information, then the embedding, and finally the densities.
+       <dt><b>Please enter a filename</b>
+        <ul>The name of the XMD file you wish to translate into Towhee format.</ul>
+       </dt>
+      </ul>
+     </dt>
+     <a href="utility_summary.html">Return to the Utility Summary page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->March 28, 2018<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

@@ -1,0 +1,67 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: SMMK Note added in proof</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: SMMK Note added in proof</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the Siepmann-Martin-Mundy-Klein (SMMK) force field for branched alkanes as it is implemented into the towhee_ff_SMMKnaip
+      file in the ForceFields directory.
+      All of the Towhee atom types for this force field are listed, along with a short description of their meanings.
+      SMMKnaip uses a 'Lennard-Jones' classical_potential and the 'Lorentz-Berthelot' classical_mixrule.
+      The SMMKnaip force field was originally used with a 14.0 Angstrom cutoff and tail corrections.
+      The SMMKnaip forcefield is an improvement upon the <a href="smmkmain.html">SMMK Main</a> force field 
+      whose parameters were listed in the main text of the same paper.
+      SMMKnaip was a predecessor of the <a href="trappeua.html">TraPPE-UA</a> force field.
+      Any discrepencies (especially typos) from the published force field values are the sole responsibility of Marcus Martin,
+      and I welcome feedback on how this implementation compares with other programs. 
+     </ul>
+     <b>References for SMMK Note added in proof</b> 
+     <ul>
+      The parameters and detailed results for the SMMK Note added in proof force field are found in the note added in proof of the following paper.
+      <ul>
+       <li><a href="../references.html#siepmann_et_al_1997">Siepmann <i>et al.</i> 1997</a></li>
+      </ul>
+      The angle and torsion terms for this force field are taken from the following paper.
+      <ul>
+       <li><a href="../references.html#mundy_et_al_1996">Mundy <i>et al.</i> 1996</a></li>
+      </ul>
+      Note that unlike the <a href="smmkmain.html">SMMK Main</a> implementation, this forcefield uses rigid bond lengths.
+     </ul>
+     <b>SMMK Note added in proof in Towhee</b> 
+     <ul>
+      The official force field name for SMMK Note added in proof in Towhee is 'SMMKnaip'.
+      This list contains all of the atom names for use in the towhee_input file, along with a brief description.
+      Please note that the capitalization and spacing pattern is important and must be followed exactly as listed here. 
+      <ul>
+       <dt>'<b>CH3</b>' methyl group (C plus 3 bonded H as a united-atom).</dt>
+       <dt>'<b>CH2</b>' methylene group (C plus 2 bonded H as a united-atom).</dt>
+       <dt>'<b>CH</b>' methine group (C plus 1 bonded H as a united-atom).</dt>
+      </ul>
+     </ul>
+     <b>Coulombic interactions</b> 
+     <ul>
+      There are no coulombic interactions for this force field.
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

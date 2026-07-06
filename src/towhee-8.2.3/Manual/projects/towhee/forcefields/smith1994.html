@@ -1,0 +1,59 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: Smith and Dang 1994</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: Smith and Dang 1994</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the Smith and Dang 1994 non-polarizable parameters for NaCl in SPC/E water as they are implemented into the towhee_ff_Smith1994
+      file in the ForceFields directory.
+      All of the Towhee atom types for this force field are listed, along with a short description of their meanings.
+      Note that this is a Lennard-Jones (12-6) force fields that use Geometric mixing rules and can only be combined with other Lennard-Jones (12-6) force fields.
+      It was designed to be used in combination with the <a href="spce.html">SPC/E</a> water model.
+      Any discrepencies (especially typos) from the published force field values are the sole responsibility of Marcus Martin,
+      and I welcome feedback on how this implementation compares with other programs. 
+     </ul>
+     <b>References for Smith and Dang 1994</b> 
+     <ul>
+      <ul>
+       <li><a href="../references.html#smith_dang_1994">Smith and Dang 1994</a></li>
+      </ul>
+     </ul>	
+     <b>Smith and Dang 1994 in Towhee</b> 
+     <ul>
+      The official force field name for Smith and Dang 1994 in Towhee is 'Smith1994'.
+      This list contains all of the atom names for use in the towhee_input file, along with a brief description.
+      Please note that the capitalization and spacing pattern is important and must be followed exactly as listed here.
+      <ul>
+       <dt>'<b>Na</b>' : sodium ion with a +1 charge.</dt>
+       <dt>'<b>Cl</b>' : chloride ion with a -1 charge.</dt>
+      </ul>
+     </ul>
+     <b>Coulombic interactions</b> 
+     <ul>
+      This force field uses atom-centered point charges to represent the electrostatic interactions.
+      The 'bond increment' method for assigning charges is implemented for these molecules.
+      As there are no bonds this option will simply assign the default ionic charges of +1 to sodium and -1 to chloride.
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

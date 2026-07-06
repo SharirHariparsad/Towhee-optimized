@@ -1,0 +1,225 @@
+random_number_generator
+'RANLUX'
+random_luxlevel
+1
+random_seed
+12345
+random_allow_restart
+.false.
+ensemble
+'uvt'
+temperature
+1.00D0
+nmolty
+1
+nmolectyp
+270
+chempot
+6.00D0
+numboxes
+1
+stepstyle
+'moves'
+nstep
+1000
+printfreq
+1000
+blocksize
+100000000
+moviefreq
+0
+backupfreq
+0
+runoutput
+'blocks'
+pdb_output_freq
+0
+loutdft 
+.false.  
+loutlammps
+.false.
+tmmc_flag
+.true.
+weight_freq
+1000
+c_matrix_freq
+1000
+run_name
+'lj.t100r1'
+louthist
+T
+hist_label
+ 1
+hist_suffix
+'d'
+hist_nequil
+ 0
+histcalcfreq
+1
+histdumpfreq
+10000
+pressure_virial_freq
+0
+trmaxdispfreq
+10000
+volmaxdispfreq
+0
+chempotperstep
+0
+linit   
+T
+initboxtype
+'dimensions'
+initstyle
+'full cbmc'
+initlattice
+'simple cubic' 
+initmol
+0
+inix iniy iniz
+0    0     0   
+hmatrix
+7.0d0 0.0d0 0.0d0
+0.0d0   7.0d0  0.0d0
+0.0d0 0.0d0  7.0d0   
+pmuvtcbswap
+0.70d0
+          pmuvtcbmt
+          1.0d0
+pm1boxcbswap
+0.0d0
+          pm1cbswmt
+          1.0d0
+pmavb1    
+0.0d0     
+          pmavb1in
+          0.5d0
+          pmavb1mt
+          1.0d0
+          pmavb1ct
+          1.0d0
+          avb1rad
+          1.0d0
+pmavb2
+0.0d0     
+          pmavb2in
+          0.5
+          pmavb2mt
+          1.0d0
+          pmavb2ct
+          1.0d0
+          avb2rad
+          1.0d0
+pmavb3
+0.0d0     
+          pmavb3mt
+          1.0d0
+          pmavb3ct
+          1.0d0
+          avb3rad
+          1.0d0
+pmcb
+0.00d0
+          pmcbmt
+          1.0d0 
+          pmall
+          0.0d0 
+pmback
+0.0d0
+          pmbkmt
+          1.0d0
+pmpivot
+0.0d0
+          pmpivmt
+          1.0d0
+pmconrot
+0.0d0
+          pmcrmt
+          1.0d0
+pmcrback
+0.0d0
+          pmcrbmt
+          1.0d0
+pmplane
+0.0d0
+          pmplanebox
+          1.0d0
+          planewidth
+          3.0d0
+pmrow
+0.0d0
+          pmrowbox
+          1.0d0
+          rowwidth
+          3.0d0
+pmtraat
+0.0d0
+          pmtamt          
+          1.0d0      	
+          rmtraa
+          0.5d0 
+          tatraa
+          0.5d0
+pmtracm
+1.00d0
+          pmtcmt          
+          1.0d0      	
+          rmtrac
+          0.5d0 
+          tatrac
+          0.5d0
+pmrotate
+0.0d0
+          pmromt  
+          1.0d0
+          rmrot
+          0.05d0
+          tarot
+          0.5d0
+cbmc_formulation
+'Martin and Siepmann 1999 + Martin and Thompson 2004'
+cbmc_setting_style
+'default ideal'
+ffnumber
+1
+ff_filename
+/towheebase/ForceFields/towhee_ff_LJium
+classical_potential
+'Lennard-Jones'       
+classical_mixrule
+'Lorentz-Berthelot'
+lshift
+.false.
+ltailc
+.false.
+rmin  
+0.50d0 
+rcut  
+2.50D0
+rcutin 
+1.0D0 
+electrostatic_form
+'none'
+nfield
+0
+solvation_style
+'none'
+#lennard-jonesium
+input_style
+'basic connectivity map'
+nunit
+1
+nmaxcbmc
+1
+lpdbnames
+F
+forcefield
+'LJium'
+charge_assignment
+'manual'
+unit ntype qqatom
+1    'lj1.0'  0.0D0
+vibration
+0
+improper
+0

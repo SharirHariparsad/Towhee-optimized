@@ -1,0 +1,187 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: Charmm22</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: Charmm22</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the Charmm22 force field as it is implemented into the towhee_ff_Charmm22 file in the ForceFields directory.
+      All of the Towhee atom types for the Charmm22 force field are listed, along with a short description of their meanings.
+      For more information about the Charmm family of force fields see 
+      <a href="http://www.pharmacy.umaryland.edu/faculty/amackere/">MacKerrel web site</a> or the
+      <a href="http://www.charmm.org/">Charmm.org</a> web site..
+      Note that Charmm22 is a Lennard-Jones (12-6) force field and can only be combined with other Lennard-Jones (12-6) force fields.
+      I would like to acknowledge Alex D. MacKerrel and Tom B. Woolf for providing useful guidance about implementing Charmm22.
+      Any discrepencies (especially typos) from the published Charmm22 force field values are the sole responsibility of Marcus Martin,
+      and I welcome feedback on how this implementation compares with other programs.
+     </ul>
+     <b>References for Charmm22</b> 
+     <ul>
+      The best literature reference for Charmm22 is
+      <ul>
+       <li><a href="../references.html#mackerell_et_al_1998">MacKerell <i>et al.</i> 1998</a></li>
+      </ul>
+     </ul>	
+     <b>Charmm22 in Towhee</b> 
+     <ul>
+      The official force field name for Charmm22 in Towhee is 'Charmm22'.
+      This list contains all of the Charmm22 atom names for use in the towhee_input file, along with a brief description taken
+      from the MacKerell <i>et al.</i> 1998 paper supplementary information.
+      I have added some comments where I thought clarification was needed, these are all in [square brackets].
+      Please note that the capitalization and spacing pattern is important and must be followed exactly as listed here.
+      <dt><font color="red">Carbon</font></dt>
+      <ul>
+       <dt>'<b>C</b>' : polar C</dt>
+       <dt>'<b>CA</b>' : aromatic C</dt>
+       <dt>'<b>CT1</b>' : aliphatic sp<sup>3</sup> C for CH</dt>
+       <dt>'<b>CT2</b>' : aliphatic sp<sup>3</sup> C for CH<sub>2</sub></dt>
+       <dt>'<b>CT3</b>' : aliphatic sp<sup>3</sup> C for CH<sub>3</sub></dt>
+       <dt>'<b>CPH1</b>' : his CG and CD2 carbons</dt>
+       <dt>'<b>CPH2</b>' : his CE1 carbon</dt>
+       <dt>'<b>CPT</b>' : trp C between rings</dt>
+       <dt>'<b>CY</b>' : trp C in pyrrole ring</dt>
+       <dt>'<b>CP1</b>' : tetrahedral C (proline CA)</dt>
+       <dt>'<b>CP2</b>' : tetrahedral C (proline CB/CG)</dt>
+       <dt>'<b>CP3</b>' : tetrahedral C (proline CD)</dt>
+       <dt>'<b>CC</b>' : carbonyl C for sidechains asn, asp, gln, glu</dt>
+       <dt>'<b>CD</b>' : carbonyl C for none amides, asp, glu, cter</dt>
+       <dt>'<b>CPA</b>' : heme alpha-C</dt>
+       <dt>'<b>CPB</b>' : heme beta-C</dt>
+       <dt>'<b>CPM</b>' : heme meso-C</dt>
+       <dt>'<b>CM</b>' : heme CO carbon</dt>
+       <dt>'<b>CS</b>' : thiolate carbon</dt>
+       <dt>'<b>CE1</b>' : for alkene; RHC=CR</dt>
+       <dt>'<b>CE2</b>' : for alkene; H<sub>2</sub>C=CR</dt>
+      </ul>
+      <dt><font color="red">Iron</font></dt>
+      <ul>
+       <dt>'<b>FE</b>' : heme iron</dt>
+      </ul>
+      <dt><font color="red">Hydrogen</font></dt>
+      <ul>
+       <dt>'<b>H</b>' : polar H</dt>
+       <dt>'<b>HC</b>' : N-ter H</dt>
+       <dt>'<b>HA</b>' : nonpolar H</dt>
+       <dt>'<b>HT</b>' : TIPS3P water hydrogen</dt>
+       <dt>'<b>HP</b>' : aromatic H</dt>
+       <dt>'<b>HB</b>' : backbone H</dt>
+       <dt>'<b>HR1</b>' : his he1, (+) his HG,HD2</dt>
+       <dt>'<b>HR2</b>' : (+) his HE1</dt>
+       <dt>'<b>HR3</b>' : neutral his HG, HD2</dt>
+       <dt>'<b>HS</b>' : thiol hydrogen</dt>
+       <dt>'<b>HA1</b>' : for alkene; RHC=CR</dt>
+       <dt>'<b>HA2</b>' : for alkene; H<sub>2</sub>C=CR</dt>
+      </ul>
+      <dt><font color="red">Nitrogen</font></dt>
+      <ul>
+       <dt>'<b>N</b>' : proline N</dt>
+       <dt>'<b>NR1</b>' : neutral his protonated ring nitrogen</dt>
+       <dt>'<b>NR2</b>' : neutral his unprotonated ring nitrogen</dt>
+       <dt>'<b>NR3</b>' : charged his ring nitrogen</dt>
+       <dt>'<b>NH1</b>' : peptide nitrogen</dt>
+       <dt>'<b>NH2</b>' : amide nitrogen</dt>
+       <dt>'<b>NH3</b>' : ammonium nitrogen</dt>
+       <dt>'<b>NC2</b>' : guanidinium nitrogen</dt>
+       <dt>'<b>NY</b>' : trp N in pyrrole ring</dt>
+       <dt>'<b>NP</b>' : proline ring NH<sub>2</sub><sup>+</sup> (N-terminal)</dt>
+       <dt>'<b>NPH</b>' : heme pyrrole N</dt>
+      </ul>
+      <dt><font color="red">Oxygen</font></dt>
+      <ul>
+       <dt>'<b>O</b>' : carbonyl oxygen</dt>
+       <dt>'<b>OB</b>' : carbonyl oxygen in acetic acid</dt>
+       <dt>'<b>OC</b>' : carboxylate oxygen</dt>
+       <dt>'<b>OH1</b>' : hydroxyl oxygen</dt>
+       <dt>'<b>OS</b>' : ester oxygen</dt>
+       <dt>'<b>OT</b>' : TIPS3P water oxygen</dt>
+       <dt>'<b>OM</b>' : heme CO/O2 oxygen</dt>
+      </ul>
+      <dt><font color="red">Sulphur</font></dt>
+      <ul>
+       <dt>'<b>S</b>' : sulphur</dt>
+       <dt>'<b>SM</b>' : sulfur C-S-S-C type</dt>
+       <dt>'<b>SS</b>' : thiolate sulfur</dt>
+      </ul>
+     </ul>
+     <b>Coulombic Interactions</b> 
+     <ul>
+      Charmm 22 utilizes point charges on atomic centers to represent the charge distribution on a molecule.  As far as I know, 
+      there is no automated system for assigning the charges in Charmm 22.  However, Charmm22 uses a neutral group aproach for 
+      most moities found in organic molecules.
+     </ul>
+     <b>Improper torsions</b> 
+     <ul>
+      Improper torsions are not automatically generated by the Towhee code as the rules for determining where they are applied 
+      are not always straight-forward.  Charmm22 exclusively uses the out-of-plane version of the improper torsions, and they
+      are typically centered on an sp<sup>2</sup> atom in order to enforce planarity with its three neighbors.  
+      These torsions are listed in the Charmm22 literature as i-j-k-l where the angle is the dihedral between i-j-k and j-k-l.
+      The bonding pattern is not completely clear to me, but it appears that either i or l is the central atom which is bonded 
+      to all three of the other atoms, and none of the other three atoms are bonded to each other.
+      In the towhee_input file the improper torsions is listed starting from the central atom and 
+      the three other atoms are listed in the same order as Charmm22.  So, if the central atom is i, then the atoms are listed j, 
+      k, l.  If the central atom is l then the atoms are listed k, j, i.
+      Automatic improper torsion type assignment is implemented for this force field.
+     </ul>
+     <b>Proteins</b> 
+     <ul>
+      All of the 20 common amino acids (including the 3 forms of hystidine and the thiol and disulfide forms of cysteine)
+      are functional for the Charmm22 force field. I have implemented the atom types and charges according to the published 
+      Charmm22 values.  Below is a complete list of the codes for the 20 amino acids, plus some other functional groups that 
+      work with the protein builder.
+      <ul>
+       <dt>'<b>a0</b>' : alanine</dt>
+       <dt>'<b>c0</b>' : cysteine with hydrogen on the sulfur</dt>
+       <dt>'<b>cs</b>' : cysteine in a disulfide bond</dt>
+       <dt>'<b>cp</b>' : cysteine bonded to palmitate (includes the palmitate)</dt>
+       <dt>'<b>d-</b>' : aspartic acid deprotonated</dt>
+       <dt>'<b>e-</b>' : glutamic acid deprotonated</dt>
+       <dt>'<b>f0</b>' : phenylalanine</dt>
+       <dt>'<b>g0</b>' : glycine</dt>
+       <dt>'<b>h+</b>' : histidine both N protonated</dt>
+       <dt>'<b>hd</b>' : histidine neutral with only N<sub>d</sub> protonated</dt>
+       <dt>'<b>he</b>' : histidine neutral with only N<sub>e</sub> protonated</dt>
+       <dt>'<b>i0</b>' : isoleucine</dt>
+       <dt>'<b>k+</b>' : lysine protonated</dt>
+       <dt>'<b>kr</b>' : lysine-like retinal</dt>
+       <dt>'<b>l0</b>' : leucine</dt>
+       <dt>'<b>m0</b>' : methionine</dt>
+       <dt>'<b>n0</b>' : asparagine</dt>
+       <dt>'<b>p0</b>' : proline</dt>
+       <dt>'<b>q0</b>' : glutamine</dt>
+       <dt>'<b>r+</b>' : arginine protonated</dt>
+       <dt>'<b>s0</b>' : serine</dt>
+       <dt>'<b>t0</b>' : threonine</dt>
+       <dt>'<b>v0</b>' : valine</dt>
+       <dt>'<b>w0</b>' : tryptophan</dt>
+       <dt>'<b>y0</b>' : tyrosine</dt>
+       <dt>'<b>za</b>' : acetyl cap on the N-terminus</dt>
+       <dt>'<b>ze</b>' : ethanolamine cap on the C-terminus</dt>
+       <dt>'<b>zf</b>' : formaldahyde cap on the N-terminus</dt>
+       <dt>'<b>zm</b>' : amide cap (NH<sub>2</sub>) on the C-terminus.  [Note: differs from official charmm22 by
+	having a 0.31 charge on both terminal H instead of giving one 0.30 and the other 0.32.]
+       </dt>
+       <dt>'<b>zn</b>' : N-methylamide cap on the C-terminus</dt>
+      </ul>
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

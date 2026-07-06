@@ -1,0 +1,117 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: NERD Version 3</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" > 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: NERD Version 3</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td><b>Overview</b> 
+     <ul>
+      This section covers the NERD Version 3 United Atom (NERD) force field as it is implemented into the towhee_ff_NERDv3 file in the ForceFields directory.
+      The NERD force field has had several minor changes to parameters as time as progresses so I have broken each of these changes into a different 
+      version of the force field.  All of the Towhee atom types for this force field are listed, along with a short description of their meanings.
+      Note that NERDv3 is a Lennard-Jones (12-6) force field and can only be combined with other Lennard-Jones (12-6) force fields.
+      I would like to thank Nicholas du Preez for initiating the implementation of this force field into Towhee.
+      Any discrepencies (especially typos) from the published values are the sole responsibility of Marcus Martin,
+      and I welcome feedback on how this implementation compares with other programs.
+      This forcefield was changed in version 8.1.0 so that the forcefield name is always just 'NERD' for all of the various implementations.
+     </ul>
+     <b>References for NERD Version 3</b> 
+     <ul>
+      What I term NERD Version 3 is described in a single paper (listed here) plus all of the 
+      original <a href="nerdv1.html">NERDv1</a> and <a href="nerdv2.html">NERDv2</a> references.
+      Note that some of the terms in those original works have been superceded by later publications.
+      <ul>
+       <li><a href="../references.html#khare_et_al_2004">Khare <i>et al.</i> 2004</a></li>
+      </ul>
+     </ul>	
+     <b>NERDv3 in Towhee</b> 
+     <ul>
+      The official force field name for NERD Version 3 United Atom in Towhee is 'NERD'.
+      This list contains all of the atom names for use in the towhee_input file, along with a brief description.
+      I created these atom names in order to work with the molecule assembler.
+      NERDv3 is a united-atom force field that lumps hydrogens onto their neighboring carbons.
+      Note that hydrogens that are bonded to atoms other than carbon are not lumped onto their neighboring atoms.
+      The general pattern of the names is a list of the atoms that make up the group, followed by the hybridization of the central atom,
+      and ending in a character string that distinguishes similar atoms.
+      Please note that the capitalization and spacing pattern is important and must be followed exactly as listed here.
+      <dt><font color="red">sp<sup>3</sup> hybridized Carbons</font></dt>
+      <ul>
+       <dt>'<b>CH4</b>' : sp<sup>3</sup> carbon plus the 4 hydrogens bonded to it (united-atom) in methane.</dt>
+       <dt>'<b>CH3sp3eth</b>' : sp<sup>3</sup> carbon plus the 3 hydrogens bonded to it (united-atom) in ethane.</dt>
+       <dt>'<b>CH3sp3pro</b>' : sp<sup>3</sup> carbon plus the 3 hydrogens bonded to it (united-atom) in propane.</dt>
+       <dt>'<b>CH3sp3isob</b>' : sp<sup>3</sup> carbon plus the 3 hydrogens bonded to it (united-atom) in isobutane
+	(2-methylpropane).</dt>
+       <dt>'<b>CH3sp32mb</b>' : sp<sup>3</sup> carbon plus the 3 hydrogens bonded to it (united-atom) bonded to 
+	a CH group in 2-methylbutane.</dt>
+       <dt>'<b>CH3sp3neop</b>' : sp<sup>3</sup> carbon plus the 3 hydrogens bonded to it (united-atom) bonded to 
+	a C group in neopentane (2,2-dimethyl propane).</dt>
+       <dt>'<b>CH3sp322db</b>' : sp<sup>3</sup> carbon plus the 3 hydrogens bonded to it (united-atom) bonded to 
+	a C group in 2,2-dimethylbutane.</dt>
+       <dt>'<b>CH3sp3pene</b>' : sp<sup>3</sup> carbon plus the 3 hydrogens bonded to it (united-atom) bonded to 
+	an sp<sup>2</sup> CH group in propene.</dt>
+       <dt>'<b>CH3sp3mesc</b>' : sp<sup>3</sup> carbon plus the 3 hydrogens bonded to it (united-atom) bonded to 
+	a CH group (methyl side-chain) and not a special case listed above.</dt>
+       <dt>'<b>CH3sp3etsc</b>' : sp<sup>3</sup> carbon plus the 3 hydrogens bonded to it (united-atom) bonded to 
+	a CH<sub>2</sub> group that is itself bonded to a CH group (ethyl side-chain).</dt>
+       <dt>'<b>CH3sp3gen</b>' : sp<sup>3</sup> carbon plus the 3 hydrogens bonded to it (united-atom) and not one 
+	of the cases listed above.</dt>
+       <dt>'<b>CH2sp3</b>' : sp<sup>3</sup> carbon plus the 2 hydrogens bonded to it (united-atom).</dt>
+       <dt>'<b>CHsp3</b>' : sp<sup>3</sup> carbon plus the 1 hydrogen bonded to it (united-atom).</dt>
+       <dt>'<b>Csp3</b>' : sp<sup>3</sup> carbon that is not bonded to any hydrogens.</dt>
+      </ul>
+      <dt><font color="red">sp<sup>2</sup> hybridized Carbons</font></dt>
+      <ul>
+       <dt>'<b>CH2sp2eth</b>' : sp<sup>2</sup> carbon plus the 2 hydrogens bonded to it (united-atom) in ethene.</dt>
+       <dt>'<b>CH2sp2prim</b>' : sp<sup>2</sup> carbon plus the 2 hydrogens bonded to it (united-atom) in a primary alkene.</dt>
+       <dt>'<b>CHsp2</b>' : sp<sup>2</sup> carbon plus the 1 hydrogen bonded to it (united-atom) in a primary alkene.</dt>
+      </ul>
+      <dt><font color="red">Hydrogen</font></dt>
+      <ul>
+       <dt>'<b>H_o</b>' : hydrogen bonded to oxygen.</dt>
+       <dt>'<b>H_s</b>' : hydrogen bonded to sulfur.</dt>
+      </ul>
+      <dt><font color="red">Oxygen</font></dt>
+      <ul>
+       <dt>'<b>Osp3</b>' : sp<sup>3</sup> hybridized oxygen single bonded to two atoms.</dt>
+      </ul>
+      <dt><font color="red">Sulfur</font></dt>
+      <ul>
+       <dt>'<b>S_sh2</b>' : sulfur in dihydrogen sulfide.</dt>
+      </ul>
+     </ul>
+     <b>Coulombic interactions</b> 
+     <ul>
+      Most atoms do not have a charge when using the NERDv3 forcefield.  Exceptions are listed below.
+      <dt><font color="red">SH<sup>2</sup></font> (from <a href="../references.html#nath_2003">Nath 2003</a>)</dt>
+      <dt>'<b>H_s</b>' : 0.124</dt>
+      <dt>'<b>S_sh2</b>' : -0.248</dt>
+      <dt><font color="red">alcohols</font> (from <a href="../references.html#khare_et_al_2004">Khare <i>et al.</i> 2004</a>)</dt>
+      <dt>'<b>H_o</b>' : 0.420</dt>
+      <dt>'<b>Osp3</b>' : -0.710</dt>
+      <dt>'<b>CH2sp3</b>' (bonded to the oxygen): 0.290</dt>
+     </ul>
+     <b>Improper torsions</b> 
+     <ul>
+      This force field does not utilize improper torsions.
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

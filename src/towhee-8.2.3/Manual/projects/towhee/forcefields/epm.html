@@ -1,0 +1,83 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: Elementary Physical Models</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: Elementary Physical Models</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers three Elementary Physical Models (EPM) for CO<sub>2</sub> as they are implemented into the towhee_ff_EPM file in the ForceFields directory.
+      All of the Towhee atom types for these EPM force fields are listed, along with a short description of their meanings.
+      Note that EPM are Lennard-Jones (12-6) force fields that use Geometric mixing rules and can only be combined with other Lennard-Jones (12-6) force fields.
+      Any discrepencies (especially typos) from the published force field values are the sole responsibility of Marcus Martin,
+      and I welcome feedback on how this implementation compares with other programs. 
+     </ul>
+     <b>References for EPM</b> 
+     <ul>
+      The three EPM models are presented in a single paper by Harris and Yung.
+      <ul>
+       <li><a href="../references.html#harris_yung_1995">Harris and Yung 1995</a></li>
+      </ul>
+     </ul>	
+     <b>EPM in Towhee</b> 
+     <ul>
+      The official force field name for the Elementary Physical Models in Towhee is 'EPM'.
+      This list contains all of the EPM atom names for use in the towhee_input file, along with a brief description.
+      I created these atom names in order to work with the molecule assembler.
+      There are three different variants of the carbon dioxide potentials present in this force field and all are implemented here.
+      Please note that the capitalization and spacing pattern is important and must be followed exactly as listed here.
+      <dt><font color="red">EPM Rigid Carbon Dioxide</font></dt>
+      <ul>
+       This model is taken from the first part of Table 1 in <a href="../references.html#harris_yung_1995">Harris and Yung 1995</a>.
+       It has a rigid bending angle for CO<sub>2</sub>.
+       <dt>'<b>C_EPM-R</b>' : central carbon in carbon dioxide.</dt>
+       <dt>'<b>O_EPM-R</b>' : oxygen in carbon dioxide.</dt>
+      </ul>
+      <dt><font color="red">EPM Flexible Carbon Dioxide</font><dt>
+       <ul>
+	This model is taken from the first part of Table 1 in <a href="../references.html#harris_yung_1995">Harris and Yung 1995</a>.
+	It has a flexible bending angle for CO<sub>2</sub>
+        <dt>'<b>C_EPM-F</b>' : central carbon in carbon dioxide.</dt>
+        <dt>'<b>O_EPM-F</b>' : oxygen in carbon dioxide.</dt>
+       </ul>
+      <dt><font color="red">EPM2 Carbon Dioxide</font></dt>
+      <ul>
+       This model is taken from the second part of Table 1 in <a href="../references.html#harris_yung_1995">Harris and Yung 1995</a>.
+       It has a flexible bending angle for CO<sub>2</sub>
+       <dt>'<b>C_EPM2</b>' : central carbon in carbon dioxide.</dt>
+       <dt>'<b>O_EPM2</b>' : oxygen in carbon dioxide.</dt>
+      </ul>
+     </ul>
+     <b>Coulombic interactions</b> 
+     <ul>
+      EPM uses atom-centered point charges to represent the electrostatic interactions.
+      The 'bond increment' method for assigning charges is implemented for these molecules.
+      Here I list the bond increments for the atom names listed above.
+      The value of the bond increment is added to the first atom listed and subtracted from the second atom listed.
+      <ul>
+       <dt><b>C_EPM-R</b> - <b>O_EPM-R</b>: 0.33225</dt>
+       <dt><b>C_EPM-F</b> - <b>O_EPM-F</b>: 0.33225</dt>
+       <dt><b>C_EPM2</b> - <b>O_EPM2</b>: 0.3256</dt>
+      </ul>
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

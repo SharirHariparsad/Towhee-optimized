@@ -1,0 +1,104 @@
+ensemble
+'nvt'
+temperature
+300.0d0
+nmolty
+2
+nmolectyp
+1 999
+numboxes
+1
+stepstyle
+'cycles'
+nstep
+100
+printfreq 
+10   
+blocksize
+20
+moviefreq
+10
+backupfreq  
+1000
+runoutput
+'full'
+pdb_output_freq
+10
+pressure_virial_freq
+1
+trmaxdispfreq
+5
+volmaxdispfreq
+10
+linit   
+.true. 
+initboxtype
+'dimensions'
+initstyle
+'full cbmc' 'full cbmc'
+initlattice
+'simple cubic' 'simple cubic' 
+initmol
+1 999
+inix iniy iniz
+10   10   10
+hmatrix
+11.0 0.0d0 0.0d0
+0.0d0 11.0 0.0d0
+0.0d0 0.0d0 11.0
+pmtracm
+1.0d0
+          pmtcmt          
+          0.001d0 1.0d0      	
+          rmtrac
+          0.5d0 
+          tatrac
+          0.5d0
+ffnumber
+1
+ff_filename
+/towheebase/ForceFields/towhee_ff_HardSphere
+classical_potential
+'Hard Sphere'       
+classical_mixrule
+'Arithmetic'
+radial_pressure_delta
+1.0d-2
+electrostatic_form
+'none'
+input_style
+'basic connectivity map'
+nunit
+1
+nmaxcbmc
+1
+lpdbnames
+F
+forcefield
+'HardSphere'
+charge_assignment
+'manual'
+unit ntype qqatom
+1 'hs1.0' 0.0d0
+vibration
+0
+improper torsion
+0
+input_style
+'basic connectivity map'
+nunit
+1
+nmaxcbmc
+1
+lpdbnames
+F
+forcefield
+'HardSphere'
+charge_assignment
+'manual'
+unit ntype qqatom
+1 'hs1.0' 0.0d0
+vibration
+0
+improper torsion
+0

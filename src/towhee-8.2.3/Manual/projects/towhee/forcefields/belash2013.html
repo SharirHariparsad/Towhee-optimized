@@ -1,0 +1,74 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: Belashchenko 2013</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: Belashchenko 2013</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the Belashchenko 2013 mercury parameters as they are implemented into the 
+      towhee_ff_Belash2013 file in the ForceFields directory.  The Towhee atom type for this force field 
+      is listed, along with a short description of its meaning.  This force field was intended for liquid
+      simulation of mercury, uses the 'Embedded Atom Method' potential,
+      and is not easily combined with other potentials due to the explicit mixing rules used with that potential.
+      Any discrepencies (especially typos) from the published values 
+      are the sole responsibility of Marcus Martin, and I welcome feedback on how this implementation compares
+      with other programs.
+     </ul>
+     <b>References for Belash2013</b> 
+     <ul>
+      <li><a href="../references.html#belashchenko_2013">Belashchenko 2013</a></li>
+     </ul>	
+     <b>Typos and comments for Belash2013</b> 
+     <ul>
+      There are some typographical errors in the Belashchenko 2013 paper.
+      Here I document places where my implementation does not agree with what is written in the Belashchenko 2013 paper.
+      <li>
+       Equation (7) of <a href="../references.html#belashchenko_2013">Belashchenko 2013</a> states the range for this portion of the Embedding function as
+       &#961;<sub>1</sub> &le; &#961; &le; &#961;<sub>6</sub>.
+       That range is certainly incorrect as &#961;<sub>6</sub> &lt; &#961;<sub>1</sub> as stated in the text of that paper, and also
+       from looking at the specific values of those parameters in that paper.
+       The implementation in Towhee assumes the author meant a range of &#961;<sub>1</sub> &le; &#961; &le; &#961;<sub>8</sub>.
+      </li>
+      <li>
+       There is a typographical error in the parameters listed in Table 1 of <a href="../references.html#belashchenko_2013">Belashchenko 2013</a>.
+       Starting with version 7.0.6 Towhee uses the correct value of a<sub>4,5</sub> = -0.11066271548233 * 10<sup>1</sup> instead of the
+       listed value of a<sub>4,5</sub> = -0.11066271548233 * 10<sup>0</sup> [personal communication with D. Belashchenko].
+      </li>
+     </ul>
+     <b>Belashchenko 2013 in Towhee</b> 
+     <ul>
+      The official force field name for these parameters is 'Belash2013'.
+      Here I list the atom name for use in the towhee_input file, along with a brief description (although the meaning of the atom name should be obvious).
+      Please note that the capitalization and spacing pattern is important and must be followed exactly as listed here.
+      <ul>
+       <dt>'<b>Hg</b>' : mercury.  Uses a 9.01 &#8491; cutoff for the embedding density.
+	The tabulated pair potential has a minimum of 2.400 &#8491; and a maximum of 8.350 &#8491;.
+       </dt>
+      </ul>
+     </ul>
+     <b>Coulombic interactions</b> 
+     <ul>
+      There are no coulombic interactions for this potential.
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

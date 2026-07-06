@@ -1,0 +1,226 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: Citation Manual</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table width="800" border="0" cellspacing="0" cellpadding="0" height="590">
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif"><a name="top"></a>MCCCS Towhee: Citation Manual</font></b></font></div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"> 
+    <IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" width="210" height="62" border="0" alt="SourceForge.net Logo" align="right"/>
+   </A>
+   <tr> 
+    <td width="18" height="371" valign="top"> 
+     <p>&nbsp; </p>
+     <p>&nbsp;</p>
+    </td>
+    <td width="700" valign="top"> 
+     <p></p>
+     <b>Overview</b> 
+     <ul>
+      The ensembles, moves, and force fields that power Towhee come from a wide variety of sources.  This section discusses how to use the
+      towhee_citations output file as a starting place for acknowledging the contributions of others when writing up the results of your own research.
+      <p></p>
+      This manual lists the references that are suggested in the towhee_citation file for each ensemble or Monte Carlo algorithm along with commentary 
+      on why those were chosen as the preferred references, and also sometimes includes a discussion about other papers that are relevant and also worth
+      considering.
+     </ul>
+     <dt><b>The Towhee Code</b></dt>
+     <ul>
+      <li>
+       <a href="references.html#martin_2013">Martin 2013</a> <i>suggested reference</i>
+       <dt>
+        The history of the MCCCS Towhee project, along with a discussion of suggested simulation procedures for vapor-liquid simulation, and a review of papers that
+        cited it prior to 2013.
+       </dt>
+      </li>
+      <li><a name="website">
+	http://towhee.sourceforge.net</a>
+      </li>
+     </ul>
+     <dt><b>Random Number Generators</b></dt>
+     <ul>
+      <b>RANLUX</b>
+      <ul>
+       <li>
+        <a href="references.html#luscher_1994">L&#252scher 1994</a> <i>suggested reference</i>
+        <dt>
+         The original paper describing the algorithm used in RANLUX and also describes the luxury levels.
+        </dt>
+       </li>
+       <li>
+        <a href="references.html#james_1994">James 1994</a> <i>suggested reference</i>
+        <dt>
+         The original paper implementing the RANLUX algorithm.
+        </dt>
+       </li>
+      </ul>
+      <b>DX-1597-2-7</b>
+      <ul>
+       <li>
+        <a href="references.html#deng_2005">Deng 2005</a> <i>suggested reference</i>
+        <dt>
+         This paper describes many similar random number generators including the DX-1597-2-7.
+        </dt>
+       </li>
+      </ul>
+      <b>MRG32k3a</b>
+      <ul>
+       <li>
+        <a href="references.html#lecuyer_1999">l'Ecuyer 1999</a> <i>suggested reference</i>
+        <dt>
+         Describes a family of random number generators including MRG32k3a.
+        </dt>
+       </li>
+      </ul>
+      <b>KISS99</b>
+      <ul>
+       <li>
+        <dt>
+         G. Marsaglia posted this onto some internet newsgroups and there is no good journal reference.
+        </dt>
+       </li>
+      </ul>
+     </ul>
+     <dt><b>Ensembles</b></dt>
+     <ul>
+      <a name="canonical_ensemble"><b>Canonical Ensemble</b></a>
+      <ul>
+       <li>
+        <a href="references.html#metropolis_et_al_1953">Metropolis <i>et al.</i> 1953</a> <i>suggested reference</i>
+        <dt>
+         This is the original Monte Carlo  molecular simulation paper.  While the system simulated was very primitive by modern standards (2-dimensional hard
+         disks), they presented the general algorithm that is the basis for all subsequent Monte Carlo molecular simulations.  Also the first use of the
+         translation move (the only move required to sample the Canonical ensemble for monatomic molecules).
+        </dt>
+       </li>
+      </ul>
+      <a name="isobaric_isothermal_ensemble"><b>Isobaric-isothermal Ensemble</b></a>
+      <ul>
+       <li>
+        <a href="references.html#mcdonald_1972">McDonald 1972</a> <i>suggested reference</i>
+        <dt>
+         Presents the algorithm for the volume change move for continuous potentials in the pressence of a specified external pressure.
+        </dt>
+       </li>
+      </ul>
+      <a name="grand_canonical_ensemble"><b>Grand Canonical Ensemble</b></a>
+      <ul>
+       <li>
+        <a href="references.html#norman_1969">Norman 1969</a> <i>suggested reference</i>
+        <dt>
+         While this article was not known in the western literature until much later, it is the first paper describing the Grand Canonical ensemble
+         using the Monte Carlo method for continuous potentials.
+        </dt>
+       </li>
+       <li>
+        <a href="references.html#rowley_et_al_1975">Rowley <i>et al.</i> 1975</a> <i>additional reference</i>
+        <dt>
+         Among the first publications in the western literature to present an algorithm and results for the Grand Canonical creation/removal
+         move for continuous potentials.  However, their method of keeping ficticious atoms in the system and transitioning them between 
+         real and imaginary is not the method used in Towhee for performing the insertion/deletion.
+        </dt>
+       </li>
+      </ul>
+      <a name="gibbs_ensemble"><b>Gibbs Ensemble (NVT or NpT)</b></a>
+      <ul>
+       <li>
+        <a href="references.html#panagiotopoulos_1987">Panagiotopoulos 1987</a> <i>suggested reference</i>
+        <dt>
+         The original Gibbs ensemble paper.  Contains a derviation for the moves required for the NVT-Gibbs ensemble using arguments based upon
+         the fluctuation theorm of Landau and Lifshitz.  Despite the atypical starting place for deriving ensemble acceptance rules the only 
+         equation that does not agree with later work is the molecule transfer move (Eqn. 7).
+        </dt>
+       </li>
+       <li>
+        <a href="references.html#panagiotopoulos_et_al_1988">Panagiotopoulos <i>et al.</i> 1988</a> <i>suggested reference</i>
+        <dt>
+         This follow-up to the original contains the derivations and acceptance rules for the NVT-Gibbs ensemble, the NpT-Gibbs ensemble, and an 
+         osmotic pressure Gibbs ensemble.
+        </dt>
+       </li>
+       <li>
+        <a href="references.html#smit_et_al_1989">Smit <i>et al. 1989</i></a> <i>additional reference</i>
+        <dt>
+         Contains detailed discussion about how the NVT-Gibbs ensemble free energy is the same as the Canonical ensemble free energy.  Also analysis
+         of why the Gibbs ensemble works better than many people originally expected it to, especially in its ability to predict the a critical point
+         that does not suffer much from finite size effects.
+        </dt>
+       </li>
+      </ul>
+     </ul>
+     <dt><b>Moves</b></dt>
+     <ul>
+      <b>Isotropic Volume move (NpT)</b>
+      <ul>
+       <li>
+        <a href="references.html#mcdonald_1972">McDonald 1972</a> <i>suggested reference</i>
+        <dt>
+         In either the Isobaric-isothermal or the Gibbs Isobaric-isothermal ensembles this move has not changed since the original Isobaric-isothermal paper.
+        </dt>
+       </li>
+      </ul>
+      <b>Isotropic Volume move (NVT)</b>
+      <ul>
+       <li>
+        <a href="references.html#panagiotopoulos_1987">Panagiotopoulos 1987</a> <i>suggested reference</i>
+        <dt>
+         The two-box volume exchange was first described in this paper using a maximum volume displacement.  Towhee uses a maximum change based upon
+         the logarithm of the ratio of box volumes.
+        </dt>
+       </li>
+      </ul>
+      <b>Anisotropic Volume move (NpT)</b>
+      <ul>
+       <li>
+        <a href="references.html#yashonath_rao_1985">Yashonath and Rao 1985</a> <i>suggested reference</i>
+        <dt>
+         Perturbation of a single element of the hmatrix to change the volume in an anisotropic manner was first decribed in this paper.
+        </dt>
+       </li>
+      </ul>
+      <b>Rotational-bias molecule transfer</b>
+      <ul>
+       <li>
+        <a href="references.html#cracknell_et_al_1990">Cracknell <i>et al.</i> 1990</a> <i>suggested reference</i>
+        <dt>
+         The original description of the rotational-bias insertion algorithm.
+        </dt>
+       </li>
+      </ul>
+      <b>Configurational-bias molecule transfer</b>
+      <ul>
+       <li>
+        <a href="references.html#mooij_et_al_1992">Mooij <i>et al.</i> 1992</a> <i>suggested reference</i>
+        <dt>
+         The original description of the configurational-bias molecule transfer algorithm.  Note that while
+         configurational-bias algorithms have advanced greatly since this paper, the general concept of the
+         algorithm in the context of molecule transfer is essentially the same
+        </dt>
+       </li>
+       <li>
+        <a href="references.html#frenkel_et_al_1992">Frenkel <i>et al.</i> 1992</a> <i>additional reference</i>
+        <dt>
+         The full paper version of the configurational-bias molecule transfer algorithm.  Note that while
+         configurational-bias algorithms have advanced greatly since this paper, the general concept of the
+         algorithm in the context of molecule transfer is essentially the same
+        </dt>
+       </li>
+      </ul>
+     </ul>
+     <a href="index.html">Return to the main towhee web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->March 28, 2018<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

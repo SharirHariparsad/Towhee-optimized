@@ -1,0 +1,63 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: Charmm27x</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: Charmm27x</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers some extra parameters for use in combination with the <a href="charmm27.html">CHARMM27</a> force field as it is implemented into the 
+      towhee_ff_Charmm27x file in the ForceFields directory.
+      This file is only likely to be useful in combination with the standard CHARMM27 forcefield.
+      Charmm27x is a Lennard-Jones (12-6) force field and typically uses the Lorentz-Berthelot mixing rules.
+      These values are not officially part of the CHARMM27 forcefield and are the sole responsibility of Marcus Martin.
+     </ul>
+     <b>References for Charmm27x</b> 
+     <ul>
+      These are some additional parameters created by Marcus Martin for use with the actual CHARMM27 forcefield.
+      Some of these parameters were published in the following paper.
+      <li><a href="../references.html#martin_biddy_2005">Martin and Biddy 2005</a></li>
+     </ul>	
+     <b>Typos and comments for Charmm27x</b>
+     <ul>
+      <li>This file is an example of the suggested method for users to add additional parameters to existing forcefields.
+       By placing all of the additional parameters into a separate file this makes it easy to both keep track of your changes
+       for eventual publication, and to upgrade to new code versions without worrying about overwriting your new parameters.
+      </li>
+      <li>In order to use these additional parameters with the CHARMM27 forcefield you need to include both the towhee_ff_Charmm27 
+       and towhee_ff_Charmm27x forcefield files in towhee_input.  Label the molecules with the 'Charmm27' forcefield as normal
+       and Towhee will search through the forcefield files in the order specified and take the first complete match.
+      </li>
+      <li>The following parameters were published in <a href="../references.html#martin_biddy_2005">Martin and Biddy 2005</a>.
+       <ul>
+	<li>CT3-CC-CT3: used for acetone and taken from the CHARMM27 CT3-CT2-CT2 parameters.</li>
+       </ul>
+      </li>
+     </ul>
+     <b>Charmm27x in Towhee</b> 
+     <ul>
+      The official force field name for Charmm27x in Towhee is 'Charmm27' as the name has to be the same in order to get the 
+      molecule assembler to consider these parameters when building a molecule.  There are no additional nonbonded types 
+      in this forcefield.  See the original <a href="charmm27.html">CHARMM27</a> forcefield for the valid atom types.
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

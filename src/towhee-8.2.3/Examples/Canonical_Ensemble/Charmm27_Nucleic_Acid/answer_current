@@ -1,0 +1,1243 @@
+ MCCCS Towhee - Version 8.2.3   (July 22 2021)      
+ Copyright (C) <2000-2021> Marcus G. Martin
+ Code Contributors for 2021: Marcus G. Martin;
+ Code Contributors for 2020: Marcus G. Martin;
+ Code Contributors for 2019: Marcus G. Martin;
+ Code Contributors for 2018: Marcus G. Martin;
+ Code Contributors for 2017: Marcus G. Martin;
+ Code Contributors for 2016: Marcus G. Martin;
+ Code Contributors for 2015: Marcus G. Martin;
+ Code Contributors for 2014: Marcus G. Martin;
+ Code Contributors for 2013: Wesley Emeneker; Marcus G. Martin;
+ Code Contributors for 2012: Marcus G. Martin;
+ Code Contributors for 2011: Fred James; Marcus G. Martin; Suleiman Oloriegbe;
+ Code Contributors for 2010: Rene Haber; Andrej Lajovic; Marcus G. Martin; Loukas Peristeras;
+ Code Contributors for 2009: Rene Haber; Marcus G. Martin; Loukas Peristeras;
+ Code Contributors for 2008: Rene Haber; Iyad A. Hijazi; Marcus G. Martin; Loukas Peristeras; Craig Tenney;
+ Code Contributors for 2007: Bernhard Eckl; Frank Heilmann; Jianhui Li; Marcus G. Martin; Craig M. Tenney; Ozgur Yazaydin
+ Code Contributors for 2006: Alan A. Chen; Arben Jusufi; Christian D. Lorenz; Marcus G. Martin; Jeffrey J. Potoff; Vincent K. Shen; Matthew A. Wyczalkowski; Ozgur Yazaydin
+ Code Contributors for 2005: Marcus G. Martin; Alan A. Chen; Christian D. Lorenz; Matthew A. Wyczalkowski
+ Code Contributors for 2004: Marcus G. Martin; Christian D. Lorenz; Peter A. Schultz; Aidan P. Thompson; Jeffrey J. Potoff; Steve R. Lustig; Paul S. Crozier; Nicholas du Preez
+ Code Contributors for 2003: Marcus G. Martin; Christian D. Lorenz; David B. Ritch; Michael L. Greenfield; Yogesh Srivastava; Evangelos A Coutsias
+ Code Contributors for 2002: Marcus G. Martin; Christian D. Lorenz; Aidan P. Thompson; Allen G. Sault
+ Code Contributors for 2001: Marcus G. Martin
+ Code Contributors for 2000: Marcus G. Martin
+ Copyright (C) <1999> J. Ilja Siepmann and Marcus G. Martin
+ Code Contributors for 1999: J. Ilja Siepmann; Marcus G. Martin; Bin Chen; Collin D. Wick; John Stubbs
+
+ Direct comments about this code to Marcus G. Martin (marcus_martin@users.sourceforge.net)
+ See the MCCCS Towhee web site for more information and the users manual.
+ http://towhee.sourceforge.net
+
+ We would like to thank the following agencies for providing funding used to develop MCCCS Towhee
+ -Department of Energy Industrial Technologies Program (MGM)
+ -National Science Foundation (JIS)
+ -Department of Energy Computational Science Graduate Fellowship (MGM,CDW)
+
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+ Reading from towhee_input file: towhee_input                                                                                                            
+ in directory: current directory
+ ensemble: nvt                           
+ temperature:  298.150    
+ nmolty:            1
+ nmolectyp:            1
+ numboxes:            1
+ stepstyle: cycles  
+ nstep:            0
+ printfreq:            1
+ blocksize:         2500
+ moviefreq:          100
+ backupfreq:         1000
+ runoutput: full                
+Full output of updates and block averages
+ pdb_output_freq:            0
+ loutdft:  F
+ loutlammps:  F
+ pressure_virial_freq:         2000
+ trmaxdispfreq:           10
+ volmaxdispfreq:         5000
+ linit:  T
+ initboxtype: dimensions          
+initstyle Box:    1
+ coords              
+Box:  1 initlattice: none                
+Box:  1 initmol:         1
+Box:  1 inix,iniy,iniz:         1          1          1
+Box idim hmatrix:    1 1  100.00000    0.00000    0.00000
+Box idim hmatrix:    1 2    0.00000  100.00000    0.00000
+Box idim hmatrix:    1 3    0.00000    0.00000  100.00000
+ pmpivot:  1.00000    
+ pmpivmt:  1.00000    
+cbmc_analysis: normal                        
+cbmc_formulation: Martin and Siepmann 1999 + Martin and Thompson 2004         
+ Original Coupled-Decoupled formulation from
+ M.G. Martin; J.I. Siepmann; J. Phys. Chem. B103 2977-2980 (1999)
+ with a decoupled bond length selection from
+ M.G. Martin; A.P. Thompson; Fluid Phase Equilib. 217 105-110 (2004)
+cbmc_setting_style: explicit                      
+ cbmc_nb_one_generation                            : uniform                       
+ nch_nb_one                                        :           10
+ nch_nb                                            :           10
+cbmc_dihedral_generation: global gaussian               
+ Use a global gaussian distribution to generate torsions in config-bias
+ and correct this in the rosenbluth weights
+sdevtor:  20.00000
+ nch_tor                                           :          360
+ nch_tor_connect                                   :          360
+cbmc_bend_generation: global gaussian               
+ Use a globally defined gaussian distribution in configurational-bias
+ and correct this in the rosenbluth weights
+ Bend style A mean = equilibrium angle
+ Bend style A standard deviation = sdev_bend_a
+ Bend style B has multiple regions
+ Bend style B mean = function of central atom bondpatt
+ Bend style B standard deviation = sdev_bend_b
+sdevbena:  10.00000
+sdevbenb:  20.00000
+ nch_bend_a                                        :          100
+ nch_bend_b                                        :          100
+default max_bond_length:  3.00
+cbmc_bond_generation: global gaussian               
+ Use gaussian distribution to generate vibrations in config-bias
+    and correct this in the rosenbluth weights
+ mean = equilibrium bond length
+ standard deviation = sdevvib
+sdevvib:   0.10000
+ nch_vib                                           :          100
+two_bond_fixed_endpoint_bias_style: analytic Boltzmann dihedral energy sum            
+three_bond_fixed_endpoint_bias_style: analytic using max and min 2-4 distance           
+ ffnumber:            1
+ ff_filename:
+/towheebase/ForceFields/towhee_ff_Charmm27                                                                              
+ classical_potential: Lennard-Jones                 
+ READCLASSICAL: pot_num:     1 potential name: Lennard-Jones                 
+ classical_mixrule: Lorentz-Berthelot             
+ lshift:  F
+ ltailc:  F
+ rmin: 0.100000    
+ rcut:  9.00000    
+ rcutin:  9.00000    
+ electrostatic_form: coulomb                                           
+ coulombstyle: minimum image       
+ dielect:  1.00000    
+ Setting up force field parameters from files
+ opening forcefield file:    1
+ Lorentz-Berthelot Mixing rules
+ Arithmetic mean of sigma terms
+ Geometric mean of epsilon term
+ No solvation model used
+ input_style: nucleic acid builder                              
+ nunit:            5
+ nmaxcbmc:            5
+ Building the nucleic acid input file
+ 3 prime end is hydrogen terminated
+ 5 prime end is phosphorated
+    using the Charmm27 forcefield
+nucleic acid:    1 name:C 
+nucleic acid:    2 name:G 
+nucleic acid:    3 name:A 
+nucleic acid:    4 name:U 
+nucleic acid:    5 name:G 
+ Verifying input structures are consistent
+Determining cyclic subunits for molecule type          1
+Default total charge on molecule   1 is  -5.00000
+Total charge in the simulation system:  -5.00000
+ SETCLASSICAL: total system charge is not zero
+Bond Types
+Type:      6 Style: Standard Harmonic Length: 1.1110 Constant:   155493.9
+Type:     11 Style: Standard Harmonic Length: 1.4200 Constant:   215376.7
+Type:     12 Style: Standard Harmonic Length: 0.9600 Constant:   274253.0
+Type:     16 Style: Standard Harmonic Length: 1.6000 Constant:   135868.5
+Type:     17 Style: Standard Harmonic Length: 1.4800 Constant:   291865.6
+Type:    107 Style: Standard Harmonic Length: 1.0900 Constant:   176125.8
+Type:    108 Style: Standard Harmonic Length: 1.4090 Constant:   151971.4
+Type:    111 Style: Standard Harmonic Length: 1.3600 Constant:   151971.4
+Type:    112 Style: Standard Harmonic Length: 1.4500 Constant:   100643.3
+Type:    114 Style: Standard Harmonic Length: 1.4560 Constant:   110707.7
+Type:    115 Style: Standard Harmonic Length: 1.4580 Constant:   110707.7
+Type:    117 Style: Standard Harmonic Length: 1.4600 Constant:   111965.7
+Type:    119 Style: Standard Harmonic Length: 1.5120 Constant:   111965.7
+Type:    121 Style: Standard Harmonic Length: 1.5290 Constant:   111965.7
+Type:    124 Style: Standard Harmonic Length: 1.5800 Constant:   119262.3
+Type:    126 Style: Standard Harmonic Length: 1.4800 Constant:   120772.0
+Type:    128 Style: Standard Harmonic Length: 1.4200 Constant:   130836.3
+Type:    129 Style: Standard Harmonic Length: 1.3750 Constant:   150965.0
+Type:    130 Style: Standard Harmonic Length: 1.3780 Constant:   150965.0
+Type:    132 Style: Standard Harmonic Length: 1.3430 Constant:   151971.4
+Type:    133 Style: Standard Harmonic Length: 1.3480 Constant:   151971.4
+Type:    134 Style: Standard Harmonic Length: 1.3750 Constant:   151971.4
+Type:    135 Style: Standard Harmonic Length: 1.3550 Constant:   155997.1
+Type:    136 Style: Standard Harmonic Length: 1.3610 Constant:   155997.1
+Type:    137 Style: Standard Harmonic Length: 1.3650 Constant:   155997.1
+Type:    138 Style: Standard Harmonic Length: 1.4330 Constant:   155997.1
+Type:    139 Style: Standard Harmonic Length: 1.3260 Constant:   161029.3
+Type:    140 Style: Standard Harmonic Length: 1.3430 Constant:   161029.3
+Type:    141 Style: Standard Harmonic Length: 1.3500 Constant:   161029.3
+Type:    142 Style: Standard Harmonic Length: 1.3740 Constant:   161029.3
+Type:    143 Style: Standard Harmonic Length: 1.4060 Constant:   161029.3
+Type:    144 Style: Standard Harmonic Length: 1.4400 Constant:   161029.3
+Type:    145 Style: Standard Harmonic Length: 1.3830 Constant:   171093.6
+Type:    146 Style: Standard Harmonic Length: 1.3890 Constant:   171093.6
+Type:    147 Style: Standard Harmonic Length: 1.3960 Constant:   171093.6
+Type:    149 Style: Standard Harmonic Length: 1.3120 Constant:   176125.8
+Type:    150 Style: Standard Harmonic Length: 1.3150 Constant:   176125.8
+Type:    152 Style: Standard Harmonic Length: 1.3350 Constant:   176125.8
+Type:    153 Style: Standard Harmonic Length: 1.3580 Constant:   181158.0
+Type:    154 Style: Standard Harmonic Length: 1.3660 Constant:   181158.0
+Type:    155 Style: Standard Harmonic Length: 1.0900 Constant:   191222.3
+Type:    156 Style: Standard Harmonic Length: 1.3670 Constant:   191222.3
+Type:    157 Style: Standard Harmonic Length: 1.3050 Constant:   201286.6
+Type:    158 Style: Standard Harmonic Length: 1.3420 Constant:   201286.6
+Type:    159 Style: Standard Harmonic Length: 1.3920 Constant:   201286.6
+Type:    165 Style: Standard Harmonic Length: 1.3220 Constant:   211351.0
+Type:    168 Style: Standard Harmonic Length: 1.4000 Constant:   215376.7
+Type:    170 Style: Standard Harmonic Length: 1.3430 Constant:   226447.5
+Type:    173 Style: Standard Harmonic Length: 1.0100 Constant:   237015.0
+Type:    174 Style: Standard Harmonic Length: 1.0100 Constant:   238524.7
+Type:    176 Style: Standard Harmonic Length: 1.0000 Constant:   245569.7
+Type:    177 Style: Standard Harmonic Length: 1.3260 Constant:   251608.3
+Type:    181 Style: Standard Harmonic Length: 1.2450 Constant:   311994.3
+Type:    182 Style: Standard Harmonic Length: 1.2340 Constant:   332123.0
+Type:    183 Style: Standard Harmonic Length: 1.2300 Constant:   432766.3
+Angle Types
+Type:  16 Style: Charmm   Angle:    109.000 Constant:    17864.2
+          UB Length: 1.8020 Constant:     2717.4
+Type:  21 Style: Charmm   Angle:    110.100 Constant:    17361.0
+          UB Length: 2.1790 Constant:    11337.5
+Type:  33 Style: Standard Harmonic  Angle:    110.100 Constant:    38093.5
+Type:  39 Style: Standard Harmonic  Angle:    109.500 Constant:    30193.0
+Type:  41 Style: Charmm   Angle:    120.000 Constant:    10064.3
+          UB Length: 2.3300 Constant:    17612.6
+Type:  44 Style: Standard Harmonic  Angle:    104.300 Constant:    40257.3
+Type:  46 Style: Standard Harmonic  Angle:    111.600 Constant:    49768.1
+Type:  48 Style: Standard Harmonic  Angle:    108.000 Constant:    24204.7
+Type:  50 Style: Standard Harmonic  Angle:    120.000 Constant:    60386.0
+Type:  52 Style: Standard Harmonic  Angle:    108.230 Constant:    49768.1
+Type: 212 Style: Standard Harmonic  Angle:    117.800 Constant:    45289.5
+Type: 213 Style: Standard Harmonic  Angle:    133.000 Constant:    30193.0
+Type: 214 Style: Standard Harmonic  Angle:    110.100 Constant:    45289.5
+Type: 215 Style: Standard Harmonic  Angle:    127.400 Constant:    30193.0
+Type: 216 Style: Standard Harmonic  Angle:    121.000 Constant:    30193.0
+Type: 217 Style: Standard Harmonic  Angle:    110.700 Constant:    30193.0
+Type: 218 Style: Standard Harmonic  Angle:    105.700 Constant:    50321.7
+Type: 219 Style: Standard Harmonic  Angle:    110.000 Constant:    50321.7
+Type: 220 Style: Standard Harmonic  Angle:    104.600 Constant:    60386.0
+Type: 221 Style: Standard Harmonic  Angle:    113.400 Constant:    50321.7
+Type: 222 Style: Standard Harmonic  Angle:    106.300 Constant:    50321.7
+Type: 223 Style: Standard Harmonic  Angle:    126.900 Constant:    50321.7
+Type: 224 Style: Standard Harmonic  Angle:    129.000 Constant:    50321.7
+Type: 225 Style: Standard Harmonic  Angle:    113.500 Constant:    19122.2
+Type: 226 Style: Standard Harmonic  Angle:    130.700 Constant:    25160.8
+Type: 227 Style: Standard Harmonic  Angle:    118.600 Constant:    25160.8
+Type: 228 Style: Standard Harmonic  Angle:    121.500 Constant:    20128.7
+Type: 229 Style: Standard Harmonic  Angle:    117.000 Constant:    15599.7
+Type: 230 Style: Standard Harmonic  Angle:    124.800 Constant:    19625.4
+Type: 231 Style: Standard Harmonic  Angle:    121.800 Constant:    19625.4
+Type: 234 Style: Standard Harmonic  Angle:    131.100 Constant:    35225.2
+Type: 235 Style: Standard Harmonic  Angle:    122.200 Constant:    35225.2
+Type: 236 Style: Standard Harmonic  Angle:    109.400 Constant:    45289.5
+Type: 237 Style: Standard Harmonic  Angle:    129.900 Constant:    35225.2
+Type: 238 Style: Standard Harmonic  Angle:    119.600 Constant:    35225.2
+Type: 239 Style: Standard Harmonic  Angle:    107.800 Constant:    35225.2
+Type: 240 Style: Standard Harmonic  Angle:    104.600 Constant:    50321.7
+Type: 241 Style: Standard Harmonic  Angle:    111.400 Constant:    50321.7
+Type: 242 Style: Standard Harmonic  Angle:    103.800 Constant:    60386.0
+Type: 243 Style: Standard Harmonic  Angle:    113.000 Constant:    50321.7
+Type: 244 Style: Standard Harmonic  Angle:    107.200 Constant:    50321.7
+Type: 245 Style: Standard Harmonic  Angle:    125.500 Constant:    70450.3
+Type: 246 Style: Standard Harmonic  Angle:    129.000 Constant:    62902.1
+Type: 247 Style: Standard Harmonic  Angle:    113.300 Constant:    22644.7
+Type: 248 Style: Standard Harmonic  Angle:    115.600 Constant:    22644.7
+Type: 249 Style: Standard Harmonic  Angle:    115.400 Constant:    47805.6
+Type: 250 Style: Standard Harmonic  Angle:    122.400 Constant:    47805.6
+Type: 251 Style: Standard Harmonic  Angle:    127.500 Constant:    25160.8
+Type: 252 Style: Standard Harmonic  Angle:    124.700 Constant:    25160.8
+Type: 253 Style: Standard Harmonic  Angle:    122.200 Constant:    20128.7
+Type: 256 Style: Standard Harmonic  Angle:    124.100 Constant:    25160.8
+Type: 257 Style: Standard Harmonic  Angle:    116.800 Constant:    25160.8
+Type: 258 Style: Standard Harmonic  Angle:    119.100 Constant:    42773.4
+Type: 259 Style: Standard Harmonic  Angle:    119.300 Constant:    42773.4
+Type: 260 Style: Standard Harmonic  Angle:    117.800 Constant:    42773.4
+Type: 261 Style: Standard Harmonic  Angle:    122.900 Constant:    42773.4
+Type: 264 Style: Standard Harmonic  Angle:    119.400 Constant:    65418.2
+Type: 265 Style: Standard Harmonic  Angle:    123.800 Constant:    65418.2
+Type: 266 Style: Standard Harmonic  Angle:    122.300 Constant:    40760.5
+Type: 267 Style: Standard Harmonic  Angle:    118.400 Constant:    40760.5
+Type: 268 Style: Standard Harmonic  Angle:    120.100 Constant:    19122.2
+Type: 269 Style: Standard Harmonic  Angle:    122.100 Constant:    19122.2
+Type: 270 Style: Standard Harmonic  Angle:    115.000 Constant:    22141.5
+Type: 271 Style: Standard Harmonic  Angle:    122.000 Constant:    35225.2
+Type: 272 Style: Standard Harmonic  Angle:    114.000 Constant:    25160.8
+Type: 273 Style: Standard Harmonic  Angle:    130.200 Constant:    25160.8
+Type: 274 Style: Standard Harmonic  Angle:    112.600 Constant:    35225.2
+Type: 275 Style: Standard Harmonic  Angle:    117.600 Constant:    50321.7
+Type: 276 Style: Standard Harmonic  Angle:    123.600 Constant:    50321.7
+Type: 279 Style: Standard Harmonic  Angle:    121.600 Constant:    50321.7
+Type: 280 Style: Standard Harmonic  Angle:    124.400 Constant:    50321.7
+Type: 281 Style: Standard Harmonic  Angle:    114.400 Constant:    20380.3
+Type: 282 Style: Standard Harmonic  Angle:    115.400 Constant:    20380.3
+Type: 283 Style: Standard Harmonic  Angle:    121.900 Constant:    50321.7
+Type: 284 Style: Standard Harmonic  Angle:    125.500 Constant:    50321.7
+Type: 285 Style: Standard Harmonic  Angle:    120.300 Constant:    15096.5
+Type: 286 Style: Standard Harmonic  Angle:    114.300 Constant:    15096.5
+Type: 308 Style: Standard Harmonic  Angle:    118.400 Constant:    22644.7
+Type: 309 Style: Standard Harmonic  Angle:    119.600 Constant:    22644.7
+Type: 310 Style: Standard Harmonic  Angle:    120.000 Constant:    22644.7
+Type: 311 Style: Standard Harmonic  Angle:    115.900 Constant:    22644.7
+Type: 312 Style: Standard Harmonic  Angle:    126.100 Constant:    22644.7
+Type: 313 Style: Standard Harmonic  Angle:    127.600 Constant:    22644.7
+Type: 314 Style: Standard Harmonic  Angle:    126.500 Constant:    22644.7
+Type: 315 Style: Standard Harmonic  Angle:    126.300 Constant:    22644.7
+Type: 316 Style: Standard Harmonic  Angle:    112.000 Constant:    55353.8
+Type: 318 Style: Standard Harmonic  Angle:    111.000 Constant:    55353.8
+Type: 319 Style: Standard Harmonic  Angle:    111.000 Constant:    21638.3
+Type: 352 Style: Charmm   Angle:    115.000 Constant:    15096.5
+          UB Length: 2.3500 Constant:    20128.7
+Type: 360 Style: Standard Harmonic  Angle:    107.240 Constant:    22745.4
+Type: 361 Style: Standard Harmonic  Angle:    108.000 Constant:    20128.7
+Type: 362 Style: Charmm   Angle:    110.100 Constant:    17376.1
+          UB Length: 2.1790 Constant:    11337.5
+Type: 363 Style: Standard Harmonic  Angle:    115.000 Constant:    55353.8
+Type: 364 Style: Standard Harmonic  Angle:    106.000 Constant:    45289.5
+Type: 365 Style: Standard Harmonic  Angle:     96.000 Constant:    55353.8
+Type: 366 Style: Charmm   Angle:    100.000 Constant:    30193.0
+          UB Length: 2.5610 Constant:     4025.7
+Type: 367 Style: Charmm   Angle:    110.100 Constant:    16807.4
+          UB Length: 2.1790 Constant:    11337.5
+Type: 368 Style: Standard Harmonic  Angle:    108.200 Constant:    45289.5
+Type: 369 Style: Standard Harmonic  Angle:    108.400 Constant:    35225.2
+Type: 370 Style: Standard Harmonic  Angle:    109.700 Constant:    57869.9
+Type: 372 Style: Standard Harmonic  Angle:    109.000 Constant:    28935.0
+Type: 373 Style: Standard Harmonic  Angle:    110.000 Constant:    45289.5
+Type: 374 Style: Standard Harmonic  Angle:    108.400 Constant:    40257.3
+Type: 375 Style: Standard Harmonic  Angle:    108.000 Constant:    45289.5
+Type: 383 Style: Standard Harmonic  Angle:    110.000 Constant:    22644.7
+Torsion Types
+Type:   2 Style: Amber/Charmm/Gromos Cosine Series n:   0
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:   3 Style: Amber/Charmm/Gromos Cosine Series n:   0
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:   4 Style: Amber/Charmm/Gromos Cosine Series n:   0
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:   5 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:      50.3 m:3.0 d: 0.0000000
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:  13 Style: Amber/Charmm/Gromos Cosine Series n:   2
+          Index  1    k:     478.1 m:2.0 d: 0.0000000
+          Index  2    k:     251.6 m:3.0 d: 0.0000000
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:  14 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:     151.0 m:3.0 d: 0.0000000
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:  22 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:     503.2 m:2.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:  25 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:    2616.7 m:2.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:  33 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:     402.6 m:3.0 d: 0.0000000
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:  36 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:    1509.6 m:2.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:  39 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:    7045.0 m:2.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:  41 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:    2012.9 m:2.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:  52 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:    5032.2 m:2.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:  59 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:     603.9 m:2.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:  65 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:    1006.4 m:2.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:  76 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:     704.5 m:1.0 d: 0.0000000
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:  84 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:      98.1 m:3.0 d: 0.0000000
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:  87 Style: Amber/Charmm/Gromos Cosine Series n:   4
+          Index  1    k:     603.9 m:1.0 d: 3.1415927
+          Index  2    k:      50.3 m:2.0 d: 3.1415927
+          Index  3    k:      50.3 m:3.0 d: 3.1415927
+          Index  4    k:       0.0 m:6.0 d: 0.0000000
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:  88 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:     754.8 m:2.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:  89 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:    3019.3 m:2.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:  90 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:    1912.2 m:2.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:  91 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:     805.1 m:2.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:  92 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:     905.8 m:2.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:  93 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:    2818.0 m:2.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:  96 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:     301.9 m:2.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:  97 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:    1710.9 m:2.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:  98 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:    2314.8 m:2.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type: 100 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:    4277.3 m:2.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type: 101 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:     251.6 m:2.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type: 102 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:    3522.5 m:2.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type: 103 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:     100.6 m:1.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type: 104 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:    8051.5 m:2.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type: 105 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:    1811.6 m:2.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type: 106 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:     452.9 m:2.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type: 118 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:    1710.9 m:1.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type: 120 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:     201.3 m:6.0 d: 0.0000000
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type: 128 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:     151.0 m:2.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type: 129 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:    5535.4 m:2.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type: 130 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:     553.5 m:1.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type: 131 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:     553.5 m:1.0 d: 0.0000000
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type: 132 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:     503.2 m:1.0 d: 0.0000000
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type: 133 Style: Amber/Charmm/Gromos Cosine Series n:   2
+          Index  1    k:     352.3 m:3.0 d: 0.0000000
+          Index  2    k:     402.6 m:1.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type: 134 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:     452.9 m:1.0 d: 0.0000000
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type: 135 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:     100.6 m:3.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type: 136 Style: Amber/Charmm/Gromos Cosine Series n:   2
+          Index  1    k:     100.6 m:3.0 d: 0.0000000
+          Index  2    k:     553.5 m:1.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type: 137 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:     100.6 m:1.0 d: 2.0943951
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type: 138 Style: Amber/Charmm/Gromos Cosine Series n:   4
+          Index  1    k:     100.6 m:4.0 d: 3.1415927
+          Index  2    k:     402.6 m:3.0 d: 3.1415927
+          Index  3    k:     201.3 m:2.0 d: 0.0000000
+          Index  4    k:    1258.0 m:1.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type: 139 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:      98.1 m:1.0 d: 0.0000000
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type: 140 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:     100.6 m:4.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type: 141 Style: Amber/Charmm/Gromos Cosine Series n:   2
+          Index  1    k:     100.6 m:4.0 d: 0.0000000
+          Index  2    k:     402.6 m:3.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type: 142 Style: Amber/Charmm/Gromos Cosine Series n:   4
+          Index  1    k:     201.3 m:6.0 d: 0.0000000
+          Index  2    k:       0.0 m:5.0 d: 0.0000000
+          Index  3    k:       0.0 m:4.0 d: 3.1415927
+          Index  4    k:     805.1 m:3.0 d: 0.0000000
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type: 143 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:    1006.4 m:3.0 d: 0.0000000
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type: 144 Style: Amber/Charmm/Gromos Cosine Series n:   3
+          Index  1    k:     301.9 m:6.0 d: 0.0000000
+          Index  2    k:       0.0 m:5.0 d: 0.0000000
+          Index  3    k:     805.1 m:3.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type: 145 Style: Amber/Charmm/Gromos Cosine Series n:   5
+          Index  1    k:     301.9 m:5.0 d: 0.0000000
+          Index  2    k:     100.6 m:4.0 d: 0.0000000
+          Index  3    k:       0.0 m:3.0 d: 3.1415927
+          Index  4    k:     201.3 m:2.0 d: 0.0000000
+          Index  5    k:     956.1 m:1.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type: 146 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:    1258.0 m:1.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type: 147 Style: Amber/Charmm/Gromos Cosine Series n:   3
+          Index  1    k:     251.6 m:3.0 d: 0.0000000
+          Index  2    k:     151.0 m:2.0 d: 3.1415927
+          Index  3    k:     754.8 m:1.0 d: 0.0000000
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type: 148 Style: Amber/Charmm/Gromos Cosine Series n:   2
+          Index  1    k:     402.6 m:3.0 d: 0.0000000
+          Index  2    k:     251.6 m:1.0 d: 0.0000000
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type: 149 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:      98.1 m:3.0 d: 3.1415927
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type: 150 Style: Amber/Charmm/Gromos Cosine Series n:   2
+          Index  1    k:     151.0 m:3.0 d: 0.0000000
+          Index  2    k:       0.0 m:1.0 d: 0.0000000
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Improper Torsion Types
+Type:   5 Style: Harmonic  Angle:0.0000 k    45289.5
+Type:  11 Style: Harmonic  Angle:0.0000 k    20128.7
+Type:  12 Style: Harmonic  Angle:0.0000 k     2012.9
+Type:  23 Style: Harmonic  Angle:0.0000 k     3019.3
+Type:  24 Style: Harmonic  Angle:0.0000 k    55353.8
+Type:  25 Style: Harmonic  Angle:0.0000 k    40257.3
+Type:  26 Style: Harmonic  Angle:0.0000 k    30193.0
+Energies exclusively from internal potentials
+Nonbonded Force Field
+Lennard-Jones 12-6 potential
+u(r) = 4*epsilon[(sigma/r)^12 - (sigma/r)^6] - shift
+Num. Atom(i)    Num. Atom(j)         sigma    epsilon      shift     1-4sig     1-4eps
+  12 CN1          12 CN1            3.3854    50.3217     0.0000     3.3854    50.3217
+  12 CN1          14 CN1T           3.3854    50.3217     0.0000     3.3854    50.3217
+  12 CN1          15 CN2            3.3854    50.3217     0.0000     3.3854    50.3217
+  12 CN1          16 CN3            3.3854    47.7393     0.0000     3.3854    47.7393
+  12 CN1          22 CN4            3.3854    43.5798     0.0000     3.3854    43.5798
+  12 CN1          23 CN5            3.3854    43.5798     0.0000     3.3854    43.5798
+  12 CN1          24 CN5G           3.3854    43.5798     0.0000     3.3854    43.5798
+  12 CN1          25 CN7            3.7195    22.5045     0.0000     3.3854    15.9131
+  12 CN1          26 CN7B           3.7195    22.5045     0.0000     3.3854    15.9131
+  12 CN1          30 CN8B           3.4834    37.6573     0.0000     3.3854    15.9131
+  12 CN1          71 HN1            1.8927    34.1298     0.0000     1.8927    34.1298
+  12 CN1          72 HN2            1.8927    34.1298     0.0000     1.8927    34.1298
+  12 CN1          73 HN3            2.6727    34.1298     0.0000     2.6727    34.1298
+  12 CN1          76 HN4            1.8927    34.1298     0.0000     1.8927    34.1298
+  12 CN1          77 HN5            1.8927    34.1298     0.0000     1.8927    34.1298
+  12 CN1          79 HN7            2.8687    23.6030     0.0000     2.8687    23.6030
+  12 CN1          80 HN8            2.8865    26.6277     0.0000     2.8865    26.6277
+  12 CN1         100 NN1            3.3409    71.1656     0.0000     3.3409    71.1656
+  12 CN1         102 NN2            3.3409    71.1656     0.0000     3.3409    71.1656
+  12 CN1         103 NN2B           3.3409    71.1656     0.0000     3.3409    71.1656
+  12 CN1         105 NN2G           3.3409    71.1656     0.0000     3.3409    71.1656
+  12 CN1         106 NN2U           3.3409    71.1656     0.0000     3.3409    71.1656
+  12 CN1         107 NN3            3.3409    71.1656     0.0000     3.3409    71.1656
+  12 CN1         108 NN3A           3.3409    71.1656     0.0000     3.3409    71.1656
+  12 CN1         109 NN3G           3.3409    71.1656     0.0000     3.3409    71.1656
+  12 CN1         111 NN4            3.3409    71.1656     0.0000     3.3409    71.1656
+  12 CN1         130 ON1            3.2072    55.1246     0.0000     3.2072    55.1246
+  12 CN1         131 ON1C           3.2072    55.1246     0.0000     3.2072    55.1246
+  12 CN1         132 ON2            3.2696    62.0611     0.0000     3.2696    62.0611
+  12 CN1         133 ON3            3.2072    55.1246     0.0000     3.2072    55.1246
+  12 CN1         134 ON4            3.2696    62.0611     0.0000     3.2696    62.0611
+  12 CN1         135 ON5            3.2696    62.0611     0.0000     3.2696    62.0611
+  12 CN1         137 ON6B           3.2696    62.0611     0.0000     3.2696    62.0611
+  12 CN1         141 P              3.6081   121.7119     0.0000     3.6081   121.7119
+  14 CN1T         14 CN1T           3.3854    50.3217     0.0000     3.3854    50.3217
+  14 CN1T         15 CN2            3.3854    50.3217     0.0000     3.3854    50.3217
+  14 CN1T         16 CN3            3.3854    47.7393     0.0000     3.3854    47.7393
+  14 CN1T         22 CN4            3.3854    43.5798     0.0000     3.3854    43.5798
+  14 CN1T         23 CN5            3.3854    43.5798     0.0000     3.3854    43.5798
+  14 CN1T         24 CN5G           3.3854    43.5798     0.0000     3.3854    43.5798
+  14 CN1T         25 CN7            3.7195    22.5045     0.0000     3.3854    15.9131
+  14 CN1T         26 CN7B           3.7195    22.5045     0.0000     3.3854    15.9131
+  14 CN1T         30 CN8B           3.4834    37.6573     0.0000     3.3854    15.9131
+  14 CN1T         71 HN1            1.8927    34.1298     0.0000     1.8927    34.1298
+  14 CN1T         72 HN2            1.8927    34.1298     0.0000     1.8927    34.1298
+  14 CN1T         73 HN3            2.6727    34.1298     0.0000     2.6727    34.1298
+  14 CN1T         76 HN4            1.8927    34.1298     0.0000     1.8927    34.1298
+  14 CN1T         77 HN5            1.8927    34.1298     0.0000     1.8927    34.1298
+  14 CN1T         79 HN7            2.8687    23.6030     0.0000     2.8687    23.6030
+  14 CN1T         80 HN8            2.8865    26.6277     0.0000     2.8865    26.6277
+  14 CN1T        100 NN1            3.3409    71.1656     0.0000     3.3409    71.1656
+  14 CN1T        102 NN2            3.3409    71.1656     0.0000     3.3409    71.1656
+  14 CN1T        103 NN2B           3.3409    71.1656     0.0000     3.3409    71.1656
+  14 CN1T        105 NN2G           3.3409    71.1656     0.0000     3.3409    71.1656
+  14 CN1T        106 NN2U           3.3409    71.1656     0.0000     3.3409    71.1656
+  14 CN1T        107 NN3            3.3409    71.1656     0.0000     3.3409    71.1656
+  14 CN1T        108 NN3A           3.3409    71.1656     0.0000     3.3409    71.1656
+  14 CN1T        109 NN3G           3.3409    71.1656     0.0000     3.3409    71.1656
+  14 CN1T        111 NN4            3.3409    71.1656     0.0000     3.3409    71.1656
+  14 CN1T        130 ON1            3.2072    55.1246     0.0000     3.2072    55.1246
+  14 CN1T        131 ON1C           3.2072    55.1246     0.0000     3.2072    55.1246
+  14 CN1T        132 ON2            3.2696    62.0611     0.0000     3.2696    62.0611
+  14 CN1T        133 ON3            3.2072    55.1246     0.0000     3.2072    55.1246
+  14 CN1T        134 ON4            3.2696    62.0611     0.0000     3.2696    62.0611
+  14 CN1T        135 ON5            3.2696    62.0611     0.0000     3.2696    62.0611
+  14 CN1T        137 ON6B           3.2696    62.0611     0.0000     3.2696    62.0611
+  14 CN1T        141 P              3.6081   121.7119     0.0000     3.6081   121.7119
+  15 CN2          15 CN2            3.3854    50.3217     0.0000     3.3854    50.3217
+  15 CN2          16 CN3            3.3854    47.7393     0.0000     3.3854    47.7393
+  15 CN2          22 CN4            3.3854    43.5798     0.0000     3.3854    43.5798
+  15 CN2          23 CN5            3.3854    43.5798     0.0000     3.3854    43.5798
+  15 CN2          24 CN5G           3.3854    43.5798     0.0000     3.3854    43.5798
+  15 CN2          25 CN7            3.7195    22.5045     0.0000     3.3854    15.9131
+  15 CN2          26 CN7B           3.7195    22.5045     0.0000     3.3854    15.9131
+  15 CN2          30 CN8B           3.4834    37.6573     0.0000     3.3854    15.9131
+  15 CN2          71 HN1            1.8927    34.1298     0.0000     1.8927    34.1298
+  15 CN2          72 HN2            1.8927    34.1298     0.0000     1.8927    34.1298
+  15 CN2          73 HN3            2.6727    34.1298     0.0000     2.6727    34.1298
+  15 CN2          76 HN4            1.8927    34.1298     0.0000     1.8927    34.1298
+  15 CN2          77 HN5            1.8927    34.1298     0.0000     1.8927    34.1298
+  15 CN2          79 HN7            2.8687    23.6030     0.0000     2.8687    23.6030
+  15 CN2          80 HN8            2.8865    26.6277     0.0000     2.8865    26.6277
+  15 CN2         100 NN1            3.3409    71.1656     0.0000     3.3409    71.1656
+  15 CN2         102 NN2            3.3409    71.1656     0.0000     3.3409    71.1656
+  15 CN2         103 NN2B           3.3409    71.1656     0.0000     3.3409    71.1656
+  15 CN2         105 NN2G           3.3409    71.1656     0.0000     3.3409    71.1656
+  15 CN2         106 NN2U           3.3409    71.1656     0.0000     3.3409    71.1656
+  15 CN2         107 NN3            3.3409    71.1656     0.0000     3.3409    71.1656
+  15 CN2         108 NN3A           3.3409    71.1656     0.0000     3.3409    71.1656
+  15 CN2         109 NN3G           3.3409    71.1656     0.0000     3.3409    71.1656
+  15 CN2         111 NN4            3.3409    71.1656     0.0000     3.3409    71.1656
+  15 CN2         130 ON1            3.2072    55.1246     0.0000     3.2072    55.1246
+  15 CN2         131 ON1C           3.2072    55.1246     0.0000     3.2072    55.1246
+  15 CN2         132 ON2            3.2696    62.0611     0.0000     3.2696    62.0611
+  15 CN2         133 ON3            3.2072    55.1246     0.0000     3.2072    55.1246
+  15 CN2         134 ON4            3.2696    62.0611     0.0000     3.2696    62.0611
+  15 CN2         135 ON5            3.2696    62.0611     0.0000     3.2696    62.0611
+  15 CN2         137 ON6B           3.2696    62.0611     0.0000     3.2696    62.0611
+  15 CN2         141 P              3.6081   121.7119     0.0000     3.6081   121.7119
+  16 CN3          16 CN3            3.3854    45.2895     0.0000     3.3854    45.2895
+  16 CN3          22 CN4            3.3854    41.3435     0.0000     3.3854    41.3435
+  16 CN3          23 CN5            3.3854    41.3435     0.0000     3.3854    41.3435
+  16 CN3          24 CN5G           3.3854    41.3435     0.0000     3.3854    41.3435
+  16 CN3          25 CN7            3.7195    21.3497     0.0000     3.3854    15.0965
+  16 CN3          26 CN7B           3.7195    21.3497     0.0000     3.3854    15.0965
+  16 CN3          30 CN8B           3.4834    35.7248     0.0000     3.3854    15.0965
+  16 CN3          71 HN1            1.8927    32.3784     0.0000     1.8927    32.3784
+  16 CN3          72 HN2            1.8927    32.3784     0.0000     1.8927    32.3784
+  16 CN3          73 HN3            2.6727    32.3784     0.0000     2.6727    32.3784
+  16 CN3          76 HN4            1.8927    32.3784     0.0000     1.8927    32.3784
+  16 CN3          77 HN5            1.8927    32.3784     0.0000     1.8927    32.3784
+  16 CN3          79 HN7            2.8687    22.3917     0.0000     2.8687    22.3917
+  16 CN3          80 HN8            2.8865    25.2613     0.0000     2.8865    25.2613
+  16 CN3         100 NN1            3.3409    67.5136     0.0000     3.3409    67.5136
+  16 CN3         102 NN2            3.3409    67.5136     0.0000     3.3409    67.5136
+  16 CN3         103 NN2B           3.3409    67.5136     0.0000     3.3409    67.5136
+  16 CN3         105 NN2G           3.3409    67.5136     0.0000     3.3409    67.5136
+  16 CN3         106 NN2U           3.3409    67.5136     0.0000     3.3409    67.5136
+  16 CN3         107 NN3            3.3409    67.5136     0.0000     3.3409    67.5136
+  16 CN3         108 NN3A           3.3409    67.5136     0.0000     3.3409    67.5136
+  16 CN3         109 NN3G           3.3409    67.5136     0.0000     3.3409    67.5136
+  16 CN3         111 NN4            3.3409    67.5136     0.0000     3.3409    67.5136
+  16 CN3         130 ON1            3.2072    52.2958     0.0000     3.2072    52.2958
+  16 CN3         131 ON1C           3.2072    52.2958     0.0000     3.2072    52.2958
+  16 CN3         132 ON2            3.2696    58.8763     0.0000     3.2696    58.8763
+  16 CN3         133 ON3            3.2072    52.2958     0.0000     3.2072    52.2958
+  16 CN3         134 ON4            3.2696    58.8763     0.0000     3.2696    58.8763
+  16 CN3         135 ON5            3.2696    58.8763     0.0000     3.2696    58.8763
+  16 CN3         137 ON6B           3.2696    58.8763     0.0000     3.2696    58.8763
+  16 CN3         141 P              3.6081   115.4660     0.0000     3.6081   115.4660
+  22 CN4          22 CN4            3.3854    37.7412     0.0000     3.3854    37.7412
+  22 CN4          23 CN5            3.3854    37.7412     0.0000     3.3854    37.7412
+  22 CN4          24 CN5G           3.3854    37.7412     0.0000     3.3854    37.7412
+  22 CN4          25 CN7            3.7195    19.4895     0.0000     3.3854    13.7812
+  22 CN4          26 CN7B           3.7195    19.4895     0.0000     3.3854    13.7812
+  22 CN4          30 CN8B           3.4834    32.6122     0.0000     3.3854    13.7812
+  22 CN4          71 HN1            1.8927    29.5573     0.0000     1.8927    29.5573
+  22 CN4          72 HN2            1.8927    29.5573     0.0000     1.8927    29.5573
+  22 CN4          73 HN3            2.6727    29.5573     0.0000     2.6727    29.5573
+  22 CN4          76 HN4            1.8927    29.5573     0.0000     1.8927    29.5573
+  22 CN4          77 HN5            1.8927    29.5573     0.0000     1.8927    29.5573
+  22 CN4          79 HN7            2.8687    20.4408     0.0000     2.8687    20.4408
+  22 CN4          80 HN8            2.8865    23.0603     0.0000     2.8865    23.0603
+  22 CN4         100 NN1            3.3409    61.6312     0.0000     3.3409    61.6312
+  22 CN4         102 NN2            3.3409    61.6312     0.0000     3.3409    61.6312
+  22 CN4         103 NN2B           3.3409    61.6312     0.0000     3.3409    61.6312
+  22 CN4         105 NN2G           3.3409    61.6312     0.0000     3.3409    61.6312
+  22 CN4         106 NN2U           3.3409    61.6312     0.0000     3.3409    61.6312
+  22 CN4         107 NN3            3.3409    61.6312     0.0000     3.3409    61.6312
+  22 CN4         108 NN3A           3.3409    61.6312     0.0000     3.3409    61.6312
+  22 CN4         109 NN3G           3.3409    61.6312     0.0000     3.3409    61.6312
+  22 CN4         111 NN4            3.3409    61.6312     0.0000     3.3409    61.6312
+  22 CN4         130 ON1            3.2072    47.7393     0.0000     3.2072    47.7393
+  22 CN4         131 ON1C           3.2072    47.7393     0.0000     3.2072    47.7393
+  22 CN4         132 ON2            3.2696    53.7465     0.0000     3.2696    53.7465
+  22 CN4         133 ON3            3.2072    47.7393     0.0000     3.2072    47.7393
+  22 CN4         134 ON4            3.2696    53.7465     0.0000     3.2696    53.7465
+  22 CN4         135 ON5            3.2696    53.7465     0.0000     3.2696    53.7465
+  22 CN4         137 ON6B           3.2696    53.7465     0.0000     3.2696    53.7465
+  22 CN4         141 P              3.6081   105.4056     0.0000     3.6081   105.4056
+  23 CN5          23 CN5            3.3854    37.7412     0.0000     3.3854    37.7412
+  23 CN5          24 CN5G           3.3854    37.7412     0.0000     3.3854    37.7412
+  23 CN5          25 CN7            3.7195    19.4895     0.0000     3.3854    13.7812
+  23 CN5          26 CN7B           3.7195    19.4895     0.0000     3.3854    13.7812
+  23 CN5          30 CN8B           3.4834    32.6122     0.0000     3.3854    13.7812
+  23 CN5          71 HN1            1.8927    29.5573     0.0000     1.8927    29.5573
+  23 CN5          72 HN2            1.8927    29.5573     0.0000     1.8927    29.5573
+  23 CN5          73 HN3            2.6727    29.5573     0.0000     2.6727    29.5573
+  23 CN5          76 HN4            1.8927    29.5573     0.0000     1.8927    29.5573
+  23 CN5          77 HN5            1.8927    29.5573     0.0000     1.8927    29.5573
+  23 CN5          79 HN7            2.8687    20.4408     0.0000     2.8687    20.4408
+  23 CN5          80 HN8            2.8865    23.0603     0.0000     2.8865    23.0603
+  23 CN5         100 NN1            3.3409    61.6312     0.0000     3.3409    61.6312
+  23 CN5         102 NN2            3.3409    61.6312     0.0000     3.3409    61.6312
+  23 CN5         103 NN2B           3.3409    61.6312     0.0000     3.3409    61.6312
+  23 CN5         105 NN2G           3.3409    61.6312     0.0000     3.3409    61.6312
+  23 CN5         106 NN2U           3.3409    61.6312     0.0000     3.3409    61.6312
+  23 CN5         107 NN3            3.3409    61.6312     0.0000     3.3409    61.6312
+  23 CN5         108 NN3A           3.3409    61.6312     0.0000     3.3409    61.6312
+  23 CN5         109 NN3G           3.3409    61.6312     0.0000     3.3409    61.6312
+  23 CN5         111 NN4            3.3409    61.6312     0.0000     3.3409    61.6312
+  23 CN5         130 ON1            3.2072    47.7393     0.0000     3.2072    47.7393
+  23 CN5         131 ON1C           3.2072    47.7393     0.0000     3.2072    47.7393
+  23 CN5         132 ON2            3.2696    53.7465     0.0000     3.2696    53.7465
+  23 CN5         133 ON3            3.2072    47.7393     0.0000     3.2072    47.7393
+  23 CN5         134 ON4            3.2696    53.7465     0.0000     3.2696    53.7465
+  23 CN5         135 ON5            3.2696    53.7465     0.0000     3.2696    53.7465
+  23 CN5         137 ON6B           3.2696    53.7465     0.0000     3.2696    53.7465
+  23 CN5         141 P              3.6081   105.4056     0.0000     3.6081   105.4056
+  24 CN5G         24 CN5G           3.3854    37.7412     0.0000     3.3854    37.7412
+  24 CN5G         25 CN7            3.7195    19.4895     0.0000     3.3854    13.7812
+  24 CN5G         26 CN7B           3.7195    19.4895     0.0000     3.3854    13.7812
+  24 CN5G         30 CN8B           3.4834    32.6122     0.0000     3.3854    13.7812
+  24 CN5G         71 HN1            1.8927    29.5573     0.0000     1.8927    29.5573
+  24 CN5G         72 HN2            1.8927    29.5573     0.0000     1.8927    29.5573
+  24 CN5G         73 HN3            2.6727    29.5573     0.0000     2.6727    29.5573
+  24 CN5G         76 HN4            1.8927    29.5573     0.0000     1.8927    29.5573
+  24 CN5G         77 HN5            1.8927    29.5573     0.0000     1.8927    29.5573
+  24 CN5G         79 HN7            2.8687    20.4408     0.0000     2.8687    20.4408
+  24 CN5G         80 HN8            2.8865    23.0603     0.0000     2.8865    23.0603
+  24 CN5G        100 NN1            3.3409    61.6312     0.0000     3.3409    61.6312
+  24 CN5G        102 NN2            3.3409    61.6312     0.0000     3.3409    61.6312
+  24 CN5G        103 NN2B           3.3409    61.6312     0.0000     3.3409    61.6312
+  24 CN5G        105 NN2G           3.3409    61.6312     0.0000     3.3409    61.6312
+  24 CN5G        106 NN2U           3.3409    61.6312     0.0000     3.3409    61.6312
+  24 CN5G        107 NN3            3.3409    61.6312     0.0000     3.3409    61.6312
+  24 CN5G        108 NN3A           3.3409    61.6312     0.0000     3.3409    61.6312
+  24 CN5G        109 NN3G           3.3409    61.6312     0.0000     3.3409    61.6312
+  24 CN5G        111 NN4            3.3409    61.6312     0.0000     3.3409    61.6312
+  24 CN5G        130 ON1            3.2072    47.7393     0.0000     3.2072    47.7393
+  24 CN5G        131 ON1C           3.2072    47.7393     0.0000     3.2072    47.7393
+  24 CN5G        132 ON2            3.2696    53.7465     0.0000     3.2696    53.7465
+  24 CN5G        133 ON3            3.2072    47.7393     0.0000     3.2072    47.7393
+  24 CN5G        134 ON4            3.2696    53.7465     0.0000     3.2696    53.7465
+  24 CN5G        135 ON5            3.2696    53.7465     0.0000     3.2696    53.7465
+  24 CN5G        137 ON6B           3.2696    53.7465     0.0000     3.2696    53.7465
+  24 CN5G        141 P              3.6081   105.4056     0.0000     3.6081   105.4056
+  25 CN7          25 CN7            4.0536    10.0643     0.0000     3.3854     5.0322
+  25 CN7          26 CN7B           4.0536    10.0643     0.0000     3.3854     5.0322
+  25 CN7          30 CN8B           3.8175    16.8408     0.0000     3.3854     5.0322
+  25 CN7          71 HN1            2.2268    15.2633     0.0000     1.8927    10.7928
+  25 CN7          72 HN2            2.2268    15.2633     0.0000     1.8927    10.7928
+  25 CN7          73 HN3            3.0068    15.2633     0.0000     2.6727    10.7928
+  25 CN7          76 HN4            2.2268    15.2633     0.0000     1.8927    10.7928
+  25 CN7          77 HN5            2.2268    15.2633     0.0000     1.8927    10.7928
+  25 CN7          79 HN7            3.2028    10.5556     0.0000     2.8687     7.4639
+  25 CN7          80 HN8            3.2206    11.9083     0.0000     2.8865     8.4204
+  25 CN7         100 NN1            3.6750    31.8262     0.0000     3.3409    22.5045
+  25 CN7         102 NN2            3.6750    31.8262     0.0000     3.3409    22.5045
+  25 CN7         103 NN2B           3.6750    31.8262     0.0000     3.3409    22.5045
+  25 CN7         105 NN2G           3.6750    31.8262     0.0000     3.3409    22.5045
+  25 CN7         106 NN2U           3.6750    31.8262     0.0000     3.3409    22.5045
+  25 CN7         107 NN3            3.6750    31.8262     0.0000     3.3409    22.5045
+  25 CN7         108 NN3A           3.6750    31.8262     0.0000     3.3409    22.5045
+  25 CN7         109 NN3G           3.6750    31.8262     0.0000     3.3409    22.5045
+  25 CN7         111 NN4            3.6750    31.8262     0.0000     3.3409    22.5045
+  25 CN7         130 ON1            3.5413    24.6525     0.0000     3.2072    17.4319
+  25 CN7         131 ON1C           3.5413    24.6525     0.0000     3.2072    17.4319
+  25 CN7         132 ON2            3.6037    27.7546     0.0000     3.2696    19.6254
+  25 CN7         133 ON3            3.5413    24.6525     0.0000     3.2072    17.4319
+  25 CN7         134 ON4            3.6037    27.7546     0.0000     3.2696    19.6254
+  25 CN7         135 ON5            3.6037    27.7546     0.0000     3.2696    19.6254
+  25 CN7         137 ON6B           3.6037    27.7546     0.0000     3.2696    19.6254
+  25 CN7         141 P              3.9422    54.4312     0.0000     3.6081    38.4887
+  26 CN7B         26 CN7B           4.0536    10.0643     0.0000     3.3854     5.0322
+  26 CN7B         30 CN8B           3.8175    16.8408     0.0000     3.3854     5.0322
+  26 CN7B         71 HN1            2.2268    15.2633     0.0000     1.8927    10.7928
+  26 CN7B         72 HN2            2.2268    15.2633     0.0000     1.8927    10.7928
+  26 CN7B         73 HN3            3.0068    15.2633     0.0000     2.6727    10.7928
+  26 CN7B         76 HN4            2.2268    15.2633     0.0000     1.8927    10.7928
+  26 CN7B         77 HN5            2.2268    15.2633     0.0000     1.8927    10.7928
+  26 CN7B         79 HN7            3.2028    10.5556     0.0000     2.8687     7.4639
+  26 CN7B         80 HN8            3.2206    11.9083     0.0000     2.8865     8.4204
+  26 CN7B        100 NN1            3.6750    31.8262     0.0000     3.3409    22.5045
+  26 CN7B        102 NN2            3.6750    31.8262     0.0000     3.3409    22.5045
+  26 CN7B        103 NN2B           3.6750    31.8262     0.0000     3.3409    22.5045
+  26 CN7B        105 NN2G           3.6750    31.8262     0.0000     3.3409    22.5045
+  26 CN7B        106 NN2U           3.6750    31.8262     0.0000     3.3409    22.5045
+  26 CN7B        107 NN3            3.6750    31.8262     0.0000     3.3409    22.5045
+  26 CN7B        108 NN3A           3.6750    31.8262     0.0000     3.3409    22.5045
+  26 CN7B        109 NN3G           3.6750    31.8262     0.0000     3.3409    22.5045
+  26 CN7B        111 NN4            3.6750    31.8262     0.0000     3.3409    22.5045
+  26 CN7B        130 ON1            3.5413    24.6525     0.0000     3.2072    17.4319
+  26 CN7B        131 ON1C           3.5413    24.6525     0.0000     3.2072    17.4319
+  26 CN7B        132 ON2            3.6037    27.7546     0.0000     3.2696    19.6254
+  26 CN7B        133 ON3            3.5413    24.6525     0.0000     3.2072    17.4319
+  26 CN7B        134 ON4            3.6037    27.7546     0.0000     3.2696    19.6254
+  26 CN7B        135 ON5            3.6037    27.7546     0.0000     3.2696    19.6254
+  26 CN7B        137 ON6B           3.6037    27.7546     0.0000     3.2696    19.6254
+  26 CN7B        141 P              3.9422    54.4312     0.0000     3.6081    38.4887
+  30 CN8B         30 CN8B           3.5814    28.1801     0.0000     3.3854     5.0322
+  30 CN8B         71 HN1            1.9907    25.5404     0.0000     1.8927    10.7928
+  30 CN8B         72 HN2            1.9907    25.5404     0.0000     1.8927    10.7928
+  30 CN8B         73 HN3            2.7707    25.5404     0.0000     2.6727    10.7928
+  30 CN8B         76 HN4            1.9907    25.5404     0.0000     1.8927    10.7928
+  30 CN8B         77 HN5            1.9907    25.5404     0.0000     1.8927    10.7928
+  30 CN8B         79 HN7            2.9667    17.6628     0.0000     2.8687     7.4639
+  30 CN8B         80 HN8            2.9845    19.9264     0.0000     2.8865     8.4204
+  30 CN8B        100 NN1            3.4389    53.2554     0.0000     3.3409    22.5045
+  30 CN8B        102 NN2            3.4389    53.2554     0.0000     3.3409    22.5045
+  30 CN8B        103 NN2B           3.4389    53.2554     0.0000     3.3409    22.5045
+  30 CN8B        105 NN2G           3.4389    53.2554     0.0000     3.3409    22.5045
+  30 CN8B        106 NN2U           3.4389    53.2554     0.0000     3.3409    22.5045
+  30 CN8B        107 NN3            3.4389    53.2554     0.0000     3.3409    22.5045
+  30 CN8B        108 NN3A           3.4389    53.2554     0.0000     3.3409    22.5045
+  30 CN8B        109 NN3G           3.4389    53.2554     0.0000     3.3409    22.5045
+  30 CN8B        111 NN4            3.4389    53.2554     0.0000     3.3409    22.5045
+  30 CN8B        130 ON1            3.3052    41.2515     0.0000     3.2072    17.4319
+  30 CN8B        131 ON1C           3.3052    41.2515     0.0000     3.2072    17.4319
+  30 CN8B        132 ON2            3.3676    46.4423     0.0000     3.2696    19.6254
+  30 CN8B        133 ON3            3.3052    41.2515     0.0000     3.2072    17.4319
+  30 CN8B        134 ON4            3.3676    46.4423     0.0000     3.2696    19.6254
+  30 CN8B        135 ON5            3.3676    46.4423     0.0000     3.2696    19.6254
+  30 CN8B        137 ON6B           3.3676    46.4423     0.0000     3.2696    19.6254
+  30 CN8B        141 P              3.7061    91.0808     0.0000     3.6081    38.4887
+  71 HN1          71 HN1            0.4000    23.1480     0.0000     0.4000    23.1480
+  71 HN1          72 HN2            0.4000    23.1480     0.0000     0.4000    23.1480
+  71 HN1          73 HN3            1.1800    23.1480     0.0000     1.1800    23.1480
+  71 HN1          76 HN4            0.4000    23.1480     0.0000     0.4000    23.1480
+  71 HN1          77 HN5            0.4000    23.1480     0.0000     0.4000    23.1480
+  71 HN1          79 HN7            1.3760    16.0083     0.0000     1.3760    16.0083
+  71 HN1          80 HN8            1.3938    18.0598     0.0000     1.3938    18.0598
+  71 HN1         100 NN1            1.8482    48.2668     0.0000     1.8482    48.2668
+  71 HN1         102 NN2            1.8482    48.2668     0.0000     1.8482    48.2668
+  71 HN1         103 NN2B           1.8482    48.2668     0.0000     1.8482    48.2668
+  71 HN1         105 NN2G           1.8482    48.2668     0.0000     1.8482    48.2668
+  71 HN1         106 NN2U           1.8482    48.2668     0.0000     1.8482    48.2668
+  71 HN1         107 NN3            1.8482    48.2668     0.0000     1.8482    48.2668
+  71 HN1         108 NN3A           1.8482    48.2668     0.0000     1.8482    48.2668
+  71 HN1         109 NN3G           1.8482    48.2668     0.0000     1.8482    48.2668
+  71 HN1         111 NN4            1.8482    48.2668     0.0000     1.8482    48.2668
+  71 HN1         130 ON1            1.7145    37.3873     0.0000     1.7145    37.3873
+  71 HN1         131 ON1C           1.7145    37.3873     0.0000     1.7145    37.3873
+  71 HN1         132 ON2            1.7769    42.0919     0.0000     1.7769    42.0919
+  71 HN1         133 ON3            1.7145    37.3873     0.0000     1.7145    37.3873
+  71 HN1         134 ON4            1.7769    42.0919     0.0000     1.7769    42.0919
+  71 HN1         135 ON5            1.7769    42.0919     0.0000     1.7769    42.0919
+  71 HN1         137 ON6B           1.7769    42.0919     0.0000     1.7769    42.0919
+  71 HN1         141 P              2.1154    82.5490     0.0000     2.1154    82.5490
+  72 HN2          72 HN2            0.4000    23.1480     0.0000     0.4000    23.1480
+  72 HN2          73 HN3            1.1800    23.1480     0.0000     1.1800    23.1480
+  72 HN2          76 HN4            0.4000    23.1480     0.0000     0.4000    23.1480
+  72 HN2          77 HN5            0.4000    23.1480     0.0000     0.4000    23.1480
+  72 HN2          79 HN7            1.3760    16.0083     0.0000     1.3760    16.0083
+  72 HN2          80 HN8            1.3938    18.0598     0.0000     1.3938    18.0598
+  72 HN2         100 NN1            1.8482    48.2668     0.0000     1.8482    48.2668
+  72 HN2         102 NN2            1.8482    48.2668     0.0000     1.8482    48.2668
+  72 HN2         103 NN2B           1.8482    48.2668     0.0000     1.8482    48.2668
+  72 HN2         105 NN2G           1.8482    48.2668     0.0000     1.8482    48.2668
+  72 HN2         106 NN2U           1.8482    48.2668     0.0000     1.8482    48.2668
+  72 HN2         107 NN3            1.8482    48.2668     0.0000     1.8482    48.2668
+  72 HN2         108 NN3A           1.8482    48.2668     0.0000     1.8482    48.2668
+  72 HN2         109 NN3G           1.8482    48.2668     0.0000     1.8482    48.2668
+  72 HN2         111 NN4            1.8482    48.2668     0.0000     1.8482    48.2668
+  72 HN2         130 ON1            1.7145    37.3873     0.0000     1.7145    37.3873
+  72 HN2         131 ON1C           1.7145    37.3873     0.0000     1.7145    37.3873
+  72 HN2         132 ON2            1.7769    42.0919     0.0000     1.7769    42.0919
+  72 HN2         133 ON3            1.7145    37.3873     0.0000     1.7145    37.3873
+  72 HN2         134 ON4            1.7769    42.0919     0.0000     1.7769    42.0919
+  72 HN2         135 ON5            1.7769    42.0919     0.0000     1.7769    42.0919
+  72 HN2         137 ON6B           1.7769    42.0919     0.0000     1.7769    42.0919
+  72 HN2         141 P              2.1154    82.5490     0.0000     2.1154    82.5490
+  73 HN3          73 HN3            1.9600    23.1480     0.0000     1.9600    23.1480
+  73 HN3          76 HN4            1.1800    23.1480     0.0000     1.1800    23.1480
+  73 HN3          77 HN5            1.1800    23.1480     0.0000     1.1800    23.1480
+  73 HN3          79 HN7            2.1560    16.0083     0.0000     2.1560    16.0083
+  73 HN3          80 HN8            2.1738    18.0598     0.0000     2.1738    18.0598
+  73 HN3         100 NN1            2.6282    48.2668     0.0000     2.6282    48.2668
+  73 HN3         102 NN2            2.6282    48.2668     0.0000     2.6282    48.2668
+  73 HN3         103 NN2B           2.6282    48.2668     0.0000     2.6282    48.2668
+  73 HN3         105 NN2G           2.6282    48.2668     0.0000     2.6282    48.2668
+  73 HN3         106 NN2U           2.6282    48.2668     0.0000     2.6282    48.2668
+  73 HN3         107 NN3            2.6282    48.2668     0.0000     2.6282    48.2668
+  73 HN3         108 NN3A           2.6282    48.2668     0.0000     2.6282    48.2668
+  73 HN3         109 NN3G           2.6282    48.2668     0.0000     2.6282    48.2668
+  73 HN3         111 NN4            2.6282    48.2668     0.0000     2.6282    48.2668
+  73 HN3         130 ON1            2.4945    37.3873     0.0000     2.4945    37.3873
+  73 HN3         131 ON1C           2.4945    37.3873     0.0000     2.4945    37.3873
+  73 HN3         132 ON2            2.5569    42.0919     0.0000     2.5569    42.0919
+  73 HN3         133 ON3            2.4945    37.3873     0.0000     2.4945    37.3873
+  73 HN3         134 ON4            2.5569    42.0919     0.0000     2.5569    42.0919
+  73 HN3         135 ON5            2.5569    42.0919     0.0000     2.5569    42.0919
+  73 HN3         137 ON6B           2.5569    42.0919     0.0000     2.5569    42.0919
+  73 HN3         141 P              2.8954    82.5490     0.0000     2.8954    82.5490
+  76 HN4          76 HN4            0.4000    23.1480     0.0000     0.4000    23.1480
+  76 HN4          77 HN5            0.4000    23.1480     0.0000     0.4000    23.1480
+  76 HN4          79 HN7            1.3760    16.0083     0.0000     1.3760    16.0083
+  76 HN4          80 HN8            1.3938    18.0598     0.0000     1.3938    18.0598
+  76 HN4         100 NN1            1.8482    48.2668     0.0000     1.8482    48.2668
+  76 HN4         102 NN2            1.8482    48.2668     0.0000     1.8482    48.2668
+  76 HN4         103 NN2B           1.8482    48.2668     0.0000     1.8482    48.2668
+  76 HN4         105 NN2G           1.8482    48.2668     0.0000     1.8482    48.2668
+  76 HN4         106 NN2U           1.8482    48.2668     0.0000     1.8482    48.2668
+  76 HN4         107 NN3            1.8482    48.2668     0.0000     1.8482    48.2668
+  76 HN4         108 NN3A           1.8482    48.2668     0.0000     1.8482    48.2668
+  76 HN4         109 NN3G           1.8482    48.2668     0.0000     1.8482    48.2668
+  76 HN4         111 NN4            1.8482    48.2668     0.0000     1.8482    48.2668
+  76 HN4         130 ON1            1.7145    37.3873     0.0000     1.7145    37.3873
+  76 HN4         131 ON1C           1.7145    37.3873     0.0000     1.7145    37.3873
+  76 HN4         132 ON2            1.7769    42.0919     0.0000     1.7769    42.0919
+  76 HN4         133 ON3            1.7145    37.3873     0.0000     1.7145    37.3873
+  76 HN4         134 ON4            1.7769    42.0919     0.0000     1.7769    42.0919
+  76 HN4         135 ON5            1.7769    42.0919     0.0000     1.7769    42.0919
+  76 HN4         137 ON6B           1.7769    42.0919     0.0000     1.7769    42.0919
+  76 HN4         141 P              2.1154    82.5490     0.0000     2.1154    82.5490
+  77 HN5          77 HN5            0.4000    23.1480     0.0000     0.4000    23.1480
+  77 HN5          79 HN7            1.3760    16.0083     0.0000     1.3760    16.0083
+  77 HN5          80 HN8            1.3938    18.0598     0.0000     1.3938    18.0598
+  77 HN5         100 NN1            1.8482    48.2668     0.0000     1.8482    48.2668
+  77 HN5         102 NN2            1.8482    48.2668     0.0000     1.8482    48.2668
+  77 HN5         103 NN2B           1.8482    48.2668     0.0000     1.8482    48.2668
+  77 HN5         105 NN2G           1.8482    48.2668     0.0000     1.8482    48.2668
+  77 HN5         106 NN2U           1.8482    48.2668     0.0000     1.8482    48.2668
+  77 HN5         107 NN3            1.8482    48.2668     0.0000     1.8482    48.2668
+  77 HN5         108 NN3A           1.8482    48.2668     0.0000     1.8482    48.2668
+  77 HN5         109 NN3G           1.8482    48.2668     0.0000     1.8482    48.2668
+  77 HN5         111 NN4            1.8482    48.2668     0.0000     1.8482    48.2668
+  77 HN5         130 ON1            1.7145    37.3873     0.0000     1.7145    37.3873
+  77 HN5         131 ON1C           1.7145    37.3873     0.0000     1.7145    37.3873
+  77 HN5         132 ON2            1.7769    42.0919     0.0000     1.7769    42.0919
+  77 HN5         133 ON3            1.7145    37.3873     0.0000     1.7145    37.3873
+  77 HN5         134 ON4            1.7769    42.0919     0.0000     1.7769    42.0919
+  77 HN5         135 ON5            1.7769    42.0919     0.0000     1.7769    42.0919
+  77 HN5         137 ON6B           1.7769    42.0919     0.0000     1.7769    42.0919
+  77 HN5         141 P              2.1154    82.5490     0.0000     2.1154    82.5490
+  79 HN7          79 HN7            2.3520    11.0708     0.0000     2.3520    11.0708
+  79 HN7          80 HN8            2.3698    12.4895     0.0000     2.3698    12.4895
+  79 HN7         100 NN1            2.8241    33.3796     0.0000     2.8241    33.3796
+  79 HN7         102 NN2            2.8241    33.3796     0.0000     2.8241    33.3796
+  79 HN7         103 NN2B           2.8241    33.3796     0.0000     2.8241    33.3796
+  79 HN7         105 NN2G           2.8241    33.3796     0.0000     2.8241    33.3796
+  79 HN7         106 NN2U           2.8241    33.3796     0.0000     2.8241    33.3796
+  79 HN7         107 NN3            2.8241    33.3796     0.0000     2.8241    33.3796
+  79 HN7         108 NN3A           2.8241    33.3796     0.0000     2.8241    33.3796
+  79 HN7         109 NN3G           2.8241    33.3796     0.0000     2.8241    33.3796
+  79 HN7         111 NN4            2.8241    33.3796     0.0000     2.8241    33.3796
+  79 HN7         130 ON1            2.6905    25.8557     0.0000     2.6905    25.8557
+  79 HN7         131 ON1C           2.6905    25.8557     0.0000     2.6905    25.8557
+  79 HN7         132 ON2            2.7529    29.1092     0.0000     2.7529    29.1092
+  79 HN7         133 ON3            2.6905    25.8557     0.0000     2.6905    25.8557
+  79 HN7         134 ON4            2.7529    29.1092     0.0000     2.7529    29.1092
+  79 HN7         135 ON5            2.7529    29.1092     0.0000     2.7529    29.1092
+  79 HN7         137 ON6B           2.7529    29.1092     0.0000     2.7529    29.1092
+  79 HN7         141 P              3.0914    57.0879     0.0000     3.0914    57.0879
+  80 HN8          80 HN8            2.3876    14.0901     0.0000     2.3876    14.0901
+  80 HN8         100 NN1            2.8420    37.6573     0.0000     2.8420    37.6573
+  80 HN8         102 NN2            2.8420    37.6573     0.0000     2.8420    37.6573
+  80 HN8         103 NN2B           2.8420    37.6573     0.0000     2.8420    37.6573
+  80 HN8         105 NN2G           2.8420    37.6573     0.0000     2.8420    37.6573
+  80 HN8         106 NN2U           2.8420    37.6573     0.0000     2.8420    37.6573
+  80 HN8         107 NN3            2.8420    37.6573     0.0000     2.8420    37.6573
+  80 HN8         108 NN3A           2.8420    37.6573     0.0000     2.8420    37.6573
+  80 HN8         109 NN3G           2.8420    37.6573     0.0000     2.8420    37.6573
+  80 HN8         111 NN4            2.8420    37.6573     0.0000     2.8420    37.6573
+  80 HN8         130 ON1            2.7083    29.1692     0.0000     2.7083    29.1692
+  80 HN8         131 ON1C           2.7083    29.1692     0.0000     2.7083    29.1692
+  80 HN8         132 ON2            2.7707    32.8397     0.0000     2.7707    32.8397
+  80 HN8         133 ON3            2.7083    29.1692     0.0000     2.7083    29.1692
+  80 HN8         134 ON4            2.7707    32.8397     0.0000     2.7707    32.8397
+  80 HN8         135 ON5            2.7707    32.8397     0.0000     2.7707    32.8397
+  80 HN8         137 ON6B           2.7707    32.8397     0.0000     2.7707    32.8397
+  80 HN8         141 P              3.1092    64.4039     0.0000     3.1092    64.4039
+ 100 NN1         100 NN1            3.2963   100.6433     0.0000     3.2963   100.6433
+ 100 NN1         102 NN2            3.2963   100.6433     0.0000     3.2963   100.6433
+ 100 NN1         103 NN2B           3.2963   100.6433     0.0000     3.2963   100.6433
+ 100 NN1         105 NN2G           3.2963   100.6433     0.0000     3.2963   100.6433
+ 100 NN1         106 NN2U           3.2963   100.6433     0.0000     3.2963   100.6433
+ 100 NN1         107 NN3            3.2963   100.6433     0.0000     3.2963   100.6433
+ 100 NN1         108 NN3A           3.2963   100.6433     0.0000     3.2963   100.6433
+ 100 NN1         109 NN3G           3.2963   100.6433     0.0000     3.2963   100.6433
+ 100 NN1         111 NN4            3.2963   100.6433     0.0000     3.2963   100.6433
+ 100 NN1         130 ON1            3.1627    77.9580     0.0000     3.1627    77.9580
+ 100 NN1         131 ON1C           3.1627    77.9580     0.0000     3.1627    77.9580
+ 100 NN1         132 ON2            3.2251    87.7677     0.0000     3.2251    87.7677
+ 100 NN1         133 ON3            3.1627    77.9580     0.0000     3.1627    77.9580
+ 100 NN1         134 ON4            3.2251    87.7677     0.0000     3.2251    87.7677
+ 100 NN1         135 ON5            3.2251    87.7677     0.0000     3.2251    87.7677
+ 100 NN1         137 ON6B           3.2251    87.7677     0.0000     3.2251    87.7677
+ 100 NN1         141 P              3.5636   172.1266     0.0000     3.5636   172.1266
+ 102 NN2         102 NN2            3.2963   100.6433     0.0000     3.2963   100.6433
+ 102 NN2         103 NN2B           3.2963   100.6433     0.0000     3.2963   100.6433
+ 102 NN2         105 NN2G           3.2963   100.6433     0.0000     3.2963   100.6433
+ 102 NN2         106 NN2U           3.2963   100.6433     0.0000     3.2963   100.6433
+ 102 NN2         107 NN3            3.2963   100.6433     0.0000     3.2963   100.6433
+ 102 NN2         108 NN3A           3.2963   100.6433     0.0000     3.2963   100.6433
+ 102 NN2         109 NN3G           3.2963   100.6433     0.0000     3.2963   100.6433
+ 102 NN2         111 NN4            3.2963   100.6433     0.0000     3.2963   100.6433
+ 102 NN2         130 ON1            3.1627    77.9580     0.0000     3.1627    77.9580
+ 102 NN2         131 ON1C           3.1627    77.9580     0.0000     3.1627    77.9580
+ 102 NN2         132 ON2            3.2251    87.7677     0.0000     3.2251    87.7677
+ 102 NN2         133 ON3            3.1627    77.9580     0.0000     3.1627    77.9580
+ 102 NN2         134 ON4            3.2251    87.7677     0.0000     3.2251    87.7677
+ 102 NN2         135 ON5            3.2251    87.7677     0.0000     3.2251    87.7677
+ 102 NN2         137 ON6B           3.2251    87.7677     0.0000     3.2251    87.7677
+ 102 NN2         141 P              3.5636   172.1266     0.0000     3.5636   172.1266
+ 103 NN2B        103 NN2B           3.2963   100.6433     0.0000     3.2963   100.6433
+ 103 NN2B        105 NN2G           3.2963   100.6433     0.0000     3.2963   100.6433
+ 103 NN2B        106 NN2U           3.2963   100.6433     0.0000     3.2963   100.6433
+ 103 NN2B        107 NN3            3.2963   100.6433     0.0000     3.2963   100.6433
+ 103 NN2B        108 NN3A           3.2963   100.6433     0.0000     3.2963   100.6433
+ 103 NN2B        109 NN3G           3.2963   100.6433     0.0000     3.2963   100.6433
+ 103 NN2B        111 NN4            3.2963   100.6433     0.0000     3.2963   100.6433
+ 103 NN2B        130 ON1            3.1627    77.9580     0.0000     3.1627    77.9580
+ 103 NN2B        131 ON1C           3.1627    77.9580     0.0000     3.1627    77.9580
+ 103 NN2B        132 ON2            3.2251    87.7677     0.0000     3.2251    87.7677
+ 103 NN2B        133 ON3            3.1627    77.9580     0.0000     3.1627    77.9580
+ 103 NN2B        134 ON4            3.2251    87.7677     0.0000     3.2251    87.7677
+ 103 NN2B        135 ON5            3.2251    87.7677     0.0000     3.2251    87.7677
+ 103 NN2B        137 ON6B           3.2251    87.7677     0.0000     3.2251    87.7677
+ 103 NN2B        141 P              3.5636   172.1266     0.0000     3.5636   172.1266
+ 105 NN2G        105 NN2G           3.2963   100.6433     0.0000     3.2963   100.6433
+ 105 NN2G        106 NN2U           3.2963   100.6433     0.0000     3.2963   100.6433
+ 105 NN2G        107 NN3            3.2963   100.6433     0.0000     3.2963   100.6433
+ 105 NN2G        108 NN3A           3.2963   100.6433     0.0000     3.2963   100.6433
+ 105 NN2G        109 NN3G           3.2963   100.6433     0.0000     3.2963   100.6433
+ 105 NN2G        111 NN4            3.2963   100.6433     0.0000     3.2963   100.6433
+ 105 NN2G        130 ON1            3.1627    77.9580     0.0000     3.1627    77.9580
+ 105 NN2G        131 ON1C           3.1627    77.9580     0.0000     3.1627    77.9580
+ 105 NN2G        132 ON2            3.2251    87.7677     0.0000     3.2251    87.7677
+ 105 NN2G        133 ON3            3.1627    77.9580     0.0000     3.1627    77.9580
+ 105 NN2G        134 ON4            3.2251    87.7677     0.0000     3.2251    87.7677
+ 105 NN2G        135 ON5            3.2251    87.7677     0.0000     3.2251    87.7677
+ 105 NN2G        137 ON6B           3.2251    87.7677     0.0000     3.2251    87.7677
+ 105 NN2G        141 P              3.5636   172.1266     0.0000     3.5636   172.1266
+ 106 NN2U        106 NN2U           3.2963   100.6433     0.0000     3.2963   100.6433
+ 106 NN2U        107 NN3            3.2963   100.6433     0.0000     3.2963   100.6433
+ 106 NN2U        108 NN3A           3.2963   100.6433     0.0000     3.2963   100.6433
+ 106 NN2U        109 NN3G           3.2963   100.6433     0.0000     3.2963   100.6433
+ 106 NN2U        111 NN4            3.2963   100.6433     0.0000     3.2963   100.6433
+ 106 NN2U        130 ON1            3.1627    77.9580     0.0000     3.1627    77.9580
+ 106 NN2U        131 ON1C           3.1627    77.9580     0.0000     3.1627    77.9580
+ 106 NN2U        132 ON2            3.2251    87.7677     0.0000     3.2251    87.7677
+ 106 NN2U        133 ON3            3.1627    77.9580     0.0000     3.1627    77.9580
+ 106 NN2U        134 ON4            3.2251    87.7677     0.0000     3.2251    87.7677
+ 106 NN2U        135 ON5            3.2251    87.7677     0.0000     3.2251    87.7677
+ 106 NN2U        137 ON6B           3.2251    87.7677     0.0000     3.2251    87.7677
+ 106 NN2U        141 P              3.5636   172.1266     0.0000     3.5636   172.1266
+ 107 NN3         107 NN3            3.2963   100.6433     0.0000     3.2963   100.6433
+ 107 NN3         108 NN3A           3.2963   100.6433     0.0000     3.2963   100.6433
+ 107 NN3         109 NN3G           3.2963   100.6433     0.0000     3.2963   100.6433
+ 107 NN3         111 NN4            3.2963   100.6433     0.0000     3.2963   100.6433
+ 107 NN3         130 ON1            3.1627    77.9580     0.0000     3.1627    77.9580
+ 107 NN3         131 ON1C           3.1627    77.9580     0.0000     3.1627    77.9580
+ 107 NN3         132 ON2            3.2251    87.7677     0.0000     3.2251    87.7677
+ 107 NN3         133 ON3            3.1627    77.9580     0.0000     3.1627    77.9580
+ 107 NN3         134 ON4            3.2251    87.7677     0.0000     3.2251    87.7677
+ 107 NN3         135 ON5            3.2251    87.7677     0.0000     3.2251    87.7677
+ 107 NN3         137 ON6B           3.2251    87.7677     0.0000     3.2251    87.7677
+ 107 NN3         141 P              3.5636   172.1266     0.0000     3.5636   172.1266
+ 108 NN3A        108 NN3A           3.2963   100.6433     0.0000     3.2963   100.6433
+ 108 NN3A        109 NN3G           3.2963   100.6433     0.0000     3.2963   100.6433
+ 108 NN3A        111 NN4            3.2963   100.6433     0.0000     3.2963   100.6433
+ 108 NN3A        130 ON1            3.1627    77.9580     0.0000     3.1627    77.9580
+ 108 NN3A        131 ON1C           3.1627    77.9580     0.0000     3.1627    77.9580
+ 108 NN3A        132 ON2            3.2251    87.7677     0.0000     3.2251    87.7677
+ 108 NN3A        133 ON3            3.1627    77.9580     0.0000     3.1627    77.9580
+ 108 NN3A        134 ON4            3.2251    87.7677     0.0000     3.2251    87.7677
+ 108 NN3A        135 ON5            3.2251    87.7677     0.0000     3.2251    87.7677
+ 108 NN3A        137 ON6B           3.2251    87.7677     0.0000     3.2251    87.7677
+ 108 NN3A        141 P              3.5636   172.1266     0.0000     3.5636   172.1266
+ 109 NN3G        109 NN3G           3.2963   100.6433     0.0000     3.2963   100.6433
+ 109 NN3G        111 NN4            3.2963   100.6433     0.0000     3.2963   100.6433
+ 109 NN3G        130 ON1            3.1627    77.9580     0.0000     3.1627    77.9580
+ 109 NN3G        131 ON1C           3.1627    77.9580     0.0000     3.1627    77.9580
+ 109 NN3G        132 ON2            3.2251    87.7677     0.0000     3.2251    87.7677
+ 109 NN3G        133 ON3            3.1627    77.9580     0.0000     3.1627    77.9580
+ 109 NN3G        134 ON4            3.2251    87.7677     0.0000     3.2251    87.7677
+ 109 NN3G        135 ON5            3.2251    87.7677     0.0000     3.2251    87.7677
+ 109 NN3G        137 ON6B           3.2251    87.7677     0.0000     3.2251    87.7677
+ 109 NN3G        141 P              3.5636   172.1266     0.0000     3.5636   172.1266
+ 111 NN4         111 NN4            3.2963   100.6433     0.0000     3.2963   100.6433
+ 111 NN4         130 ON1            3.1627    77.9580     0.0000     3.1627    77.9580
+ 111 NN4         131 ON1C           3.1627    77.9580     0.0000     3.1627    77.9580
+ 111 NN4         132 ON2            3.2251    87.7677     0.0000     3.2251    87.7677
+ 111 NN4         133 ON3            3.1627    77.9580     0.0000     3.1627    77.9580
+ 111 NN4         134 ON4            3.2251    87.7677     0.0000     3.2251    87.7677
+ 111 NN4         135 ON5            3.2251    87.7677     0.0000     3.2251    87.7677
+ 111 NN4         137 ON6B           3.2251    87.7677     0.0000     3.2251    87.7677
+ 111 NN4         141 P              3.5636   172.1266     0.0000     3.5636   172.1266
+ 130 ON1         130 ON1            3.0291    60.3860     0.0000     3.0291    60.3860
+ 130 ON1         131 ON1C           3.0291    60.3860     0.0000     3.0291    60.3860
+ 130 ON1         132 ON2            3.0914    67.9845     0.0000     3.0914    67.9845
+ 130 ON1         133 ON3            3.0291    60.3860     0.0000     3.0291    60.3860
+ 130 ON1         134 ON4            3.0914    67.9845     0.0000     3.0914    67.9845
+ 130 ON1         135 ON5            3.0914    67.9845     0.0000     3.0914    67.9845
+ 130 ON1         137 ON6B           3.0914    67.9845     0.0000     3.0914    67.9845
+ 130 ON1         141 P              3.4300   133.3287     0.0000     3.4300   133.3287
+ 131 ON1C        131 ON1C           3.0291    60.3860     0.0000     3.0291    60.3860
+ 131 ON1C        132 ON2            3.0914    67.9845     0.0000     3.0914    67.9845
+ 131 ON1C        133 ON3            3.0291    60.3860     0.0000     3.0291    60.3860
+ 131 ON1C        134 ON4            3.0914    67.9845     0.0000     3.0914    67.9845
+ 131 ON1C        135 ON5            3.0914    67.9845     0.0000     3.0914    67.9845
+ 131 ON1C        137 ON6B           3.0914    67.9845     0.0000     3.0914    67.9845
+ 131 ON1C        141 P              3.4300   133.3287     0.0000     3.4300   133.3287
+ 132 ON2         132 ON2            3.1538    76.5392     0.0000     3.1538    76.5392
+ 132 ON2         133 ON3            3.0914    67.9845     0.0000     3.0914    67.9845
+ 132 ON2         134 ON4            3.1538    76.5392     0.0000     3.1538    76.5392
+ 132 ON2         135 ON5            3.1538    76.5392     0.0000     3.1538    76.5392
+ 132 ON2         137 ON6B           3.1538    76.5392     0.0000     3.1538    76.5392
+ 132 ON2         141 P              3.4923   150.1058     0.0000     3.4923   150.1058
+ 133 ON3         133 ON3            3.0291    60.3860     0.0000     3.0291    60.3860
+ 133 ON3         134 ON4            3.0914    67.9845     0.0000     3.0914    67.9845
+ 133 ON3         135 ON5            3.0914    67.9845     0.0000     3.0914    67.9845
+ 133 ON3         137 ON6B           3.0914    67.9845     0.0000     3.0914    67.9845
+ 133 ON3         141 P              3.4300   133.3287     0.0000     3.4300   133.3287
+ 134 ON4         134 ON4            3.1538    76.5392     0.0000     3.1538    76.5392
+ 134 ON4         135 ON5            3.1538    76.5392     0.0000     3.1538    76.5392
+ 134 ON4         137 ON6B           3.1538    76.5392     0.0000     3.1538    76.5392
+ 134 ON4         141 P              3.4923   150.1058     0.0000     3.4923   150.1058
+ 135 ON5         135 ON5            3.1538    76.5392     0.0000     3.1538    76.5392
+ 135 ON5         137 ON6B           3.1538    76.5392     0.0000     3.1538    76.5392
+ 135 ON5         141 P              3.4923   150.1058     0.0000     3.4923   150.1058
+ 137 ON6B        137 ON6B           3.1538    76.5392     0.0000     3.1538    76.5392
+ 137 ON6B        141 P              3.4923   150.1058     0.0000     3.4923   150.1058
+ 141 P           141 P              3.8309   294.3817     0.0000     3.8309   294.3817
+Determining Arbitrary Trial Distribution Parameters: see towhee_cbmc for full details
+ Canonical ensemble
+ 3-dimensional periodic box
+ Additional Center-of-Mass cutoff
+ Dual Cutoff Configurational-bias Monte Carlo
+ Coupled-decoupled Configurational-bias MC
+ Coulombic inter- and intra-molecular interactions
+     including the real-space terms up to half the shortest box length
+     dielectric constant:   1.0000
+
+Molecular mass for molecule type     1 is  1643.6970 g/mol
+ Calling initconf
+Selected random number generator DX-1597-2-7 and single integer seed    1302002
+Testing random number generator using the single integer seed
+    0.812479  0.687663  0.080298  0.200888  0.516914
+10 million RNG sum (approximately 5 million):   4999978.2264809748
+Box idim hinverse:    1 1    0.01000    0.00000    0.00000
+Box idim hinverse:    1 2    0.00000    0.01000    0.00000
+Box idim hinverse:    1 3    0.00000    0.00000    0.01000
+
+Number of MC cycles:                    0
+Number of molecules:                    1
+Temperature [K]:       298.15000
+
+Initial Energies for Box     1
+Total molecules in this box          1
+Molecules of type   1 :          1
+ Total vibration (atoms ij bonded together)                 39443.428 [K]        78.38260 [kcal/mol]
+  bond (ij) regular                                         39443.428 [K]        78.38260 [kcal/mol]
+  bond (ij) van der waals                                       0.000 [K]         0.00000 [kcal/mol]
+  bond (ij) Electric                                            0.000 [K]         0.00000 [kcal/mol]
+  bond-bond (ij-jk)                                             0.000 [K]         0.00000 [kcal/mol]
+ Total angle (atoms ijk bonded in sequence)                 74416.973 [K]       147.88259 [kcal/mol]
+  angle (ijk) regular                                       74416.973 [K]       147.88259 [kcal/mol]
+  bond-angle (ij-ijk)                                           0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) van der waals                                      0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) Electric                                           0.000 [K]         0.00000 [kcal/mol]
+  angle-angle (ijk-ijm)                                         0.000 [K]         0.00000 [kcal/mol]
+ Total torsion (ijkl bonded in sequence)                   231453.367 [K]       459.94780 [kcal/mol]
+  torsion (ijkl) regular                                    72813.685 [K]       144.69651 [kcal/mol]
+  torsion (ij-kl) bond-bond                                     0.000 [K]         0.00000 [kcal/mol]
+  torsion (ij-ijkl) bond-torsion                                0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-ijkl) angle-torsion                              0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-jkl-ijkl) angle-angle-torsion                    0.000 [K]         0.00000 [kcal/mol]
+  torsion (i-l) one-four van der waals                     103915.752 [K]       206.50303 [kcal/mol]
+  torsion (i-l) one-four Electric                           54723.930 [K]       108.74826 [kcal/mol]
+ Total improper (ijkm, i,k,m bonded to j)                       0.000 [K]         0.00000 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) vdw               414205.691 [K]       823.11611 [kcal/mol]
+  intramolecular                                           414205.691 [K]       823.11611 [kcal/mol]
+  2-body vdw intermolecular                                     0.000 [K]         0.00000 [kcal/mol]
+  3-body vdw intermolecular                                     0.000 [K]         0.00000 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) Electric         -126951.145 [K]      -252.27933 [kcal/mol]
+  total real space Electric                               -126951.145 [K]      -252.27933 [kcal/mol]
+   intramolecular Electric                                -126951.145 [K]      -252.27933 [kcal/mol]
+   intermolecular Electric                                      0.000 [K]         0.00000 [kcal/mol]
+ Total external field                                           0.000 [K]         0.00000 [kcal/mol]
+ Total solvation                                                0.000 [K]         0.00000 [kcal/mol]
+Total classical                                            632568.314 [K]      1257.04977 [kcal/mol]
+ Aggregate van der waals (bond and nonbond)                518121.443 [K]      1029.61914 [kcal/mol]
+ Aggregate Electric (bond and nonbond)                     -72227.215 [K]      -143.53107 [kcal/mol]
+ initial virial pressure in box  1 =           4.12
+
+ +++++ start of markov chain +++++
+
+Cycle      Box   Energy [K]  Volume [A^3] Press. [kPa] Molecules
+
+ +++++ end of markov chain +++++
+
+ Final hmatrix (general box dimensions) 
+Box:     1
+  hmatrix(1,x)     100.00000       0.00000       0.00000
+  hmatrix(2,x)       0.00000     100.00000       0.00000
+  hmatrix(3,x)       0.00000       0.00000     100.00000
+
+Final Energies for Box     1
+Total molecules in this box          1
+Molecules of type   1 :          1
+ Total vibration (atoms ij bonded together)                 39443.428 [K]        78.38260 [kcal/mol]
+  bond (ij) regular                                         39443.428 [K]        78.38260 [kcal/mol]
+  bond (ij) van der waals                                       0.000 [K]         0.00000 [kcal/mol]
+  bond (ij) Electric                                            0.000 [K]         0.00000 [kcal/mol]
+  bond-bond (ij-jk)                                             0.000 [K]         0.00000 [kcal/mol]
+ Total angle (atoms ijk bonded in sequence)                 74416.973 [K]       147.88259 [kcal/mol]
+  angle (ijk) regular                                       74416.973 [K]       147.88259 [kcal/mol]
+  bond-angle (ij-ijk)                                           0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) van der waals                                      0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) Electric                                           0.000 [K]         0.00000 [kcal/mol]
+  angle-angle (ijk-ijm)                                         0.000 [K]         0.00000 [kcal/mol]
+ Total torsion (ijkl bonded in sequence)                   231453.367 [K]       459.94780 [kcal/mol]
+  torsion (ijkl) regular                                    72813.685 [K]       144.69651 [kcal/mol]
+  torsion (ij-kl) bond-bond                                     0.000 [K]         0.00000 [kcal/mol]
+  torsion (ij-ijkl) bond-torsion                                0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-ijkl) angle-torsion                              0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-jkl-ijkl) angle-angle-torsion                    0.000 [K]         0.00000 [kcal/mol]
+  torsion (i-l) one-four van der waals                     103915.752 [K]       206.50303 [kcal/mol]
+  torsion (i-l) one-four Electric                           54723.930 [K]       108.74826 [kcal/mol]
+ Total improper (ijkm, i,k,m bonded to j)                       0.000 [K]         0.00000 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) vdw               414205.691 [K]       823.11611 [kcal/mol]
+  intramolecular                                           414205.691 [K]       823.11611 [kcal/mol]
+  2-body vdw intermolecular                                     0.000 [K]         0.00000 [kcal/mol]
+  3-body vdw intermolecular                                     0.000 [K]         0.00000 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) Electric         -126951.145 [K]      -252.27933 [kcal/mol]
+  total real space Electric                               -126951.145 [K]      -252.27933 [kcal/mol]
+   intramolecular Electric                                -126951.145 [K]      -252.27933 [kcal/mol]
+   intermolecular Electric                                      0.000 [K]         0.00000 [kcal/mol]
+ Total external field                                           0.000 [K]         0.00000 [kcal/mol]
+ Total solvation                                                0.000 [K]         0.00000 [kcal/mol]
+Total classical                                            632568.314 [K]      1257.04977 [kcal/mol]
+ Aggregate van der waals (bond and nonbond)                518121.443 [K]      1029.61914 [kcal/mol]
+ Aggregate Electric (bond and nonbond)                     -72227.215 [K]      -143.53107 [kcal/mol]
+Please see towhee_citations for a list of suggested citations for this simulation

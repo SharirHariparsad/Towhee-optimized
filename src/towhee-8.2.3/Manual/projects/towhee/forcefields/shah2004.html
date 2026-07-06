@@ -1,0 +1,93 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: Shah2004</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: Shah and Maginn 2004</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the Shah and Maginn 2004 (Shah2004) force field as it is implemented into the towhee_ff_Shah2004 file in the ForceFields directory.
+      This force field was designed for an ionic liquid of 1-<i>n</i>-butyl-3-methylimidazolium [bmim] hexafluorophosphate [PF<sub>6</sub>].
+      Note this is a Lennard-Jones force field that uses the 'Lorentz-Berthelot' mixing rules.
+      Any discrepencies (especially typos) from the published values are the sole responsibility of Marcus Martin,
+      and I welcome feedback on how this implementation compares with other programs.
+     </ul>
+     <b>References for Shah and Maginn 2004</b> 
+     <ul>
+      This forcefield is described in a single paper.
+      <ul>
+       <li><a href="../references.html#shah_maginn_2004">Shah and Maginn 2004</a></li>
+      </ul>
+     </ul>	
+     <b>Typos and comments for Shah and Maginn 2004</b>
+     <ul>
+      <li>Full Lennard-Jones interactions are used for 1-4 interactions, while the Coulombic 1-4 terms are scaled by 1/2 
+       [personal communication between E.J. Maginn and M.G. Martin 04-21-2006].  This is with the execption of the ring 
+       dihedrals that are held rigid and so there is no reason to compute the 1-4 terms.
+      </li>
+      <li>Note that the coordinates presented for the PF<sub>6</sub> structure result in asymmetric bond lengths and bending 
+       angles.  I have  inlcluded that as an atom-specific implementation of PF<sub>6</sub>, and I have also included an 
+       option for symmetric PF<sub>6</sub> using the bond length from 
+       <a href="../references.html#morrow_maginn_2002">Morrow and Maginn 2002</a>.
+      </li>
+      <li>Note that all of the rigid interactions in this molecule means you need to start the simulation using a template for
+       both molecules.  Coordinates suitable for a template are found in Table 1 of
+       <a href="../references.html#shah_maginn_2004">Shah and Maginn 2004</a>.
+      </li>
+     </ul>
+     <b>Shah and Maginn 2004 in Towhee</b> 
+     <ul>
+      The official force field name for Shah and Maginn 2004 in Towhee is 'Shah2004'.
+      This list contains atom names for use in the towhee_input file, along with a brief description.
+      These names correspond to those used in <a href="../references.html#shah_maginn_2004">Shah and Maginn 2004</a>.
+      I have also included an option for a symmetric PF<sub>6</sub> using a perfect octahedral geometry and a P-F bond length taken from 
+      <a href="../references.html#morrow_maginn_2002">Morrow and Maginn 2002</a>.
+      Please note that the capitalization and spacing pattern is important and must be followed exactly as listed here.
+      <ul>
+       <dt>'<b>N1</b>' : Ring Nitrogen bonded to C2, C5, and C7 in bmim</dt>
+       <dt>'<b>C2</b>' : Ring Carbon (and an implicit bonded hydrogen) bonded to N1 and N3 in bmim</dt>
+       <dt>'<b>N3</b>' : Ring Nitrogen bonded to C2, C4, and C6 in bmim</dt>
+       <dt>'<b>C4</b>' : Ring Carbon (and an implicit bonded hydrogen) bonded to N3 and C5 in bmim</dt>
+       <dt>'<b>C5</b>' : Ring Carbon (and an implicit bonded hydrogen) bonded to N1 and C4 in bmim</dt>
+       <dt>'<b>C6</b>' : methyl Carbon (and three implicit bonded hydrogens) bonded to N3 in bmim</dt>
+       <dt>'<b>C7</b>' : methylene Carbon (and two implicit bonded hydrogens) bonded to N1 and C8 in bmim</dt>
+       <dt>'<b>C8</b>' : methylene Carbon (and two implicit bonded hydrogens) bonded to C7 and C9 in bmim</dt>
+       <dt>'<b>C9</b>' : methylene Carbon (and two implicit bonded hydrogens) bonded to C8 and C10 in bmim</dt>
+       <dt>'<b>C10</b>' : methyl Carbon (and three implicit bonded hydrogens) bonded to C9 in bmim</dt>
+       <dt>'<b>P</b>' : P in hexafluorophosphate</dt>
+       <dt>'<b>F</b>' : generic F in hexafluorophosphate if you want to use the symmetric bond length and bending angle version of that molecule.</dt>
+       <dt>'<b>F1</b>' : specific F in hexafluorophosphate if you want to use the assymmetric bond length and bending angle version of that molecule.</dt>
+       <dt>'<b>F2</b>' : specific F in hexafluorophosphate if you want to use the assymmetric bond length and bending angle version of that molecule.</dt>
+       <dt>'<b>F3</b>' : specific F in hexafluorophosphate if you want to use the assymmetric bond length and bending angle version of that molecule.</dt>
+       <dt>'<b>F4</b>' : specific F in hexafluorophosphate if you want to use the assymmetric bond length and bending angle version of that molecule.</dt>
+       <dt>'<b>F5</b>' : specific F in hexafluorophosphate if you want to use the assymmetric bond length and bending angle version of that molecule.</dt>
+       <dt>'<b>F6</b>' : specific F in hexafluorophosphate if you want to use the assymmetric bond length and bending angle version of that molecule.</dt>
+      </ul>
+     </ul>
+     <b>Coulombic interactions</b> 
+     <ul>
+      This force field uses point charges and has been set up to assign the point charges using the bond increment method.
+      The charges for bmim are assigned according to Table 2 of 
+      <a href="../references.html#shah_maginn_2004">Shah and Maginn 2004</a>.
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

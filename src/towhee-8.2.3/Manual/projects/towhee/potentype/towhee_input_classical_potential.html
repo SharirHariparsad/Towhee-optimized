@@ -1,0 +1,698 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: towhee_input classical_potential</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table width="800" border="0" cellspacing="0" cellpadding="0" height="590">
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"><font size="5"><b><font face="Arial,Helvetica,sans-serif">
+	 <a name="top"></a>MCCCS Towhee: towhee_input classical_potential</font></b></font>
+     </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"> 
+    <IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" width="210" height="62" border="0" alt="SourceForge.net Logo" align="right"/>
+   </A>
+   <tr> 
+    <td width="18" height="371" valign="top"> 
+     <p>&nbsp;</p>
+     <p>&nbsp;</p>
+    </td>
+    <td width="700" valign="top"> 
+     The many settings for <b>classical_potential</b> require a variety of parameters.  For each <b>classical_potential</b> a
+     description of the nonbonded potential and the set of subsequent required parameters is listed.  This documentation is only kept up to date for the
+     current release version.  Last updated for version 8.0.0.
+     <hr></hr>
+     <dt><a name="classical_potential"><b>classical_potential (character*30)</b></a> 
+      <ul>
+       <li>'12-6 plus 12-10 H-bond': 12-6 Lennard-Jones plus a 12-10 hydrogen bonding term on certain pairs.
+	<ul>
+         <dt>Use the standard Lennard-Jones 12-6 plus an extra 12-10 term between certain pairs of atoms that are identified as hydrogen bond donors
+          and accepters.  See <a href="../references.html#weiner_et_al_1984">Weiner <i>et al.</i> 1984</a> for more information.
+         </dt>
+         <dt>If the two atoms are separated by more than 3 bonds, or are on different molecules then</dt>
+         <dt>U<sub>nonbond</sub> = 4 * nbcoeff(2) * [ (nbcoeff(1)/r)<sup>12</sup> 
+          - (nbcoeff(1)/r)<sup>6</sup> ] + hbondcoeff(1) / r<sup>12</sup> - hbondcoeff(2) / r<sup>10</sup>
+         </dt>
+         <dt>else if the two atoms are separated by exactly 3 bonds then</dt>
+         <dt>U<sub>nonbond</sub> = 4 * nbcoeff(4) * [ (nbcoeff(3)/r)<sup>12</sup> 
+          - (nbcoeff(3)/r)<sup>6</sup> ] + hbondcoeff(1) / r<sup>12</sup> - hbondcoeff(2) / r<sup>10</sup>
+         </dt>
+         <dt><b>classical_mixrule (character*30)</b>
+          <ul>
+           <li>'Lorentz-Berthelot': 
+            arithmetic mean of &sigma; values [nbcoeff(1) or nbcoeff(3)],
+            geometric mean of &epsilon; values [nbcoeff(2) or nbcoeff(4)].
+           </li>
+           <li>'Shukla': complicated expression involving the polarizability of each atom.
+            See equations 19 and 20 of <a href="../references.html#shukla_1987">Shukla 1987</a> for the definition of this mixing rule.
+           </li>
+          </ul>
+         </dt>
+         <dt><b>lshift</b> See the <a href="#lshift">lshift</a> section for information about this parameter</dt>
+         <dt><b>ltailc</b> See the <a href="#ltailc">ltailc</a> section for information about this parameter</dt>
+         <dt><b>rmin</b> See the <a href="#rmin">rmin</a> section for information about this parameter</dt>
+         <dt><b>rcut</b> See the <a href="#rcut">rcut</a> section for information about this parameter</dt>
+         <dt><b>rcutin</b> See the <a href="#rcutin">rcutin</a> section for information about this parameter</dt>
+	</ul>
+       </li>
+       <li>'12-6 plus solvation': 12-6 Lennard-Jones with implicit solvent
+	<ul>
+         <dt>This uses the standard Lennard-Jones 12-6 plus an extra implicit solvation term.  See 
+          <a href="../references.html#lazaridis_karplus_1999">Lazaridis and Karplus 1999</a> for more information.
+         </dt>
+         <dt>If the two atoms are separated by more than 3 bonds, or are on different molecules then</dt>
+         <dt>U<sub>nonbond</sub> = 4 * nbcoeff(2) * [ (nbcoeff(1)/r)<sup>12</sup> - (nbcoeff(1)/r)<sup>6</sup> ]</dt>
+         <dt>else if the two atoms are separated by exactly 3 bonds then</dt>
+         <dt>U<sub>nonbond</sub> = 4 * nbcoeff(4) * [ (nbcoeff(3)/r)<sup>12</sup> - (nbcoeff(3)/r)<sup>6</sup> ]</dt>
+         <dt><b>classical_mixrule (character*30)</b>
+          <ul>
+           <li>'Geometric': geometric mean of all nonbonded coefficients.</li>
+           <li>'Explicit': cross terms explicitly defined in the appropriate towhee_ff file.</li>
+          </ul>
+         </dt>
+         <dt><b>lshift</b> See the <a href="#lshift">lshift</a> section for information about this parameter</dt>
+         <dt><b>ltailc</b> See the <a href="#ltailc">ltailc</a> section for information about this parameter</dt>
+         <dt><b>rmin</b> See the <a href="#rmin">rmin</a> section for information about this parameter</dt>
+         <dt><b>rcut</b> See the <a href="#rcut">rcut</a> section for information about this parameter</dt>
+         <dt><b>rcutin</b> See the <a href="#rcutin">rcutin</a> section for information about this parameter</dt>
+	</ul>
+       </li>
+       <li>'12-9-6': 12-9-6 potential
+	<ul>
+         <dt>This variant of the Lennard-Jones family of potentials was implemented for force fields that use a combination of 12-6 and 9-6.</dt>
+         <dt>v(r) = nbcoeff(1) * (1/r)<sup>12</sup> + nbcoeff(2) * (1/r)<sup>9</sup> + nbcoeff(3) * (1/r)<sup>6</sup></dt>
+         <dt><b>classical_mixrule (character*30)</b>
+          <ul>
+           <li>'Geometric': geometric mean of the nonbonded coefficients.</li>
+           <li>'Explicit': cross terms explicitly defined in the appropriate towhee_ff file.</li>
+          </ul>
+         </dt>
+         <dt><b>lshift</b> See the <a href="#lshift">lshift</a> section for information about this parameter</dt>
+         <dt><b>ltailc</b> See the <a href="#ltailc">ltailc</a> section for information about this parameter</dt>
+         <dt><b>rmin</b> See the <a href="#rmin">rmin</a> section for information about this parameter</dt>
+         <dt><b>rcut</b> See the <a href="#rcut">rcut</a> section for information about this parameter</dt>
+         <dt><b>rcutin</b> See the <a href="#rcutin">rcutin</a> section for information about this parameter</dt>
+	</ul>
+       </li>
+       <li>'9-6': 9-6 potential
+	<ul>
+         <dt>If the two atoms are separated 3 or more bonds, or are on different molecules then</dt>
+         <dt>U<sub>nonbond</sub> = nbcoeff(2) * [ 2*(nbcoeff(1)/r)<sup>9</sup> - 3*(nbcoeff(1)/r)<sup>6</sup> ]</dt>
+         <dt><b>classical_mixrule (character*30)</b>
+          <ul>
+           <li>'Sixth Power': sixth order combination of &sigma; and &epsilon; of 
+            <a href="../references.html#waldman_hagler_1993">Waldman and Hagler 1993</a>.
+           </li>
+          </ul>
+         </dt>
+         <dt><b>lshift</b> See the <a href="#lshift">lshift</a> section for information about this parameter</dt>
+         <dt><b>ltailc</b> See the <a href="#ltailc">ltailc</a> section for information about this parameter</dt>
+         <dt><b>rmin</b> See the <a href="#rmin">rmin</a> section for information about this parameter</dt>
+         <dt><b>rcut</b> See the <a href="#rcut">rcut</a> section for information about this parameter</dt>
+         <dt><b>rcutin</b> See the <a href="#rcutin">rcutin</a> section for information about this parameter</dt>
+	</ul>
+       </li>
+       <li>'Buffered 14-7': Buffered 14-7 potential
+	<ul>
+         <dt>If the two atoms are separated 3 or more bonds, or are on different molecules then</dt>
+         <dt>U<sub>nonbond</sub>(r) = &epsilon;<sub>IJ</sub> [ (1.07 R<sub>IJ</sub>) / (r + 0.07 R<sub>IJ</sub>) ]
+          * [ (1.12 R<sub>IJ</sub><sup>7</sup> ) / (r<sup>7</sup> + 0.12 R<sub>IJ</sub><sup>7</sup>) ]
+         </dt>
+         <dt>where the &epsilon;<sub>IJ</sub> and R<sub>IJ</sub> parameters are determined for each pair of interactions (I and J) using the mixing rules.
+          The nonbonded coefficients required for this forcefield are as follows.
+          <ul>
+           <li>nbcoeff(1): alpha-i in the <a href="../forcefields/mmff94.html">MMFF94</a> native units</li>
+           <li>nbcoeff(2): N-i in the <a href="../forcefields/mmff94.html">MMFF94</a> native units</li>
+           <li>nbcoeff(3): A-i in the <a href="../forcefields/mmff94.html">MMFF94</a> native units</li>
+           <li>nbcoeff(4): G-i in the <a href="../forcefields/mmff94.html">MMFF94</a> native units</li>
+          </ul>
+         </dt>
+         <dt><b>classical_mixrule (character*30)</b>
+          <ul>
+           <li>'MMFF': the mixing rules used to determine &epsilon;<sub>IJ</sub> and R<sub>IJ</sub> from the four nonbonded coefficients 
+            as described in the second MMFF94 paper (<a href="../references.html#halgren_jcc_1996_II">Halgren 1996 (II)</a>).
+           </li>
+          </ul>
+         </dt>
+         <dt><b>ltailc</b> See the <a href="#ltailc">ltailc</a> section for information about this parameter.  This option is not yet implemented 
+          properly as it is surprisingly difficult to integrate the Buffered 14-7 form, but hopefully it will be functioning soon.
+         </dt>
+         <dt><b>rmin</b> See the <a href="#rmin">rmin</a> section for information about this parameter</dt>
+         <dt><b>rcut</b> See the <a href="#rcut">rcut</a> section for information about this parameter</dt>
+         <dt><b>rcutin</b> See the <a href="#rcutin">rcutin</a> section for information about this parameter</dt>
+	</ul>
+       </li>
+       <li>'Double Exponential': Double exponential potential
+	<ul>
+         <dt>If the two atoms are separated by 3 or more bonds, or are on different molecules then</dt>
+         <dt>U<sub>nonbond</sub> = nbcoeff(1) * Exp[ - nbcoeff(2) r] - nbcoeff(3) * Exp[ - nbcoeff(4) r]</dt>
+         <dt><b>classical_mixrule (character*30)</b>
+          <ul>
+           <li>'Explicit': cross terms explicitly specified in the appropriate towhee_ff file.</li>
+          </ul>
+         </dt>
+         <dt><b>lshift</b> See the <a href="#lshift">lshift</a> section for information about this parameter</dt>
+         <dt><b>ltailc</b> See the <a href="#ltailc">ltailc</a> section for information about this parameter</dt>
+         <dt><b>rmin</b> See the <a href="#rmin">rmin</a> section for information about this parameter</dt>
+         <dt><b>rcut</b> See the <a href="#rcut">rcut</a> section for information about this parameter</dt>
+         <dt><b>rcutin</b> See the <a href="#rcutin">rcutin</a> section for information about this parameter</dt>
+	</ul>
+       </li>
+       <li>'Embedded Atom Method': Embedded Atom Method (see <a href="../references.html#daw_baskes_1983">Daw and Baskes 1983</a>)
+	<ul>
+         <dt>This is an atomic potential and can only be used with monatomic molecules in Towhee.  Historically, the Embedded Atom Method (EAM) uses a lookup
+          table for computing intermolecular interactions and this is an option in Towhee.  When tabular data is used the <b>interpolatestyle</b> determines
+          the method for interpolating between the specified values.  Other functional forms are allowed as described in the 
+          <a href="../towhee_ff.html">Towhee Force Field Documentation</a>.  EAM is a short-ranged potential that captures many-body effects by computing a
+          local density about each atom.  This so-called local density is actually a distance dependent function.  The sum of the local densities is then
+          fed into the embedding function to compute the embedding energy.  Additionally, there is a pair potential term.
+         </dt> 
+         <dt><b>interpolatestyle</b> See the <a href="#interpolatestyle">interpolatestyle</a> section for information about this parameter</dt>
+         <dt><b>rcut</b> See the <a href="#rcut">rcut</a> section for information about this parameter</dt>
+	</ul>
+       </li>
+       <li>'EAM pair only': Embedded Atom Method (see <a href="../references.html#daw_baskes_1983">Daw and Baskes 1983</a>) using only the pair potential
+	<ul>
+         <dt>This is is the same as the Embedded Atom Method, but only utilizes the pair potential portion and omits the embedding energy.
+          This option exists for academic study of the pair potential portion of the Embedded Atom Method functions.  It reads from the same potential
+          files as the 'Embedded Atom Method' potential.
+         </dt> 
+         <dt><b>interpolatestyle</b> See the <a href="#interpolatestyle">interpolatestyle</a> section for information about this parameter</dt>
+         <dt><b>rcut</b> See the <a href="#rcut">rcut</a> section for information about this parameter</dt>
+	</ul>
+       </li>
+       <li>'Exponential-12-6': Exponential plus 12-6 Lennard-Jones potential
+	<ul>
+         <dt>If the two atoms are separated by more than 3 bonds, or are on different molecules then</dt>
+         <dt>U<sub>nonbond</sub> = nbcoeff(1)/r<sup>6</sup> + nbcoeff(2)/r<sup>12</sup> + nbcoeff(3)*exp[nbcoeff(4)*r]</dt>
+         <dt><b>classical_mixrule (character*30)</b>
+          <ul>
+           <li>'Explicit': cross terms explicitly defined in the appropriate towhee_ff file.</li>
+          </ul>
+         </dt>
+         <dt><b>lshift</b> See the <a href="#lshift">lshift</a> section for information about this parameter</dt>
+         <dt><b>ltailc</b> See the <a href="#ltailc">ltailc</a> section for information about this parameter</dt>
+         <dt><b>rmin</b> See the <a href="#rmin">rmin</a> section for information about this parameter</dt>
+         <dt><b>rcut</b> See the <a href="#rcut">rcut</a> section for information about this parameter</dt>
+         <dt><b>rcutin</b> See the <a href="#rcutin">rcutin</a> section for information about this parameter</dt>
+	</ul>
+       </li>
+       <li>'Exponential-6': Exponential-6 potential
+	<ul>
+         <dt>If the two atoms are separated by more than 3 bonds, or are on different molecules then</dt>
+         <dt>U<sub>nonbond</sub> = nbcoeff(1)/r<sup>6</sup>  + nbcoeff(2) * exp[nbcoeff(3)*r]</dt>
+         <dt><b>classical_mixrule (character*30)</b>
+          <ul>
+           <li>'Explicit': cross terms explicitly defined in the appropriate towhee_ff file.</li>
+          </ul>
+         </dt>
+         <dt><b>lshift</b> See the <a href="#lshift">lshift</a> section for information about this parameter</dt>
+         <dt><b>ltailc</b> See the <a href="#ltailc">ltailc</a> section for information about this parameter</dt>
+         <dt><b>rcut</b> See the <a href="#rcut">rcut</a> section for information about this parameter</dt>
+         <dt><b>rcutin</b> See the <a href="#rcutin">rcutin</a> section for information about this parameter</dt>
+	</ul>
+       </li>
+       <li>'Gordon n-6': shifted n-6 potential of Peter Gordon.
+	<ul>
+         <dt>Designed to have the position and depth of the minimum in the potential well to correspond with that of a 12-6 Lennard-Jones potential.
+         <dt>U<sub>nonbond</sub> = 4 * nbcoeff(2) * c(n) * [ {nbcoeff(1)/(r-a(n))}<sup>n</sup> - {nbcoeff(1)/(r-a(n))}<sup>6</sup> ]</dt>
+         <dt>a(n) = [ 2<sup>1/6</sup> - (n/6)<sup>1/(n-6)</sup> ] * nbcoeff(1)</dt>
+         <dt>r<sub>minimum</sub> = a(n) + (n/6)<sup>1/(n-6)</sup> * nbcoeff(1)</dt>
+         <dt>c(n) = -(1/4)*[ 1 / ( (nbcoeff(1)/(r<sub>minimum</sub> - a(n)))<sup>n</sup> - ( nbcoeff(1) / (r<sub>minimum</sub> - a(n)) )<sup>6</sup> )]</dt>
+         <dt><b>classical_mixrule (character*30)</b>
+          <ul>
+           <li>'Lorentz-Berthelot': arithmetic mean of &sigma;[nbcoeff(1)], geometric mean of &epsilon;[nbcoeff(2)]</li>
+          </ul>
+         </dt>
+         <dt><b>lshift</b> See the <a href="#lshift">lshift</a> section for information about this parameter</dt>
+         <dt><b>ltailc</b> See the <a href="#ltailc">ltailc</a> section for information about this parameter</dt>
+         <dt><b>rmin</b> See the <a href="#rmin">rmin</a> section for information about this parameter</dt>
+         <dt><b>rcut</b> See the <a href="#rcut">rcut</a> section for information about this parameter</dt>
+         <dt><b>rcutin</b> See the <a href="#rcutin">rcutin</a> section for information about this parameter</dt>
+	</ul>
+       </li>
+       <li>'Hard 2580 Multistep': Hard core multistep potential
+	<ul>
+         <dt>If the two atoms are separated by more than 3 bonds, or are on different molecules, then</dt>
+         <dt>If r &lt; nbcoeff(1)</dt>
+	 <ul>U<sub>nonbond</sub> = &infin;</ul>
+         <dt>else if nbcoeff(1) &le; r &lt; 1.2 * nbcoeff(1)</dt>
+	 <ul>U<sub>nonbond</sub> = nbcoeff(2)</ul>
+         <dt>else if 1.2 * nbcoeff(1) &le; r &lt; 1.5 * nbcoeff(1)</dt>
+         <ul>U<sub>nonbond</sub> = nbcoeff(3)</ul>
+         <dt>else if 1.5 * nbcoeff(1) &le; r &lt; 1.8 * nbcoeff(1)</dt>
+         <ul>U<sub>nonbond</sub> = nbcoeff(4)</ul>
+         <dt>else if 1.8 * nbcoeff(1) &le; r &lt; 2.0 * nbcoeff(1)</dt>
+         <ul>U<sub>nonbond</sub> = nbcoeff(5)</ul>
+         <dt>else if 2.0 * nbcoeff(1) &le; r</dt>
+         <ul>U<sub>nonbond</sub> = 0.0</ul>
+         <dt><b>classical_mixrule (character*30)</b>
+          <ul>
+           <li>'Lorentz-Berthelot': arithmetic mean of &sigma; values, geometric mean of well depths.</li>
+          </ul>
+         </dt>
+         <dt><b>radial_pressure_delta</b> See the <a href="#radial_pressure_delta">radial_pressure_delta</a> section for information about this parameter</dt>
+	</ul>
+       </li>
+       <li>'Hard Sphere': Hard Sphere potential
+	<ul>
+         <dt>If the two atoms are separated by more than 3 bonds, or are on different molecules, then</dt>
+         <dt>U<sub>nonbond</sub> = &infin; if r &le; nbcoeff(1), or 0 otherwise</dt>
+         <dt><b>classical_mixrule (character*30)</b>
+          <ul>
+           <li>'Arithmetic': arithmetic mean of &sigma;.</li>
+          </ul>
+         </dt>
+         <dt><b>radial_pressure_delta</b> See the <a href="#radial_pressure_delta">radial_pressure_delta</a> section for information about this parameter</dt>
+	</ul>
+       </li>
+       <li>'Lennard-Jones': 12-6 Lennard-Jones potential.
+	<ul>
+         <dt>If the two atoms are separated by more than 3 bonds, or are on different molecules then</dt>
+         <dt>U<sub>nonbond</sub> = 4 * nbcoeff(2) * [ (nbcoeff(1)/r)<sup>12</sup> - (nbcoeff(1)/r)<sup>6</sup> ]</dt>
+         <dt>else if the two atoms are separated by exactly 3 bonds then</dt>
+         <dt>U<sub>nonbond</sub> = 4 * nbcoeff(4) * [ (nbcoeff(3)/r)<sup>12</sup> - (nbcoeff(3)/r)<sup>6</sup> ]</dt>
+         <dt><b>classical_mixrule (character*30)</b>
+          <ul>
+           <li>'Lorentz-Berthelot': arithmetic mean of &sigma;, geometric mean of &epsilon;</li>
+           <li>'Geometric': geometric mean of &sigma; and &epsilon;</li>
+           <li>'Explicit': cross terms explicitly specified in the appropriate towhee_ff file.</li>
+           <li>'Shukla': complicated expression involving the polarizability of each atom.
+            See equations 19 and 20 of <a href="../references.html#shukla_1987">Shukla 1987</a> for the definition of this mixing rule.
+           </li>
+           <li>'LB plus manual': uses the Lorentz-Berthelot mixing rules for all atom pairs, except for those that are specified in the following parameters.
+            <ul>
+             <dt><b>mixrule_adjust_total (integer)</b>      
+              <ul>
+               The number of pairs of atoms to set manually.  This requires the following parameters to be listed <b>mixrule_adjust_total</b> times.
+               <ul>
+		<dt><b>mixrule_adjust_key (character*10)</b>
+                 <ul>
+                  <li>'element': adjust any pair of nonbonded atom types that match the pair of element names.</li>
+                  <li>'nbname' adjust any pair of nonbonded atom types that match the pair of nonbonded names.</li>
+                 </ul>
+		</dt>
+		<dt><b>mixrule_adjust_keynames (character*10 array)</b>
+                 <ul>
+                  Character strings that are used to match according to the <b>mixrule_adjust_key</b>.  These are listed on two lines, one line for each
+                  atom in the pair.
+                 </ul>
+		</dt>
+		<dt><b>mixrule_adjustments (double precision array)</b>
+                 <ul>
+                  The values of the nonbonded coefficients to use for this pair of atoms instead of using the Lorentz-Berthelot combining rule.  Units should
+                  be the same as normal for this type of <b>classical_potential</b>.  In this case, that is Angstroms for &sigma; and Kelvin for &epsilon;.  You
+                  need to list four values, one per line: &sigma;, &epsilon;, &sigma; (1-4), and &epsilon; (1-4).
+                 </ul>
+		</dt>
+               </ul>
+              </ul>
+             </dt>
+            </ul>
+           </li>
+          </ul>
+         </dt>
+         <dt><b>lshift</b> See the <a href="#lshift">lshift</a> section for information about this parameter</dt>
+         <dt><b>ltailc</b> See the <a href="#ltailc">ltailc</a> section for information about this parameter</dt>
+         <dt><b>rmin</b> See the <a href="#rmin">rmin</a> section for information about this parameter</dt>
+         <dt><b>rcut</b> See the <a href="#rcut">rcut</a> section for information about this parameter</dt>
+         <dt><b>rcutin</b> See the <a href="#rcutin">rcutin</a> section for information about this parameter</dt>
+	</ul>
+       </li>
+       <li>'Multiwell': multiple square wells and a hard sphere core
+	<ul>
+         <dt>U<sub>nonbond</sub> = &infin; if r &le; table_pair(1,1)</dt>
+         <dt>U<sub>nonbond</sub> = table_pair(2,n) if table_pair(1,n-1) &lt; r &le; table_pair(1,n)</dt>
+         <dt>U<sub>nonbond</sub> = 0 if table_pair(1,npair) &lt; r</dt>
+         <dt><b>classical_mixrule (character*30)</b>
+          <ul>
+           <li>'Lorentz-Berthelot': Arithmetic mean for the hard core and square well diameters.  Geometric mean for the well depths.</li>
+           <li>'Explicit': cross terms explicitly defined in the appropriate towhee_ff file.</li>
+          </ul>
+         </dt>
+	</ul>
+       </li>
+       <li>'Repulsive 2580 Multistep': Repulsive core multistep potential
+	<ul>
+         <dt>If the two atoms are separated by more than 3 bonds, or are on different molecules, then</dt>
+         <dt>If r &lt; nbcoeff(1)</dt>
+         <ul>U<sub>nonbond</sub> = 1.0d10 * (nbcoeff(1)<sup>2</sup> - r<sup>2</sup>)</ul>
+         <dt>else if nbcoeff(1) &le; r &lt; 1.2 * nbcoeff(1)</dt>
+         <ul>U<sub>nonbond</sub> = nbcoeff(2)</ul>
+         <dt>else if 1.2 * nbcoeff(1) &le; r &lt; 1.5 * nbcoeff(1)</dt>
+         <ul>U<sub>nonbond</sub> = nbcoeff(3)</ul>
+         <dt>else if 1.5 * nbcoeff(1) &le; r &lt; 1.8 * nbcoeff(1)</dt>
+         <ul>U<sub>nonbond</sub> = nbcoeff(4)</ul>
+         <dt>else if 1.8 * nbcoeff(1) &le; r &lt; 2.0 * nbcoeff(1)</dt>
+         <ul>U<sub>nonbond</sub> = nbcoeff(5)</ul>
+         <dt>else if 2.0 * nbcoeff(1) &le; r</dt>
+         <ul>U<sub>nonbond</sub> = 0.0</ul>
+         <dt><b>classical_mixrule (character*30)</b>
+          <ul>
+           <li>'Lorentz-Berthelot': arithmetic mean of &sigma;, geometric mean of well depths.</li>
+          </ul>
+         </dt>
+	</ul>
+       </li>
+       <li>'Repulsive Multiwell': multiple square wells with a linear repulsive core
+	<ul>
+         <dt>U<sub>nonbond</sub> = 10<sup>5</sup> * (table_pair(1,1) - r) if r &le; table_pair(1,1)</dt>
+         <dt>U<sub>nonbond</sub> = table_pair(2,n) if table_pair(1,n-1) &lt; r &le; table_pair(1,n)</dt>
+         <dt>U<sub>nonbond</sub> = 0 if table_pair(1,npair) &lt; r</dt>
+         <dt><b>classical_mixrule (character*30)</b>
+          <ul>
+           <li>'Lorentz-Berthelot': Arithmetic mean for the hard core and square well diameters.  Geometric mean for the well depths.</li>
+           <li>'Explicit': cross terms explicitly defined in the appropriate towhee_ff file.</li>
+          </ul>
+         </dt>
+	</ul>
+       </li>
+       <li>'Repulsive Sphere': This is used to help setup and equilibrate a hard sphere system where it is sometimes challenging to create an initial
+	conformation with no overlaps.  Use this option to equilibrate until the nonbonded potential energy is 0.0, and then switch back to the normal 
+	Hard Sphere potential.
+	<ul>
+         <dt>If the two atoms are separated by more than 3 bonds, or are on different molecules then</dt>
+         <dt>U<sub>nonbond</sub> = 10<sup>5</sup> + 10<sup>5</sup> * (nbcoeff(1)<sup>2</sup> - r<sup>2</sup>)  if r &le; nbcoeff(1), or 0 otherwise</dt>
+         <dt><b>classical_mixrule (character*30)</b>
+          <ul>
+           <li>'Arithmetic': arithmetic mean of &sigma;.</li>
+          </ul>
+         </dt>
+	</ul>
+       </li>
+       <li>'Repulsive Well': This is used to help setup and equilibrate a square well system where it is sometimes challenging to create an initial
+	conformation with no overlaps.  Use this option to equilibrate until the nonbonded potential energy is negative, and then switch back to the normal 
+	Square Well potential.
+	<ul>
+         <dt>U<sub>nonbond</sub> = 10<sup>5</sup> + 10<sup>5</sup> * ( nbcoeff(1)<sup>2</sup> - r<sup>2</sup> ) if r &le; nbcoeff(1)</dt>
+         <dt>U<sub>nonbond</sub> = -nbcoeff(3) if nbcoeff(1) &lt; r &le; nbcoeff(2)</dt>
+         <dt>U<sub>nonbond</sub> = 0 if nbcoeff(2) &lt; r</dt>
+         <dt><b>classical_mixrule (character*30)</b>
+          <ul>
+           <li>'Lorentz-Berthelot': Arithmetic mean for the hard core and square well diameters.  Geometric mean for the well depth.</li>
+           <li>'Explicit': cross terms explicitly defined in the appropriate towhee_ff file.</li>
+          </ul>
+         </dt>
+	</ul>
+       </li>
+       <li>'Scaled Lennard-Jones': 12-6 Lennard-Jones potential with scaling of coulombic and van der Waals terms for selected atoms.  Typically used for
+	thermodynamic integration (see <a href="../references.html#beutler_et_al_1994">Beutler <em>et al.</em></a> and 
+	<a href="../references.html#shirts_et_al_2003">Shirts <em>et al.</em></a>).
+	<ul>
+         <dt><b>classical_mixrule (character*30)</b>
+          <ul>
+           <li>'Lorentz-Berthelot': arithmetic mean of &sigma;, geometric mean of &epsilon;.</li>
+           <li>'Geometric': geometric mean of &sigma; and &epsilon;.</li>
+           <li>'Explicit': cross terms explicitly specified in the appropriate towhee_ff file.</li>
+           <li>'Shukla': complicated expression involving the polarizability of each atom.
+            See equations 19 and 20 of <a href="../references.html#shukla_1987">Shukla 1987</a> for the definition of this mixing rule.
+           </li>
+          </ul>
+         </dt>
+         <dt><a name="cmix_rescaling_style"><b>cmix_rescaling_style (character*30)</b></a>
+          <ul>
+           This parameter controls the rescaling of the Lennard-Jones and coulombic potentials, typically used in thermodynamic integration calculations.
+           It is valid only for the "Scaled Lennard-Jones" <b>classical potential</b>.  
+           <li>'none': No additional adjustments to the nonbonded parameters as specified in the force field files and mixed according to the
+            <b>classical_mixrule</b>.  With this option, the potential is equivalent to the "Lennard-Jones" <b>classical potential</b>.
+           </li>
+           <li>'soft-core': The Lennard-Jones and coulombic components of intermolecular interactions are scaled by &lambda;<sub>LJ</sub> and
+            &lambda;<sub>C</sub> parameters, respectively, as described in <a href="../references.html#shirts_et_al_2003">Shirts <i>et al.</i> 2003</a>.<p>
+             The two-body potential between a scaled atom (as defined by <b>cmix_pair_list</b>, below) and an unscaled atom is given as,
+             <ul>U<sub>two body</sub> = 4 * &lambda;<sub>LJ</sub><sup>4</sup> * &epsilon; * A (A - 1)</ul>
+             where
+             <ul>A<sup>-1</sup> = &alpha;<sub>LJ</sub> * (1-&lambda;<sub>LJ</sub>)<sup>2</sup> + (r<sub>ij</sub> / &sigma;)<sup>6</sup></ul>
+             For cases where neither, or both, atoms are scaled, the 'Lennard-Jones' classical potential is used.  Note that for &lambda;<sub>LJ</sub>=1,
+             this two-body term reduces to the 'Lennard-Jones' potential.
+            <p></p>
+            Coulombic interactions are also scaled for the same set of atoms.  Given a coulombic potential U<sub>coulomb</sub> between a scaled atom
+            (as defined by <b>cmix_pair_list</b>, below) and an unscaled atom, the scaled coulomb potential is given as,
+            <ul>U'<sub>coulomb</sub> = &lambda;<sub>C</sub> U<sub>coulomb</sub></ul>
+            At present, only <b>coulombstyle</b> of 'minimum image' is supported.
+            <p></p>
+            The 'soft-core' <b>cmix_rescaling_style</b> option requires the following additional parameters
+            <ul>
+             <dt><b>cmix_lambda_lj (double precision)</b>
+              <ul>
+               The Lennard-Jones scaling factor &lambda;<sub>LJ</sub>.  Require 0 &le; <b>cmix_lambda_lj</b> &le; 1.
+              </ul>
+             </dt>
+             <dt><b>cmix_alpha_lj (double precision)</b>
+              <ul>
+               The parameter &alpha;<sub>LJ</sub>.  Require <b>cmix_alpha_lj</b> &ge; 0.  
+               <a href="../references.html#shirts_et_al_2003">Shirts <i>et al.</i> 2003</a> suggest &alpha;<sub>LJ</sub>=0.5
+              </ul>
+             </dt>
+             <dt><b>cmix_lambda_c (double precision)</b>
+              <ul>
+               The coulombic scaling factor &lambda;<sub>C</sub>.  Require 0 &le; <b>cmix_lambda_c</b> &le; 1.
+              </ul>
+             </dt>
+             <dt><b>cmix_lprintdudl (logical)</b>
+              <ul>
+               <li><code><b><CODE><B>.TRUE.</B></CODE></b></code> evaluate and print &part;U/&part;&lambda;<sub>LJ</sub> and &part;U/&part;&lambda;<sub>C</sub>,
+		the derivatives of the internal energy with respect to the two lambda parameters.
+               </li>
+               <li><code><b>.FALSE.</b></code> ignore these calculations</li>
+              </ul>
+             </dt>
+             <dt><b>cmix_npair (integer)</b>
+              <ul>
+               The number of atom types that are modified by this rescaling style.  Must be positive.
+              </ul>
+             </dt>
+             <dt><b>cmix_pair_list (character*10 array)</b>
+              <ul>
+               The force field name and the atom type name for each value of <b>cmix_npair</b>.  Listed with one force field name and atom type name per line.
+              </ul>
+            </dt>
+            </ul>
+           </li>
+          </ul>
+         </dt>
+         <dt><b>lshift</b> See the <a href="#lshift">lshift</a> section for information about this parameter</dt>
+         <dt><b>rmin</b> See the <a href="#rmin">rmin</a> section for information about this parameter</dt>
+         <dt><b>rcut</b> See the <a href="#rcut">rcut</a> section for information about this parameter</dt>
+         <dt><b>rcutin</b> See the <a href="#rcutin">rcutin</a> section for information about this parameter</dt>
+	</ul>
+       </li>
+       <li>'Stillinger-Weber': Stillinger-Weber potential (see <a href="../references.html#stillinger_weber_1985"> Stillinger and Weber 1985</a>)
+	<ul>
+         <dt>This is an atomic potential and can only be used with monatomic molecules in Towhee</dt>
+         <dt>U = nbcoeff(1)*[nbcoeff(2)*Sum u2(r<sub>ij</sub>) + nbcoeff(7)*Sum u3(r<sub>ij</sub>,r<sub>jk</sub>)]</dt>
+         <dt>u2(rij) = [nbcoeff(3)*{r<sub>ij</sub>/nbcoeff(4)}<sup>-nbcoeff(5)</sup> - 1] * exp{1/[(r<sub>ij</sub>/nbcoeff(4) - nbcoeff(6))]}
+          * Heaviside(nbcoeff(6) - [r<sub>ij</sub>/nbcoeff(4)])
+         </dt>
+         <dt>u3(r<sub>ij</sub>,r<sub>jk</sub>) = 
+          exp[ nbcoeff(8)/{r<sub>ij</sub>/nbcoeff(4) - nbcoeff(6)} + nbcoeff(8)/{r<sub>jk</sub>/nbcoeff(4) - nbcoeff(6)}]
+          * (cos(theta<sub>ijk</sub>)-nbcoeff(9))<sup>2</sup> * Heaviside(nbcoeff(6) 
+          - r<sub>ij</sub>/nbcoeff(4)) * Heaviside(nbcoeff(6) - r<sub>jk</sub>/nbcoeff(4))
+         </dt>
+         <dt><b>classical_mixrule (character*30)</b>
+          <ul>
+           <li>'Explicit': cross terms explicitly defined in the appropriate towhee_ff file.</li>
+          </ul>
+         </dt>
+	</ul>
+       </li>
+       <li>'SW pair only': Stillinger-Weber potential (see <a href="../references.html#stillinger_weber_1985"> Stillinger and Weber 1985</a>) using only the
+	pair potential
+	<ul>
+         <dt>This is an atomic potential and can only be used with monatomic molecules in Towhee.  It is the same as the Stillinger-Weber potential but 
+          without the three-body terms that make it suitable for bonded materials.  This option exists for academic study of the pair potential portion
+          of the Stillinger-Weber functions.  It reads from the same potential files as the 'Stillinger-Weber' potential.
+         </dt>
+         <dt>U = nbcoeff(1)*[nbcoeff(2)*Sum u2(r<sub>ij</sub>)]</dt>
+         <dt>u2(rij) = [nbcoeff(3)*{r<sub>ij</sub>/nbcoeff(4)}<sup>-nbcoeff(5)</sup> - 1] * exp{1/[(r<sub>ij</sub>/nbcoeff(4) - nbcoeff(6))]}
+          * Heaviside(nbcoeff(6) - [r<sub>ij</sub>/nbcoeff(4)])
+         </dt>
+         <dt><b>classical_mixrule (character*30)</b>
+          <ul>
+           <li>'Explicit': cross terms explicitly defined in the appropriate towhee_ff file.</li>
+          </ul>
+         </dt>
+	</ul>
+       </li>
+       <li>'Square Well': Square Well potential
+	<ul>
+         <dt>U<sub>nonbond</sub> = &infin; if r &le; nbcoeff(1)</dt>
+         <dt>U<sub>nonbond</sub> = -nbcoeff(3) if nbcoeff(1) &lt; r &le; nbcoeff(2)</dt>
+         <dt>U<sub>nonbond</sub> = 0 if nbcoeff(2) &lt; r</dt>
+         <dt><b>classical_mixrule (character*30)</b>
+          <ul>
+           <li>'Lorentz-Berthelot': Arithmetic mean for the hard core and square well diameters.  Geometric mean for the well depth.</li>
+           <li>'Explicit': cross terms explicitly defined in the appropriate towhee_ff file.</li>
+          </ul>
+         </dt>
+         <dt><b>radial_pressure_delta</b> See the <a href="#radial_pressure_delta">radial_pressure_delta</a> section for information about this parameter</dt>
+	</ul>
+       </li>
+       <li>'Tabulated Pair': Tabulated Pair Potential
+	<ul>
+         <dt>This potential uses a table to describe the interactions between atoms.  The <b>interpolatestyle</b> determines the method for interpolating
+          between the specified values of the pair potential terms.  Cross terms between unlike atoms are described explicitly.  The potential is 
+          listed with the distance and corresponding energy on each line.
+         </dt> 
+         <dt><b>interpolatestyle</b> See the <a href="#interpolatestyle">interpolatestyle</a> section for information about this parameter</dt>
+	</ul>
+       </li>
+       <li>'UFF 12-6': 12-6 potential with some additional nonbond coefficients.
+	<ul>
+         This uses the same parameters as the Lennard-Jones for computing the nonbonded interactions
+         <dt>If the two atoms are separated by more than 3 bonds, or are on different molecules then</dt>
+         <dt>U<sub>nonbond</sub> = 4 * nbcoeff(2) * [ (nbcoeff(1)/r)<sup>12</sup> - (nbcoeff(1)/r)<sup>6</sup> ]</dt>
+         <dt>else if the two atoms are separated by exactly 3 bonds then</dt>
+         <dt>U<sub>nonbond</sub> = 4 * nbcoeff(4) * [ (nbcoeff(3)/r)<sup>12</sup> - (nbcoeff(3)/r)<sup>6</sup> ]</dt>
+         <dt>In addition, the following nbcoeff values are also stored.  Some of these are required in order to compute the angle force constants.
+         <dt>nbcoeff(5): valence bond length (UFF r<sub>I</sub>) in units of Angstroms.</dt>
+         <dt>nbcoeff(6): valence bond angle (UFF theta<sub>0</sub>) in units of degrees.</dt>
+         <dt>nbcoeff(7): nonbond distance (UFF x<sub>I</sub>) in units of Angstroms.</dt>
+         <dt>nbcoeff(8): nonbond energy (UFF D<sub>I</sub>) in units of kcal/mol.</dt>
+         <dt>nbcoeff(9): nonbond scale factor (UFF zeta) in arbitrary units.</dt>
+         <dt>nbcoeff(10): effective charge (UFF Z<sub>I</sub>) in charge units.</dt>
+         <dt>nbcoeff(11): electronegativity (UFF chi<sub>I</sub>) in eV.</dt>
+         <dt>nbcoeff(12): torsion constant (UFF V<sub>I</sub>) in units of kcal/mol.</dt>
+         <dt><b>classical_mixrule (character*30)</b>
+          <ul>
+           <li>'Geometric': geometric mean of &sigma; and &epsilon;.</li>
+          </ul>
+         </dt>
+         <dt><b>lshift</b> See the <a href="#lshift">lshift</a> section for information about this parameter</dt>
+         <dt><b>ltailc</b> See the <a href="#ltailc">ltailc</a> section for information about this parameter</dt>
+         <dt><b>rmin</b> See the <a href="#rmin">rmin</a> section for information about this parameter</dt>
+         <dt><b>rcut</b> See the <a href="#rcut">rcut</a> section for information about this parameter</dt>
+         <dt><b>rcutin</b> See the <a href="#rcutin">rcutin</a> section for information about this parameter</dt>
+	</ul>
+       </li>
+       <li>'Weeks-Chandler-Anderson': Repulsive-only version of 12-6 Lennard-Jones potential.  See 
+	<a href="../references.html#weeks_et_al_1970">Weeks <i>et al.</i> 1970</a>.
+	<ul>
+         <dt>This potential truncates the LJ potential for distances greater than the LJ minimum.  The well depth is shifted by &epsilon; to make the
+          remaining part all-repulsive.  Useful for reference state calculations since the attractive part of LJ can be treated as a perturbation to the
+          WCA repulsive-only potential.
+         </dt>
+         <dt><b>classical_mixrule (character*30)</b>
+          <ul>
+           <li>'Lorentz-Berthelot': arithmetic mean of &sigma;, geometric mean of &epsilon;.</li>
+           <li>'Geometric': geometric mean of &sigma; and &epsilon;.</li>
+           <li>'Explicit': cross terms explicitly specified in the appropriate towhee_ff file.</li>
+           <li>'Shukla': complicated expression involving the polarizability of each atom.
+            See equations 19 and 20 of <a href="../references.html#shukla_1987">Shukla 1987</a> for the definition of this mixing rule.
+           </li>
+          </ul>
+         </dt>
+         <dt><a name="cmix_rescaling_style"><b>cmix_rescaling_style (character*30)</b></a>
+          <ul>
+           This parameter controls the modification of the Lennard-Jones potential
+           <li>'none': No additional adjustments to the nonbonded parameters as specified in the force field files and mixed according to the
+            <b>classical_mixrule</b>.  With this option, the potential is equivalent to the 'Lennard-Jones' <b>classical potential</b>.
+           </li>
+           <li>'WCA': Lennard-Jones interactions are modified as in <a href="../references.html#weeks_et_al_1970">Weeks <i>et al.</i> 1970</a>.
+            <dt> The potential between a modified atom (as defined by <b>cmix_pair_list</b> below) and any other atom less than 2<sup>1/6</sup> * nbcoeff(1)
+             away is:
+            </dt>
+            <ul>U<sub>nonbond</sub> = 4 * nbcoeff(2) * [ (nbcoeff(1)/r)<sup>12</sup> - (nbcoeff(1)/r)<sup>6</sup> ] + nbcoeff(2)</ul>
+            <dt>If the interatomic distance is greater than or equal to 2<sup>1/6</sup> * nbcoeff(1) then: </dt> 
+            <ul>U<sub>nonbond</sub> = 0</ul>
+            For cases where neither atom is scaled, the 'Lennard-Jones' classical potential is used.
+            <dt> This option requires the following additional parameters </dt>
+            <ul>
+             <dt><b>cmix_npair (integer)</b>
+              <ul>
+               The number of atom types that are modified by this rescaling style.  Must be positive.
+              </ul>
+             </dt>
+             <dt><b>cmix_pair_list (character*10 array)</b>
+              <ul>
+               The force field name and the atom type name for each value of <b>cmix_npair</b>.  Listed with one force field name and atom type name per line.
+              </ul>
+             </dt>
+             <dt><b>lshift</b> See the <a href="#lshift">lshift</a> section for information about this parameter</dt>
+             <dt><b>rmin</b> See the <a href="#rmin">rmin</a> section for information about this parameter</dt>
+             <dt><b>rcut</b> See the <a href="#rcut">rcut</a> section for information about this parameter</dt>
+             <dt><b>rcutin</b> See the <a href="#rcutin">rcutin</a> section for information about this parameter</dt>
+            </ul>
+           </li>
+          </ul>
+         </dt>
+	</ul>
+       </li>
+       <hr></hr>
+       <dt>This section contains a description of parameters that are identical in meaning regardless of the value of <b>classical_potential</b>.  Please
+	note that not all of these parameters are required for each value of the <b>classical_potential</b> so you should consult the information above
+	to determine which are required.
+	<ul>
+         <dt><a name="lshift"><b>lshift (logical)</b></a>
+          <ul>
+           <li> <code><b>.TRUE.</b></code> nonbonded potential is shifted so that it is zero at the cutoff.</li>
+           <li> <code><b>.FALSE.</b></code> do not shift the nonbonded potential.</li>
+          </ul>
+         </dt>
+         <dt><a name="ltailc"><b>ltailc (logical)</b></a>
+          <ul>
+           <li><code><b>.TRUE.</b></code> apply analytical tail corrections for the portion of the potential that is past the cutoff.  Note that you cannot have
+            a shifted potential and tail corrections at the same time.
+           </li>
+           <li><code><b>.FALSE.</b></code> do not use analytical tail corrections.</li>
+          </ul>
+         </dt>
+         <dt><a name="rmin"><b>rmin (double precision)</b></a>
+          <ul>
+           A hard inner cutoff that can speed computation for Lennard-Jones systems, and is required to avoid the potential hitting infinity 
+           for exponential repulsion systems which also contain point charges.  This should be set smaller than the smallest radius of any atom. 
+           The suggested default values are in the range from 0.5 to 1.0 Angstroms.
+          </ul>
+         </dt>
+         <dt><a name="rcut"><b>rcut (double precision)</b></a>
+          <ul>
+           The distance (in Angstroms) beyond which the nonbonded potential (and density potential in the case of Embedded Atom Method) are no longer
+           computed.  This has no effect upon the coulombic potential as that is controlled by the <b>coulombstyle</b> parameters.  The <b>rcut</b> parameter
+           is also used to determine where to shift the potential (if <a href="#lshift"><b>lshift</b></a> is <code><b>.TRUE.</b></code>)
+	   and where to start the long range tail corrections (if <a href="#ltailc"><b>ltailc</b></a> is <code><b>.TRUE.</b></code>).
+	   Note that this value is automatically adjusted upwards for certain types of Embedded Atom Method potentials.
+          </ul>
+         </dt>
+         <dt><a name="rcutin"><b>rcutin (double precision)</b></a>
+          <ul>
+           The inner nonbonded cutoff used in configurational-bias Monte Carlo moves. This dual-cutoff method can speed configurational-bias 
+           computations by at least a factor of 2, without affecting the acceptance rate. The inner cutoff is used during the growth procedure, and 
+           the full potential is calculated at the end of the move and everything is fixed up in the acceptance criteria. Suggested default values are
+           5 Angstroms for noncoulombic simulations, and 10 Angstroms for coulombic simulations.
+          </ul>
+	 </dt>
+	 <dt><a name="interpolatestyle"><b>interpolatestyle (character*20)</b></a>
+          <ul>
+           <li> 'cubicspline': Uses a cubic spline to interpolate between the tabulated portion of the force field data points provided in the force field
+            files.
+           </li>
+           <li> 'linear': Linear interpolation between the data points of the tabulated portion of the force field</li>
+          </ul>
+	 </dt>
+	 <dt><a name="radial_pressure_delta"><b>radial_pressure_delta (double precision)</b></a>
+          <ul>
+           This parameter specifies the bin width that is used to compute local radial distribution functions near the discontinuities in the potential in
+           order to calculate the pressure of the system.  In general, setting this as close to zero as possible reduces the systematic errors of the method.
+           However, as this setting gets very small the sampling becomes more difficult and the statistical errors become large.  Please see the 
+           <a href="../standard_output.html">Towhee standard output</a> manual for more information about the Radial pressure.  The currently recommended
+           default value is 1.0d-2.
+          </ul>
+	 </dt>
+	</ul>
+      </ul>
+     </dt>
+     <a href="../index.html">Return to the main towhee web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->March 28, 2018<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>
+

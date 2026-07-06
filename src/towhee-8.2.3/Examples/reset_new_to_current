@@ -1,0 +1,237 @@
+#!/bin/bash
+cd Canonical_Ensemble/AVB1_Methane
+../../reset_files
+cd ../../
+#
+cd Canonical_Ensemble/Amber_Villin
+../../reset_files
+cd ../../
+#
+cd Canonical_Ensemble/Benzene_AA_autofit
+../../reset_files
+cd ../../
+#
+cd Canonical_Ensemble/Charmm19_ubiquitin
+../../reset_files
+cd ../../
+#
+cd Canonical_Ensemble/Charmm27_Benzene
+../../reset_files
+cd ../../
+#
+cd Canonical_Ensemble/Charmm27_Heme
+../../reset_files
+cd ../../
+#
+cd Canonical_Ensemble/Charmm27_Nucleic_Acid
+../../reset_files
+cd ../../
+#
+cd Canonical_Ensemble/Charmm27_Polyalanine
+../../reset_files
+cd ../../
+#
+cd Canonical_Ensemble/Compass_Methanol
+../../reset_files
+cd ../../
+#
+cd Canonical_Ensemble/DREIDING
+../../reset_files
+cd ../../
+#
+cd Canonical_Ensemble/Formamide_Scaled
+../../reset_files
+cd ../../
+#
+cd Canonical_Ensemble/Fris_Walls
+../../reset_files
+cd ../../
+#
+cd Canonical_Ensemble/Hard_Sphere
+../../reset_files
+cd ../../
+#
+cd Canonical_Ensemble/NaCl_1x1x1
+../../reset_files
+cd ../../
+#
+cd Canonical_Ensemble/Shukla_Gasses
+../../reset_files
+cd ../../
+#
+cd Canonical_Ensemble/Small_Peptide
+../../reset_files
+cd ../../
+#
+cd Canonical_Ensemble/Square_Well_Chain
+../../reset_files
+cd ../../
+#
+cd Canonical_Ensemble/TraPPE_Isomers
+../../reset_files
+cd ../../
+#
+cd Canonical_Ensemble/TraPPE_Molecules
+../../reset_files
+cd ../../
+#
+cd Canonical_Ensemble/Triglycerol
+../../reset_files
+cd ../../
+#
+cd Canonical_Ensemble/UFF
+../../reset_files
+cd ../../
+#
+cd Canonical_Ensemble/Wall_Water
+../../reset_files
+cd ../../
+#
+cd Convert/LAMMPS_lc
+../../reset_files
+cd ../../
+#
+cd Convert/LAMMPS_class2
+../../reset_files
+cd ../../
+#
+cd Convert/LAMMPS_decane
+../../reset_files
+cd ../../
+#
+cd Gibbs_Ensemble/Amber_IsoPropanol
+../../reset_files
+cd ../../
+#
+cd Gibbs_Ensemble/Catlow_Zeolite_4a
+../../reset_files
+cd ../../
+#
+cd Gibbs_Ensemble/Cu_VLE
+../../reset_files
+cd ../../
+#
+cd Gibbs_Ensemble/Cui2002_Hexane
+../../reset_files
+cd ../../
+#
+cd Gibbs_Ensemble/Dubb_Zeolite
+../../reset_files
+cd ../../
+#
+cd Gibbs_Ensemble/EPM_VLCC
+../../reset_files
+cd ../../
+#
+cd Gibbs_Ensemble/FENE_Hexamer
+../../reset_files
+cd ../../
+#
+cd Gibbs_Ensemble/Gordon
+../../reset_files
+cd ../../
+#
+cd Gibbs_Ensemble/Gromos_Isobutane
+../../reset_files
+cd ../../
+#
+cd Gibbs_Ensemble/MM2_Ethane
+../../reset_files
+cd ../../
+#
+cd Gibbs_Ensemble/Potter_CF2H2
+../../reset_files
+cd ../../
+#
+cd Gibbs_Ensemble/SKS_Pentane
+../../reset_files
+cd ../../
+#
+cd Gibbs_Ensemble/SMMKnaip_Ethylpentane
+../../reset_files
+cd ../../
+#
+cd Gibbs_Ensemble/TraPPE_Pentane
+../../reset_files
+cd ../../
+#
+cd Gibbs_Ensemble/Vink2001_Silicon
+../../reset_files
+cd ../../
+#
+cd Gibbs_Ensemble/Weiner1984
+../../reset_files
+cd ../../
+#
+cd Grand_Canonical_Ensemble/Energy_Biasing
+../../reset_files
+cd ../../
+#
+cd Grand_Canonical_Ensemble/Steele_Wall
+../../reset_files
+cd ../../
+#
+cd Grand_Canonical_Ensemble/Amber96_Ethane
+../../reset_files
+cd ../../
+#
+cd Grand_Canonical_Ensemble/Walt2001_Nanotube
+../../reset_files
+cd ../../
+#
+cd Isobaric_Isothermal_Ensemble/Au_Cu_Switch
+../../reset_files
+cd ../../
+#
+cd Isobaric_Isothermal_Ensemble/Charmm22_Ethanethiol
+../../reset_files
+cd ../../
+#
+cd Isobaric_Isothermal_Ensemble/Cu_Pb_EAM
+../../reset_files
+cd ../../
+#
+cd Isobaric_Isothermal_Ensemble/Dick1994_PETN
+../../reset_files
+cd ../../
+#
+cd Isobaric_Isothermal_Ensemble/Gromos_Methylpropylsulfide
+../../reset_files
+cd ../../
+#
+cd Isobaric_Isothermal_Ensemble/Henry_Law
+../../reset_files
+cd ../../
+#
+cd Isobaric_Isothermal_Ensemble/Ideal_Chain
+../../reset_files
+cd ../../
+#
+cd Isobaric_Isothermal_Ensemble/MMFF94_Ethyleneoxide
+../../reset_files
+cd ../../
+#
+cd Isobaric_Isothermal_Ensemble/OPLS_Propanamide
+../../reset_files
+cd ../../
+#
+cd Isobaric_Isothermal_Ensemble/SMMKmain_2244688nonane
+../../reset_files
+cd ../../
+#
+cd Isobaric_Isothermal_Ensemble/Solid_LJium
+../../reset_files
+cd ../../
+#
+cd Isobaric_Isothermal_Ensemble/Wielop1985_Ethyleneoxide
+../../reset_files
+cd ../../
+#
+cd TMMC/LJ
+../../reset_files
+cd ../../
+#
+cd TMMC/SPC_E_WATER
+../../reset_files
+cd ../../
+#

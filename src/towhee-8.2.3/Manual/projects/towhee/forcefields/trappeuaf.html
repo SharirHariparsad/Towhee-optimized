@@ -1,0 +1,106 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: TraPPE United Atom Flexible Bonds</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: TraPPE United Atom Flexible Bonds</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the TraPPE United Atom Flexible Bonds (TraPPE-UAf) force field as it is implemented into 
+      the towhee_ff_TraPPE-UAf file in the ForceFields directory.
+      All of the Towhee atom types for this force field are listed, along with a short description of their meanings.
+      For more information about the TraPPE force fields see the <a href="../software.html#siepmann">Siepmann group web site</a>.
+      Note that TraPPE United Atom Flexible bonds is a Lennard-Jones (12-6) force field and can only be combined with
+      other Lennard-Jones (12-6) force fields.  This forcefield is a subset of the rigid bond 
+      <a href="trappeua.html">TraPPE-UA</a> force field with the change that the bond lengths are no longer rigid and
+      are instead flexible using parameters from some other papers.
+      Any discrepencies (especially typos) from the published TraPPE-UA force field values had better not exist considering I helped create this 
+      force field.
+      If someone does find a discrepancy with the published values I would be extremely grateful if they let me know about it.
+      I welcome feedback on how this implementation compares with other programs.
+     </ul>
+     <b>References for TraPPE-UAf</b> 
+     <ul>
+      TraPPE-UAf is still under development by the Siepmann group.  The alkane parameters are taken from the first 
+      two TraPPE papers, and the flexible bond lengths are from Mundy <i>et al.</i>.
+      <ul>
+       <li><a href="../references.html#mundy_et_al_1996">Mundy <i>et al.</i> 1996</a></li>
+       <li><a href="../references.html#martin_siepmann_1998_jpcb">Martin and Siepmann 1998 (JPCB)</a></li>
+       <li><a href="../references.html#martin_siepmann_1998_tca">Martin and Siepmann 1998 (TCA)</a></li>
+      </ul>
+     </ul>	
+     <b>Typos and comments for TraPPE-UAf</b> 
+     <ul>
+      Please see the closely related <a href="trappeua.html">TraPPE-UA</a> force field for typos and comments about 
+      this force field.
+     </ul>
+     <b>TraPPE-UAf in Towhee</b> 
+     <ul>
+      The official force field name for TraPPE United Atom Flexible Bonds in Towhee is 'TraPPE-UAf'.  Here I list all of 
+      the TraPPE-UAf atom names for use in the towhee_input file, along with a brief description.  These atom name are 
+      the same as those in the rigid bond <a href="trappeua.html">TraPPE-UA</a> force field and have the same meanings.
+      Please note that the capitalization and spacing pattern is important 
+      and must be followed exactly as listed here.
+      <dt><font color="red">Carbon (not bonded to any hydrogens)</font></dt>
+      <ul>
+       <dt>'<b>Ccccc(sp3)</b>' : an sp<sup>3</sup> carbon.
+	This atom is single bonded to four carbon atoms.  
+	Bond name <b>Csp3</b>.
+       </dt>
+      </ul>
+      <dt><font color="red">Carbon (united atom including 1 bonded hydrogen)</font></dt>
+      <ul>
+       <dt>'<b>CHccc(sp3)</b>' : united-atom consisting of an sp<sup>3</sup> carbon and one bonded hydrogen.
+	This united-atom is single bonded to three carbon atoms.
+	Bond name <b>Csp3</b>.
+       </dt>
+      </ul>
+      <dt><font color="red">Carbon (united atom including 2 bonded hydrogens)</font></dt>
+      <ul>
+       <dt>'<b>CH2**(sp3)</b>' : united-atom consisting of an sp<sup>3</sup> carbon and two bonded hydrogens.  
+	This united-atom is single bonded to any two non-hydrogen atoms.
+	Bond name <b>Csp3</b>.
+       </dt>
+      </ul>
+      <dt><font color="red">Carbon (united atom including 3 bonded hydrogens)</font></dt>
+      <ul>
+       <dt>'<b>CH3*(sp3)</b>' : united-atom consisting of an sp<sup>3</sup> carbon and three bonded hydrogens.  
+	This united-atom is single bonded to any non-hydrogen atom.
+	Bond name <b>Csp3</b>.
+       </dt>
+      </ul>
+      <dt><font color="red">Carbon (united atom including 4 bonded hydrogens)</font></dt>
+      <ul>
+       <dt>'<b>CH4</b>' : methane</dt>
+      </ul>
+     </ul>
+     <b>Coulombic interactions</b> 
+     <ul>
+      TraPPE-UA uses atom-centered point charges to represent the electrostatic interactions.  There are no coulombic 
+      interactions for the atom types currently implemented in this force field.
+     </ul>
+     <b>Improper torsions</b> 
+     <ul>
+      TraPPE-UAf does not utilize improper torsions.
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

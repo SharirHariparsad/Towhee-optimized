@@ -1,0 +1,135 @@
+ensemble
+'nvt'
+temperature
+3500.0d0
+nmolty
+1
+nmolectyp
+800
+numboxes
+2
+stepstyle
+'cycles'
+nstep
+1
+printfreq
+1   
+blocksize
+2
+moviefreq
+1000
+backupfreq
+10000
+runoutput
+'none'
+pdb_output_freq
+1
+pressure_virial_freq
+100000
+trmaxdispfreq
+100
+volmaxdispfreq
+100
+linit   
+F
+initboxtype
+'number density'
+initstyle
+'full cbmc'
+'full cbmc'
+initlattice
+'simple cubic'
+'simple cubic'
+initmol
+400
+400
+inix iniy iniz
+8    8    8 
+8    8    8 
+box_number_density
+0.37496E+02
+0.20907E+00
+pmvol     
+0.002d0   
+          pmvlpr
+          1.0d0
+          rmvol
+          0.1d0
+          tavol
+          0.5d0
+pm2boxrbswap
+0.008d0
+          pm2rbswmt
+          1.0d0
+          pm2rbswpr
+          1.0d0
+pm1boxcbswap
+0.058d0
+          pm1cbswmt
+          1.0d0
+pmavb1    
+0.108d0     
+          pmavb1in
+          0.5d0
+          pmavb1mt
+          1.0d0
+          pmavb1ct
+          1.0d0
+          avb1rad
+          3.0d0
+pmavb2
+0.158d0     
+          pmavb2in
+          0.5
+          pmavb2mt
+          1.0d0
+          pmavb2ct
+          1.0d0
+          avb2rad
+          3.0d0
+pmavb3
+0.208d0     
+          pmavb3mt
+          1.0d0
+          pmavb3ct
+          1.0d0
+          avb3rad
+          3.0d0
+pmtracm
+1.0d0
+          pmtcmt          
+          1.0d0      	
+          rmtrac
+          0.5d0 
+          tatrac
+          0.5d0
+cbmc_setting_style
+'widom ideal'
+ffnumber
+1
+ff_filename
+/towheebase/ForceFields/towhee_ff_Vink2001
+classical_potential
+'Stillinger-Weber' 
+classical_mixrule
+'Explicit'
+electrostatic_form
+'none'
+input_style
+'basic connectivity map'
+nunit 
+1
+nmaxcbmc
+1
+lpdbnames
+.false.
+forcefield
+'Vink2001'
+charge_assignment
+'none'
+unit ntype
+1    'Si'
+vibration
+0
+improper torsion
+0

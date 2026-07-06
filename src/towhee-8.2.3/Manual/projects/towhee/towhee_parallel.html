@@ -1,0 +1,64 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: towhee_parallel</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table width="800" border="0" cellspacing="0" cellpadding="0" height="590">
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif"><a name="top"></a>MCCCS Towhee: towhee_parallel</font></b></font></div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"> 
+    <IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" width="210" height="62" border="0" alt="SourceForge.net Logo" align="right"/>
+   </A>
+   <tr> 
+    <td width="18" height="371" valign="top"> 
+     <p>&nbsp; </p>
+     <p>&nbsp;</p>
+    </td>
+    <td width="700" valign="top"> <b>Overview</b> 
+     <ul>
+      This section described the format that is used with the parallel version of the Towhee code (compiled with --enable-mpi flag).  If invoked with the
+      "jobfarm" parallel style (with "-p jobfarm" flag, or no "-p" flag at all), towhee reads from an additional file (towhee_parallel) which describes the 
+      parallelization strategy to employ for the simulation.  Only the current version of this manual is maintained.  This was last updated for version 5.0.1.
+      <p></p>
+      Several other parallel styles exist and they are documented in the code.  To learn more about these options compile the parallel version of towhee
+      and invoke it with the following command.
+      <ul>
+       <b>towhee -h</b>
+      </ul>
+     </ul>
+     <b>Variable explanations for towhee_parallel</b> 
+     <ul>
+      <dt><b>number of jobs (integer)</b>
+       <ul>
+        The number of simulations to run.  This is the <b>m</b> variable in the above equation.
+       </ul>
+      </dt>
+      <dt><b>stdout filename (formatted character string of length 30 or less)</b>
+       <ul>
+        The filename for the output that would normally go to stdout.  This output is placed in each of the working directories.
+       </ul>
+      </dt>
+      <dt><b>working directories (formatted character string of length 100 or less)</b>
+       <ul>
+        The list of working directories (one per line) where all of the towhee input files are located for each job that you wish to perform.  All of
+        the output will be placed in these directories in a manner identical to if you were running a serial job from that directory.  Please note that
+        you should specify the full path name for the ff_filename variable (associated with the force field files) in towhee_input.
+       </ul>
+      </dt>
+     </ul>
+     <a href="index.html">Return to the main towhee web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->March 28, 2018<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

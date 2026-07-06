@@ -1,0 +1,217 @@
+ensemble
+'nvt'
+temperature
+265.0d0
+nmolty
+1
+nmolectyp
+340
+numboxes
+2
+stepstyle
+'cycles'
+nstep
+1
+printfreq 
+1   
+blocksize 
+2000
+moviefreq
+100000
+backupfreq  
+1000
+runoutput
+'full'
+pdb_output_freq
+100000
+pressure_virial_freq
+20
+trmaxdispfreq
+1000
+volmaxdispfreq
+1000
+linit   
+T
+initboxtype
+'dimensions'
+initstyle
+'full cbmc'
+'full cbmc'
+initlattice
+'simple cubic' 
+'simple cubic'
+initmol
+294
+46
+inix iniy iniz
+7    7    7
+4    4    4   
+hmatrix
+28.0d0 0.0d0 0.0d0
+0.0d0 28.0d0 0.0d0
+0.0d0 0.0d0 28.0d0
+60.d0 0.0d0 0.0d0
+0.0d0  60.d0 0.0d0
+0.0d0 0.0d0  60.d0
+pmvol
+0.002d0   
+          pmvlpr
+          1.0d0
+          rmvol
+          0.1d0
+          tavol
+          0.5d0
+pm2boxrbswap
+0.0d0     
+          pm2rbswmt
+          1.0d0
+          pm2rbswpr
+          1.0d0
+pm2boxcbswap
+0.1d0     
+          pm2cbswmt
+          1.0d0
+          pm2cbswpr
+          1.0d0
+pmavb1
+0.11d0
+          pmavb1in
+          0.5d0
+          pmavb1mt
+          1.0d0
+          pmavb1ct
+          1.0d0
+          avb1rad
+          8.0d0
+pmavb2
+0.12d0
+          pmavb2in
+          0.5d0
+          pmavb2mt
+          1.0d0
+          pmavb2ct
+          1.0d0
+          avb2rad
+          8.0d0
+pmavb3
+0.13d0
+          pmavb3mt
+          1.0d0
+          pmavb3ct
+          1.0d0
+          avb3rad
+          8.0d0
+pmcb
+0.40d0     
+          pmcbmt
+          1.0d0
+          pmall
+          0.0d0 
+pmtraat
+0.0d0	  
+          pmtamt
+          1.0d0
+          rmtraa
+          0.5d0 
+          tatraa
+          0.5d0
+pmtracm
+0.70d0	  
+          pmtcmt
+          1.0d0
+          rmtrac
+          0.5d0 
+          tatrac
+          0.5d0
+pmrotate
+1.0d0
+          pmromt
+          1.0d0
+          rmrot
+          0.05d0
+          tarot
+          0.5d0
+cbmc_formulation
+'Martin and Siepmann 1999 + Martin and Thompson 2004'
+cbmc_setting_style
+'Martin and Frischknecht'
+ffnumber
+1
+ff_filename
+/towheebase/ForceFields/towhee_ff_Potter1997
+classical_potential
+'Lennard-Jones'       
+classical_mixrule
+'LB plus manual'
+mixrule_adjust_total
+1
+mixrule_adjust_key
+'element'
+mixrule_adjust_keynames
+' F'
+' H'
+mixrule_adjustments
+2.3d0
+22.36d0
+0.0d0
+0.0d0
+lshift
+.false.
+ltailc
+.true.
+rmin  
+1.0d0 
+rcut  
+12.0d0
+rcutin 
+10.0d0 
+electrostatic_form
+'none'
+#(CF2H2)
+input_style
+'basic connectivity map'
+nunit
+5
+nmaxcbmc
+5
+lpdbnames
+F
+forcefield
+'Potter1997'
+charge_assignment
+'bond increment'
+unit ntype
+1    'C'
+vibration
+4
+2 3 4 5
+improper torsion
+0
+unit ntype
+2    'F(2)'
+vibration
+1
+1
+improper torsion
+0
+unit ntype
+3    'F(2)'
+vibration
+1
+1
+improper torsion
+0
+unit ntype
+4    'H(2)'
+vibration
+1
+1
+improper torsion
+0
+unit ntype
+5    'H(2)'
+vibration
+1
+1
+improper torsion
+0

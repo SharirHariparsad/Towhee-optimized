@@ -1,0 +1,18 @@
+ncomp
+1
+Box volume
+343.
+lweight
+.false.
+lphase 
+.false.
+lpvt
+.true.
+lold
+.true.
+noldfiles
+1
+old file input data file
+weights.4pvt.dat
+lnew
+.false.

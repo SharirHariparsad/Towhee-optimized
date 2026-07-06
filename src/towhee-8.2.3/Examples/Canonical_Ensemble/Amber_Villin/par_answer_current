@@ -1,0 +1,1000 @@
+ MCCCS Towhee - Version 8.2.3   (July 22 2021)      
+ Copyright (C) <2000-2021> Marcus G. Martin
+ Code Contributors for 2021: Marcus G. Martin;
+ Code Contributors for 2020: Marcus G. Martin;
+ Code Contributors for 2019: Marcus G. Martin;
+ Code Contributors for 2018: Marcus G. Martin;
+ Code Contributors for 2017: Marcus G. Martin;
+ Code Contributors for 2016: Marcus G. Martin;
+ Code Contributors for 2015: Marcus G. Martin;
+ Code Contributors for 2014: Marcus G. Martin;
+ Code Contributors for 2013: Wesley Emeneker; Marcus G. Martin;
+ Code Contributors for 2012: Marcus G. Martin;
+ Code Contributors for 2011: Fred James; Marcus G. Martin; Suleiman Oloriegbe;
+ Code Contributors for 2010: Rene Haber; Andrej Lajovic; Marcus G. Martin; Loukas Peristeras;
+ Code Contributors for 2009: Rene Haber; Marcus G. Martin; Loukas Peristeras;
+ Code Contributors for 2008: Rene Haber; Iyad A. Hijazi; Marcus G. Martin; Loukas Peristeras; Craig Tenney;
+ Code Contributors for 2007: Bernhard Eckl; Frank Heilmann; Jianhui Li; Marcus G. Martin; Craig M. Tenney; Ozgur Yazaydin
+ Code Contributors for 2006: Alan A. Chen; Arben Jusufi; Christian D. Lorenz; Marcus G. Martin; Jeffrey J. Potoff; Vincent K. Shen; Matthew A. Wyczalkowski; Ozgur Yazaydin
+ Code Contributors for 2005: Marcus G. Martin; Alan A. Chen; Christian D. Lorenz; Matthew A. Wyczalkowski
+ Code Contributors for 2004: Marcus G. Martin; Christian D. Lorenz; Peter A. Schultz; Aidan P. Thompson; Jeffrey J. Potoff; Steve R. Lustig; Paul S. Crozier; Nicholas du Preez
+ Code Contributors for 2003: Marcus G. Martin; Christian D. Lorenz; David B. Ritch; Michael L. Greenfield; Yogesh Srivastava; Evangelos A Coutsias
+ Code Contributors for 2002: Marcus G. Martin; Christian D. Lorenz; Aidan P. Thompson; Allen G. Sault
+ Code Contributors for 2001: Marcus G. Martin
+ Code Contributors for 2000: Marcus G. Martin
+ Copyright (C) <1999> J. Ilja Siepmann and Marcus G. Martin
+ Code Contributors for 1999: J. Ilja Siepmann; Marcus G. Martin; Bin Chen; Collin D. Wick; John Stubbs
+
+ Direct comments about this code to Marcus G. Martin (marcus_martin@users.sourceforge.net)
+ See the MCCCS Towhee web site for more information and the users manual.
+ http://towhee.sourceforge.net
+
+ We would like to thank the following agencies for providing funding used to develop MCCCS Towhee
+ -Department of Energy Industrial Technologies Program (MGM)
+ -National Science Foundation (JIS)
+ -Department of Energy Computational Science Graduate Fellowship (MGM,CDW)
+
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+ Reading from towhee_input file: towhee_input                                                                                                            
+ in directory: /towheebase/Examples/Canonical_Ensemble/Amber_Villin/                                                                   
+ random_number_generator: RANLUX                        
+ random_luxlevel:            3
+ random_allow_restart:  T
+ ensemble: nvt                           
+ temperature:  300.000    
+ nmolty:            2
+ nmolectyp:            2            1
+ numboxes:            1
+ stepstyle: cycles  
+ nstep:           10
+ printfreq:            1
+ blocksize:            2
+ moviefreq:          100
+ backupfreq:         1000
+ runoutput: full                
+Full output of updates and block averages
+ pdb_output_freq:            2
+ pressure_virial_freq:         2000
+ trmaxdispfreq:           10
+ volmaxdispfreq:         5000
+ linit:  T
+ initboxtype: dimensions          
+initstyle Box:    1
+ full cbmc            full cbmc           
+Box:  1 initlattice: simple cubic         simple cubic        
+Box:  1 initmol:         2          1
+Box:  1 inix,iniy,iniz:         3          1          1
+Box idim hmatrix:    1 1  100.00000    0.00000    0.00000
+Box idim hmatrix:    1 2    0.00000  100.00000    0.00000
+Box idim hmatrix:    1 3    0.00000    0.00000  100.00000
+ pm1boxcbswap: 0.100000E-01
+ pm1cbswmt:  1.00000      0.00000    
+ pmcb: 0.100000    
+ pmcbmt:  0.00000      1.00000    
+ pmall:  0.00000      0.00000    
+ pmback: 0.200000    
+ pmbkmt:  0.00000      1.00000    
+ pmtraat: 0.210000    
+ pmtamt:  0.00000      1.00000    
+ rmtraa: 0.500000    
+ tatraa: 0.500000    
+ pmtracm: 0.600000    
+ pmtcmt: 0.660000      1.00000    
+ rmtrac: 0.500000    
+ tatrac: 0.500000    
+ pmrotate:  1.00000    
+ pmromt:  0.00000      1.00000    
+ rmrot: 0.500000E-01
+ tarot: 0.500000    
+cbmc_analysis: normal                        
+cbmc_formulation: Martin and Frischknecht 2006                                
+ Coupled to pre-nonbond formulation from
+ M.G. Martin; A.L. Frischknecht; Mol. Phys. 104 2439-2456 (2006)
+cbmc_setting_style: Martin and Frischknecht       
+default max_bond_length:  3.00
+ ffnumber:            3
+ ff_filename:
+/towheebase/ForceFields/towhee_ff_Amber96                                                                               
+/towheebase/ForceFields/towhee_ff_LGM                                                                                   
+/towheebase/ForceFields/towhee_ff_mgmstereo                                                                             
+ classical_potential: Lennard-Jones                 
+ READCLASSICAL: pot_num:     1 potential name: Lennard-Jones                 
+ classical_mixrule: Lorentz-Berthelot             
+ lshift:  F
+ ltailc:  F
+ rmin: 0.100000    
+ rcut:  10.0000    
+ rcutin:  10.0000    
+ electrostatic_form: coulomb                                           
+ coulombstyle: minimum image       
+ dielect:  1.00000    
+ Setting up force field parameters from files
+ opening forcefield file:    1
+ opening forcefield file:    2
+ opening forcefield file:    3
+ Lorentz-Berthelot Mixing rules
+ Arithmetic mean of sigma terms
+ Geometric mean of epsilon term
+ No solvation model used
+ input_style: basic connectivity map                            
+ nunit:            1
+ nmaxcbmc:            1
+ lpdbnames:  F
+   using the LGM        force field
+ charge_assignment: manual                        
+   Building the input file for molecule type:     1
+unit:    1 name:Cl-        charge:  -1.00000
+ input_style: polypeptide builder                               
+ nunit:           36
+ nmaxcbmc:           49
+ Building the protein input file
+    using then Amber-96 forcefield
+    for a single zwitterionic polypeptide
+    or for multiple disulfide bonded zwitterionic polypeptides
+peptide:    1 name:m0 stereochem:l bondpartner:    0 terminus:N
+peptide:    2 name:l0 stereochem:l bondpartner:    0 terminus:-
+peptide:    3 name:s0 stereochem:l bondpartner:    0 terminus:-
+peptide:    4 name:d- stereochem:l bondpartner:    0 terminus:-
+peptide:    5 name:e- stereochem:l bondpartner:    0 terminus:-
+peptide:    6 name:d- stereochem:l bondpartner:    0 terminus:-
+peptide:    7 name:f0 stereochem:l bondpartner:    0 terminus:-
+peptide:    8 name:k+ stereochem:l bondpartner:    0 terminus:-
+peptide:    9 name:a0 stereochem:l bondpartner:    0 terminus:-
+peptide:   10 name:v0 stereochem:l bondpartner:    0 terminus:-
+peptide:   11 name:f0 stereochem:l bondpartner:    0 terminus:-
+peptide:   12 name:g0 stereochem:r bondpartner:    0 terminus:-
+peptide:   13 name:m0 stereochem:l bondpartner:    0 terminus:-
+peptide:   14 name:t0 stereochem:l bondpartner:    0 terminus:-
+peptide:   15 name:r+ stereochem:l bondpartner:    0 terminus:-
+peptide:   16 name:s0 stereochem:l bondpartner:    0 terminus:-
+peptide:   17 name:a0 stereochem:l bondpartner:    0 terminus:-
+peptide:   18 name:f0 stereochem:l bondpartner:    0 terminus:-
+peptide:   19 name:a0 stereochem:l bondpartner:    0 terminus:-
+peptide:   20 name:n0 stereochem:l bondpartner:    0 terminus:-
+peptide:   21 name:l0 stereochem:l bondpartner:    0 terminus:-
+peptide:   22 name:p0 stereochem:l bondpartner:    0 terminus:-
+peptide:   23 name:l0 stereochem:l bondpartner:    0 terminus:-
+peptide:   24 name:w0 stereochem:l bondpartner:    0 terminus:-
+peptide:   25 name:k+ stereochem:l bondpartner:    0 terminus:-
+peptide:   26 name:q0 stereochem:l bondpartner:    0 terminus:-
+peptide:   27 name:q0 stereochem:l bondpartner:    0 terminus:-
+peptide:   28 name:n0 stereochem:l bondpartner:    0 terminus:-
+peptide:   29 name:l0 stereochem:l bondpartner:    0 terminus:-
+peptide:   30 name:k+ stereochem:l bondpartner:    0 terminus:-
+peptide:   31 name:k+ stereochem:l bondpartner:    0 terminus:-
+peptide:   32 name:e- stereochem:l bondpartner:    0 terminus:-
+peptide:   33 name:k+ stereochem:l bondpartner:    0 terminus:-
+peptide:   34 name:g0 stereochem:r bondpartner:    0 terminus:-
+peptide:   35 name:l0 stereochem:l bondpartner:    0 terminus:-
+peptide:   36 name:f0 stereochem:l bondpartner:    0 terminus:C
+ L-methionine                              
+ L-leucine                                 
+ L-serine                                  
+ L-aspartic acid deprotonated              
+ L-glutamic acid deprotonated              
+ L-aspartic acid deprotonated              
+ L-phenylalanine                           
+ L-lysine protonated                       
+ L-alanine                                 
+ L-valine                                  
+ L-phenylalanine                           
+ racemic glycine                                 
+ L-methionine                              
+ L-threonine                               
+ L-arginine protonated                     
+ L-serine                                  
+ L-alanine                                 
+ L-phenylalanine                           
+ L-alanine                                 
+ L-asparagine                              
+ L-leucine                                 
+ L-proline                                 
+ L-leucine                                 
+ L-tryptophan                              
+ L-lysine protonated                       
+ L-glutamine                               
+ L-glutamine                               
+ L-asparagine                              
+ L-leucine                                 
+ L-lysine protonated                       
+ L-lysine protonated                       
+ L-glutamic acid deprotonated              
+ L-lysine protonated                       
+ racemic glycine                                 
+ L-leucine                                 
+ L-phenylalanine                           
+ Verifying input structures are consistent
+Determining cyclic subunits for molecule type          1
+Determining cyclic subunits for molecule type          2
+Default total charge on molecule   1 is  -1.00000
+Default total charge on molecule   2 is   2.00000
+Total charge in the simulation system:   0.00000
+Bond Types
+Type:      2 Style: Standard Harmonic Length: 1.4190 Constant:   224937.8
+Type:      4 Style: Standard Harmonic Length: 1.5220 Constant:   159519.7
+Type:      5 Style: Standard Harmonic Length: 1.3350 Constant:   246576.1
+Type:      9 Style: Standard Harmonic Length: 1.2290 Constant:   286833.5
+Type:     10 Style: Standard Harmonic Length: 1.2500 Constant:   330110.1
+Type:     12 Style: Standard Harmonic Length: 1.4590 Constant:   195248.0
+Type:     13 Style: Standard Harmonic Length: 1.4950 Constant:   159519.7
+Type:     14 Style: Standard Harmonic Length: 1.3520 Constant:   274756.3
+Type:     15 Style: Standard Harmonic Length: 1.0800 Constant:   184680.5
+Type:     16 Style: Standard Harmonic Length: 1.4000 Constant:   236008.6
+Type:     17 Style: Standard Harmonic Length: 1.4040 Constant:   236008.6
+Type:     19 Style: Standard Harmonic Length: 1.5100 Constant:   159519.7
+Type:     20 Style: Standard Harmonic Length: 1.3400 Constant:   242047.2
+Type:     21 Style: Standard Harmonic Length: 1.3810 Constant:   214873.5
+Type:     36 Style: Standard Harmonic Length: 1.3800 Constant:   215376.7
+Type:     40 Style: Standard Harmonic Length: 1.5260 Constant:   155997.1
+Type:     42 Style: Standard Harmonic Length: 1.0900 Constant:   171093.6
+Type:     43 Style: Standard Harmonic Length: 1.4490 Constant:   169584.0
+Type:     45 Style: Standard Harmonic Length: 1.4630 Constant:   169584.0
+Type:     46 Style: Standard Harmonic Length: 1.4710 Constant:   184680.5
+Type:     47 Style: Standard Harmonic Length: 1.4100 Constant:   161029.3
+Type:     48 Style: Standard Harmonic Length: 1.8100 Constant:   114230.2
+Type:     50 Style: Standard Harmonic Length: 1.0100 Constant:   218396.0
+Type:     51 Style: Standard Harmonic Length: 0.9600 Constant:   278278.8
+Angle Types
+Type:   1 Style: Standard Harmonic  Angle:    120.000 Constant:    31702.6
+Type:   2 Style: Standard Harmonic  Angle:    120.000 Constant:    17612.6
+Type:   8 Style: Standard Harmonic  Angle:    111.100 Constant:    31702.6
+Type:   9 Style: Standard Harmonic  Angle:    109.500 Constant:    25160.8
+Type:  10 Style: Standard Harmonic  Angle:    110.100 Constant:    31702.6
+Type:  11 Style: Standard Harmonic  Angle:    111.200 Constant:    40257.3
+Type:  12 Style: Standard Harmonic  Angle:    121.900 Constant:    25160.8
+Type:  13 Style: Standard Harmonic  Angle:    120.000 Constant:    15096.5
+Type:  22 Style: Standard Harmonic  Angle:    134.900 Constant:    31702.6
+Type:  23 Style: Standard Harmonic  Angle:    108.800 Constant:    31702.6
+Type:  24 Style: Standard Harmonic  Angle:    115.600 Constant:    31702.6
+Type:  25 Style: Standard Harmonic  Angle:    108.700 Constant:    35225.2
+Type:  26 Style: Standard Harmonic  Angle:    120.000 Constant:    35225.2
+Type:  28 Style: Standard Harmonic  Angle:    116.200 Constant:    31702.6
+Type:  32 Style: Standard Harmonic  Angle:    122.700 Constant:    31702.6
+Type:  33 Style: Standard Harmonic  Angle:    132.800 Constant:    35225.2
+Type:  34 Style: Standard Harmonic  Angle:    114.000 Constant:    31702.6
+Type:  35 Style: Standard Harmonic  Angle:    123.200 Constant:    25160.8
+Type:  41 Style: Standard Harmonic  Angle:    128.600 Constant:    35225.2
+Type:  42 Style: Standard Harmonic  Angle:    106.400 Constant:    31702.6
+Type:  48 Style: Standard Harmonic  Angle:    104.400 Constant:    35225.2
+Type:  55 Style: Standard Harmonic  Angle:    117.000 Constant:    35225.2
+Type:  64 Style: Standard Harmonic  Angle:    111.600 Constant:    35225.2
+Type:  65 Style: Standard Harmonic  Angle:    123.100 Constant:    15096.5
+Type:  66 Style: Standard Harmonic  Angle:    116.600 Constant:    35225.2
+Type:  67 Style: Standard Harmonic  Angle:    120.400 Constant:    40257.3
+Type:  68 Style: Standard Harmonic  Angle:    125.000 Constant:    35225.2
+Type:  69 Style: Standard Harmonic  Angle:    109.500 Constant:    20128.7
+Type:  70 Style: Standard Harmonic  Angle:    109.700 Constant:    40257.3
+Type:  71 Style: Standard Harmonic  Angle:    111.200 Constant:    40257.3
+Type:  72 Style: Standard Harmonic  Angle:    114.700 Constant:    25160.8
+Type:  74 Style: Standard Harmonic  Angle:    118.000 Constant:    25160.8
+Type:  75 Style: Standard Harmonic  Angle:    118.040 Constant:    15096.5
+Type:  76 Style: Standard Harmonic  Angle:    118.400 Constant:    17612.6
+Type:  77 Style: Standard Harmonic  Angle:    108.500 Constant:    27676.9
+Type:  80 Style: Standard Harmonic  Angle:     98.900 Constant:    31199.4
+Type:  84 Style: Standard Harmonic  Angle:    109.500 Constant:    17612.6
+Type:  91 Style: Standard Harmonic  Angle:    122.900 Constant:    40257.3
+Type: 102 Style: Standard Harmonic  Angle:    126.000 Constant:    40257.3
+Torsion Types
+Type:   1 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:    1824.2 m:2.0 d: 3.1415927
+          with 1-4 vdw and scaled (0.833) 1-4 coulomb
+Type:   8 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:       0.0 m:2.0 d: 0.0000000
+          with 1-4 vdw and scaled (0.833) 1-4 coulomb
+Type:   9 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:    1761.3 m:2.0 d: 3.1415927
+          with 1-4 vdw and scaled (0.833) 1-4 coulomb
+Type:  11 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:    1207.7 m:2.0 d: 3.1415927
+          with 1-4 vdw and scaled (0.833) 1-4 coulomb
+Type:  23 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:      78.3 m:3.0 d: 0.0000000
+          with 1-4 vdw and scaled (0.833) 1-4 coulomb
+Type:  24 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:      83.9 m:3.0 d: 0.0000000
+          with 1-4 vdw and scaled (0.833) 1-4 coulomb
+Type:  27 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:    1258.0 m:2.0 d: 3.1415927
+          with 1-4 vdw and scaled (0.833) 1-4 coulomb
+Type:  28 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:     167.7 m:3.0 d: 0.0000000
+          with 1-4 vdw and scaled (0.833) 1-4 coulomb
+Type:  30 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:     842.9 m:2.0 d: 3.1415927
+          with 1-4 vdw and scaled (0.833) 1-4 coulomb
+Type:  31 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:    3283.5 m:2.0 d: 3.1415927
+          with 1-4 vdw and scaled (0.833) 1-4 coulomb
+Type:  32 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:    1824.2 m:2.0 d: 3.1415927
+          with 1-4 vdw and scaled (0.833) 1-4 coulomb
+Type:  33 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:    1509.6 m:2.0 d: 3.1415927
+          with 1-4 vdw and scaled (0.833) 1-4 coulomb
+Type:  38 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:     767.4 m:2.0 d: 3.1415927
+          with 1-4 vdw and scaled (0.833) 1-4 coulomb
+Type:  41 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:     754.8 m:2.0 d: 3.1415927
+          with 1-4 vdw and scaled (0.833) 1-4 coulomb
+Type:  43 Style: Amber/Charmm/Gromos Cosine Series n:   2
+          Index  1    k:     151.0 m:2.0 d: 3.1415927
+          Index  2    k:     427.7 m:1.0 d: 0.0000000
+          with 1-4 vdw and scaled (0.833) 1-4 coulomb
+Type:  44 Style: Amber/Charmm/Gromos Cosine Series n:   3
+          Index  1    k:     251.6 m:4.0 d: 3.1415927
+          Index  2    k:      75.5 m:3.0 d: 3.1415927
+          Index  3    k:     266.7 m:1.0 d: 0.0000000
+          with 1-4 vdw and scaled (0.833) 1-4 coulomb
+Type:  45 Style: Amber/Charmm/Gromos Cosine Series n:   2
+          Index  1    k:      50.3 m:4.0 d: 0.0000000
+          Index  2    k:      35.2 m:2.0 d: 0.0000000
+          with 1-4 vdw and scaled (0.833) 1-4 coulomb
+Type:  46 Style: Amber/Charmm/Gromos Cosine Series n:   2
+          Index  1    k:    1258.0 m:2.0 d: 3.1415927
+          Index  2    k:    1006.4 m:1.0 d: 0.0000000
+          with 1-4 vdw and scaled (0.833) 1-4 coulomb
+Improper Torsion Types
+Type:   1 Style: Amber Improper Torsion  k:    5283.8 m:2.0 d: 3.142
+Type:   2 Style: Amber Improper Torsion  k:     503.2 m:2.0 d: 3.142
+Type:   3 Style: Amber Improper Torsion  k:     553.5 m:2.0 d: 3.142
+Type:   4 Style: MGM Stereochemistry Enforcer
+Energies exclusively from internal potentials
+Nonbonded Force Field
+Lennard-Jones 12-6 potential
+u(r) = 4*epsilon[(sigma/r)^12 - (sigma/r)^6] - shift
+Num. Atom(i)    Num. Atom(j)         sigma    epsilon      shift     1-4sig     1-4eps
+   1 C             1 C              3.3997    43.2766     0.0000     3.3997    21.6383
+   1 C             2 CA             3.3997    43.2766     0.0000     3.3997    21.6383
+   1 C             6 CW             3.3997    43.2766     0.0000     3.3997    21.6383
+   1 C             8 CB             3.3997    43.2766     0.0000     3.3997    21.6383
+   1 C             9 C*             3.3997    43.2766     0.0000     3.3997    21.6383
+   1 C            10 CN             3.3997    43.2766     0.0000     3.3997    21.6383
+   1 C            13 CT             3.3997    48.8105     0.0000     3.3997    24.4052
+   1 C            16 H              2.2344    18.4907     0.0000     2.2344     9.2454
+   1 C            17 H1             2.9355    18.4907     0.0000     2.9355     9.2454
+   1 C            20 H4             2.9551    18.0738     0.0000     2.9551     9.0369
+   1 C            22 HA             2.9997    18.0738     0.0000     2.9997     9.0369
+   1 C            23 HC             3.0246    18.4907     0.0000     3.0246     9.2454
+   1 C            24 HO             1.6998     0.0000     0.0000     1.6998     0.0000
+   1 C            26 HP             2.6798    18.4907     0.0000     2.6798     9.2454
+   1 C            31 N              3.3248    60.8455     0.0000     3.3248    30.4228
+   1 C            32 NA             3.3248    60.8455     0.0000     3.3248    30.4228
+   1 C            36 N2             3.3248    60.8455     0.0000     3.3248    30.4228
+   1 C            37 N3             3.3703    60.8455     0.0000     3.3703    30.4228
+   1 C            38 O              3.1798    67.6260     0.0000     3.1798    33.8130
+   1 C            39 O2             3.1798    67.6260     0.0000     3.1798    33.8130
+   1 C            40 OH             3.2331    67.6904     0.0000     3.2331    33.8452
+   1 C            45 S              3.4816    73.7860     0.0000     3.4816    36.8930
+   1 C            49 Cl-            3.9230    48.2721     0.0000     1.6998     0.0000
+   2 CA            2 CA             3.3997    43.2766     0.0000     3.3997    21.6383
+   2 CA            6 CW             3.3997    43.2766     0.0000     3.3997    21.6383
+   2 CA            8 CB             3.3997    43.2766     0.0000     3.3997    21.6383
+   2 CA            9 C*             3.3997    43.2766     0.0000     3.3997    21.6383
+   2 CA           10 CN             3.3997    43.2766     0.0000     3.3997    21.6383
+   2 CA           13 CT             3.3997    48.8105     0.0000     3.3997    24.4052
+   2 CA           16 H              2.2344    18.4907     0.0000     2.2344     9.2454
+   2 CA           17 H1             2.9355    18.4907     0.0000     2.9355     9.2454
+   2 CA           20 H4             2.9551    18.0738     0.0000     2.9551     9.0369
+   2 CA           22 HA             2.9997    18.0738     0.0000     2.9997     9.0369
+   2 CA           23 HC             3.0246    18.4907     0.0000     3.0246     9.2454
+   2 CA           24 HO             1.6998     0.0000     0.0000     1.6998     0.0000
+   2 CA           26 HP             2.6798    18.4907     0.0000     2.6798     9.2454
+   2 CA           31 N              3.3248    60.8455     0.0000     3.3248    30.4228
+   2 CA           32 NA             3.3248    60.8455     0.0000     3.3248    30.4228
+   2 CA           36 N2             3.3248    60.8455     0.0000     3.3248    30.4228
+   2 CA           37 N3             3.3703    60.8455     0.0000     3.3703    30.4228
+   2 CA           38 O              3.1798    67.6260     0.0000     3.1798    33.8130
+   2 CA           39 O2             3.1798    67.6260     0.0000     3.1798    33.8130
+   2 CA           40 OH             3.2331    67.6904     0.0000     3.2331    33.8452
+   2 CA           45 S              3.4816    73.7860     0.0000     3.4816    36.8930
+   2 CA           49 Cl-            3.9230    48.2721     0.0000     1.6998     0.0000
+   6 CW            6 CW             3.3997    43.2766     0.0000     3.3997    21.6383
+   6 CW            8 CB             3.3997    43.2766     0.0000     3.3997    21.6383
+   6 CW            9 C*             3.3997    43.2766     0.0000     3.3997    21.6383
+   6 CW           10 CN             3.3997    43.2766     0.0000     3.3997    21.6383
+   6 CW           13 CT             3.3997    48.8105     0.0000     3.3997    24.4052
+   6 CW           16 H              2.2344    18.4907     0.0000     2.2344     9.2454
+   6 CW           17 H1             2.9355    18.4907     0.0000     2.9355     9.2454
+   6 CW           20 H4             2.9551    18.0738     0.0000     2.9551     9.0369
+   6 CW           22 HA             2.9997    18.0738     0.0000     2.9997     9.0369
+   6 CW           23 HC             3.0246    18.4907     0.0000     3.0246     9.2454
+   6 CW           24 HO             1.6998     0.0000     0.0000     1.6998     0.0000
+   6 CW           26 HP             2.6798    18.4907     0.0000     2.6798     9.2454
+   6 CW           31 N              3.3248    60.8455     0.0000     3.3248    30.4228
+   6 CW           32 NA             3.3248    60.8455     0.0000     3.3248    30.4228
+   6 CW           36 N2             3.3248    60.8455     0.0000     3.3248    30.4228
+   6 CW           37 N3             3.3703    60.8455     0.0000     3.3703    30.4228
+   6 CW           38 O              3.1798    67.6260     0.0000     3.1798    33.8130
+   6 CW           39 O2             3.1798    67.6260     0.0000     3.1798    33.8130
+   6 CW           40 OH             3.2331    67.6904     0.0000     3.2331    33.8452
+   6 CW           45 S              3.4816    73.7860     0.0000     3.4816    36.8930
+   6 CW           49 Cl-            3.9230    48.2721     0.0000     1.6998     0.0000
+   8 CB            8 CB             3.3997    43.2766     0.0000     3.3997    21.6383
+   8 CB            9 C*             3.3997    43.2766     0.0000     3.3997    21.6383
+   8 CB           10 CN             3.3997    43.2766     0.0000     3.3997    21.6383
+   8 CB           13 CT             3.3997    48.8105     0.0000     3.3997    24.4052
+   8 CB           16 H              2.2344    18.4907     0.0000     2.2344     9.2454
+   8 CB           17 H1             2.9355    18.4907     0.0000     2.9355     9.2454
+   8 CB           20 H4             2.9551    18.0738     0.0000     2.9551     9.0369
+   8 CB           22 HA             2.9997    18.0738     0.0000     2.9997     9.0369
+   8 CB           23 HC             3.0246    18.4907     0.0000     3.0246     9.2454
+   8 CB           24 HO             1.6998     0.0000     0.0000     1.6998     0.0000
+   8 CB           26 HP             2.6798    18.4907     0.0000     2.6798     9.2454
+   8 CB           31 N              3.3248    60.8455     0.0000     3.3248    30.4228
+   8 CB           32 NA             3.3248    60.8455     0.0000     3.3248    30.4228
+   8 CB           36 N2             3.3248    60.8455     0.0000     3.3248    30.4228
+   8 CB           37 N3             3.3703    60.8455     0.0000     3.3703    30.4228
+   8 CB           38 O              3.1798    67.6260     0.0000     3.1798    33.8130
+   8 CB           39 O2             3.1798    67.6260     0.0000     3.1798    33.8130
+   8 CB           40 OH             3.2331    67.6904     0.0000     3.2331    33.8452
+   8 CB           45 S              3.4816    73.7860     0.0000     3.4816    36.8930
+   8 CB           49 Cl-            3.9230    48.2721     0.0000     1.6998     0.0000
+   9 C*            9 C*             3.3997    43.2766     0.0000     3.3997    21.6383
+   9 C*           10 CN             3.3997    43.2766     0.0000     3.3997    21.6383
+   9 C*           13 CT             3.3997    48.8105     0.0000     3.3997    24.4052
+   9 C*           16 H              2.2344    18.4907     0.0000     2.2344     9.2454
+   9 C*           17 H1             2.9355    18.4907     0.0000     2.9355     9.2454
+   9 C*           20 H4             2.9551    18.0738     0.0000     2.9551     9.0369
+   9 C*           22 HA             2.9997    18.0738     0.0000     2.9997     9.0369
+   9 C*           23 HC             3.0246    18.4907     0.0000     3.0246     9.2454
+   9 C*           24 HO             1.6998     0.0000     0.0000     1.6998     0.0000
+   9 C*           26 HP             2.6798    18.4907     0.0000     2.6798     9.2454
+   9 C*           31 N              3.3248    60.8455     0.0000     3.3248    30.4228
+   9 C*           32 NA             3.3248    60.8455     0.0000     3.3248    30.4228
+   9 C*           36 N2             3.3248    60.8455     0.0000     3.3248    30.4228
+   9 C*           37 N3             3.3703    60.8455     0.0000     3.3703    30.4228
+   9 C*           38 O              3.1798    67.6260     0.0000     3.1798    33.8130
+   9 C*           39 O2             3.1798    67.6260     0.0000     3.1798    33.8130
+   9 C*           40 OH             3.2331    67.6904     0.0000     3.2331    33.8452
+   9 C*           45 S              3.4816    73.7860     0.0000     3.4816    36.8930
+   9 C*           49 Cl-            3.9230    48.2721     0.0000     1.6998     0.0000
+  10 CN           10 CN             3.3997    43.2766     0.0000     3.3997    21.6383
+  10 CN           13 CT             3.3997    48.8105     0.0000     3.3997    24.4052
+  10 CN           16 H              2.2344    18.4907     0.0000     2.2344     9.2454
+  10 CN           17 H1             2.9355    18.4907     0.0000     2.9355     9.2454
+  10 CN           20 H4             2.9551    18.0738     0.0000     2.9551     9.0369
+  10 CN           22 HA             2.9997    18.0738     0.0000     2.9997     9.0369
+  10 CN           23 HC             3.0246    18.4907     0.0000     3.0246     9.2454
+  10 CN           24 HO             1.6998     0.0000     0.0000     1.6998     0.0000
+  10 CN           26 HP             2.6798    18.4907     0.0000     2.6798     9.2454
+  10 CN           31 N              3.3248    60.8455     0.0000     3.3248    30.4228
+  10 CN           32 NA             3.3248    60.8455     0.0000     3.3248    30.4228
+  10 CN           36 N2             3.3248    60.8455     0.0000     3.3248    30.4228
+  10 CN           37 N3             3.3703    60.8455     0.0000     3.3703    30.4228
+  10 CN           38 O              3.1798    67.6260     0.0000     3.1798    33.8130
+  10 CN           39 O2             3.1798    67.6260     0.0000     3.1798    33.8130
+  10 CN           40 OH             3.2331    67.6904     0.0000     3.2331    33.8452
+  10 CN           45 S              3.4816    73.7860     0.0000     3.4816    36.8930
+  10 CN           49 Cl-            3.9230    48.2721     0.0000     1.6998     0.0000
+  13 CT           13 CT             3.3997    55.0519     0.0000     3.3997    27.5259
+  13 CT           16 H              2.2344    20.8552     0.0000     2.2344    10.4276
+  13 CT           17 H1             2.9355    20.8552     0.0000     2.9355    10.4276
+  13 CT           20 H4             2.9551    20.3849     0.0000     2.9551    10.1925
+  13 CT           22 HA             2.9997    20.3849     0.0000     2.9997    10.1925
+  13 CT           23 HC             3.0246    20.8552     0.0000     3.0246    10.4276
+  13 CT           24 HO             1.6998     0.0000     0.0000     1.6998     0.0000
+  13 CT           26 HP             2.6798    20.8552     0.0000     2.6798    10.4276
+  13 CT           31 N              3.3248    68.6259     0.0000     3.3248    34.3130
+  13 CT           32 NA             3.3248    68.6259     0.0000     3.3248    34.3130
+  13 CT           36 N2             3.3248    68.6259     0.0000     3.3248    34.3130
+  13 CT           37 N3             3.3703    68.6259     0.0000     3.3703    34.3130
+  13 CT           38 O              3.1798    76.2734     0.0000     3.1798    38.1367
+  13 CT           39 O2             3.1798    76.2734     0.0000     3.1798    38.1367
+  13 CT           40 OH             3.2331    76.3460     0.0000     3.2331    38.1730
+  13 CT           45 S              3.4816    83.2211     0.0000     3.4816    41.6106
+  13 CT           49 Cl-            3.9230    54.4447     0.0000     1.6998     0.0000
+  16 H            16 H              1.0691     7.9005     0.0000     1.0691     3.9503
+  16 H            17 H1             1.7702     7.9005     0.0000     1.7702     3.9503
+  16 H            20 H4             1.7898     7.7224     0.0000     1.7898     3.8612
+  16 H            22 HA             1.8344     7.7224     0.0000     1.8344     3.8612
+  16 H            23 HC             1.8593     7.9005     0.0000     1.8593     3.9503
+  16 H            24 HO             0.5345     0.0000     0.0000     0.5345     0.0000
+  16 H            26 HP             1.5145     7.9005     0.0000     1.5145     3.9503
+  16 H            31 N              2.1595    25.9974     0.0000     2.1595    12.9987
+  16 H            32 NA             2.1595    25.9974     0.0000     2.1595    12.9987
+  16 H            36 N2             2.1595    25.9974     0.0000     2.1595    12.9987
+  16 H            37 N3             2.2050    25.9974     0.0000     2.2050    12.9987
+  16 H            38 O              2.0145    28.8945     0.0000     2.0145    14.4472
+  16 H            39 O2             2.0145    28.8945     0.0000     2.0145    14.4472
+  16 H            40 OH             2.0678    28.9220     0.0000     2.0678    14.4610
+  16 H            45 S              2.3163    31.5264     0.0000     2.3163    15.7632
+  16 H            49 Cl-            2.7577    20.6251     0.0000     0.5345     0.0000
+  17 H1           17 H1             2.4714     7.9005     0.0000     2.4714     3.9503
+  17 H1           20 H4             2.4910     7.7224     0.0000     2.4910     3.8612
+  17 H1           22 HA             2.5355     7.7224     0.0000     2.5355     3.8612
+  17 H1           23 HC             2.5604     7.9005     0.0000     2.5604     3.9503
+  17 H1           24 HO             1.2357     0.0000     0.0000     1.2357     0.0000
+  17 H1           26 HP             2.2157     7.9005     0.0000     2.2157     3.9503
+  17 H1           31 N              2.8607    25.9974     0.0000     2.8607    12.9987
+  17 H1           32 NA             2.8607    25.9974     0.0000     2.8607    12.9987
+  17 H1           36 N2             2.8607    25.9974     0.0000     2.8607    12.9987
+  17 H1           37 N3             2.9061    25.9974     0.0000     2.9061    12.9987
+  17 H1           38 O              2.7156    28.8945     0.0000     2.7156    14.4472
+  17 H1           39 O2             2.7156    28.8945     0.0000     2.7156    14.4472
+  17 H1           40 OH             2.7689    28.9220     0.0000     2.7689    14.4610
+  17 H1           45 S              3.0175    31.5264     0.0000     3.0175    15.7632
+  17 H1           49 Cl-            3.4588    20.6251     0.0000     1.2357     0.0000
+  20 H4           20 H4             2.5106     7.5482     0.0000     2.5106     3.7741
+  20 H4           22 HA             2.5551     7.5482     0.0000     2.5551     3.7741
+  20 H4           23 HC             2.5800     7.7224     0.0000     2.5800     3.8612
+  20 H4           24 HO             1.2553     0.0000     0.0000     1.2553     0.0000
+  20 H4           26 HP             2.2353     7.7224     0.0000     2.2353     3.8612
+  20 H4           31 N              2.8803    25.4112     0.0000     2.8803    12.7056
+  20 H4           32 NA             2.8803    25.4112     0.0000     2.8803    12.7056
+  20 H4           36 N2             2.8803    25.4112     0.0000     2.8803    12.7056
+  20 H4           37 N3             2.9257    25.4112     0.0000     2.9257    12.7056
+  20 H4           38 O              2.7352    28.2430     0.0000     2.7352    14.1215
+  20 H4           39 O2             2.7352    28.2430     0.0000     2.7352    14.1215
+  20 H4           40 OH             2.7885    28.2698     0.0000     2.7885    14.1349
+  20 H4           45 S              3.0371    30.8156     0.0000     3.0371    15.4078
+  20 H4           49 Cl-            3.4784    20.1601     0.0000     1.2553     0.0000
+  22 HA           22 HA             2.5996     7.5482     0.0000     2.5996     3.7741
+  22 HA           23 HC             2.6246     7.7224     0.0000     2.6246     3.8612
+  22 HA           24 HO             1.2998     0.0000     0.0000     1.2998     0.0000
+  22 HA           26 HP             2.2798     7.7224     0.0000     2.2798     3.8612
+  22 HA           31 N              2.9248    25.4112     0.0000     2.9248    12.7056
+  22 HA           32 NA             2.9248    25.4112     0.0000     2.9248    12.7056
+  22 HA           36 N2             2.9248    25.4112     0.0000     2.9248    12.7056
+  22 HA           37 N3             2.9703    25.4112     0.0000     2.9703    12.7056
+  22 HA           38 O              2.7798    28.2430     0.0000     2.7798    14.1215
+  22 HA           39 O2             2.7798    28.2430     0.0000     2.7798    14.1215
+  22 HA           40 OH             2.8331    28.2698     0.0000     2.8331    14.1349
+  22 HA           45 S              3.0816    30.8156     0.0000     3.0816    15.4078
+  22 HA           49 Cl-            3.5230    20.1601     0.0000     1.2998     0.0000
+  23 HC           23 HC             2.6495     7.9005     0.0000     2.6495     3.9503
+  23 HC           24 HO             1.3248     0.0000     0.0000     1.3248     0.0000
+  23 HC           26 HP             2.3048     7.9005     0.0000     2.3048     3.9503
+  23 HC           31 N              2.9498    25.9974     0.0000     2.9498    12.9987
+  23 HC           32 NA             2.9498    25.9974     0.0000     2.9498    12.9987
+  23 HC           36 N2             2.9498    25.9974     0.0000     2.9498    12.9987
+  23 HC           37 N3             2.9952    25.9974     0.0000     2.9952    12.9987
+  23 HC           38 O              2.8047    28.8945     0.0000     2.8047    14.4472
+  23 HC           39 O2             2.8047    28.8945     0.0000     2.8047    14.4472
+  23 HC           40 OH             2.8580    28.9220     0.0000     2.8580    14.4610
+  23 HC           45 S              3.1066    31.5264     0.0000     3.1066    15.7632
+  23 HC           49 Cl-            3.5479    20.6251     0.0000     1.3248     0.0000
+  24 HO           24 HO             0.0000     0.0000     0.0000     0.0000     0.0000
+  24 HO           26 HP             0.9800     0.0000     0.0000     0.9800     0.0000
+  24 HO           31 N              1.6250     0.0000     0.0000     1.6250     0.0000
+  24 HO           32 NA             1.6250     0.0000     0.0000     1.6250     0.0000
+  24 HO           36 N2             1.6250     0.0000     0.0000     1.6250     0.0000
+  24 HO           37 N3             1.6704     0.0000     0.0000     1.6704     0.0000
+  24 HO           38 O              1.4800     0.0000     0.0000     1.4800     0.0000
+  24 HO           39 O2             1.4800     0.0000     0.0000     1.4800     0.0000
+  24 HO           40 OH             1.5332     0.0000     0.0000     1.5332     0.0000
+  24 HO           45 S              1.7818     0.0000     0.0000     1.7818     0.0000
+  24 HO           49 Cl-            2.2231     0.0000     0.0000     0.0000     0.0000
+  26 HP           26 HP             1.9600     7.9005     0.0000     1.9600     3.9503
+  26 HP           31 N              2.6050    25.9974     0.0000     2.6050    12.9987
+  26 HP           32 NA             2.6050    25.9974     0.0000     2.6050    12.9987
+  26 HP           36 N2             2.6050    25.9974     0.0000     2.6050    12.9987
+  26 HP           37 N3             2.6504    25.9974     0.0000     2.6504    12.9987
+  26 HP           38 O              2.4599    28.8945     0.0000     2.4599    14.4472
+  26 HP           39 O2             2.4599    28.8945     0.0000     2.4599    14.4472
+  26 HP           40 OH             2.5132    28.9220     0.0000     2.5132    14.4610
+  26 HP           45 S              2.7618    31.5264     0.0000     2.7618    15.7632
+  26 HP           49 Cl-            3.2031    20.6251     0.0000     0.9800     0.0000
+  31 N            31 N              3.2500    85.5468     0.0000     3.2500    42.7734
+  31 N            32 NA             3.2500    85.5468     0.0000     3.2500    42.7734
+  31 N            36 N2             3.2500    85.5468     0.0000     3.2500    42.7734
+  31 N            37 N3             3.2954    85.5468     0.0000     3.2954    42.7734
+  31 N            38 O              3.1050    95.0800     0.0000     3.1050    47.5400
+  31 N            39 O2             3.1050    95.0800     0.0000     3.1050    47.5400
+  31 N            40 OH             3.1582    95.1705     0.0000     3.1582    47.5852
+  31 N            45 S              3.4068   103.7408     0.0000     3.4068    51.8704
+  31 N            49 Cl-            3.8481    67.8690     0.0000     1.6250     0.0000
+  32 NA           32 NA             3.2500    85.5468     0.0000     3.2500    42.7734
+  32 NA           36 N2             3.2500    85.5468     0.0000     3.2500    42.7734
+  32 NA           37 N3             3.2954    85.5468     0.0000     3.2954    42.7734
+  32 NA           38 O              3.1050    95.0800     0.0000     3.1050    47.5400
+  32 NA           39 O2             3.1050    95.0800     0.0000     3.1050    47.5400
+  32 NA           40 OH             3.1582    95.1705     0.0000     3.1582    47.5852
+  32 NA           45 S              3.4068   103.7408     0.0000     3.4068    51.8704
+  32 NA           49 Cl-            3.8481    67.8690     0.0000     1.6250     0.0000
+  36 N2           36 N2             3.2500    85.5468     0.0000     3.2500    42.7734
+  36 N2           37 N3             3.2954    85.5468     0.0000     3.2954    42.7734
+  36 N2           38 O              3.1050    95.0800     0.0000     3.1050    47.5400
+  36 N2           39 O2             3.1050    95.0800     0.0000     3.1050    47.5400
+  36 N2           40 OH             3.1582    95.1705     0.0000     3.1582    47.5852
+  36 N2           45 S              3.4068   103.7408     0.0000     3.4068    51.8704
+  36 N2           49 Cl-            3.8481    67.8690     0.0000     1.6250     0.0000
+  37 N3           37 N3             3.3409    85.5468     0.0000     3.3409    42.7734
+  37 N3           38 O              3.1504    95.0800     0.0000     3.1504    47.5400
+  37 N3           39 O2             3.1504    95.0800     0.0000     3.1504    47.5400
+  37 N3           40 OH             3.2037    95.1705     0.0000     3.2037    47.5852
+  37 N3           45 S              3.4522   103.7408     0.0000     3.4522    51.8704
+  37 N3           49 Cl-            3.8936    67.8690     0.0000     1.6704     0.0000
+  38 O            38 O              2.9599   105.6755     0.0000     2.9599    52.8377
+  38 O            39 O2             2.9599   105.6755     0.0000     2.9599    52.8377
+  38 O            40 OH             3.0132   105.7761     0.0000     3.0132    52.8880
+  38 O            45 S              3.2618   115.3014     0.0000     3.2618    57.6507
+  38 O            49 Cl-            3.7031    75.4322     0.0000     1.4800     0.0000
+  39 O2           39 O2             2.9599   105.6755     0.0000     2.9599    52.8377
+  39 O2           40 OH             3.0132   105.7761     0.0000     3.0132    52.8880
+  39 O2           45 S              3.2618   115.3014     0.0000     3.2618    57.6507
+  39 O2           49 Cl-            3.7031    75.4322     0.0000     1.4800     0.0000
+  40 OH           40 OH             3.0665   105.8768     0.0000     3.0665    52.9384
+  40 OH           45 S              3.3150   115.4112     0.0000     3.3150    57.7056
+  40 OH           49 Cl-            3.7564    75.5040     0.0000     1.5332     0.0000
+  45 S            45 S              3.5636   125.8042     0.0000     3.5636    62.9021
+  45 S            49 Cl-            4.0049    82.3032     0.0000     1.7818     0.0000
+  49 Cl-          49 Cl-            4.4463    53.8442     0.0000     0.0000     0.0000
+Determining Arbitrary Trial Distribution Parameters: see towhee_cbmc for full details
+ Canonical ensemble
+ 3-dimensional periodic box
+ Additional Center-of-Mass cutoff
+ Dual Cutoff Configurational-bias Monte Carlo
+ Coupled-decoupled Configurational-bias MC
+ Coulombic inter- and intra-molecular interactions
+     including the real-space terms up to half the shortest box length
+     dielectric constant:   1.0000
+
+Molecular mass for molecule type     1 is    79.9040 g/mol
+Molecular mass for molecule type     2 is  4191.9283 g/mol
+ Calling initconf
+Selected random number generator RANLUX with luxury level 3 and single integer seed    1302002
+ RANLUX LUXURY LEVEL SET BY RLUXGO : 3     P= 223
+ RANLUX INITIALIZED BY RLUXGO FROM SEEDS     1302002           0           0
+Testing random number generator using the single integer seed
+    0.354084  0.719681  0.403250  0.706761  0.174308
+10 million RNG sum (approximately 5 million):   5000151.5761168618
+Box idim hinverse:    1 1    0.01000    0.00000    0.00000
+Box idim hinverse:    1 2    0.00000    0.01000    0.00000
+Box idim hinverse:    1 3    0.00000    0.00000    0.01000
+INITCONF: building template for molecule type:    1
+Initial Structure Growth Trial:    1
+INITCONF: building template for molecule type:    2
+Initial Structure Growth Trial:    1
+
+Number of MC cycles:                   10
+Number of molecules:                    3
+Temperature [K]:       300.00000
+
+Initial Energies for Box     1
+Total molecules in this box          3
+Molecules of type   1 :          2
+Molecules of type   2 :          1
+ Total vibration (atoms ij bonded together)                 96417.138 [K]       191.60166 [kcal/mol]
+  bond (ij) regular                                         96417.138 [K]       191.60166 [kcal/mol]
+  bond (ij) van der waals                                       0.000 [K]         0.00000 [kcal/mol]
+  bond (ij) Electric                                            0.000 [K]         0.00000 [kcal/mol]
+  bond-bond (ij-jk)                                             0.000 [K]         0.00000 [kcal/mol]
+ Total angle (atoms ijk bonded in sequence)                153600.805 [K]       305.23795 [kcal/mol]
+  angle (ijk) regular                                      153600.805 [K]       305.23795 [kcal/mol]
+  bond-angle (ij-ijk)                                           0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) van der waals                                      0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) Electric                                           0.000 [K]         0.00000 [kcal/mol]
+  angle-angle (ijk-ijm)                                         0.000 [K]         0.00000 [kcal/mol]
+ Total torsion (ijkl bonded in sequence)                  1082269.384 [K]      2150.70287 [kcal/mol]
+  torsion (ijkl) regular                                   150755.195 [K]       299.58311 [kcal/mol]
+  torsion (ij-kl) bond-bond                                     0.000 [K]         0.00000 [kcal/mol]
+  torsion (ij-ijkl) bond-torsion                                0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-ijkl) angle-torsion                              0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-jkl-ijkl) angle-angle-torsion                    0.000 [K]         0.00000 [kcal/mol]
+  torsion (i-l) one-four van der waals                      88066.792 [K]       175.00772 [kcal/mol]
+  torsion (i-l) one-four Electric                          843447.397 [K]      1676.11203 [kcal/mol]
+ Total improper (ijkm, i,k,m bonded to j)                   11629.359 [K]        23.11005 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) vdw            446308908.896 [K]    886912.13465 [kcal/mol]
+  intramolecular                                        446308908.896 [K]    886912.13465 [kcal/mol]
+  2-body vdw intermolecular                                     0.000 [K]         0.00000 [kcal/mol]
+  3-body vdw intermolecular                                     0.000 [K]         0.00000 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) Electric        -1067422.217 [K]     -2121.19834 [kcal/mol]
+  total real space Electric                              -1067422.217 [K]     -2121.19834 [kcal/mol]
+   intramolecular Electric                               -1055747.026 [K]     -2097.99722 [kcal/mol]
+   intermolecular Electric                                 -11675.192 [K]       -23.20113 [kcal/mol]
+ Total external field                                           0.000 [K]         0.00000 [kcal/mol]
+ Total solvation                                                0.000 [K]         0.00000 [kcal/mol]
+Total classical                                         446585403.365 [K]    887461.58884 [kcal/mol]
+ Aggregate van der waals (bond and nonbond)             446396975.688 [K]    887087.14237 [kcal/mol]
+ Aggregate Electric (bond and nonbond)                    -223974.821 [K]      -445.08631 [kcal/mol]
+ initial virial pressure in box  1 =         -20.97
+
+ +++++ start of markov chain +++++
+
+Cycle      Box   Energy [K]  Volume [A^3] Press. [kPa] Molecules
+         1 B: 1  0.4466E+09  0.1000E+07        -21.0     2    1
+         2 B: 1  0.4466E+09  0.1000E+07        -21.0     2    1
+Block Averages (BA) for block     1
+BA Box: 1 Volume [A^3] 0.10000000E+07
+BA Box: 1 V^2 [A^6] 0.10000000E+13
+BA Box: 1 Specific density [g/ml] 0.72263430E-02
+BA Box: 1 Virial Pressure      [kPa] 0.00000000E+00
+BA Box: 1 Total Classical 0.44658385E+09
+BA Box: 1 Inter vdw       0.00000000E+00
+BA Box: 1 Angle           0.15495988E+06
+BA Box: 1 Torsion         0.10930537E+07
+BA Box: 1 Intra vdw       0.44630580E+09
+BA Box: 1 External Field  0.00000000E+00
+BA Box: 1 Vibration       0.97065592E+05
+BA Box: 1 Coulomb         -.10670277E+07
+BA Box: 1 Tail vdw        0.00000000E+00
+BA Box: 1 Solvation       0.00000000E+00
+BA Box: 1 u (Gibbs Total) [K] Type   1 0.00000000E+00
+BA Box: 1 u (Gibbs Total) [K] Type   2 0.00000000E+00
+BA Box: 1 Number density [nm-3] Type   1 0.20000000E-02
+BA Box: 1 Number density [nm-3] Type   2 0.10000000E-02
+BA Box: 1 Mol Fraction Type   1 0.66666667E+00
+BA Box: 1 Mol Fraction Type   2 0.33333333E+00
+BA Box: 1 Stress Tensor Virial S_xx          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_yy          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_zz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_xy          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_xz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_yz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial P_tail        [kPa] 0.00000000E+00
+BA Box: 1 Radius of Gyration Type:  1        0.00000
+BA Box: 1 Radius of Gyration Type:  2       11.89728
+         3 B: 1  0.4466E+09  0.1000E+07        -21.0     2    1
+         4 B: 1  0.4466E+09  0.1000E+07        -21.0     2    1
+Block Averages (BA) for block     2
+BA Box: 1 Volume [A^3] 0.10000000E+07
+BA Box: 1 V^2 [A^6] 0.10000000E+13
+BA Box: 1 Specific density [g/ml] 0.72263430E-02
+BA Box: 1 Virial Pressure      [kPa] 0.00000000E+00
+BA Box: 1 Total Classical 0.44657304E+09
+BA Box: 1 Inter vdw       0.00000000E+00
+BA Box: 1 Angle           0.15795328E+06
+BA Box: 1 Torsion         0.10905914E+07
+BA Box: 1 Intra vdw       0.44629137E+09
+BA Box: 1 External Field  0.00000000E+00
+BA Box: 1 Vibration       0.98362178E+05
+BA Box: 1 Coulomb         -.10652308E+07
+BA Box: 1 Tail vdw        0.00000000E+00
+BA Box: 1 Solvation       0.00000000E+00
+BA Box: 1 u (Gibbs Total) [K] Type   1 0.00000000E+00
+BA Box: 1 u (Gibbs Total) [K] Type   2 0.00000000E+00
+BA Box: 1 Number density [nm-3] Type   1 0.20000000E-02
+BA Box: 1 Number density [nm-3] Type   2 0.10000000E-02
+BA Box: 1 Mol Fraction Type   1 0.66666667E+00
+BA Box: 1 Mol Fraction Type   2 0.33333333E+00
+BA Box: 1 Stress Tensor Virial S_xx          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_yy          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_zz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_xy          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_xz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_yz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial P_tail        [kPa] 0.00000000E+00
+BA Box: 1 Radius of Gyration Type:  1        0.00000
+BA Box: 1 Radius of Gyration Type:  2       11.89696
+         5 B: 1  0.4466E+09  0.1000E+07        -21.0     2    1
+         6 B: 1  0.4466E+09  0.1000E+07        -21.0     2    1
+Block Averages (BA) for block     3
+BA Box: 1 Volume [A^3] 0.10000000E+07
+BA Box: 1 V^2 [A^6] 0.10000000E+13
+BA Box: 1 Specific density [g/ml] 0.72263430E-02
+BA Box: 1 Virial Pressure      [kPa] 0.00000000E+00
+BA Box: 1 Total Classical 0.44657269E+09
+BA Box: 1 Inter vdw       0.00000000E+00
+BA Box: 1 Angle           0.15795328E+06
+BA Box: 1 Torsion         0.10905914E+07
+BA Box: 1 Intra vdw       0.44629137E+09
+BA Box: 1 External Field  0.00000000E+00
+BA Box: 1 Vibration       0.98362178E+05
+BA Box: 1 Coulomb         -.10655870E+07
+BA Box: 1 Tail vdw        0.00000000E+00
+BA Box: 1 Solvation       0.00000000E+00
+BA Box: 1 u (Gibbs Total) [K] Type   1 0.00000000E+00
+BA Box: 1 u (Gibbs Total) [K] Type   2 0.00000000E+00
+BA Box: 1 Number density [nm-3] Type   1 0.20000000E-02
+BA Box: 1 Number density [nm-3] Type   2 0.10000000E-02
+BA Box: 1 Mol Fraction Type   1 0.66666667E+00
+BA Box: 1 Mol Fraction Type   2 0.33333333E+00
+BA Box: 1 Stress Tensor Virial S_xx          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_yy          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_zz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_xy          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_xz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_yz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial P_tail        [kPa] 0.00000000E+00
+BA Box: 1 Radius of Gyration Type:  1        0.00000
+BA Box: 1 Radius of Gyration Type:  2       11.89696
+         7 B: 1  0.4466E+09  0.1000E+07        -21.0     2    1
+         8 B: 1  0.4466E+09  0.1000E+07        -21.0     2    1
+Block Averages (BA) for block     4
+BA Box: 1 Volume [A^3] 0.10000000E+07
+BA Box: 1 V^2 [A^6] 0.10000000E+13
+BA Box: 1 Specific density [g/ml] 0.72263430E-02
+BA Box: 1 Virial Pressure      [kPa] 0.00000000E+00
+BA Box: 1 Total Classical 0.44657277E+09
+BA Box: 1 Inter vdw       0.00000000E+00
+BA Box: 1 Angle           0.15795328E+06
+BA Box: 1 Torsion         0.10905914E+07
+BA Box: 1 Intra vdw       0.44629137E+09
+BA Box: 1 External Field  0.00000000E+00
+BA Box: 1 Vibration       0.98362178E+05
+BA Box: 1 Coulomb         -.10655041E+07
+BA Box: 1 Tail vdw        0.00000000E+00
+BA Box: 1 Solvation       0.00000000E+00
+BA Box: 1 u (Gibbs Total) [K] Type   1 0.00000000E+00
+BA Box: 1 u (Gibbs Total) [K] Type   2 0.00000000E+00
+BA Box: 1 Number density [nm-3] Type   1 0.20000000E-02
+BA Box: 1 Number density [nm-3] Type   2 0.10000000E-02
+BA Box: 1 Mol Fraction Type   1 0.66666667E+00
+BA Box: 1 Mol Fraction Type   2 0.33333333E+00
+BA Box: 1 Stress Tensor Virial S_xx          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_yy          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_zz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_xy          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_xz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_yz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial P_tail        [kPa] 0.00000000E+00
+BA Box: 1 Radius of Gyration Type:  1        0.00000
+BA Box: 1 Radius of Gyration Type:  2       11.89696
+         9 B: 1  0.4466E+09  0.1000E+07        -21.0     2    1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate COM              9.         9.   1.000000
+ Box: 1 Molecule:  2  Attempts   Accepted   New Displacement
+ Translate COM              6.         6.   1.000000
+         Rotate            10.        10.   0.100000
+        10 B: 1  0.4466E+09  0.1000E+07        -21.0     2    1
+Block Averages (BA) for block     5
+BA Box: 1 Volume [A^3] 0.10000000E+07
+BA Box: 1 V^2 [A^6] 0.10000000E+13
+BA Box: 1 Specific density [g/ml] 0.72263430E-02
+BA Box: 1 Virial Pressure      [kPa] 0.00000000E+00
+BA Box: 1 Total Classical 0.44657254E+09
+BA Box: 1 Inter vdw       0.00000000E+00
+BA Box: 1 Angle           0.15795328E+06
+BA Box: 1 Torsion         0.10905914E+07
+BA Box: 1 Intra vdw       0.44629137E+09
+BA Box: 1 External Field  0.00000000E+00
+BA Box: 1 Vibration       0.98362178E+05
+BA Box: 1 Coulomb         -.10657391E+07
+BA Box: 1 Tail vdw        0.00000000E+00
+BA Box: 1 Solvation       0.00000000E+00
+BA Box: 1 u (Gibbs Total) [K] Type   1 0.00000000E+00
+BA Box: 1 u (Gibbs Total) [K] Type   2 0.00000000E+00
+BA Box: 1 Number density [nm-3] Type   1 0.20000000E-02
+BA Box: 1 Number density [nm-3] Type   2 0.10000000E-02
+BA Box: 1 Mol Fraction Type   1 0.66666667E+00
+BA Box: 1 Mol Fraction Type   2 0.33333333E+00
+BA Box: 1 Stress Tensor Virial S_xx          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_yy          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_zz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_xy          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_xz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_yz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial P_tail        [kPa] 0.00000000E+00
+BA Box: 1 Radius of Gyration Type:  1        0.00000
+BA Box: 1 Radius of Gyration Type:  2       11.89696
+
+ +++++ end of markov chain +++++
+
+ Final hmatrix (general box dimensions) 
+Box:     1
+  hmatrix(1,x)     100.00000       0.00000       0.00000
+  hmatrix(2,x)       0.00000     100.00000       0.00000
+  hmatrix(3,x)       0.00000       0.00000     100.00000
+
+* Configurational-Bias REGROWTH Moves *
+ Molecule type:    2 Box:    1
+     Length  Attempts  Regrown  Accepted  %Regrown   %Accep.
+        3         1         1         1    100.00    100.00
+       12         1         1         0    100.00      0.00
+
+* Configurational-Bias BACKBONE REGROWTH Moves *
+Molecule type:    2 Box:    1
+ Backbone Atoms    Attempts  Regrown  Accepted  %Regrown   %Accep.
+ 177 159 158 157         1         1         0    100.00      0.00
+ 184 185 186 201         1         1         1    100.00    100.00
+ 357 358 380 381         1         1         0    100.00      0.00
+         totals:         3         3         1    100.00     33.33
+
+* COM Translation Moves *
+Molecule:  1 Box: 1 Attempts:              9. Accepted:              9. Accepted: 100.000 %
+Molecule:  2 Box: 1 Attempts:              6. Accepted:              6. Accepted: 100.000 %
+
+* Rotation Moves *
+Molecule:  2 Box: 1 Attempts:             10. Accepted:             10. Accepted: 100.000 %
+
+Final Energies for Box     1
+Total molecules in this box          3
+Molecules of type   1 :          2
+Molecules of type   2 :          1
+ Total vibration (atoms ij bonded together)                 98362.178 [K]       195.46688 [kcal/mol]
+  bond (ij) regular                                         98362.178 [K]       195.46688 [kcal/mol]
+  bond (ij) van der waals                                       0.000 [K]         0.00000 [kcal/mol]
+  bond (ij) Electric                                            0.000 [K]         0.00000 [kcal/mol]
+  bond-bond (ij-jk)                                             0.000 [K]         0.00000 [kcal/mol]
+ Total angle (atoms ijk bonded in sequence)                157953.278 [K]       313.88726 [kcal/mol]
+  angle (ijk) regular                                      157953.278 [K]       313.88726 [kcal/mol]
+  bond-angle (ij-ijk)                                           0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) van der waals                                      0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) Electric                                           0.000 [K]         0.00000 [kcal/mol]
+  angle-angle (ijk-ijm)                                         0.000 [K]         0.00000 [kcal/mol]
+ Total torsion (ijkl bonded in sequence)                  1079792.395 [K]      2145.78055 [kcal/mol]
+  torsion (ijkl) regular                                   149599.335 [K]       297.28617 [kcal/mol]
+  torsion (ij-kl) bond-bond                                     0.000 [K]         0.00000 [kcal/mol]
+  torsion (ij-ijkl) bond-torsion                                0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-ijkl) angle-torsion                              0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-jkl-ijkl) angle-angle-torsion                    0.000 [K]         0.00000 [kcal/mol]
+  torsion (i-l) one-four van der waals                      88029.002 [K]       174.93263 [kcal/mol]
+  torsion (i-l) one-four Electric                          842164.058 [K]      1673.56176 [kcal/mol]
+ Total improper (ijkm, i,k,m bonded to j)                   10799.051 [K]        21.46005 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) vdw            446291368.641 [K]    886877.27837 [kcal/mol]
+  intramolecular                                        446291368.641 [K]    886877.27837 [kcal/mol]
+  2-body vdw intermolecular                                     0.000 [K]         0.00000 [kcal/mol]
+  3-body vdw intermolecular                                     0.000 [K]         0.00000 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) Electric        -1065882.296 [K]     -2118.13819 [kcal/mol]
+  total real space Electric                              -1065882.296 [K]     -2118.13819 [kcal/mol]
+   intramolecular Electric                               -1053351.306 [K]     -2093.23640 [kcal/mol]
+   intermolecular Electric                                 -12530.990 [K]       -24.90178 [kcal/mol]
+ Total external field                                           0.000 [K]         0.00000 [kcal/mol]
+ Total solvation                                                0.000 [K]         0.00000 [kcal/mol]
+Total classical                                         446572393.247 [K]    887435.73492 [kcal/mol]
+ Aggregate van der waals (bond and nonbond)             446379397.643 [K]    887052.21100 [kcal/mol]
+ Aggregate Electric (bond and nonbond)                    -223718.238 [K]      -444.57643 [kcal/mol]
+Averages               Units Type       Box  1
+ Volume                 nm^3       0.10000E+04
+ Volume^2               nm^6       0.10000E+07
+ Molecule Number                1        2.000
+ Molecule Number                2        1.000
+ Molar Volume         ml/mol       0.20073E+06
+ Specific Density       g/ml        0.00722634
+ Number Density         nm-3    1      0.00200
+ Number Density         nm-3    2      0.00100
+ Mole Fraction                  1    0.6666667
+ Mole Fraction                  2    0.3333333
+ Radius of Gyration        A    1    0.0000000
+ Radius of Gyration        A    2   11.8970269
+ Ideal Pressure          kPa       0.12430E+02
+ Ideal p_i <N/V>kT       kPa    1  0.82864E+01
+ Ideal p_i <N/V>kT       kPa    2  0.41432E+01
+ Total Classical           K        0.4466E+09
+ Inter vdw                 K        0.0000E+00
+ Angle                     K        0.1574E+06
+ Torsion                   K        0.1091E+07
+ Intra vdw                 K        0.4463E+09
+ External Field            K        0.0000E+00
+ Vibration                 K        0.9810E+05
+ Coulomb                   K       -0.1066E+07
+ Tail vdw                  K        0.0000E+00
+ Solvation                 K        0.0000E+00
+ G: Sum{<u_i><N_i>}   kJ/mol        0.0000E+00
+ U                    kJ/mol        0.3713E+07
+ C_v: T^2<H^2>-<H>^2 J/K mol        0.2251E+04
+
+Block Averages (  5 blocks) Units Type Box Average      Standard Deviation
+ Specific Density            g/ml        1  0.72263E-02  0.00000E+00
+ Total Classical                K        1  0.44657E+09  0.44395E+04
+ Inter vdw                      K        1  0.00000E+00  0.00000E+00
+ Angle                          K        1  0.15735E+06  0.11974E+04
+ Torsion                        K        1  0.10911E+07  0.98490E+03
+ Intra vdw                      K        1  0.44629E+09  0.57725E+04
+ External Field                 K        1  0.00000E+00  0.00000E+00
+ Vibration                      K        1  0.98103E+05  0.51863E+03
+ Coulomb                        K        1 -0.10658E+07  0.62710E+03
+ Tail vdw                       K        1  0.00000E+00  0.00000E+00
+ Solvation                      K        1  0.00000E+00  0.00000E+00
+ Number Density              nm-3    1   1  0.20000E-02  0.00000E+00
+ Number Density              nm-3    2   1  0.10000E-02  0.00000E+00
+ Mole Fraction                       1   1    0.6666667    0.0000000
+ Mole Fraction                       2   1    0.3333333    0.0000000
+ Molarity                       M    1   1  0.33223E-02  0.00000E+00
+ Molarity                       M    2   1  0.16611E-02  0.00000E+00
+ Radius of Gyration             A    1   1      0.00000      0.00000
+ Radius of Gyration             A    2   1     11.89703      0.00013
+
+ -----block averages ------
+Box:    1
+Block Energy         Density        Virial Press.  Mol fracs
+    1 0.44658385E+09 0.72263430E-02 0.00000000E+00 0.66666667 0.33333333
+    2 0.44657304E+09 0.72263430E-02 0.00000000E+00 0.66666667 0.33333333
+    3 0.44657269E+09 0.72263430E-02 0.00000000E+00 0.66666667 0.33333333
+    4 0.44657277E+09 0.72263430E-02 0.00000000E+00 0.66666667 0.33333333
+    5 0.44657254E+09 0.72263430E-02 0.00000000E+00 0.66666667 0.33333333
+Please see towhee_citations for a list of suggested citations for this simulation

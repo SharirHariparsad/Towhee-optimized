@@ -1,0 +1,152 @@
+ensemble
+'nvt'
+temperature
+336.0d0
+nmolty
+4
+nmolectyp
+1 1 1 1
+numboxes
+1
+stepstyle
+'cycles'
+nstep
+1
+printfreq 
+1   
+blocksize 
+2000
+moviefreq
+100000
+backupfreq  
+1000
+runoutput
+'full'
+pdb_output_freq
+100000
+pressure_virial_freq
+20
+trmaxdispfreq
+1000
+volmaxdispfreq
+1000
+linit   
+T
+initboxtype
+'dimensions'
+initstyle
+'full cbmc' 'full cbmc' 'full cbmc' 'full cbmc'
+initlattice
+'simple cubic' 'simple cubic' 'simple cubic' 'simple cubic'
+initmol
+1 1 1 1
+inix iniy iniz
+8    8    7   
+hmatrix
+30.0d0 0.0d0 0.0d0
+0.0d0 30.0d0 0.0d0
+0.0d0 0.0d0 30.0d0
+pmtracm
+1.0d0	  
+          pmtcmt
+          0.25d0 0.5d0 0.75d0 1.0d0
+          rmtrac
+          0.5d0 
+          tatrac
+          0.5d0
+ffnumber
+1
+ff_filename
+/towheebase/ForceFields/towhee_ff_Shukla1987
+classical_potential
+'Lennard-Jones'       
+classical_mixrule
+'Shukla'
+lshift
+.false.
+ltailc
+.true.
+rmin  
+1.0d0 
+rcut  
+10.0d0
+rcutin 
+10.0d0 
+electrostatic_form
+'none'
+#Xe
+input_style
+'basic connectivity map'
+nunit
+1
+nmaxcbmc
+1
+lpdbnames
+F
+forcefield
+'Shukla1987'
+charge_assignment
+'none'
+unit ntype
+1    'Xe'
+vibration
+0
+improper torsion
+0
+#(CH4)
+input_style
+'basic connectivity map'
+nunit
+1
+nmaxcbmc
+1
+lpdbnames
+F
+forcefield
+'Shukla1987'
+charge_assignment
+'none'
+unit ntype
+1    'CH4'
+vibration
+0
+improper torsion
+0
+#(Ar)
+input_style
+'basic connectivity map'
+nunit
+1
+nmaxcbmc
+1
+lpdbnames
+F
+forcefield
+'Shukla1987'
+charge_assignment
+'none'
+unit ntype
+1    'Ar'
+vibration
+0
+improper torsion
+0
+#(Kr)
+input_style
+'basic connectivity map'
+nunit
+1
+nmaxcbmc
+1
+lpdbnames
+F
+forcefield
+'Shukla1987'
+charge_assignment
+'none'
+unit ntype
+1    'Kr'
+vibration
+0
+improper torsion
+0

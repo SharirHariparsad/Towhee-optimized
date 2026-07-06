@@ -1,0 +1,683 @@
+ MCCCS Towhee - Version 8.2.3   (July 22 2021)      
+ Copyright (C) <2000-2021> Marcus G. Martin
+ Code Contributors for 2021: Marcus G. Martin;
+ Code Contributors for 2020: Marcus G. Martin;
+ Code Contributors for 2019: Marcus G. Martin;
+ Code Contributors for 2018: Marcus G. Martin;
+ Code Contributors for 2017: Marcus G. Martin;
+ Code Contributors for 2016: Marcus G. Martin;
+ Code Contributors for 2015: Marcus G. Martin;
+ Code Contributors for 2014: Marcus G. Martin;
+ Code Contributors for 2013: Wesley Emeneker; Marcus G. Martin;
+ Code Contributors for 2012: Marcus G. Martin;
+ Code Contributors for 2011: Fred James; Marcus G. Martin; Suleiman Oloriegbe;
+ Code Contributors for 2010: Rene Haber; Andrej Lajovic; Marcus G. Martin; Loukas Peristeras;
+ Code Contributors for 2009: Rene Haber; Marcus G. Martin; Loukas Peristeras;
+ Code Contributors for 2008: Rene Haber; Iyad A. Hijazi; Marcus G. Martin; Loukas Peristeras; Craig Tenney;
+ Code Contributors for 2007: Bernhard Eckl; Frank Heilmann; Jianhui Li; Marcus G. Martin; Craig M. Tenney; Ozgur Yazaydin
+ Code Contributors for 2006: Alan A. Chen; Arben Jusufi; Christian D. Lorenz; Marcus G. Martin; Jeffrey J. Potoff; Vincent K. Shen; Matthew A. Wyczalkowski; Ozgur Yazaydin
+ Code Contributors for 2005: Marcus G. Martin; Alan A. Chen; Christian D. Lorenz; Matthew A. Wyczalkowski
+ Code Contributors for 2004: Marcus G. Martin; Christian D. Lorenz; Peter A. Schultz; Aidan P. Thompson; Jeffrey J. Potoff; Steve R. Lustig; Paul S. Crozier; Nicholas du Preez
+ Code Contributors for 2003: Marcus G. Martin; Christian D. Lorenz; David B. Ritch; Michael L. Greenfield; Yogesh Srivastava; Evangelos A Coutsias
+ Code Contributors for 2002: Marcus G. Martin; Christian D. Lorenz; Aidan P. Thompson; Allen G. Sault
+ Code Contributors for 2001: Marcus G. Martin
+ Code Contributors for 2000: Marcus G. Martin
+ Copyright (C) <1999> J. Ilja Siepmann and Marcus G. Martin
+ Code Contributors for 1999: J. Ilja Siepmann; Marcus G. Martin; Bin Chen; Collin D. Wick; John Stubbs
+
+ Direct comments about this code to Marcus G. Martin (marcus_martin@users.sourceforge.net)
+ See the MCCCS Towhee web site for more information and the users manual.
+ http://towhee.sourceforge.net
+
+ We would like to thank the following agencies for providing funding used to develop MCCCS Towhee
+ -Department of Energy Industrial Technologies Program (MGM)
+ -National Science Foundation (JIS)
+ -Department of Energy Computational Science Graduate Fellowship (MGM,CDW)
+
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+ Reading from towhee_input file: towhee_input                                                                                                            
+ in directory: current directory
+ inputformat: Towhee         
+ random_number_generator: DX-1597-2-7                   
+ random_allow_restart:  T
+ ensemble: nvt                           
+ temperature:  300.000    
+ nmolty:            1
+ nmolectyp:            1
+ numboxes:            1
+ stepstyle: cycles  
+ nstep:            0
+ controlstyle: manual              
+ printfreq:            0
+ blocksize:            0
+ moviefreq:            0
+ backupfreq:            0
+ restartfreq:            0
+ runoutput: full                
+Full output of updates and block averages
+ pdb_output_freq:            0
+ loutdft:  F
+ loutlammps:  T
+ loutdlpoly:  F
+ pressure_virial_freq:            0
+ pressure_thermo_freq:            0
+ pressure_thermo_style: range               
+ pressure_thermo_range: -.100000E-01 0.100000E-01
+ trmaxdispfreq:            0
+ volmaxdispfreq:            0
+ chempotperstep:            0
+ loutchempotdata:  F
+ linit:  T
+ initboxtype: dimensions          
+initstyle Box:    1
+ coords              
+Box:  1 initlattice: none                
+Box:  1 initmol:         1
+Box:  1 inix,iniy,iniz:         1          1          1
+Box idim hmatrix:    1 1   80.00000    0.00000    0.00000
+Box idim hmatrix:    1 2    0.00000   80.00000    0.00000
+Box idim hmatrix:    1 3    0.00000    0.00000   80.00000
+ pm1boxcbswap:  0.00000    
+ pm1cbswmt:  1.00000    
+ pmavb1:  0.00000    
+ pmavb1in: 0.500000    
+ pmavb1mt:  1.00000    
+moltyp:  1 pmavb1ct: 1.000000
+ avb1rad: 0.100000    
+ pmavb2:  0.00000    
+ pmavb2in: 0.500000    
+ pmavb2mt:  1.00000    
+moltyp:  1 pmavb2ct: 1.000000
+ avb2rad: 0.100000    
+ pmavb3:  0.00000    
+ pmavb3mt:  1.00000    
+moltyp:  1 pmavb3ct: 1.000000
+ avb3rad: 0.100000    
+ pmcb:  0.00000    
+ pmcbmt:  1.00000    
+ pmall:  0.00000    
+ pmback:  0.00000    
+ pmbkmt:  1.00000    
+ pmcbside:  0.00000    
+ pmcbsidemt:  1.00000    
+ pmpivot:  0.00000    
+ pmpivmt:  1.00000    
+ pmconrot:  0.00000    
+ pmcrmt:  1.00000    
+ pmcrback:  0.00000    
+ pmcrbmt:  1.00000    
+ pmplane:  0.00000    
+ pmplanebox:  1.00000    
+ planewidth:  1.00000    
+ pmrow:  0.00000    
+ pmrowbox:  1.00000    
+ rowwidth:  1.00000    
+ pmtraat:  0.00000    
+ pmtamt:  1.00000    
+ rmtraa: 0.500000    
+ tatraa: 0.500000    
+ pmcomposite:  0.00000    
+ pmcomt:  1.00000    
+ rmcomtra: 0.500000    
+ rmcomrot: 0.500000    
+ pmtracm:  0.00000    
+ pmtcmt:  1.00000    
+ rmtrac: 0.500000    
+ tatrac: 0.500000    
+ pmrotate:  1.00000    
+ pmromt:  1.00000    
+ rmrot: 0.500000    
+ tarot: 0.500000    
+cbmc_analysis: normal                        
+cbmc_formulation: Martin and Frischknecht 2006                                
+ Coupled to pre-nonbond formulation from
+ M.G. Martin; A.L. Frischknecht; Mol. Phys. 104 2439-2456 (2006)
+cbmc_setting_style: Martin and Frischknecht       
+cbmc_fit_strategy: equilibrium                   
+ cbmc_nb_one_generation                            : uniform                       
+ nch_nb_one                                        :           10
+ nch_nb                                            :           10
+ nch_pre_nb                                        :            1
+cbmc_dihedral_generation: ideal                         
+ Use true distributions to generate torsions in config-bias
+ nch_tor                                           :          360
+ nch_tor_connect                                   :          360
+cbmc_bend_generation: ideal                         
+ Use ideal distributions to generate angles in configurational-bias
+ nch_bend_a                                        :          100
+ nch_bend_b                                        :          100
+ max_bond_length                                   :  3.00000    
+cbmc_bond_generation: ideal                         
+ Use the ideal r^2 distribution to generate vibrations in config-bias
+ nch_vib                                           :         1000
+two_bond_fixed_endpoint_bias_style: none                                              
+three_bond_fixed_endpoint_bias_style: none                                              
+ ffnumber:            1
+ ff_filename:
+towhee_ff                                                                                                               
+ classical_potential: 9-6                           
+ READCLASSICAL: pot_num:     6 potential name: 9-6                           
+ classical_mixrule: Sixth Power                   
+ lshift:  F
+ ltailc:  F
+ rmin:  0.00000    
+ rcut:  40.0000    
+ rcutin:  40.0000    
+ electrostatic_form: coulomb                                           
+ coulombstyle: ewald_fixed_kmax    
+ kalp:  5.60000    
+ kmax:            5
+ dielect:  1.00000    
+ lcompute_madelung                                 :  F
+ Setting up force field parameters from files
+ opening forcefield file:    1
+ Sixth Power Mixing rules
+ Sixth order combination of sigma
+ Sixth order combination of epsilon
+ nfield:            0
+ solvation_style: none                
+ No solvation model used
+ input_style: explicit                                          
+ nunit:           23
+ nmaxcbmc:           23
+bead:          1 beadtype:          1 charge:   -0.04500
+bead:          2 beadtype:          3 charge:   -0.07800
+bead:          3 beadtype:          2 charge:    0.28000
+bead:          4 beadtype:          2 charge:    0.28000
+bead:          5 beadtype:          2 charge:    0.28000
+bead:          6 beadtype:          4 charge:    0.05300
+bead:          7 beadtype:          5 charge:    0.29740
+bead:          8 beadtype:          3 charge:   -0.10600
+bead:          9 beadtype:          6 charge:   -0.53370
+bead:         10 beadtype:          6 charge:   -0.53370
+bead:         11 beadtype:          4 charge:    0.05300
+bead:         12 beadtype:          4 charge:    0.05300
+bead:         13 beadtype:          7 charge:    0.00000
+bead:         14 beadtype:          7 charge:   -0.13053
+bead:         15 beadtype:          7 charge:   -0.13053
+bead:         16 beadtype:          4 charge:    0.13053
+bead:         17 beadtype:          7 charge:   -0.13053
+bead:         18 beadtype:          7 charge:   -0.13053
+bead:         19 beadtype:          4 charge:    0.13053
+bead:         20 beadtype:          4 charge:    0.13053
+bead:         21 beadtype:          7 charge:   -0.13053
+bead:         22 beadtype:          4 charge:    0.13053
+bead:         23 beadtype:          4 charge:    0.13053
+ Verifying input structures are consistent
+Determining cyclic subunits for molecule type          1
+Default total charge on molecule   1 is   0.00000
+Total charge in the simulation system:   0.00000
+Bond Types
+Type:      1 Style: Quartic   Length: 1.5228
+          Constants:   141024.2  -282111.4   325778.0
+Type:      2 Style: Quartic   Length: 1.0119
+          Constants:   195013.9  -434488.3   629581.2
+Type:      3 Style: Quartic   Length: 1.1010
+          Constants:   171596.9  -348170.5   425016.7
+Type:      4 Style: Quartic   Length: 1.5483
+          Constants:   127354.1  -225959.3   230131.0
+Type:      5 Style: Quartic   Length: 1.5330
+          Constants:   150798.9  -252499.0   342091.7
+Type:      6 Style: Quartic   Length: 1.2339
+          Constants:   357963.1  -776916.1   935278.4
+Type:      7 Style: Quartic   Length: 1.5100
+          Constants:   181282.3  -283207.2   219222.0
+Type:      8 Style: Quartic   Length: 1.4425
+          Constants:   174437.9  -279591.8   658374.7
+Type:      9 Style: Quartic   Length: 1.1009
+          Constants:   192426.7  -408230.8   462331.0
+Angle Types
+Type:   1 Style: Compass  Angle:    110.245
+          Constants:    22352.5   -4426.7   -4698.0
+          Bond-Angle Constants k1 :  1839.307 d1:     1.012 k2 : 12527.577 d2:     1.523
+          Bond-Bond Constants k:   5327.655 d1:     1.012 d2:     1.523
+Type:   2 Style: Compass  Angle:    105.913
+          Constants:    19964.7   -3087.3   -4168.4
+          Bond-Angle Constants k1 :  5604.374 d1:     1.012 k2 :  5604.374 d2:     1.012
+          Bond-Bond Constants k:   1837.344 d1:     1.012 d2:     1.012
+Type:   3 Style: Compass  Angle:    105.127
+          Constants:    28984.1   -4248.9   -6035.0
+          Bond-Angle Constants k1 : 24839.979 d1:     1.523 k2 :  3362.594 d2:     1.101
+          Bond-Bond Constants k:   -996.620 d1:     1.523 d2:     1.101
+Type:   4 Style: Compass  Angle:     99.150
+          Constants:    30656.0   -2665.6   -6259.6
+          Bond-Angle Constants k1 : 16180.678 d1:     1.523 k2 : -7692.018 d2:     1.548
+          Bond-Bond Constants k:   1039.947 d1:     1.523 d2:     1.548
+Type:   5 Style: Compass  Angle:    110.067
+          Constants:    30647.5   -6088.4   -6518.9
+          Bond-Angle Constants k1 : 31556.965 d1:     1.523 k2 :  7076.584 d2:     1.533
+          Bond-Bond Constants k:   9167.801 d1:     1.523 d2:     1.533
+Type:   6 Style: Compass  Angle:    109.670
+          Constants:    19081.5   -3717.6   -4060.7
+          Bond-Angle Constants k1 :  7530.636 d1:     1.101 k2 :  5970.665 d2:     1.548
+          Bond-Bond Constants k:   -588.814 d1:     1.101 d2:     1.548
+Type:   7 Style: Compass  Angle:    110.770
+          Constants:    20859.8   -5336.1    2581.0
+          Bond-Angle Constants k1 : 10443.757 d1:     1.533 k2 :  5747.237 d2:     1.101
+          Bond-Bond Constants k:   1704.495 d1:     1.533 d2:     1.101
+Type:   8 Style: Compass  Angle:    104.490
+          Constants:    15788.4   -2215.3   -3284.5
+          Bond-Angle Constants k1 : 11616.252 d1:     1.533 k2 :  9641.127 d2:     1.548
+          Bond-Bond Constants k:   8285.461 d1:     1.533 d2:     1.548
+Type:   9 Style: Compass  Angle:    115.060
+          Constants:    29738.1   -7620.2   -6532.8
+          Bond-Angle Constants k1 : 25957.925 d1:     1.548 k2 : 31227.609 d2:     1.234
+          Bond-Bond Constants k:  29123.661 d1:     1.548 d2:     1.234
+Type:  10 Style: Compass  Angle:    130.010
+          Constants:    56003.0  -26337.9  -14143.9
+          Bond-Angle Constants k1 : 36910.938 d1:     1.234 k2 : 36910.938 d2:     1.234
+          Bond-Bond Constants k:  83830.853 d1:     1.234 d2:     1.234
+Type:  11 Style: Compass  Angle:    110.877
+          Constants:    18906.6   -3901.7   -4015.6
+          Bond-Angle Constants k1 :  8639.977 d1:     1.533 k2 : 16054.220 d2:     1.510
+          Bond-Bond Constants k:   7028.879 d1:     1.533 d2:     1.510
+Type:  12 Style: Compass  Angle:    107.660
+          Constants:    19948.0   -6502.1   -1223.7
+          Bond-Angle Constants k1 :  9109.730 d1:     1.101 k2 :  9109.730 d2:     1.101
+          Bond-Bond Constants k:   2682.950 d1:     1.101 d2:     1.101
+Type:  13 Style: Compass  Angle:    109.646
+          Constants:    21967.3   -4203.0   -4596.7
+          Bond-Angle Constants k1 :  7936.078 d1:     1.101 k2 : 16350.363 d2:     1.510
+          Bond-Bond Constants k:   5559.789 d1:     1.101 d2:     1.510
+Type:  14 Style: Compass  Angle:    124.580
+          Constants:    16300.9   -6082.4   -3779.3
+          Bond-Angle Constants k1 : 21871.454 d1:     1.510 k2 :  8689.142 d2:     1.442
+          Bond-Bond Constants k:  19212.256 d1:     1.510 d2:     1.442
+Type:  15 Style: Compass  Angle:    119.995
+          Constants:    17108.1   -5318.4   -3809.7
+          Bond-Angle Constants k1 : 20535.867 d1:     1.442 k2 : 20535.867 d2:     1.442
+          Bond-Bond Constants k:  99818.196 d1:     1.442 d2:     1.442
+Type:  16 Style: Compass  Angle:    120.881
+          Constants:    21481.1   -6997.1   -4868.3
+          Bond-Angle Constants k1 : 10749.512 d1:     1.101 k2 : 13406.697 d2:     1.442
+          Bond-Bond Constants k:  10218.719 d1:     1.101 d2:     1.442
+Angle-Angle Types
+Type:   4 Style: Compass  k:    -10284.4  Angle(1)    124.580 Angle(2)    119.995
+Type:   5 Style: Compass  k:     -9930.9  Angle(1)    124.580 Angle(2)    124.580
+Type:   6 Style: Compass  k:    -10284.4  Angle(1)    124.580 Angle(2)    119.995
+Type:   7 Style: Compass  k:      3157.4  Angle(1)    120.881 Angle(2)    119.995
+Type:   8 Style: Compass  k:      5451.7  Angle(1)    120.881 Angle(2)    120.881
+Type:   9 Style: Compass  k:      3157.4  Angle(1)    120.881 Angle(2)    119.995
+Type:  10 Style: Compass  k:      1016.0  Angle(1)    105.913 Angle(2)    110.245
+Type:  11 Style: Compass  k:      1016.0  Angle(1)    105.913 Angle(2)    110.245
+Type:  12 Style: Compass  k:     -1596.7  Angle(1)    110.245 Angle(2)    110.245
+Type:  16 Style: Compass  k:       366.3  Angle(1)    105.127 Angle(2)    109.670
+Type:  17 Style: Compass  k:      6925.6  Angle(1)    105.127 Angle(2)     99.150
+Type:  18 Style: Compass  k:      7670.1  Angle(1)     99.150 Angle(2)    109.670
+Type:  19 Style: Compass  k:      1575.6  Angle(1)    110.067 Angle(2)    110.770
+Type:  20 Style: Compass  k:      4979.0  Angle(1)    110.067 Angle(2)    105.127
+Type:  21 Style: Compass  k:      5077.7  Angle(1)    105.127 Angle(2)    110.770
+Type:  22 Style: Compass  k:     16651.4  Angle(1)    110.067 Angle(2)    104.490
+Type:  23 Style: Compass  k:      7504.0  Angle(1)    110.067 Angle(2)     99.150
+Type:  24 Style: Compass  k:     13035.1  Angle(1)     99.150 Angle(2)    104.490
+Type:  25 Style: Compass  k:      1237.6  Angle(1)    110.770 Angle(2)    109.670
+Type:  26 Style: Compass  k:      -504.9  Angle(1)    110.770 Angle(2)    104.490
+Type:  27 Style: Compass  k:       -20.8  Angle(1)    104.490 Angle(2)    109.670
+Type:  28 Style: Compass  k:       137.8  Angle(1)    110.770 Angle(2)    107.660
+Type:  29 Style: Compass  k:      -242.8  Angle(1)    110.770 Angle(2)    110.770
+Type:  30 Style: Compass  k:       137.8  Angle(1)    110.770 Angle(2)    107.660
+Type:  31 Style: Compass  k:      2691.4  Angle(1)    110.770 Angle(2)    109.646
+Type:  32 Style: Compass  k:      -211.3  Angle(1)    110.770 Angle(2)    110.877
+Type:  33 Style: Compass  k:     -3887.2  Angle(1)    110.877 Angle(2)    109.646
+Type:  34 Style: Compass  k:       921.4  Angle(1)    107.660 Angle(2)    109.646
+Type:  35 Style: Compass  k:       921.4  Angle(1)    107.660 Angle(2)    109.646
+Type:  36 Style: Compass  k:     -2091.3  Angle(1)    109.646 Angle(2)    109.646
+Torsion Types
+Type:   1 Style: Class 2 with explicit cross terms
+          Normal Torsion Constants   -351.04   -116.34    -76.94      0.00      0.00      0.00
+          Bond(jk) - Torsion Constants   1808.81     85.75   -276.27      1.52
+          Bond(ij) - Torsion Constants    171.95    164.25   -454.71      1.01
+          Bond(kl) - Torsion Constants     68.84      0.00   -406.60      1.10
+          Angle(ijk) - Torsion Constants      0.00    -93.10   -400.71  -1017.50
+          Angle(jkl) - Torsion Constants      0.00   -200.83      1.92      1.83
+          Angle(ijk) - Angle(jkl) - Torsion Constants  -6807.06      1.92      1.83
+          Bond(ij) - Bond(kl) Constants      0.00      1.01      1.10
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:   2 Style: Class 2 with explicit cross terms
+          Normal Torsion Constants   -237.67    596.31      0.00      0.00      0.00      0.00
+          Bond(jk) - Torsion Constants  -1106.98   -783.36  -1463.30      1.52
+          Bond(ij) - Torsion Constants  -3171.52  -1756.83  -1000.60      1.01
+          Bond(kl) - Torsion Constants   1348.27    977.05   -441.52      1.55
+          Angle(ijk) - Torsion Constants   2154.12   1033.41    270.63  -4476.41
+          Angle(jkl) - Torsion Constants  -3043.25   -760.01      1.92      1.73
+          Angle(ijk) - Angle(jkl) - Torsion Constants  12337.66      1.92      1.73
+          Bond(ij) - Bond(kl) Constants      0.00      1.01      1.55
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:   3 Style: Class 2 with explicit cross terms
+          Normal Torsion Constants   -403.13   -293.38   -119.26      0.00      0.00      0.00
+          Bond(jk) - Torsion Constants   -245.72   -714.72    642.61      1.52
+          Bond(ij) - Torsion Constants    258.05      0.00    390.04      1.01
+          Bond(kl) - Torsion Constants    370.52    252.77    528.98      1.53
+          Angle(ijk) - Torsion Constants   -167.42   -472.17    435.99  -2319.33
+          Angle(jkl) - Torsion Constants      0.00   -219.30      1.92      1.92
+          Angle(ijk) - Angle(jkl) - Torsion Constants  -8355.76      1.92      1.92
+          Bond(ij) - Bond(kl) Constants      0.00      1.01      1.53
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:   4 Style: Class 2 with explicit cross terms
+          Normal Torsion Constants    953.04   2018.30   -301.38      0.00      0.00      0.00
+          Bond(jk) - Torsion Constants    537.03   1419.72      0.00      1.55
+          Bond(ij) - Torsion Constants   4243.73   -238.42      0.00      1.52
+          Bond(kl) - Torsion Constants  -6084.29   5563.66    573.82      1.23
+          Angle(ijk) - Torsion Constants   6377.52   -574.37      0.00   3584.76
+          Angle(jkl) - Torsion Constants   8228.45  -1262.07      1.73      2.01
+          Angle(ijk) - Angle(jkl) - Torsion Constants -13013.73      1.73      2.01
+          Bond(ij) - Bond(kl) Constants      0.00      1.52      1.23
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:   5 Style: Class 2 with explicit cross terms
+          Normal Torsion Constants  -1308.31    527.77   -105.12      0.00      0.00      0.00
+          Bond(jk) - Torsion Constants  -2868.79    390.40   -205.82      1.55
+          Bond(ij) - Torsion Constants      0.00      0.00      0.00      1.10
+          Bond(kl) - Torsion Constants      0.00      0.00      0.00      1.23
+          Angle(ijk) - Torsion Constants   6074.83    120.17    -21.44  -2155.03
+          Angle(jkl) - Torsion Constants    566.32    -74.53      1.91      2.01
+          Angle(ijk) - Angle(jkl) - Torsion Constants  -9791.09      1.91      2.01
+          Bond(ij) - Bond(kl) Constants      0.00      1.10      1.23
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:   6 Style: Class 2 with explicit cross terms
+          Normal Torsion Constants    871.12    931.45    -97.27      0.00      0.00      0.00
+          Bond(jk) - Torsion Constants    342.09    472.42   -929.84      1.55
+          Bond(ij) - Torsion Constants      0.00      0.00      0.00      1.53
+          Bond(kl) - Torsion Constants      0.00      0.00      0.00      1.23
+          Angle(ijk) - Torsion Constants   6653.53    667.82   -198.32   1476.09
+          Angle(jkl) - Torsion Constants   1136.92   -280.44      1.82      2.01
+          Angle(ijk) - Angle(jkl) - Torsion Constants -14463.45      1.82      2.01
+          Bond(ij) - Bond(kl) Constants      0.00      1.53      1.23
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:   7 Style: Class 2 with explicit cross terms
+          Normal Torsion Constants      0.00   -200.93   -125.60      0.00      0.00      0.00
+          Bond(jk) - Torsion Constants  -5092.80   -940.81   -427.83      1.53
+          Bond(ij) - Torsion Constants    468.54    646.28   -255.84      1.52
+          Bond(kl) - Torsion Constants   -699.87    225.89   -482.28      1.10
+          Angle(ijk) - Torsion Constants   -763.33   1045.43   -933.82   -965.37
+          Angle(jkl) - Torsion Constants    761.01   -706.11      1.92      1.93
+          Angle(ijk) - Angle(jkl) - Torsion Constants -13155.59      1.92      1.93
+          Bond(ij) - Bond(kl) Constants      0.00      1.52      1.10
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:   8 Style: Class 2 with explicit cross terms
+          Normal Torsion Constants   -314.71   -263.99      0.00      0.00      0.00      0.00
+          Bond(jk) - Torsion Constants  -5749.15  -3006.52   -989.22      1.53
+          Bond(ij) - Torsion Constants      0.00    194.64    149.61      1.52
+          Bond(kl) - Torsion Constants    460.19   -117.65      0.00      1.51
+          Angle(ijk) - Torsion Constants   -219.50    920.28    816.77  -1315.91
+          Angle(jkl) - Torsion Constants   1081.31     90.73      1.92      1.94
+          Angle(ijk) - Angle(jkl) - Torsion Constants -18841.03      1.92      1.94
+          Bond(ij) - Bond(kl) Constants      0.00      1.52      1.51
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:   9 Style: Class 2 with explicit cross terms
+          Normal Torsion Constants   -122.38     31.05    -69.59      0.00      0.00      0.00
+          Bond(jk) - Torsion Constants  -7176.37   -267.81   -244.76      1.53
+          Bond(ij) - Torsion Constants    107.19    157.00     39.10      1.10
+          Bond(kl) - Torsion Constants    107.19    157.00     39.10      1.10
+          Angle(ijk) - Torsion Constants   -406.85    280.24   -124.09   -406.85
+          Angle(jkl) - Torsion Constants    280.24   -124.09      1.93      1.93
+          Angle(ijk) - Angle(jkl) - Torsion Constants  -6322.41      1.93      1.93
+          Bond(ij) - Bond(kl) Constants      0.00      1.10      1.10
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:  10 Style: Class 2 with explicit cross terms
+          Normal Torsion Constants      2.42    132.80   -150.41      0.00      0.00      0.00
+          Bond(jk) - Torsion Constants  -6564.56    -60.49    169.13      1.53
+          Bond(ij) - Torsion Constants    193.34    293.58      3.07      1.10
+          Bond(kl) - Torsion Constants    339.52    363.67     84.64      1.51
+          Angle(ijk) - Torsion Constants    334.04    381.79   -227.96   -108.04
+          Angle(jkl) - Torsion Constants    204.51     33.92      1.93      1.94
+          Angle(ijk) - Angle(jkl) - Torsion Constants -10149.22      1.93      1.94
+          Bond(ij) - Bond(kl) Constants      0.00      1.10      1.51
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:  11 Style: Class 2 with explicit cross terms
+          Normal Torsion Constants   -642.46    299.36    119.72      0.00      0.00      0.00
+          Bond(jk) - Torsion Constants  -6864.88   -444.99    106.58      1.53
+          Bond(ij) - Torsion Constants      0.00      0.00      0.00      1.10
+          Bond(kl) - Torsion Constants      0.00      0.00      0.00      1.55
+          Angle(ijk) - Torsion Constants   1978.55   1118.90    184.68    834.08
+          Angle(jkl) - Torsion Constants   -230.32    181.66      1.93      1.82
+          Angle(ijk) - Angle(jkl) - Torsion Constants  -7853.70      1.93      1.82
+          Bond(ij) - Bond(kl) Constants      0.00      1.10      1.55
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:  12 Style: Class 2 with explicit cross terms
+          Normal Torsion Constants     48.91     36.33   -129.88      0.00      0.00      0.00
+          Bond(jk) - Torsion Constants      0.00      0.00      0.00      1.53
+          Bond(ij) - Torsion Constants      0.00      0.00      0.00      1.55
+          Bond(kl) - Torsion Constants      0.00      0.00      0.00      1.51
+          Angle(ijk) - Torsion Constants      0.00      0.00      0.00      0.00
+          Angle(jkl) - Torsion Constants      0.00      0.00      1.82      1.94
+          Angle(ijk) - Angle(jkl) - Torsion Constants      0.00      1.82      1.94
+          Bond(ij) - Bond(kl) Constants      0.00      1.55      1.51
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:  13 Style: Class 2 with explicit cross terms
+          Normal Torsion Constants    445.70     80.16    -37.19      0.00      0.00      0.00
+          Bond(jk) - Torsion Constants  -1335.54    751.05   -648.75      1.51
+          Bond(ij) - Torsion Constants   -655.39    345.36   -289.20      1.53
+          Bond(kl) - Torsion Constants     93.04    534.32     58.27      1.44
+          Angle(ijk) - Torsion Constants    779.99    666.81    124.50     40.41
+          Angle(jkl) - Torsion Constants    634.30   -193.03      1.94      2.17
+          Angle(ijk) - Angle(jkl) - Torsion Constants  -8202.18      1.94      2.17
+          Bond(ij) - Bond(kl) Constants      0.00      1.53      1.44
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:  14 Style: Class 2 with explicit cross terms
+          Normal Torsion Constants     -8.30     95.06     26.22      0.00      0.00      0.00
+          Bond(jk) - Torsion Constants   -978.00    854.86    474.94      1.51
+          Bond(ij) - Torsion Constants   -202.85    253.47      3.07      1.10
+          Bond(kl) - Torsion Constants   -347.12    103.01    191.78      1.44
+          Angle(ijk) - Torsion Constants    438.55    305.25    180.15  -1158.81
+          Angle(jkl) - Torsion Constants    353.76    112.82      1.91      2.17
+          Angle(ijk) - Angle(jkl) - Torsion Constants  -6211.40      1.91      2.17
+          Bond(ij) - Bond(kl) Constants      0.00      1.10      1.44
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:  15 Style: Class 2 with explicit cross terms
+          Normal Torsion Constants      0.00    583.73      0.00      0.00      0.00      0.00
+          Bond(jk) - Torsion Constants      0.00   6932.56      0.00      1.44
+          Bond(ij) - Torsion Constants      0.00     -4.73      0.00      1.51
+          Bond(kl) - Torsion Constants      0.00   -501.20      0.00      1.10
+          Angle(ijk) - Torsion Constants      0.00   2396.37      0.00      0.00
+          Angle(jkl) - Torsion Constants   1376.70      0.00      2.17      2.11
+          Angle(ijk) - Angle(jkl) - Torsion Constants  -2360.74      2.17      2.11
+          Bond(ij) - Bond(kl) Constants      0.00      1.51      1.10
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:  16 Style: Class 2 with explicit cross terms
+          Normal Torsion Constants   -330.76   3163.32    353.91      0.00      0.00      0.00
+          Bond(jk) - Torsion Constants -10092.66  -1102.20  -4862.08      1.44
+          Bond(ij) - Torsion Constants   1061.69   3022.62    364.23      1.51
+          Bond(kl) - Torsion Constants   3005.91  -1938.74    -10.01      1.44
+          Angle(ijk) - Torsion Constants   6816.47   2351.73    210.09  -3291.74
+          Angle(jkl) - Torsion Constants   4954.47   3711.32      2.17      2.09
+          Angle(ijk) - Angle(jkl) - Torsion Constants  -6638.53      2.17      2.09
+          Bond(ij) - Bond(kl) Constants      0.00      1.51      1.44
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:  17 Style: Class 2 with explicit cross terms
+          Normal Torsion Constants   -276.92   2073.96     80.77      0.00      0.00      0.00
+          Bond(jk) - Torsion Constants  -7376.15   3463.79  -1048.25      1.44
+          Bond(ij) - Torsion Constants    703.60   -422.00   -439.76      1.10
+          Bond(kl) - Torsion Constants   3422.98  -3995.39   -517.61      1.44
+          Angle(ijk) - Torsion Constants   2105.61   1488.62  -1068.28   1413.28
+          Angle(jkl) - Torsion Constants   3504.60    698.46      2.11      2.09
+          Angle(ijk) - Angle(jkl) - Torsion Constants  -7066.57      2.11      2.09
+          Bond(ij) - Bond(kl) Constants      0.00      1.10      1.44
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:  18 Style: Class 2 with explicit cross terms
+          Normal Torsion Constants    388.28   1487.71     44.48      0.00      0.00      0.00
+          Bond(jk) - Torsion Constants   7385.56  12893.62  -2445.58      1.44
+          Bond(ij) - Torsion Constants  -1925.61  -2166.50   -729.76      1.44
+          Bond(kl) - Torsion Constants  -1925.61  -2166.50   -729.76      1.44
+          Angle(ijk) - Torsion Constants   2658.85   -751.65    375.55   2658.85
+          Angle(jkl) - Torsion Constants   -751.65    375.55      2.09      2.09
+          Angle(ijk) - Angle(jkl) - Torsion Constants -10994.48      2.09      2.09
+          Bond(ij) - Bond(kl) Constants -46451.87      1.44      1.44
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Type:  19 Style: Class 2 with explicit cross terms
+          Normal Torsion Constants      0.00    858.84      0.00      0.00      0.00      0.00
+          Bond(jk) - Torsion Constants      0.00   4539.27      0.00      1.44
+          Bond(ij) - Torsion Constants      0.00    385.21      0.00      1.10
+          Bond(kl) - Torsion Constants      0.00    385.21      0.00      1.10
+          Angle(ijk) - Torsion Constants      0.00   1523.99      0.00      0.00
+          Angle(jkl) - Torsion Constants   1523.99      0.00      2.11      2.11
+          Angle(ijk) - Angle(jkl) - Torsion Constants  -2457.06      2.11      2.11
+          Bond(ij) - Bond(kl) Constants      0.00      1.10      1.10
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Improper Torsion Types
+Type:   1 Style: Wilson Harmonic  Angle:0.0000 k    22217.0
+Type:   2 Style: Wilson Harmonic  Angle:0.0000 k     3731.0
+Type:   3 Style: Wilson Harmonic  Angle:0.0000 k     2349.8
+Energies exclusively from internal potentials
+Nonbonded Force Field
+Lennard-Jones 9-6 potential
+u(r) = epsilon*[2*(Ro/r)^9 - 3*(Ro/r)^6] - S
+Num. Atom(i)    Num. Atom(j)         Ro epsilon       S
+   1 no name       1 no name      3.700  75.482   0.000
+   1 no name       2 no name      3.297   1.161   0.000
+   1 no name       3 no name      3.870  44.001   0.000
+   1 no name       4 no name      3.435  22.818   0.000
+   1 no name       5 no name      3.811  66.615   0.000
+   1 no name       6 no name      3.650  79.355   0.000
+   1 no name       7 no name      3.870  47.903   0.000
+   2 no name       2 no name      1.098   6.542   0.000
+   2 no name       3 no name      3.573   0.547   0.000
+   2 no name       4 no name      2.669   0.798   0.000
+   2 no name       5 no name      3.482   0.881   0.000
+   2 no name       6 no name      3.204   1.334   0.000
+   2 no name       7 no name      3.573   0.596   0.000
+   3 no name       3 no name      4.010  27.174   0.000
+   3 no name       4 no name      3.669  11.742   0.000
+   3 no name       5 no name      3.961  40.387   0.000
+   3 no name       6 no name      3.831  45.343   0.000
+   3 no name       7 no name      4.010  29.583   0.000
+   4 no name       4 no name      2.995  10.064   0.000
+   4 no name       5 no name      3.590  18.454   0.000
+   4 no name       6 no name      3.361  25.194   0.000
+   4 no name       7 no name      3.669  12.783   0.000
+   5 no name       5 no name      3.908  60.386   0.000
+   5 no name       6 no name      3.768  69.074   0.000
+   5 no name       7 no name      3.961  43.968   0.000
+   6 no name       6 no name      3.596  84.037   0.000
+   6 no name       7 no name      3.831  49.363   0.000
+   7 no name       7 no name      4.010  32.206   0.000
+Determining Arbitrary Trial Distribution Parameters: see towhee_cbmc for full details
+ Canonical ensemble
+ 3-dimensional periodic box
+ Additional Center-of-Mass cutoff
+ Dual Cutoff Configurational-bias Monte Carlo
+ Coupled-decoupled Configurational-bias MC
+ Coulombic inter- and intra-molecular interactions
+     Ewald Sum with fixed kmax:  5 kalp:  5.600
+     including the real-space terms up to half the shortest box length
+     dielectric constant:   1.0000
+
+Molecular mass for molecule type     1 is   165.1935 g/mol
+ Calling initconf
+Selected random number generator DX-1597-2-7 and single integer seed    1302002
+Testing random number generator using the single integer seed
+    0.812479  0.687663  0.080298  0.200888  0.516914
+10 million RNG sum (approximately 5 million):   4999978.2264809748
+Box idim hinverse:    1 1    0.01250    0.00000    0.00000
+Box idim hinverse:    1 2    0.00000    0.01250    0.00000
+Box idim hinverse:    1 3    0.00000    0.00000    0.01250
+Box:     1 Initial calp:    0.07000
+Box:     1 Initial kmax:     5
+
+Number of MC cycles:                    0
+Number of molecules:                    1
+Temperature [K]:       300.00000
+
+Initial Energies for Box     1
+Total molecules in this box          1
+Molecules of type   1 :          1
+ Total vibration (atoms ij bonded together)                  6608.831 [K]        13.13317 [kcal/mol]
+  bond (ij) regular                                          5169.530 [K]        10.27297 [kcal/mol]
+  bond (ij) van der waals                                       0.000 [K]         0.00000 [kcal/mol]
+  bond (ij) Electric                                            0.000 [K]         0.00000 [kcal/mol]
+  bond-bond (ij-jk)                                          1439.300 [K]         2.86020 [kcal/mol]
+ Total angle (atoms ijk bonded in sequence)                  3706.739 [K]         7.36609 [kcal/mol]
+  angle (ijk) regular                                        3918.463 [K]         7.78683 [kcal/mol]
+  bond-angle (ij-ijk)                                        -410.179 [K]        -0.81511 [kcal/mol]
+  angle (ik) van der waals                                      0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) Electric                                           0.000 [K]         0.00000 [kcal/mol]
+  angle-angle (ijk-ijm)                                       198.454 [K]         0.39437 [kcal/mol]
+ Total torsion (ijkl bonded in sequence)                    13986.776 [K]        27.79474 [kcal/mol]
+  torsion (ijkl) regular                                    -3000.483 [K]        -5.96261 [kcal/mol]
+  torsion (ij-kl) bond-bond                                  -642.754 [K]        -1.27729 [kcal/mol]
+  torsion (ij-ijkl) bond-torsion                            -6901.984 [K]       -13.71573 [kcal/mol]
+  torsion (ijk-ijkl) angle-torsion                           1289.423 [K]         2.56236 [kcal/mol]
+  torsion (ijk-jkl-ijkl) angle-angle-torsion                 -220.337 [K]        -0.43786 [kcal/mol]
+  torsion (i-l) one-four van der waals                       4886.629 [K]         9.71079 [kcal/mol]
+  torsion (i-l) one-four Electric                           18576.282 [K]        36.91508 [kcal/mol]
+ Total improper (ijkm, i,k,m bonded to j)                      13.333 [K]         0.02650 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) vdw                 -540.834 [K]        -1.07475 [kcal/mol]
+  intramolecular                                             -540.834 [K]        -1.07475 [kcal/mol]
+  2-body vdw intermolecular                                     0.000 [K]         0.00000 [kcal/mol]
+  3-body vdw intermolecular                                     0.000 [K]         0.00000 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) Electric          -46370.378 [K]       -92.14795 [kcal/mol]
+  total real space Electric                                -34631.430 [K]       -68.82013 [kcal/mol]
+   intramolecular Electric                                 -34631.430 [K]       -68.82013 [kcal/mol]
+   intermolecular Electric                                      0.000 [K]         0.00000 [kcal/mol]
+  self                                                      -7202.968 [K]       -14.31385 [kcal/mol]
+  correction                                                -4688.232 [K]        -9.31653 [kcal/mol]
+  reciprocal sum                                              152.253 [K]         0.30256 [kcal/mol]
+ Total external field                                           0.000 [K]         0.00000 [kcal/mol]
+ Total solvation                                                0.000 [K]         0.00000 [kcal/mol]
+Total classical                                            -22595.533 [K]       -44.90220 [kcal/mol]
+ Aggregate van der waals (bond and nonbond)                  4345.794 [K]         8.63603 [kcal/mol]
+ Aggregate Electric (bond and nonbond)                     -27794.096 [K]       -55.23287 [kcal/mol]
+
+ +++++ start of markov chain +++++
+
+Cycle      Box   Energy [K]  Volume [A^3] Press. [kPa] Molecules
+
+ +++++ end of markov chain +++++
+
+ Final hmatrix (general box dimensions) 
+Box:     1
+  hmatrix(1,x)      80.00000       0.00000       0.00000
+  hmatrix(2,x)       0.00000      80.00000       0.00000
+  hmatrix(3,x)       0.00000       0.00000      80.00000
+
+Final Energies for Box     1
+Total molecules in this box          1
+Molecules of type   1 :          1
+ Total vibration (atoms ij bonded together)                  6608.831 [K]        13.13317 [kcal/mol]
+  bond (ij) regular                                          5169.530 [K]        10.27297 [kcal/mol]
+  bond (ij) van der waals                                       0.000 [K]         0.00000 [kcal/mol]
+  bond (ij) Electric                                            0.000 [K]         0.00000 [kcal/mol]
+  bond-bond (ij-jk)                                          1439.300 [K]         2.86020 [kcal/mol]
+ Total angle (atoms ijk bonded in sequence)                  3706.739 [K]         7.36609 [kcal/mol]
+  angle (ijk) regular                                        3918.463 [K]         7.78683 [kcal/mol]
+  bond-angle (ij-ijk)                                        -410.179 [K]        -0.81511 [kcal/mol]
+  angle (ik) van der waals                                      0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) Electric                                           0.000 [K]         0.00000 [kcal/mol]
+  angle-angle (ijk-ijm)                                       198.454 [K]         0.39437 [kcal/mol]
+ Total torsion (ijkl bonded in sequence)                    13986.776 [K]        27.79474 [kcal/mol]
+  torsion (ijkl) regular                                    -3000.483 [K]        -5.96261 [kcal/mol]
+  torsion (ij-kl) bond-bond                                  -642.754 [K]        -1.27729 [kcal/mol]
+  torsion (ij-ijkl) bond-torsion                            -6901.984 [K]       -13.71573 [kcal/mol]
+  torsion (ijk-ijkl) angle-torsion                           1289.423 [K]         2.56236 [kcal/mol]
+  torsion (ijk-jkl-ijkl) angle-angle-torsion                 -220.337 [K]        -0.43786 [kcal/mol]
+  torsion (i-l) one-four van der waals                       4886.629 [K]         9.71079 [kcal/mol]
+  torsion (i-l) one-four Electric                           18576.282 [K]        36.91508 [kcal/mol]
+ Total improper (ijkm, i,k,m bonded to j)                      13.333 [K]         0.02650 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) vdw                 -540.834 [K]        -1.07475 [kcal/mol]
+  intramolecular                                             -540.834 [K]        -1.07475 [kcal/mol]
+  2-body vdw intermolecular                                     0.000 [K]         0.00000 [kcal/mol]
+  3-body vdw intermolecular                                     0.000 [K]         0.00000 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) Electric          -46370.378 [K]       -92.14795 [kcal/mol]
+  total real space Electric                                -34631.430 [K]       -68.82013 [kcal/mol]
+   intramolecular Electric                                 -34631.430 [K]       -68.82013 [kcal/mol]
+   intermolecular Electric                                      0.000 [K]         0.00000 [kcal/mol]
+  self                                                      -7202.968 [K]       -14.31385 [kcal/mol]
+  correction                                                -4688.232 [K]        -9.31653 [kcal/mol]
+  reciprocal sum                                              152.253 [K]         0.30256 [kcal/mol]
+ Total external field                                           0.000 [K]         0.00000 [kcal/mol]
+ Total solvation                                                0.000 [K]         0.00000 [kcal/mol]
+Total classical                                            -22595.533 [K]       -44.90220 [kcal/mol]
+ Aggregate van der waals (bond and nonbond)                  4345.794 [K]         8.63603 [kcal/mol]
+ Aggregate Electric (bond and nonbond)                     -27794.096 [K]       -55.23287 [kcal/mol]
+Please see towhee_citations for a list of suggested citations for this simulation

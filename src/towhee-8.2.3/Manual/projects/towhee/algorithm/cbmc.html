@@ -1,0 +1,777 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: Configurational-bias Monte Carlo</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table width="800" border="0" cellspacing="0" cellpadding="0" height="590">
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: Configurational-bias Monte Carlo</font></b></font>
+     </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"> 
+    <IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" width="210" height="62" border="0" alt="SourceForge.net Logo" align="right"/>
+   </A>
+   <tr> 
+    <td width="18" height="371" valign="top"> 
+     <p>&nbsp; </p>
+     <p>&nbsp;</p>
+    </td>
+    <td width="700" valign="top">
+     <b>Overview</b> 
+     <ul>
+      This section gives a basic overview of the Configurational-bias Monte Carlo (CBMC) algorithm that is implemented into Towhee and it was last 
+      updated for Towhee version 6.1.1.  CBMC algorithm development remains a major research activity, and a particular favorite of the lead Towhee
+      developer, and the goal of this essay is to explain all of the algorithmic details that often get overlooked in the many publications describing
+      CBMC algorithm development over the course of the last two decades.  It is my hope that by presenting a detailed explanation of the many aspects of 
+      the CBMC algorithm here, the next generation of algorithm developers will be well positioned to increase the power of this method even further.
+     </ul>
+     <b>The general CBMC algorithm</b>
+     <ul>
+      The goal of Monte Carlo Molecular simulation is to generate a sequence of states that occur with a sampling probability proportional to the
+      configuration integral.
+      <p></p>
+      <dt><a name="equation_1"><div align="center"><IMG src="cbmc_eqn_1.gif" alt="Equation 1" /></div><div align="right"><b>Equation 1</b></div></a></dt>
+      <p></p>
+      Where &beta; = 1/(k<sub>b</sub>T), k<sub>b</sub> is Boltzmann's constant, T is the temperature in Kelvins, and  <b>r</b> is a very general vector
+      consisting of the position of every atom in the simulation, and <b>r</b><sub>max</sub> is the maximum distance in each dimension for that general
+      vector (this is the box lengths in the x, y, and z dimensions for each atom in a rectilinear box).  
+      <i>U</i>(<b>r</b>) is the total potential energy of the system and is a function of the position of every atom.  Note that the integration over
+      all positions is just as important as the Boltzmann weighting factor even though it is merely implicit in <a href="#equation_1">Equation 1</a>.
+      The most common and dangerously difficult to discover errors made when designing a new Monte Carlo move come from subtle errors in the implicit
+      uniform sampling, not in the fairly explicit Boltzmann weighting term.
+      <p></p>
+      In a classical simulation <i>U</i>(<b>r</b>) is typically broken down into several components that distinguish between interactions with other
+      atoms on the same molecule (bonded, bending angles, dihedral angles, improper torsion, and intramolecular nonbonded terms) and interactions with other
+      molecules (intermolecular nonbonded terms).
+      <p></p>
+      <dt><a name="equation_2"><div align="center"><IMG src="cbmc_eqn_2.gif" alt="Equation 2" /></div><div align="right"><b>Equation 2</b></div></a></dt>
+      <p></p>
+      This allows the calculation of the total energy as a series of sums where each term in the energy considers a subset of the total number of atoms.
+      There is a set of pairs designated as bonded, a set of triplets for the bending angle, and sets of quartets for dihedral torsions, and
+      improper torsions.  The nonbonded terms are almost always the most expensive to compute as they are at least a pair-wise summation over all atoms 
+      in the simulation, and often have some multibody component in their calculation (for example, the long range portion of the Ewald sum for Coulombic
+      interactions).
+      <p></p>
+      Keeping this breakdown of the potential energy in mind, the goal of a CBMC algorithm is to build a molecule piece by piece in a way that properly, and 
+      efficiently, samples the intramolecular and intermolecular energies.  The general configurational-bias Monte Carlo algorithm procedure generates a
+      molecule in a series of growth steps, where each growth step attempts to find reasonable positions for a small set of atoms, and then those positions
+      are used in the subesquent growth steps.  There are many different formulations of the CBMC algorithm in the literature and they differ in how they
+      decide which atoms to grow in a given growth step, the general procedures used to generate and accept trial positions in each growth step, and in 
+      the many small details of the number of each kind of trial.
+      <p></p>
+      The historical development of the CBMC algorithm began with linear chains on lattice 
+      (<a href="../references.html#siepmann_1990">Siepmann 1990</a>) 
+      and was then generalized by many workers for linear chains in continuous space 
+      (<a href="../references.html#siepmann_frenkel_1992">Siepmann and Frenkel 1992</a>, 
+      <a href="../references.html#frenkel_et_al_1992">Frenkel <i>et al.</i> 1992</a>,
+      <a href="../references.html#laso_et_al_1992">Laso <i>et al.</i> 1992</a>, and
+      <a href="../references.html#siepmann_mcdonald_1992">Siepmann and McDonald 1992</a>).
+      Those algorithms were also used on simple branched molecules until 
+      <a href="../references.html#vlugt_et_al_1999">Vlugt <i>et al.</i> 1999</a> revealed a flaw in the trial generation procedure originally used for angles 
+      (the Boltzmann rejection technique) for any molecule contains at least one atom that is bonded to three or more other atoms.
+      One of the methods developed to resolve this problem was the coupled-decoupled CBMC algorithm of 
+      <a href="../references.html#martin_siepmann_1999">Martin and Siepmann 1999</a>, which was later generalize to also work with flexible bond 
+      lengths and class 2 force fields (<a href="../references.html#martin_thompson_2004">Martin and Thompson 2004</a>).
+      An earlier effort designed to simply reduce the computational cost of the CBMC algorithm 
+      (<a href="../references.html#vlugt_et_al_1998">Vlugt <i>et al.</i> 1998</a>) laid the algorithmic foundation for the additional biasing potentials
+      required for reasonable acceptance rates for cyclic molecules, originally for cyclic molecules with rigid bond lengths
+      (<a href="../references.html#wick_siepmann_2000">Wick and Siepmann 2000</a>), and later generalized for fully flexible cyclic molecules
+      (<a href="../references.html#martin_thompson_2004">Martin and Thompson 2004</a>,
+      <a href="../references.html#martin_frischknecht_2006">Martin and Frischknecht 2006</a>).  
+      <p></p>
+      Let us now start with our most general set of equations for performing CBMC moves, and then later return to the previous versions to understand 
+      how those formations fit within our current understanding of the algorithm.
+      The first item of business during each CBMC growth step is the generation of trial positions.  This is done using an arbitrary probability 
+      distribution.
+      <p></p>
+      <dt><a name="equation_3"><div align="center"><IMG src="cbmc_eqn_3.gif" alt="Equation 3" /></div><div align="right"><b>Equation 3</b></div></a></dt>
+      <p></p>
+      Where the function <i>f</i> can depend upon the positions of the atoms already grown, any external fields in the simulation box, and anything else
+      that is known at the time we are generating trial positions for the atom <b>r</b><sub>i</sub>.
+      <a href="../references.html#martin_frischknecht_2006">Martin and Frischknecht 2006</a> stated that this function must be positive and integrate to 1 
+      over the appropriate range of <b>r</b><sub>i</sub>.  That is a sufficient definition for this function, but it turns out not to be necessary for this
+      function to be nonzero for over the full range in certain cases.  The arbitrary probability density is allowed to be zero for any value of
+      <b>r</b><sub>i</sub> where the product of the ideal probability density and the Boltzmann weight is zero.  This
+      case occurs quite often when rigid bond lengths, bending angles, or dihedral angles are employed.
+      After generating several trials for the position of atom i, we then select on of these positions for further growth using 
+      <a href="#equation_4">Equation 4</a>.
+      <p></p>
+      <dt><a name="equation_4"><div align="center"><IMG src="cbmc_eqn_4.gif" alt="Equation 4" /></div><div align="right"><b>Equation 4</b></div></a></dt>
+      <p></p>
+      Where the selection is a function of the potential energy of the trial position [<i>u</i>(<b>r</b><sub>i</sub>)], the ideal probability distribution,
+      and the Rosenbluth weight (W<sub>k</sub>).  The ideal probability distribution is the distribution that would be obtained in an ideal system where
+      the potential energy is zero for all values of <b>r</b><sub>i</sub>.  
+      The biasing function, <i>w</i><sub>bias</sub>(<b>r</b><sub>i</sub>,<b>r</b><sub>exist</sub>), must be nonzero and depends upon the positions of the 
+      atoms that exist - either those already generated in previous growth steps, or those whose positions are not being sampled in this CBMC move.
+      The Rosenbluth weight is computed from the sum of the trials as shown
+      in <a href="#equation_5">Equation 5</a>.
+      <p></p>
+      <dt><a name="equation_5"><div align="center"><IMG src="cbmc_eqn_5.gif" alt="Equation 5" /></div><div align="right"><b>Equation 5</b></div></a></dt>
+      <p></p>
+      This move then proceeds over a number of growth steps until the entire molecule has been created.  The move is then accepted or rejected using the
+      probability in <a href="#equation_6">Equation 6</a>.
+      <p></p>
+      <dt><a name="equation_6"><div align="center"><IMG src="cbmc_eqn_6.gif" alt="Equation 6" /></div><div align="right"><b>Equation 6</b></div></a></dt>
+      <p></p>
+      Where <b>r</b><sub>m</sub>,...,<b>r</b><sub>z</sub> is the set of all atom positions generated during a CBMC move that consists of 
+      <i>n</i><sub>step</sub> growth steps (more than one atom can be grown during a single growth step).  Note that the product of the additional biasing
+      function only contains the biasing factors used on the atoms that were selected during the growth step.  The new Rosenbluth weight is generated in the 
+      course of determining the new atom positions for the molecule, while the old Rosenbluth weight is generated in an identical manner as the new, with the
+      exception that the actual old position of each atom appears once in the growth process and is always the trial selected for further growth.
+      If you consider the product of the arbitrary trial distribution used to generate trial, the selection probability, and the final Rosenbluth weights you
+      will find many of the terms cancel out and the remaining probability density is the one we were intending to sample.
+      <p></p>
+      <dt><a name="equation_7"><div align="center"><IMG src="cbmc_eqn_7.gif" alt="Equation 7" /></div><div align="right"><b>Equation 7</b></div></a></dt>
+      <p></p>
+      Two of the most powerful tricks in mathematics are to add 0 and to multiply by 1.  When designing new CBMC algorithms we are merely multiplying by 
+      1 in a useful manner.  This allows us to add many different biasing terms into the growth process so long as we remove them again in
+      the acceptance rules.
+     </ul>
+     <b>CBMC Trial Generation Form</b>
+     <ul>
+      The most conceptually simple manner for generating trials is to uniformly sample the volume of a sphere of radius <b>max_bond_length</b> centered on
+      an existing atom that is bonded to the trial atom.  However, one could also break the trial generation down into component parts such as bond lengths,
+      bending angles, dihedral angles, and nonbonded interations and then sample the degrees of freedom related to each of those interactions in a manner that
+      either decouples the selections by first performing one selection (such as bond length) and then using that value in all later selections
+      (such as bending angles) or couples the selections by generating several of the steps and selecting them based on their total interactions.
+      Terms are coupled when the Rosenbluth weight of the first term appears in the acceptance probability of the second.  This requires a full selection
+      procedure of the first term for every trial of the second term.  The concepts of coupled-decoupled CBMC were first discussed in
+      <a href="../references.html#martin_siepmann_1999">Martin and Siepmann 1999</a>, but these ideas very general and can be used to describe all of the
+      currently developed CBMC algorithms.  The differences in the CBMC algorithm formulations come in the details, and the following section attempts to 
+      some shed light on these details that are often only partially illuminated in the literature.
+      <ul>
+       <li>Martin and Siepmann JPCB 1999: uses the original coupled-decoupled formulation presented in the appendix of 
+        <a href="../references.html#martin_siepmann_1999">Martin and Siepmann 1999</a>, with the extension for flexible bond lengths briefly mentioned in
+        <a href="../references.html#martin_thompson_2004">Martin and Thompson 2004</a>.  The steps consist of decoupled Bond length selection, decoupled
+        bending A selection, decoupled bending B selection, and dihedral angle selection coupled to nonbonded selection.  The algorithm is decoupled to the
+        maximum extent possible (it is not possible to decoupled dihedral selection from nonbonded selection) as generating reasonable bond lengths, angles,
+        and dihedral angles required a relatively large number of trial as this time as the use of arbitrary trial distributions for those terms had not
+        yet come into fashion.
+        There is some number of growth steps (<i>n</i><sub>step</sub>) and in each step some number of atoms are generated (<i>n</i><sub>g</sub>), where
+        all of these generated atoms are bonded to the same atom (f).  The generated atoms are labelled <i>g</i><sub>a</sub>, where the index a ranges from
+        1 to <i>n</i><sub>g</sub>.  The first step is to select all of the g<sub>a</sub>-f bond lengths in a decoupled manner.
+        <p></p>
+        <dt><a name="equation_ms.1"><div align="center"><IMG src="cbmc_eqn_cdms_1.gif" alt="Equation MS.1" /></div>
+          <div align="right"><b>Equation MS.1</b></div></a>
+        </dt>
+        <dt><a name="equation_ms.2"><div align="center"><IMG src="cbmc_eqn_cdms_2.gif" alt="Equation MS.2" /></div>
+          <div align="right"><b>Equation MS.2</b></div></a>
+        </dt>
+        <p></p>
+        Where <i>l</i><sub>g<sub>a</sub>,f</sub> is the bond length between the generated atom (<i>g</i><sub>a</sub>) and the "growing from" atom (f).
+        For each generated atom, <b>nch_vib</b> trial bond lengths are considered and then one bond length is selected according to the probability
+        in <a href="#equation_ms.1">Equation MS.1</a>.  The trial distributions are discussed further in the
+        <a href="#arbitrary_trial_distribution">Arbitrary Trial Distribution</a>
+        section.  Once bond lengths are selected for all of the generated atoms (g<sub>a</sub>) the next step is the Part A portion of the decoupled 
+        bending angle selection.
+        <p></p>
+        <dt><a name="equation_ms.3"><div align="center"><IMG src="cbmc_eqn_cdms_3.gif" alt="Equation MS.3" /></div>
+          <div align="right"><b>Equation MS.3</b></div></a>
+        </dt>
+        <dt><a name="equation_ms.4"><div align="center"><IMG src="cbmc_eqn_cdms_4.gif" alt="Equation MS.4" /></div>
+          <div align="right"><b>Equation MS.4</b></div></a>
+        </dt>
+        <p></p>
+        The angle &theta;<sub>g<sub>a</sub>,f,p</sub> is the angle formed by the atom being grown (g<sub>a</sub>), the atom being grown from (f), and
+        an atom that is previous to the atom being grown from (p).  There are two cases to consider when determining the "previous" atom.  Case 1 occurs
+        when there already exists an atom bonded to the from atom (f) that was either grown in an earlier step of this CBMC growth process, or was not
+        scheduled for regrowth during this CBMC move.  In this case the "p" atom is selected randomly from all possible atoms that exist bonded to the 
+        "f" atom.  Case 2 occurs when there are no existing atoms bonded to the "f" atom.  In this case one of the atoms grown during this step is selected
+        at random to be treated as the "p" atom.  Once all of the &theta;<sub>g<sub>a</sub>,f,p</sub> angles are determined, then the 
+        <i>pseudo</i>-dihedral angles between the atoms being grown are sampled.
+        <p></p>
+        <dt><a name="equation_ms.5"><div align="center"><IMG src="cbmc_eqn_cdms_5.gif" alt="Equation MS.5" /></div>
+          <div align="right"><b>Equation MS.5</b></div></a>
+        </dt>
+        <dt><a name="equation_ms.6"><div align="center"><IMG src="cbmc_eqn_cdms_6.gif" alt="Equation MS.6" /></div>
+          <div align="right"><b>Equation MS.6</b></div></a>
+        </dt>
+        <p></p>
+        Where &phi;<sub>g<sub>b</sub>,f,p,g<sub>a</sub></sub> is the <i>pseudo</i>-dihedral angle between the planes formed by the g<sub>a</sub>-f-p and
+        g<sub>b</sub>-f-p atom triplets.  The sampling is performed based upon that <i>pseudo</i>-dihedral angle, and then some elementary geometery is
+        used to convert the &phi;<sub>g<sub>b</sub>,f,p,g<sub>a</sub></sub> values into the
+        &theta;<sub>g<sub>a</sub>,f,g<sub>b</sub></sub> angles required to compute the bending angle energies.
+        One might assume the next step would be selection of the dihedral angle, but once that is known it also implies the positions for the nonbonded
+        selection step.  A single trial of the nonbonded selection is computationally quite expensive compared to a single trial of the dihedral selection
+        so a selection step for dihedral angles is coupled to the nonbonded selection.
+        <p></p>
+        <dt><a name="equation_ms.7"><div align="center"><IMG src="cbmc_eqn_cdms_7.gif" alt="Equation MS.7" /></div>
+          <div align="right"><b>Equation MS.7</b></div></a>
+        </dt>
+        <dt><a name="equation_ms.8"><div align="center"><IMG src="cbmc_eqn_cdms_8.gif" alt="Equation MS.8" /></div>
+          <div align="right"><b>Equation MS.8</b></div></a>
+        </dt>
+        <dt><a name="equation_ms.9"><div align="center"><IMG src="cbmc_eqn_cdms_9.gif" alt="Equation MS.9" /></div>
+          <div align="right"><b>Equation MS.9</b></div></a>
+        </dt>
+        <dt><a name="equation_ms.10"><div align="center"><IMG src="cbmc_eqn_cdms_10.gif" alt="Equation MS.10" /></div>
+          <div align="right"><b>Equation MS.10</b></div></a>
+        </dt>
+        <p></p>
+        The above equations are realized by performing a full dihedral selection for each trial of the nonbonded selection.  The dihedral angle selection
+        obviously includes the dihedral energy for the angle being sampled, but also often includes bond, angle, improper and additional dihedral angles
+        in the case where we are connecting back to some other atoms in the moleule.  This occurs when closing a ring, or when performing interior
+        conformation sampling moves in a molecule.  The selection is performed on a single dihedral angle with one of the atoms grown this step
+        (g<sub>1</sub>) with the from atom (f), previous atom (p) and a randomly selected atom bonded to p that is not atom f (q).  That dihedral angle 
+        implies a large set of dihedral angles that involve the atom being grown and any existing atoms (c, d, or e) that form a dihedral angle
+        that is now completely described by the addition of the atoms grown this step.  It also could imply bond terms that do not involve the
+        "from" atom, angle terms not centered on the "from" atom, and improper torsions not centered on the "from" atom.  The nonbonded selection involves
+        the Rosenbluth weight of the torsion selection and the sum of the nonbonded terms according to the partial nonbonded terms
+        (<i>u</i><sub>nb</sub><sup>part</sup>).  The partial nonbonded terms are often set to be shorter ranged than the total nonbonded terms as a time
+        saving move first described as dual-cutoff in <a href="../references.html#vlugt_et_al_1998">Vlugt <i>et al.</i> 1998</a>.  This also often occurs for 
+        charged systems as the long-ranged portion of the Ewald sum is only computed once the entire molecule has been grown, as it is both expensive and a 
+        bit ill-defined to compute during the growth process.  The final acceptance probability for the move contains is a more detailed version of the 
+        general <a href="#equation_6">Equation 6</a>.  The correction for using a partial nonbonded potential is equivalent to removing the bias implied
+        during the nonbonded selection.  That implicit bias is related to the Boltzmann weighted difference between the true nonbonded potential and the
+        partial nonbonded potential.
+        <p></p>
+        <dt><a name="equation_ms.11"><div align="center"><IMG src="cbmc_eqn_cdms_11.gif" alt="Equation MS.11" /></div>
+          <div align="right"><b>Equation MS.11</b></div></a>
+        </dt>
+        <dt><a name="equation_ms.12"><div align="center"><IMG src="cbmc_eqn_cdms_12.gif" alt="Equation MS.12" /></div>
+          <div align="right"><b>Equation MS.12</b></div></a>
+        </dt>
+        <p></p>
+       </li>
+       <li>Coupled to pre-nonbond: uses the formulation first described in 
+        <a href="../references.html#martin_frischknecht_2006">Martin and Frischknecht 2006</a>, and was enabled by advances in 
+        <a href="#arbitrary_trial_distribution">arbitrary trial distribution</a> functions.  
+        The bond length selection, bending angle A selection, bending angle B selection, and dihedral angle selection are all decoupled from each other, but
+        coupled in turn to a new selection step that occurs immediately prior to the nonbonded selection.  The idea is to better sample the joint distribution
+        of bond lengths, bending angles, dihedral angles, and improper torsion to improve the acceptance rate in cases where these energies are not 
+        independent, and often in competition with each other.
+        There is some number of growth steps (<i>n</i><sub>step</sub>) and in each step some number of atoms are generated (<i>n</i><sub>g</sub>), where
+        all of these generated atoms are bonded to the same atom (f).  The generated atoms are labelled <i>g</i><sub>a</sub>, where the index a ranges from
+        1 to <i>n</i><sub>g</sub>.  For each index of the pre-nonbond selection, the bond length, angles, and dihedrals are sequentially generated in a 
+        decoupled manner.
+        <p></p>
+        <dt><a name="equation_cpn.1"><div align="center"><IMG src="cbmc_eqn_cpn_1.gif" alt="Equation CPN.1" /></div>
+          <div align="right"><b>Equation CPN.1</b></div></a>
+        </dt>
+        <dt><a name="equation_cpn.2"><div align="center"><IMG src="cbmc_eqn_cpn_2.gif" alt="Equation CPN.2" /></div>
+          <div align="right"><b>Equation CPN.2</b></div></a>
+        </dt>
+        <p></p>
+        Where <i>l</i><sub>g<sub>a</sub>,f</sub> is the bond length between the generated atom (<i>g</i><sub>a</sub>) and the "growing from" atom (f).
+        For each generated atom, <b>nch_vib</b> trial bond lengths are considered and then one bond length is selected according to the probability
+        in <a href="#equation_cpn.1">Equation CPN.1</a>.  The trial distributions are discussed further in the
+        <a href="#arbitrary_trial_distribution">Arbitrary Trial Distribution</a>
+        section.  Once bond lengths are selected for all of the generated atoms (g<sub>a</sub>) the next step is the Part A portion of the decoupled 
+        bending angle selection.
+        <p></p>
+        <dt><a name="equation_cpn.3"><div align="center"><IMG src="cbmc_eqn_cpn_3.gif" alt="Equation CPN.3" /></div>
+          <div align="right"><b>Equation CPN.3</b></div></a>
+        </dt>
+        <dt><a name="equation_cpn.4"><div align="center"><IMG src="cbmc_eqn_cpn_4.gif" alt="Equation CPN.4" /></div>
+          <div align="right"><b>Equation CPN.4</b></div></a>
+        </dt>
+        <p></p>
+        The angle &theta;<sub>g<sub>a</sub>,f,p</sub> is the angle formed by the atom being grown (g<sub>a</sub>), the atom being grown from (f), and
+        an atom that is previous to the atom being grown from (p).  There are two cases to consider when determining the "previous" atom.  Case 1 occurs
+        when there already exists an atom bonded to the from atom (f) that was either grown in an earlier step of this CBMC growth process, or was not
+        scheduled for regrowth during this CBMC move.  In this case the "p" atom is selected randomly from all possible atoms that exist bonded to the 
+        "f" atom.  Case 2 occurs when there are no existing atoms bonded to the "f" atom.  In this case one of the atoms grown during this step is selected
+        at random to be treated as the "p" atom.  Once all of the &theta;<sub>g<sub>a</sub>,f,p</sub> angles are determined, then the 
+        <i>pseudo</i>-dihedral angles between the atoms being grown are sampled.
+        <p></p>
+        <dt><a name="equation_cpn.5"><div align="center"><IMG src="cbmc_eqn_cpn_5.gif" alt="Equation CPN.5" /></div>
+          <div align="right"><b>Equation CPN.5</b></div></a>
+        </dt>
+        <dt><a name="equation_cpn.6"><div align="center"><IMG src="cbmc_eqn_cpn_6.gif" alt="Equation CPN.6" /></div>
+          <div align="right"><b>Equation CPN.6</b></div></a>
+        </dt>
+        <p></p>
+        Where &phi;<sub>g<sub>b</sub>,f,p,g<sub>a</sub></sub> is the <i>pseudo</i>-dihedral angle between the planes formed by the g<sub>a</sub>-f-p and
+        g<sub>b</sub>-f-p atom triplets.  The sampling is performed based upon that <i>pseudo</i>-dihedral angle, and then some elementary geometery is
+        used to convert the &phi;<sub>g<sub>b</sub>,f,p,g<sub>a</sub></sub> values into the
+        &theta;<sub>g<sub>a</sub>,f,g<sub>b</sub></sub> angles required to compute the bending angle energies.
+        The next step is a decoupled selection for dihedral angles.
+        <p></p>
+        <dt><a name="equation_cpn.7"><div align="center"><IMG src="cbmc_eqn_cpn_7.gif" alt="Equation CPN.7" /></div>
+          <div align="right"><b>Equation CPN.7</b></div></a>
+        </dt>
+        <dt><a name="equation_cpn.8"><div align="center"><IMG src="cbmc_eqn_cpn_8.gif" alt="Equation CPN.8" /></div>
+          <div align="right"><b>Equation CPN.8</b></div></a>
+        </dt>
+        <dt><a name="equation_cpn.9"><div align="center"><IMG src="cbmc_eqn_cpn_9.gif" alt="Equation CPN.9" /></div>
+          <div align="right"><b>Equation CPN.9</b></div></a>
+        </dt>
+        <p></p>
+        The above equations are realized by performing a full dihedral selection for each trial of the nonbonded selection.  The dihedral angle selection
+        obviously includes the dihedral energy for the angle being sampled, but also often includes bond, angle, improper and additional dihedral angles
+        in the case where we are connecting back to some other atoms in the moleule.  This occurs when closing a ring, or when performing interior
+        conformation sampling moves in a molecule.  The selection is performed on a single dihedral angle with one of the atoms grown this step
+        (g<sub>1</sub>) with the from atom (f), previous atom (p) and a randomly selected atom bonded to p that is not atom f (q).  That dihedral angle 
+        implies a large set of dihedral angles that involve the atom being grown and any existing atoms (c, d, or e) that form a dihedral angle
+        that is now completely described by the addition of the atoms grown this step.  It also could imply bond terms that do not involve the
+        "from" atom, angle terms not centered on the "from" atom, and improper torsions not centered on the "from" atom.  
+        The bond, bending angle, and dihedral selections are all coupled to the pre-nonbond selection.  The pre-nonbond selection is in turn coupled to the
+        nonbonded selection.
+        <p></p>
+        <dt><a name="equation_cpn.10"><div align="center"><IMG src="cbmc_eqn_cpn_10.gif" alt="Equation CPN.10" /></div>
+          <div align="right"><b>Equation CPN.10</b></div></a>
+        </dt>
+        <dt><a name="equation_cpn.11"><div align="center"><IMG src="cbmc_eqn_cpn_11.gif" alt="Equation CPN.11" /></div>
+          <div align="right"><b>Equation CPN.11</b></div></a>
+        </dt>
+        <dt><a name="equation_cpn.12"><div align="center"><IMG src="cbmc_eqn_cpn_12.gif" alt="Equation CPN.12" /></div>
+          <div align="right"><b>Equation CPN.12</b></div></a>
+        </dt>
+        <dt><a name="equation_cpn.13"><div align="center"><IMG src="cbmc_eqn_cpn_13.gif" alt="Equation CPN.13" /></div>
+          <div align="right"><b>Equation CPN.13</b></div></a>
+        </dt>
+        <p></p>
+        The nonbonded selection involves the Rosenbluth weight of the pre-nonbond selection and the sum of the nonbonded terms according to the partial
+        nonbonded terms (<i>u</i><sub>nb</sub><sup>part</sup>).  The partial nonbonded terms are often set to be shorter ranged than the total nonbonded
+        terms as a time saving move first described as dual-cutoff in 
+        <a href="../references.html#vlugt_et_al_1998">Vlugt <i>et al.</i> 1998</a>.  This also often occurs for 
+        charged systems as the long-ranged portion of the Ewald sum is only computed once the entire molecule has been grown, as it is both expensive and a 
+        bit ill-defined to compute during the growth process.  The final acceptance probability for the move contains is a more detailed version of the 
+        general <a href="#equation_6">Equation 6</a>.  The correction for using a partial nonbonded potential is equivalent to removing the bias implied
+        during the nonbonded selection.  That implicit bias is related to the Boltzmann weighted difference between the true nonbonded potential and the
+        partial nonbonded potential.
+        <p></p>
+        <dt><a name="equation_cpn.14"><div align="center"><IMG src="cbmc_eqn_cpn_14.gif" alt="Equation CPN.14" /></div>
+          <div align="right"><b>Equation CPN.14</b></div></a>
+        </dt>
+        <dt><a name="equation_cpn.15"><div align="center"><IMG src="cbmc_eqn_cpn_15.gif" alt="Equation CPN.15" /></div>
+          <div align="right"><b>Equation CPN.15</b></div></a>
+        </dt>
+        <p></p>
+       </li>
+      </ul>
+     </ul>
+     <a name="arbitrary_trial_distribution"><b>Arbitrary Trial Distributions</b></a>
+     <ul>
+      Arbitrary trial distributions were first used to bias the insertion of the first atom by
+      <a href="../references.html#snurr_et_al_1993">Snurr, Bell, and Theodorou 1993</a>.  The first use of the method for bond lengths, bending angles, and 
+      dihedral angles occurred in <a href="../references.html#martin_biddy_2005">Martin and Biddy 2005</a>, and was later described in detail by 
+      <a href="../references.html#martin_frischknecht_2006">Martin and Frischknecht 2006</a>.
+      We can best exploit the power of the CBMC algorithm by using arbitrary trial distributions that match P<sub>sample</sub>(<b>r</b>) 
+      (see <a href="#equation_1">Equation 1</a>) as closely as possible.  In most cases the distribution of P<sub>sample</sub> is not known before the 
+      simulation is performed, but the insight that the acceptance rate is maximized when the arbitrary trial distribution used to generate trials
+      matches the observed distribution for that term, guides our choice of the optimal arbitrary trial distributions.
+      The arbitrary trial distribution functions used must be nonnegative and properly normalized (integrate to 1) over the appropriate range.  In addition,
+      the arbitrary probability density must be strictly positive for any value where the product of the ideal probability density and the Boltzmann weight
+      is nonzero.
+      The following subsections describe the arbitrary trial distributions available in Towhee for various steps of the CBMC growth process
+      <p></p>
+      <dt><b>Insertion of the first atom</b></dt>
+      <ul>
+       The insertion of the first atom in a CBMC insertion move is conceptually quite simple.  The proper sampling for the first atom position is a 
+       uniform sampling over the entire box volume.
+       <p></p>
+       <dt><a name="equation_nb_one.1"><div align="center"><IMG src="cbmc_eqn_nb_one_1.gif" alt="Equation NB_ONE.1" /></div>
+         <div align="right"><b>Equation NB_ONE.1</b></div></a>
+       </dt>
+       <p></p>
+       The following arbitrary trial distributions for the first inserted atom trials are implemented into Towhee.
+       <ul>
+        <li>DIST_UNIFORM: generates trials using the uniform probability distribution.  This is used when the <b>nch_nb_one_generation</b> option 
+         is set to 'uniform', or when computing an insertion into the ideal resiviour box (in the Grand Canonical ensemble).
+         <p></p>
+         <dt><a name="equation_nb_one.2"><div align="center"><IMG src="cbmc_eqn_nb_one_2.gif" alt="Equation NB_ONE.2" /></div>
+           <div align="right"><b>Equation NB_ONE.2</b></div></a>
+         </dt>
+         <p></p>
+        </li>
+        <li>DIST_ENERGY_BIAS: generates trials using a version of the <a href="../references.html#snurr_et_al_1993">Snurr <i>et al.</i> 1993</a>
+         energy biasing to preferentially place the first atom in the cavities of a fixed geometric structure, such as a zeolite.  This is used when the
+         <b>nch_nb_one_generation</b> option is set to 'energy bias'
+         <p></p>
+         <dt><a name="equation_nb_one.3"><div align="center"><IMG src="cbmc_eqn_nb_one_3.gif" alt="Equation NB_ONE.3" /></div>
+           <div align="right"><b>Equation NB_ONE.3</b></div></a>
+         </dt>
+         <p></p>
+         Where the box volume is divided into subcells of volume V<sub>cell</sub>.  Trial positions are selected by first choosing a cell based upon
+         the weighting factor X<sub>cell</sub>, normalized by the total sum of all of the cell weights.  Once a cell is selected, then a position is 
+         chosen uniformly within that cell.
+        </li>
+       </ul>
+      </ul>
+      <dt><b>Generation of bond lengths</b></dt>
+      <ul>
+       Despite the apparent simplicity of bond lengths, this is the most confusing distribution to normalize properly.  One might assume that the proper 
+       ideal distribution for all of the atoms in the molecule would be the same as the ideal probability distribution of the first atom, 
+       that is to say uniform sampling of the entire simulation box.  However, all of the acceptance rules in Towhee come from statistical mechanics that 
+       allows molecules a single set of translational degrees of freedom (one in each dimension).  This concept of a molecule requires that the atoms be
+       in proximity to each other in a manner that maintains this single set of translational degrees of freedom.  One way to enforce this concept to
+       introduce a maximum bond length (<b>max_bond_length</b> or <i>r</i><sub>max</sub>).
+       The value of the <b>max_bond_length</b> is not important so long as it is larger than the bond length values expected in the simulation.  
+       Starting from an existing atom, the proper sampling for atoms bonded to that atom is the volume of a sphere around the existing atom.  For convenience,
+       we transform the uniform sampling of the sphere from cartesian coordinates to spherical coordinates.  This transformation allows the separate 
+       consideration of bond length, bending angle, and dihedral angle.
+       <p></p>
+       The ideal distribution for bond lengths is proportional to the distance term in the spherical coordinates
+       <p></p>
+       <dt><a name="equation_bond.1"><div align="center"><IMG src="cbmc_eqn_bond_1.gif" alt="Equation BOND.1" /></div>
+         <div align="right"><b>Equation BOND.1</b></div></a>
+       </dt>
+       <p></p>
+       so the ideal distribution favors ever longer bond lengths without bound.  However, the energetics of a bond potential at some point
+       become extremely high, and therefore the Boltzmann weight goes to zero at long bond lengths cancelling out the ideal term that increases 
+       as r<sup>2</sup>.  In Towhee, the bond energies are defined to be infinite beyond the <b>max_bond_length</b> distance, and this provides a bound
+       to the sampling space that we can use to integrate the ideal bond length for use with potentials that allow a continous distribution of bond lengths.
+       <p></p>
+       <dt><a name="equation_bond.2"><div align="center"><IMG src="cbmc_eqn_bond_2.gif" alt="Equation BOND.2" /></div>
+         <div align="right"><b>Equation BOND.2</b></div></a>
+       </dt>
+       <p></p>
+       where r<sub>max</sub> is set via <b>max_bond_length</b>.  However, in the case of bond potentials with a finite number of allowed bond lengths the 
+       integral instead becomes a sum over those bond lengths that do not have an infinite energy.
+       <p></p>
+       <dt><a name="equation_bond.3"><div align="center"><IMG src="cbmc_eqn_bond_3.gif" alt="Equation BOND.3" /></div>
+         <div align="right"><b>Equation BOND.3</b></div></a>
+       </dt>
+       <p></p>
+       where the sum is over all of the bond lengths that do not have an infinite energy.  For the most common case of a single allowable bond length, 
+       this ratio becomes 1.
+       <p></p>
+       The following arbitrary trial distributions for the bond length trials are implemented into Towhee.
+       <ul>
+        <li>DIST_DELTA: generates trials whenever the bond potential has a finite number of allowed bond lengths (<i>n</i><sub>finite</sub>).
+         The most common case is a single rigid bond length, but this would also work (in theory) for a potential that allowed multiple rigid bond lengths.
+         <p></p>
+         <dt><a name="equation_bond.4"><div align="center"><IMG src="cbmc_eqn_bond_4.gif" alt="Equation BOND.4" /></div>
+           <div align="right"><b>Equation BOND.4</b></div></a>
+         </dt>
+         <p></p>
+        </li>
+        <li>DIST_R_SQ_IDEAL: generates trials using the ideal probability density, bounded only by the <b>max_bond_length</b> (r<sub>max</sub>).  This 
+         is used for non-rigid bond potentials when the <b>cmbc_bond_generation</b> option is set to 'ideal'.  Bond lengths are generated on the interval
+         (0, <i>r</i><sub>max</sub>).
+         <p></p>
+         <dt><a name="equation_bond.5"><div align="center"><IMG src="cbmc_eqn_bond_5.gif" alt="Equation BOND.5" /></div>
+           <div align="right"><b>Equation BOND.5</b></div></a>
+         </dt>
+         <p></p>
+        </li>
+        <li><a name="bond_dist_r_sq_with_bounds">DIST_R_SQ_WITH_BOUNDS: generates trials using a bounded version of the continuous ideal probability density.
+          This is used for non-rigid bond potentials when the <b>cmbc_bond_generation</b> option is set to 'r^2 with bounds'.  
+          Bond lengths are generated on the interval (<i>r</i><sub>low</sub>, <i>r</i><sub>high</sub>), 
+          where <i>r</i><sub>low</sub> = <b>vibrang(1)</b>*bond_equil,
+          <i>r</i><sub>high</sub> = <b>vibrang(2)</b>*bond_equil, and bond_equil is the equilibrium bond length.  This is also used automatically in 
+          combination with the <a href="../towhee_ff.html#bond_infinite_square_well">Infinite Square Well</a> bond potential where the upper and lower bounds
+          are set to the parameters in that potential.</a>
+         <p></p>
+         <dt><a name="equation_bond.6"><div align="center"><IMG src="cbmc_eqn_bond_6.gif" alt="Equation BOND.6" /></div>
+           <div align="right"><b>Equation BOND.6</b></div></a>
+         </dt>
+         <p></p>
+        </li>
+        <li>DIST_GAUSSIAN: generates trials using a bounded version of the Gaussian probability density.  This 
+         is used for non-rigid bond potentials when the <b>cmbc_bond_generation</b> option is set to 'global gaussian' or 'autofit gaussian'.
+         Bond lengths are generated on the interval (0,<i>r</i><sub>max</sub>) using a truncated Gaussian distribution.  The standard deviation (&sigma;)
+         and mean (&mu;) are determined in different ways for the 'global gaussian' and 'autofit gaussian' options.
+         <p></p>
+         <dt><a name="equation_bond.7"><div align="center"><IMG src="cbmc_eqn_bond_7.gif" alt="Equation BOND.7" /></div>
+           <div align="right"><b>Equation BOND.7</b></div></a>
+         </dt>
+         <p></p>
+        </li>
+       </ul>
+      </ul>
+      <dt><b>Generation of bending angles</b></dt>
+      <ul>
+       There are two steps in the generation of bending angles in Towhee.  The first step is denoted the "Bending A" selection and it generates bending
+       angles for the angle formed by an atom being grown (g<sub>a</sub>), bonded to the atom they are growing from (f), relative to a reference atom that is
+       also bonded to atom f (p).  The second step is denoted the "Bending B" selection and it generates a <i>pseudo</i>-dihedral angle formed by two of the
+       atoms being grown (g<sub>a</sub>, g<sub>b</sub>), the from atom (f) and the previous atom (p).  The <i>pseudo</i>-dihedral angle is then used to 
+       compute the relevent bending angles using some elementary geometry.
+       <dt><b>Generation of Bending A angles</b></dt>
+       <ul>
+        The "Bending A" ideal distribution contains a phase space term due to the conversion from cartesian to spherical coordinates.  For continous 
+        distributions this is easily integrated to get the normalization constant of one half.
+        <p></p>
+        <dt><a name="equation_bend_a.1"><div align="center"><IMG src="cbmc_eqn_bend_a_1.gif" alt="Equation BEND_A.1" /></div>
+          <div align="right"><b>Equation BEND_A.1</b></div></a>
+        </dt>
+        <p></p>
+        For distributions that have a finite number of non-infinite energy angles (n<sub>finite</sub>) the integrated form is replaced by a sum over those 
+        allowed angles.
+        <p></p>
+        <dt><a name="equation_bend_a.2"><div align="center"><IMG src="cbmc_eqn_bend_a_2.gif" alt="Equation BEND_A.2" /></div>
+          <div align="right"><b>Equation BEND_A.2</b></div></a>
+        </dt>
+        <p></p>
+        The following arbitrary trial distributions for the "Bending A" trials are implemented into Towhee.
+        <ul>
+         <li>DIST_DELTA: generates trials when there are a finite number of angles (<i>n</i><sub>finite</sub>) that have a nonzero Boltzmann weight.
+          The most common occurance is a single, rigid bending angle, but this is also functional for multiple allowable rigid bending angles.
+          <p></p>
+          <dt><a name="equation_bend_a.3"><div align="center"><IMG src="cbmc_eqn_bend_a_3.gif" alt="Equation BEND_A.3" /></div>
+            <div align="right"><b>Equation BEND_A.3</b></div></a>
+          </dt>
+          <p></p>
+         </li>
+         <li>DIST_SINE: generates trials using the ideal Sine distribution.  This is used for non-rigid bending angle potentials when the
+          <b>cbmc_bend_generation</b> option is set to 'ideal'.  Angles are generated on the interval (0, &pi;).
+          <p></p>
+          <dt><a name="equation_bend_a.4"><div align="center"><IMG src="cbmc_eqn_bend_a_4.gif" alt="Equation BEND_A.4" /></div>
+            <div align="right"><b>Equation BEND_A.4</b></div></a>
+          </dt>
+          <p></p>
+         </li>
+         <li>DIST_GAUSSIAN: generates trials using the Gaussian distribution.  This is used for non-rigid bending angle potentials when the
+          <b>cbmc_bend_generation</b> option is set to 'global gaussian' or 'autofit gaussian'.
+          When <b>cbmc_bend_generation</b> is set to 'global gaussian' then the mean (&mu;) set to the equilibrium bending angle, and the standard deviation
+          (&sigma;) is set to <b>sdevbena</b>.  When <b>cbmc_bend_generation</b> is set to 'autofit gaussian' then the mean (&mu;) and standard deviation
+          (&sigma;) are fit to Sin(&theta;)exp(-&beta; u(&theta;)) for every angle in each type of molecule in the simulation, and then the standard deviations
+          are scaled by the <b>bend_a_sdev_multiplier</b>.  Angles are generated on the interval (0, &pi;).  
+          <p></p>
+          <dt><a name="equation_bend_a.5"><div align="center"><IMG src="cbmc_eqn_bend_a_5.gif" alt="Equation BEND_A.5" /></div>
+            <div align="right"><b>Equation BEND_A.5</b></div></a>
+          </dt>
+          <p></p>
+         </li>
+         <li>DIST_SINE_GAUSSIAN: generates trials using a linear combination of the Sine distribution and the Gaussian distribution.
+          This is used for non-rigid bending angle potentials when the <b>cbmc_bend_generation</b> option is set to 'ideal + autofit gaussian'.
+          The mean (&mu;) and standard deviation (&sigma;) are fit to Sin(&theta;)exp(-&beta; u(&theta;)) for every angle in each type of molecule in
+          the simulation, and then the standard deviations are scaled by the <b>bend_a_sdev_multiplier</b>.
+          The fraction of ideal moves (<i>f</i><sub>ideal</sub>) is set to <b>bend_a_ideal_fraction</b>.
+          Angles are generated on the interval (0, &pi;).  
+          <p></p>
+          <dt><a name="equation_bend_a.6"><div align="center"><IMG src="cbmc_eqn_bend_a_6.gif" alt="Equation BEND_A.6" /></div>
+            <div align="right"><b>Equation BEND_A.6</b></div></a>
+          </dt>
+          <p></p>
+         </li>
+         <li><a name="angle_dist_bounded_sine">DIST_BOUNDED_SINE: generates trials using a Sine distribution bounded above (by &theta;<sub>high</sub>) and
+           below (by &theta;<sub>low</sub>).</a>
+          This is used automatically in combination with the <a href="../towhee_ff.html#angle_infinite_square_well">Infinite Square Well Angle</a> potential
+          and the bounding angles are determined for each generation based upon the 1-3 distance range allowed by the potential, and the current bond 
+          lengths.  Angles are generated on the interval (&theta;<sub>low</sub>, &theta;<sub>high</sub>).
+          <p></p>
+          <dt><a name="equation_bend_a.7"><div align="center"><IMG src="cbmc_eqn_bend_a_7.gif" alt="Equation BEND_A.7" /></div>
+            <div align="right"><b>Equation BEND_A.7</b></div></a>
+          </dt>
+          <p></p>
+         </li>
+        </ul>
+       </ul>
+       <dt><b>Generation of Bending B angles</b></dt>
+       <ul>
+        The "Bending B" <i>pseudo</i>-dihedral angle is the rotation required to bring the positive portion of the g<sub>a</sub>-f-p plane coincident with
+        the positive portion of the g<sub>b</sub>-f-p plane.  The ideal distribution for continuous potentials is uniform sampling on the interval (-&pi;, &pi;).
+        <p></p>
+        <dt><a name="equation_bend_b.1"><div align="center"><IMG src="cbmc_eqn_bend_b_1.gif" alt="Equation BEND_B.1" /></div>
+          <div align="right"><b>Equation BEND_B.1</b></div></a>
+        </dt>
+        <p></p>
+        The distribution for angles with a finite number of non-infinite energy terms (n<sub>finite</sub>) is the discrete version of the uniform distribution
+        <p></p>
+        <dt><a name="equation_bend_b.2"><div align="center"><IMG src="cbmc_eqn_bend_b_2.gif" alt="Equation BEND_B.2" /></div>
+          <div align="right"><b>Equation BEND_B.2</b></div></a>
+        </dt>
+        <p></p>
+        The following arbitrary trial distributions for the "Bending B" trials are implemented into Towhee.
+        <ul>
+         <li>DIST_DELTA: generates trials when the <i>pseudo</i>-dihedral angle implies any angles that have a potential with a finite number of
+          angles (<i>n</i><sub>finite</sub>) that have a nonzero Boltzmann weight (i.e. a rigid angle).  There are usually 2 viable values of the
+          <i>pseudo</i>-dihedral angle for each viable implied regular angle (a positive and negative rotation).
+          <p></p>
+          <dt><a name="equation_bend_b.3"><div align="center"><IMG src="cbmc_eqn_bend_b_3.gif" alt="Equation BEND_B.3" /></div>
+            <div align="right"><b>Equation BEND_B.3</b></div></a>
+          </dt>
+          <p></p>
+         </li>
+         <li>DIST_UNIFORM: generates trials for non-rigid angles when there are no energy terms to consider for this step, when the 
+          <b>cbmc_bend_generation</b> is set to 'ideal', or when the <b>cbmc_bend_generation</b> is set to 'global gaussian' and a hybridization match is 
+          not found for the "from" atom (f).
+          <p></p>
+          <dt><a name="equation_bend_b.4"><div align="center"><IMG src="cbmc_eqn_bend_b_4.gif" alt="Equation BEND_B.4" /></div>
+            <div align="right"><b>Equation BEND_B.4</b></div></a>
+          </dt>
+          <p></p>
+         </li>
+         <li>DIST_GAUSSIAN: generates trials for non-rigid angles when the <b>cbmc_bend_generation</b> is set to 'global gaussian' and a hybridization match
+          is found for the "from" atom (f), or when the <b>cbmc_bend_generation</b> is set to 'autofit gaussian'.  The (-&pi;, &pi;) interval is broken into 
+          some number of subregions (<i>n</i><sub>sub</sub>) and each of these subregions is described by a Gaussian distribution.
+          Each subregion (i) is equally likely (uniform on the number of subregions) and is described by an upper limit (hi(&phi;)),
+          a lower limit (lo(&phi;)), a mean (&mu;(&phi;)) and a standard deviation (&sigma;(&phi;)).         
+          <p></p>
+          <dt><a name="equation_bend_b.5"><div align="center"><IMG src="cbmc_eqn_bend_b_5.gif" alt="Equation BEND_B.5" /></div>
+            <div align="right"><b>Equation BEND_B.5</b></div></a>
+          </dt>
+          <p></p>
+         </li>
+         <li>DIST_UNIFORM_GAUSSIAN: generates trials using a linear combination of the uniform and Gaussian distributions for non-rigid angles when the
+          <b>cbmc_bend_generation</b> is set to 'ideal + autofit gaussian'.
+          The uniform (ideal) distribution is used with a probability equation to the <b>bend_b_ideal_fraction</b> (<i>f</i><sub>ideal</sub>).
+          Otherwise the (-&pi;, &pi;) interval is broken into some number of subregions (<i>n</i><sub>sub</sub>) and each of these subregions is described
+          by a Gaussian distribution.  In that case, each subregion (i) is equally likely (uniform on the number of subregions) and is described by an
+          upper limit (hi(&phi;)), a lower limit (lo(&phi;)), a mean (&mu;(&phi;)) and a standard deviation (&sigma;(&phi;)).         
+          <p></p>
+          <dt><a name="equation_bend_b.6"><div align="center"><IMG src="cbmc_eqn_bend_b_6.gif" alt="Equation BEND_B.6" /></div>
+            <div align="right"><b>Equation BEND_B.6</b></div></a>
+          </dt>
+          <p></p>
+         </li>
+        </ul>
+       </ul>
+      </ul>
+      <dt><b>Generation of Dihedral Angles</b></dt>
+      <ul>
+       There are often several dihedral angles across any pair of central atoms.  When performing a CBMC move a single dihedral angle is selected from
+       the available candidates and that dihedral is used as the frame of reference for both the angle and the biasing.  The dihedral angle consists of a 
+       sequence of atoms consisting of one of the being grown (g<sub>a</sub>), the "from" atom (f), the "prev" atom (p), and another atom that is bonded
+       to "p", but is not "f".  The ideal sampling for the dihedral angle is a uniform distribution on the interval (-&pi;, &pi;).
+       <p></p>
+       <dt><a name="equation_dihed.1"><div align="center"><IMG src="cbmc_eqn_dihed_1.gif" alt="Equation DIHED.1" /></div>
+         <div align="right"><b>Equation DIHED.1</b></div></a>
+       </dt>
+       <p></p>
+       The following arbitrary trial distributions for the dihedral angle trials are implemented into Towhee.
+       <ul>
+        <li>DIST_DELTA: generates trials when the primary dihedral angle is rigid (or multi-rigid), or when it implies a term that is rigid.
+         In either case, there are a finite number of dihedral angles (<i>n</i><sub>finite</sub>) that have a nonzero Boltzmann weight for the sum of 
+         the energies involved.
+         <p></p>
+         <dt><a name="equation_dihed.2"><div align="center"><IMG src="cbmc_eqn_dihed_2.gif" alt="Equation DIHED.2" /></div>
+           <div align="right"><b>Equation DIHED.2</b></div></a>
+         </dt>
+         <p></p>
+        </li>
+        <li>DIST_UNIFORM: generates trials for non-rigid angles when there are no dihedral energy terms, when the 
+         <b>cbmc_dihedral_generation</b> is set to 'ideal', or when the <b>cbmc_dihedral_generation</b> is set to 'global gaussian' and a hybridization
+         match is not found for the "from" and "prev" atom pair (f-p).
+         <p></p>
+         <dt><a name="equation_dihed.3"><div align="center"><IMG src="cbmc_eqn_dihed_3.gif" alt="Equation DIHED.3" /></div>
+           <div align="right"><b>Equation DIHED.3</b></div></a>
+         </dt>
+         <p></p>
+        </li>
+        <li>DIST_GAUSSIAN: generates trials for non-rigid angles when the <b>cbmc_dihedral_generation</b> is set to 'global gaussian' and a hybridization match
+         is found for the "from" and "prev" atom pair (f-p), or when the <b>cbmc_dihedral_generation</b> is set to 'autofit gaussian'.
+         The (-&pi;, &pi;) interval is broken into some number of subregions (<i>n</i><sub>sub</sub>) and each of these subregions is described by a
+         Gaussian distribution.  Each subregion (i) is equally likely (uniform on the number of subregions) and is described by an upper limit (hi(&phi;)),
+         a lower limit (lo(&phi;)), a mean (&mu;(&phi;)) and a standard deviation (&sigma;(&phi;)).         
+         <p></p>
+         <dt><a name="equation_dihed.4"><div align="center"><IMG src="cbmc_eqn_dihed_4.gif" alt="Equation DIHED.4" /></div>
+           <div align="right"><b>Equation DIHED.4</b></div></a>
+         </dt>
+         <p></p>
+        </li>
+        <li>DIST_UNIFORM_GAUSSIAN: generates trials using a linear combination of the uniform and Gaussian distributions for non-rigid dihedral angles when the
+         <b>cbmc_dihedral_generation</b> is set to 'ideal + autofit gaussian'.
+         The uniform (ideal) distribution is used with a probability equation to the <b>dihedral_ideal_fraction</b> (<i>f</i><sub>ideal</sub>).
+         Otherwise the (-&pi;, &pi;) interval is broken into some number of subregions (<i>n</i><sub>sub</sub>) and each of these subregions is described
+         by a Gaussian distribution.  In that case, each subregion (i) is equally likely (uniform on the number of subregions) and is described by an
+         upper limit (hi(&phi;)), a lower limit (lo(&phi;)), a mean (&mu;(&phi;)) and a standard deviation (&sigma;(&phi;)).         
+         <p></p>
+         <dt><a name="equation_dihed.5"><div align="center"><IMG src="cbmc_eqn_dihed_5.gif" alt="Equation DIHED.5" /></div>
+           <div align="right"><b>Equation DIHED.5</b></div></a>
+         </dt>
+         <p></p>
+        </li>
+       </ul>
+      </ul>
+     </ul>
+     <b>Historical context and Testing of various CBMC formulations</b> 
+     <ul>
+      <b>Original Efforts</b>
+      <ul>
+       CBMC was developed on lattice by <a href="../references.html#siepmann_1990">Siepmann 1990</a> as a method for sampling chain molecules in a
+       simple model of a monolayer.  A variety of researchers (<a href="../references.html#siepmann_frenkel_1992">Siepmann and Frenkel 1992</a>, 
+       <a href="../references.html#frenkel_et_al_1992">Frenkel <i>et al.</i> 1992</a>,
+       <a href="../references.html#laso_et_al_1992">Laso <i>et al.</i> 1992</a>, and
+       <a href="../references.html#siepmann_mcdonald_1992">Siepmann and McDonald 1992</a>) brought the method to continuous space in 1992.  Those versions
+       of the CBMC algorithm worked well for the linear chain molecules studied in the mid-1990s and were combined with the Gibbs ensemble to compute some
+       of the first vapor-liquid coexistence curves for chain molecules (such as united-atom <i>n</i>-alkanes).  The basic concept is that molecules are
+       grown atom by atom into a dense fluid in such a way that the local space for each new atom is sampled and the lower energy positions are more likely
+       to be chosen to continue the growth of the molecule.  This accumulates a bias that is then removed in the acceptance rule.  The net effect 
+       is a large increase in the acceptance rate for insertions of polyatomic molecules into liquids.  The molecules studied as that time had very
+       simple intramolecular interactions (vibrations, bending angles, dihedrals etc.) and the generation of those terms was handled with a Boltzmann
+       rejection scheme.
+      </ul>
+      <b>Coupled-Decoupled CBMC 'Martin and Siepmann 1999' formulation</b> 
+      <ul>
+       Work on branched alkane adsorption in silicalite by 
+       <a href="../references.html#vlugt_et_al_1999">Vlugt <i>et al.</i> 1999</a> revealed a flaw in the Boltzmann 
+       rejection technique if a molecule contains any atom that is bonded to three or more other atoms.  In addition, this 
+       method became very slow for molecules with atoms bonded to 4 or more other atoms.  
+       One of the methods developed to resolve this problem was the coupled-decoupled CBMC algorithm of 
+       <a href="../references.html#martin_siepmann_1999">Martin and Siepmann 1999</a>.  
+       The intramolecular terms were now generated using a biasing procedure with appropriate corrections 
+       in the acceptance rule.  Bond lengths were still rigid in that paper, although the algorithm was later generalized 
+       to include decoupled flexible bond lengths and class 2 force field term in 
+       <a href="../references.html#martin_thompson_2004">Martin and Thompson 2004</a>.  The flexible bond angles were decoupled 
+       from the torsions, which were coupled to the nonbonded terms.  What this means, is the bond angles are selected based 
+       solely on the bond angle energies and bond angle phase space terms and then those angles are used in all subsequent selections 
+       (torsion and nonbond).  Thus, the bond angle selection is decoupled from the other selections.  In contrast, 
+       for each nonbond trial a full selection is performed to generate torsional angles so these two selections are coupled.
+      </ul>
+      <b>Arbitrary Trial Distribution CBMC</b>
+      <ul>
+       Traditionally, the trials for things like bond lengths, bending angles, and torsional angles were generated according to 
+       an "ideal" distribution.  The "ideal" distribution is the one that occurs when there is no contribution from the potential energy terms.
+       These trials are then accepted or rejected based upon factors related to the potential energy terms.  While this split into "entropic" and
+       "energetic" terms is convenient, it is not necessarily the best way to handle the trial generation.  
+       <a href="../references.html#martin_biddy_2005">Martin and Biddy 2005</a> used a new method where the bond lengths and 
+       bending angles were generated according to a Gaussian distribution and then corrected for this bias in the acceptance rules.
+       This change reduced the expense of the CBMC move as fewer trials were required in order to generate viable candidates for bond lengths, bending
+       angles, and dihedral angles.
+      </ul>
+      <b>Coupled-Decoupled CBMC 'Coupled to pre-nonbond' formulation</b> 
+      <ul>
+       The details of this CBMC algorith, along with a substantial review of previous CBMC algorithms, is published in 
+       <a href="../references.html#martin_frischknecht_2006">Martin and Frischknecht 2006</a>.  This builds upon the arbitrary trial distribution 
+       method, as that made it possible to achieve high acceptance rates using only a single trial for things like bond lengths and bending 
+       angles, instead of the normal 100 to 1000 required when using the ideal trial distribution method.  The main original purpose of 
+       the coupled-decoupled algorithm was to reduce the computational cost of the move by decoupling terms that are relatively stiff and occur early in
+       the growth step, like vibrations and bending angles.  When using the proper arbitrary trial distribution, these steps are considerably less expensive 
+       and that enabled strategies whose primary aim is to improve the acceptance rate for challenging molecular geometries 
+       (such as strongly branched and cyclic molecules).  The 'Coupled to pre-nonbond' formulation implemented into Towhee adds a 
+       new selection process in between the dihedral selection and the nonbond selection (a pre-nonbond selection).  Bond lengths, 
+       bending angles, and dihedral angles are all decoupled from each other, but coupled to the pre-nonbond selection.  When combined with additional
+       fixed-endpoint biasing functions this allowed for adequate acceptance rates for small, cyclic molecules.
+      </ul>
+      <b>Dual-cutoff CBMC</b> 
+      <ul>
+       In 1998 <a href="../references.html#vlugt_et_al_1998">Vlugt <i>et al.</i> 1998</a> developed a cost-saving version 
+       of the CBMC algorithm.  Instead of using the full nonbonded cutoff during the CBMC move, a shorter range cutoff is 
+       used and this makes the computation less expensive in dense systems.  The full potential is then computed for the 
+       final structure and the energy difference between the true potential, and the one used to generate the growth trial, 
+       is incorporated into the acceptance rule to remove this bias.  In Towhee this algorithm is implemented using the 
+       <b>rcutin</b> variable for the inner cutoff used during the growth and <b>rcut</b> for the cutoff used to computed 
+       the "true" energy of the system.  Proper setting of <b>rcutin</b> can decrease the simulation time by a factor of two.
+       Note that the chemical potential computed using dual-cutoff CBMC has not been proven to be correct, and empirical 
+       evidence suggests that it is not correct in certain cases.
+      </ul>
+      <b>Fixed Endpoint CBMC</b>
+      <ul>
+       Cyclic molecules are substantially more difficult to grow using CBMC because their conformational space is severely 
+       limited by the constraints of having cyclic portions of the molecule.  Attempting to grow a cyclic molecule using 
+       standard CBMC methods, and just hoping it closes itself up properly, has an acceptance rate that is nearly zero.
+       It is generally believed that an additional biasing is required during the growth procedure in order to nudge the 
+       growth into positions that will result in reasonable ring closures.  There are a variety of biasing procedures in 
+       the literature.  One that is notable, but not currently implemented into Towhee, is the self-adapting fixed-endpoint 
+       (SAFE) CBMC algorithm of <a href="../references.html#wick_siepmann_2000">Wick and Siepmann 2000</a>.
+       The problem with SAFE-CBMC is it can use a large amount of memory in order to keep track of all of the adapting 
+       fixed-endpoint biasing functions.  The version implemented into Towhee uses some 
+       analytical biasing functions based upon a crude, but consistent, transformation of the distance between growth atoms
+       and target ring atoms, into a bias function based loosely upon dihedral, bending, and vibrational energies.
+       Considerable research is still needed in this area to determine optimal biasing strategies.  The algorithm implemented 
+       into Towhee was first used, but not satisfactorily described, in 
+       <a href="../references.html#martin_thompson_2004">Martin and Thompson 2004</a>.  A more detailed description of the biasing functions was
+       later published in <a href="../references.html#martin_frischknecht_2006">Martin and Frischknecht 2006</a>.
+      </ul>
+     </ul>
+     <dt><a href="algorithm.html">Return to the Towhee algorithm page</a></dt>
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->March 28, 2018<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>
+
+

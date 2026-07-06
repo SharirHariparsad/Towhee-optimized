@@ -1,0 +1,1316 @@
+<html>
+ <head><title>MCCCS Towhee: towhee_ff</title></head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" height="590">
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif"><a name="top"></a>MCCCS Towhee: towhee_ff</font></b></font></div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"> 
+    <IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" width="210" height="62" border="0" alt="SourceForge.net Logo" align="right"/>
+   </A>
+   <tr> 
+    <td valign="top"> 
+     <p></p>
+     <div align="center"> <font size="5"><b>
+     </b></font></div>
+     <dt> <b>Overview</b> </dt>
+     <ul>
+      This section describes the format that is used to specify Towhee force field files (towhee_ff) for the current version of those file 
+      (currently force field version 15, starting with code version 7.1.0).  This documentation was last updated for version 8.2.3.
+      Files for many commonly used force fields are provided with the download package and if you are using one of those you do not need to know the
+      details of this section.  However, this feature also allows the user to utilize their own force field parameters without having to modify the code
+      themselves.  The formatting for this file is extremely sensitive and the user is encouraged to look at the examples in the ForceFields directory.  
+      The names of the variables must be listed precisely as shown in this file in order to facilitate error checking of the force field file.
+     </ul>
+     <b>Differences from previous versions</b>
+     <ul>
+      <li>Version 14: had a vibcoeff(0) value listed for the Square Well Bond Type.</li>
+      <li>Version 13: did not have the <b>Vibration Order</b> variable for each vibration type, the <b>Angle Order</b> variable for each
+       angle type, the <b>Torsion Order</b> variable for each torsion type, or the <b>Bond Increment Order</b> for each bond increment type.
+       It also included the deprecated <b>Bond-Angle Strings</b> variables for certain class 2 angle potentials.
+      </li>
+      <li>Version 12: did not have the <b>Polarizability</b> variable for each nonbonded atom type and had a typo in the Number of One-Five types label.</li>
+      <li>Version 11: included a coefficient for the 'Nonbonded Potential only' Torsion style that was not used for anything.</li>
+      <li>Version 10: included a third term for the 'Simple Harmonic Potential' Torsion style that was not used.</li>
+      <li>Version 9: had a slightly different potential for the #9 bending angle style.</li>
+      <li>Version 8: did not allow the embedding density to be dependent upon both atoms in the pair.</li>
+      <li>Version 7: did not have any One-Five interaction information.</li>
+      <li>Version 6: had a the <b>Cross Term Logical</b> instead of specifying the acceptable classical_mixrule options.  Also did not contain the
+       bond increment information.
+      </li>
+      <li>Version 5: used the old format of specifying the potential form as an integer instead of as a text string</li>
+      <li>Version 4: had a completely separate file format for the Embedded Atom Method potential.  This has now been incorporated into a single version.
+       The nbcoeffs for the implicit solvation potential used a different format in this version and is no longer compatable with current versions.
+      </li>
+      <li>Version 3: allowed the specification of multiple atoms with the same nonbond parameters and did not utilize the vibration, angle, and torsion
+       name definations.  Version 3 and earlier are no longer valid inputs into Towhee.
+      </li>
+      <li>Version 2: used to allow the specification of multiple force fields for a single set of parameters.  This feature was made obsolete by other
+       changes in the code and was removed in version 3.
+      </li>
+      <li>Version 1: did not have the <b>Cross Term Logical</b> variable.  Instead it was assumed from the <b>classical_potential</b>.</li>
+     </ul>
+     <b>Variable explanations for towhee_ff</b> 
+     The variable names must all be written exactly as follows.  All entries provide the variable name of the descriptive character string,
+     the FORTRAN formatting for the descriptive character string, and the FORTRAN formatting for the actual variable entries.
+     <ul>
+      <dt><b>'towhee_ff Version' (a17) [integer]</b>
+       <ul>
+        <li>The Version number of the force field file.  This documentation is accurate for version 3.</li>
+       </ul>
+      </dt>
+      <dt><b>'Number of Nonbonded Types' (a25) [integer]</b>
+       <ul>
+        <li>The number of nonbonded atom types in the force field file.</li>
+       </ul>
+      </dt>
+      <dt><b>'Potential Type' (a14) [character string a30]</b>
+       <ul>
+        <li>The nonbonded potential type.  See the <a href="potentype/towhee_input_classical_potential.html">classical_potential</a> documentation
+         for information about how to set this variable.  Only the <b>classical_potential</b> is needed here and not all of the variables associated with
+         the <b>classical_potential</b>.
+        </li>
+       </ul>
+      </dt>
+      <dt><b>'Classical Mixrule' (a17) [character string a30]</b>
+       <ul>
+        <li>The classical mixing rule that works in combination with this forcefield.  Generally this must match exactly with the <b>classical_mixrule</b>
+         variable (set in towhee_input).  However, certain special combination cases are also allowed.  Currently the only combination case is
+         'LB or Geometric' which matches with a <b>classical_mixrule</b> of 'Lorentz-Berthelot' or 'Geometric'.
+        </li>
+       </ul>
+      </dt>
+      <hr></hr>
+      <dt> This section is repeated once for each of the Number of Nonbonded Types.</dt>
+      <ul>
+       <dt><b>'Atom Type Number' (a16) [integer]</b>
+        <ul>
+         <li>The number coresponding to the atom type.  These numbers must run from 1 to the Number of Nonbonded Types.</li>
+        </ul>
+       </dt>
+       <hr></hr>
+       <dt> The following set of variables are repeated once for each atom type pair represented here.  
+        If the '<b>Classical Mixrule</b>' is 'Explicit' then there are multiple listings (interaction of this <b>Atom Type Number</b> with itself and
+        with all other atoms that have a larger <b>Atom Type Number</b>).
+	For any other value of the '<b>Classical Mixrule</b>' there is only a single listing (interaction of this Atom Type Number with itself).
+	<ul>
+	 <dt><b>'eam_pair_style' (a14) [character string a20]</b>
+          <ul>
+           <dt>This variable is only listed if <b>Potential Type</b> is set to 6 (Embedded Atom Method).  This is the style of the EAM pair interaction for
+            this combination of atom types.  Currently supported options are listed here.
+           </dt>
+           <li>'Ackland 3-part': The pair potential is a complicated 3 part function as described in 
+            <a href="references.html#mendelev_et_al_2003">Mendelev <i>et al.</i> 2003</a>.
+	    If r &lt; nbcoeff(1)
+            <ul>
+             <dt>x = r/nbcoeff(4)</dt>
+             <dt><i>u</i><sub>pair</sub> = ( 0.1818 * exp[-3.2 * x] + 0.5099 * exp[-0.9423 * x]
+              + 0.2802 * exp[-0.4029 * x] + 0.02817 * exp[-0.2016 * x] ) * nbcoeff(3) / r
+             </dt>
+            </ul>
+            <dt>elseif r &lt; nbcoeff(2) then</dt>
+            <ul>
+             <dt>x = nbcoeff(5) + nbcoeff(6) * r + nbcoeff(7) * r<sup>2</sup> + nbcoeff(8) * r<sup>3</sup></dt>
+             <dt><i>u</i><sub>pair</sub> = nbcoeff(9) * exp[x]</dt>
+            </ul>
+            <dt>else</dt>
+            <ul>
+             <dt><i>u</i><sub>pair</sub> = &#8721;<sub>i = 1,table_npair</sub> table_pair(2,i) * [table_pair(1,i) - r]<sup>3</sup>
+              * Heaviside[table_pair(1,i)-r]
+             </dt>
+            </ul>
+           </li>
+           <li>'Ackland Power': The pair potential is a complicated 3 part function as described in 
+            <a href="references.html#ackland_et_al_2004">Ackland <i>et al.</i> 2004</a>.
+            <dt>if r &lt; nbcoeff(1) then</dt>
+	    <ul>
+	     <dt><i>u</i><sub>pair</sub> = ( nbcoeff(4) * exp[nbcoeff(5) * r] + nbcoeff(6) * exp[nbcoeff(7) * r] + nbcoeff(8) * exp[nbcoeff(9) * r] 
+	      + nbcoeff(10) * exp[nbcoeff(11) * r] ) * nbcoeff(3) / r
+	     </dt>
+	    </ul>
+            <dt>elseif r &lt; nbcoeff(2) then</dt>
+            <ul>
+             <dt>x = nbcoeff(12) + nbcoeff(13) * r + nbcoeff(14) * r<sup>2</sup> + nbcoeff(15) * r<sup>3</sup></dt>
+             <dt><i>u</i><sub>pair</sub> = nbcoeff(16) * exp[x]</dt>
+            </ul>
+            <dt>else</dt>
+            <ul>
+             <dt><i>u</i><sub>pair</sub> = &#8721;<sub>i = 1,table_npair</sub> table_pair(2,i) * 
+              [table_pair(1,i) - r]<sup>i+3</sup> * Heaviside[table_pair(1,i)-r]
+             </dt>
+            </ul>
+           </li>
+           <li>'Belashchenko 5-8': Two part pair potential as described in <a href="references.html#belashchenko_2013">Belashchenko 2013</a>.
+            <dt>if r &lt; r<sub>1</sub> (where r<sub>1</sub> is nbcoeff(1)) then</dt>
+	    <ul>
+             <dt><i>u</i><sub>pair</sub> = nbcoeff(7) + nbcoeff(8) * (r<sub>1</sub> - r) + nbcoeff(9)*(exp[nbcoeff(10)*(r<sub>1</sub>-r)]-1)</dt>
+            </ul>
+            <dt>else</dt>
+            <ul>
+             <dt><i>u</i><sub>pair</sub> = &#8721;<sub>i
+	       = 1,5</sub> &#8721;<sub>m=0,8</sub> a<sub>i,m</sub> (r - r<sub>i+1</sub>)<sup>m</sup> Heaviside[r<sub>i</sub>,r<sub>i+1</sub>]</dt>
+            </ul>
+            <dt>where the r<sub>i</sub> are stored in nbcoeff(i) for i=1,6</dt>
+            <dt>and a<sub>i,m</sub> are stored in nbcoeff(2 + 9*i + m) for i = 1,5 and m = 0,8</dt>
+           </li>
+           <li>'exponential': The pair potential is described by an exponential function.
+            <dt><i>u</i><sub>pair</sub> = nbcoeff(1) e<sup>[nbcoeff(2) r<sub>ij</sub>]</sup>.</dt>
+           </li>
+           <li>'morse': The pair potential is described by the Morse function.
+            <dt><i>u</i><sub>pair</sub> = nbcoeff(1) * { exp[-2 nbcoeff(2) (r - nbcoeff(3))] - 2 exp[-nbcoeff(2) (r-nbcoeff(3))]}</dt>
+           </li>
+           <li>'table': This is the traditional way of describing EAM potential information and presents a table of data that is interpolated to
+            determine the energy for any distance.
+           </li>
+          </ul>
+         </dt>
+         <dt><b>'table_pair' (a11) [integer, integer, integer]</b>
+          <ul>
+           <dt>This variable is only listed for tabular potentials.  This occurs in the following cases
+            <ul>
+             <li><b>classical_potential</b> 'Embedded Atom Method' and <b>eam_pair_style</b> 'Ackland 3-part'</li>
+             <li><b>classical_potential</b> 'Embedded Atom Method' and <b>eam_pair_style</b> 'Ackland Power'</li>
+             <li><b>classical_potential</b> 'Embedded Atom Method' and <b>eam_pair_style</b> 'table'</li>
+             <li><b>classical_potential</b> 'Multiwell'.</li>
+             <li><b>classical_potential</b> 'Repulsive Multiwell'.</li>
+             <li><b>classical_potential</b> 'Tabulated Pair'</li>
+            </ul>
+           </dt>
+           <li>Three values on a single line.  First atom type, second atom type, and the number of tabular data lines of <b>table_pair_data</b></li>
+          </ul>
+         </dt>
+         <dt><b>'table_pair_data' (a15) [double precision, double precision]</b>
+          <ul>
+           <li>The tabular values used to determine the pair potential.  This is only listed for tabular potentials.  There are two entries per line
+            (table_pair(1,n) and table_pair(2,n)) and the number of lines is equal to the value set in <b>table_pair</b>
+           </li>
+          </ul>
+         </dt>
+         <dt><b>'Nonbond Coefficients' (a20) [double precision]</b>
+          <ul>
+           <li>These values are listed for any non-tabular potential and they contain all of the nonbonded coefficients.  These are listed with one
+            coefficient per line.  The number of nonbonded coefficients depends upon the 
+            <a href="potentype/towhee_input_classical_potential.html"><b>classical_potential</b></a>.  
+            The native units of the code are used (Kelvin for energy, &#8491; for distances).  If the '<b>Classical Mixrule</b>' is 'Explicit' 
+            then the cross terms must be explicitly declared for all interactions of this atom type with any atom type that has a larger Atom 
+            Type Number.  Otherwise the nonbonded coefficients are listed only for self-interaction and the mixing rule will set the cross terms.
+           </li>
+          </ul>
+         </dt>
+        </ul>
+       <dt>End of the section that is repeated based on the Number of Atom Type Pairs.</dt>
+       </dt>
+       <hr></hr>
+       <dt>The following section is only included for <b>classical_potential</b> 'Embedded Atom Method'.
+        The density contributed to all of the other atom types is listed here for the current atom type.
+       <dt><b>'eam_dens' (a8) [integer, integer, integer]</b>
+        <ul>
+         <li>Three values on a single line.  Atom type the density is contributed to, atom type the density is contributed from, and number of lines of
+          density coefficients
+         </li>
+        </ul>
+       </dt>
+       <dt><b>'eam_dens_style' (a14) [character string a20]</b>
+        <ul>
+         <dt>The style of the EAM density interaction for this atom type.  There are several options currently supported by Towhee.</dt>
+         <li>'Ackland cubic sum'
+          <dt>&#961;(r<sub>ij</sub>) = &#8721;<sub>i = 1,eam_ndens</sub> eam_dens(2,i) * [eam_dens(1,i) - r]<sup>3</sup> * Heaviside[eam_dens(1,i)-r]</dt>
+         </li>
+         <li>'exponential': The density is described by an exponential function.
+          <dt>&#961;(r<sub>ij</sub>) = eam_dens(1,2) e<sup>eam_dens(2,2) r<sub>ij</sub></sup> for r<sub>ij</sub> &lt eam_dens(2,1), and 0 otherwise.</dt>
+         </li>
+         <li>'table': This is the traditional way of describing EAM density information and presents a table of data that is interpolated to determine
+          the density for any distance.
+         </li>
+        </ul>
+       </dt>
+       <dt><b>'eam_dens_data' (a14) [double precision, double precision]</b>
+        <ul>
+         <dt>The values used to determine the embedding density.  The meanings are different depending on the setting of <b>eam_dens_style</b> above.
+          In all cases there are a number of lines equal to the value set in <b>eam_dens</b>
+         </dt>
+         <li>'table': Each line contains two values.  The first is the distance (&#8491;) and the second is the corresponding embedding density
+          (arbitrary units).
+         </li>
+         <li>'exponential': The embedding density is described by an exponential function.  The format is a bit clumsy as the first line
+          contains a dummy value and then the <i>A</i> prefactor (arbitrary units).  
+          The second line contains the cutoff distance for the density potential (&#8491;) and then the <i>B</i> exponential factor (inverse &#8491;).
+         </li>
+         <li>'Ackland cubic sum':  Each line contains two values.  The first is a distance (&#8491;) and the second is a density prefactor
+          (arbitrary units).
+         </li>
+        </ul>
+       </dt>
+       <dt><b>'eam_embed' (a9) [integer, integer]</b>
+        <ul>
+         <li>Only listed for <b>classical_potential</b> 'Embedded Atom Method'.  Two values on a single line.  Atom type and number of lines of embedding
+          function coefficients.
+         </li>
+        </ul>
+       </dt>
+       <dt><b>'eam_embed_style' (a15) [character string a20]</b>
+        <ul>
+         <dt>Only listed for <b>classical_potential</b> 'Embedded Atom Method'.  The style of the EAM embedding function for this atom type.  Currently 
+          supported options are listed below.
+         </dt>
+         <li>'Belashchenko': u<sub>embed</sub>(&#961;(r<sub>ij</sub>)) 
+          <ul>
+           <dt>
+            = eam_embed_data(4,1) * <span style="white-space: nowrap; font-size:larger">&radic;<span style="text-decoration:overline;">&nbsp;
+	      &#961;&nbsp;</span></span>(r<sub>ij</sub>) + eam_embed_data(4,2) * &#961(r<sub>ij</sub>)
+	    <ul>for 0 &le; &#961(r<sub>ij</sub>) &lt eam_embed_data(5,1)</ul>
+           </dt>
+           <dt>
+            = eam_embed_data(1,2) + eam_embed_data(2,2) * [&#961;(r<sub>ij</sub>) - eam_embed_data(5,2)]<sup>2</sup>
+	    + eam_embed_data(3,2)*[&#961;(r<sub>ij</sub>) - eam_embed_data(5,2)]<sup>3</sup>
+            <ul>for eam_embed_data(5,1) &le; &#961(r<sub>ij</sub>)</ul>
+           </dt>
+          </ul>
+         </li>
+	 <li>'Belashchenko 10 rho': 
+	  <ul>
+	   <dt>belrho(0) = eam_embed_data(11,1)</dt>
+	   <dt>belrho(1) = eam_embed_data(11,2)</dt>
+	   <dt>belrho(2) = eam_embed_data(11,3)</dt>
+	   <dt>belrho(3) = eam_embed_data(12,1)</dt>
+	   <dt>belrho(4) = eam_embed_data(12,2)</dt>
+	   <dt>belrho(5) = eam_embed_data(12,3)</dt>
+	   <dt>belrho(6) = eam_embed_data(13,1)</dt>
+	   <dt>belrho(7) = eam_embed_data(13,2)</dt>
+	   <dt>belrho(8) = eam_embed_data(13,3)</dt>
+	   <dt>belrho(9) = eam_embed_data(14,1)</dt>
+	  </ul>
+	  u<sub>embed</sub>(&#961;(r<sub>ij</sub>)) 
+          <ul>
+	   <dt>
+	    = [eam_embed_data(8,1) + eam_embed_data(8,2) * (&#961;(r<sub>ij</sub>) - belrho(7)) + eam_embed_data(8,3) * (&#961;(r<sub>ij</sub>) - belrho(7))<sup>2</sup>] 
+	    * [2*&#961;(r<sub>ij</sub>)/belrho(7) - {&#961;(r<sub>ij</sub>)/belrho(7)}<sup>2</sup>]
+	    <ul>for 0 &lt; &#961;(r<sub>ij</sub>) &lt; belrho(7)</ul>
+	   </dt>
+	   <dt>
+	    = eam_embed_data(i,1) + (&#961;(r<sub>ij</sub>) - belrho(i-1)) * [eam_embed_data(i,2) + eam_embed_data(i,3)*(&#961;(r<sub>ij</sub>)-belrho(i-1))]
+	    <ul>for belrho(i) &le; &#961;(r<sub>ij</sub>) &lt; belrho(i-1) where 2 &le; i &le; 7</ul>
+	   </dt>
+	     <dt>
+	      = eam_embed_data(1,1) + eam_embed_data(3,1) * (&#961;(r<sub>ij</sub>) - belrho(0))<sup>2</sup>
+	      <ul>for belrho(1) &le; &#961;(r<sub>ij</sub>) &lt; belrho(8).</ul>
+	     </dt>
+	   <dt>
+	    = eam_embed_data(9,1) + eam_embed_data(9,2) * [&#961;(r<sub>ij</sub>) - belrho(8)]
+	    + eam_embed_data(9,3)*[&#961;(r<sub>ij</sub>) - belrho(8)]<sup>eam_embed_data(14,2)</sup>
+	    <ul>for belrho(8) &le; &#961;(r<sub>ij</sub>) &lt; belrho(9)</ul>
+	   </dt>
+	   <dt>
+	    = eam_embed_data(10,1) + eam_embed_data(10,2) * [&#961;(r<sub>ij</sub>) - belrho(9)] + eam_embed_data(10,3)*[&#961;(r<sub>ij</sub>)
+	    - belrho(9)]<sup>eam_embed_data(14,3)</sup>
+	    <ul>for belrho(9) &le; &#961;(r<sub>ij</sub>)</ul>
+	   </dt>
+          </ul>
+         </li>
+	 <li>'logarithmic': u<sub>embed</sub>(&#961;(r<sub>ij</sub>)) = &#961;(r<sub>ij</sub>) * (eam_embed_data(1,2) * ln[&#961;(r<sub>ij</sub>)]
+	  + eam_embed_data(2,2))</li>
+	 <li>'power 0.5 and 2': u<sub>embed</sub>(&#961;(r<sub>ij</sub>)) = 
+	  eam_embed_data(1,2) <span style="white-space: nowrap; font-size:larger">&radic;<span style="text-decoration:overline;">&nbsp;
+	    &#961;&nbsp;</span></span>(r<sub>ij</sub>)
+	  + eam_embed_data(2,2) *[&#961;(r<sub>ij</sub>)]<sup>2</sup>
+         </li>
+	 <li>'power 0.5, 2, and 4': u<sub>embed</sub>(&#961;(r<sub>ij</sub>)) = 
+	  eam_embed_data(1,2) <span style="white-space: nowrap; font-size:larger">&radic;<span style="text-decoration:overline;">&nbsp;
+	    &#961;&nbsp;</span></span>(r<sub>ij</sub>)
+	  + eam_embed_data(2,2) *[&#961;(r<sub>ij</sub>)]<sup>2</sup>
+	  + eam_embed_data(3,2) *[&#961;(r<sub>ij</sub>)]<sup>4</sup>
+         </li>
+	 <li>'squareroot': u<sub>ebmed</sub>(&#961;(r<sub>ij</sub>)) = eam_embed_data(2,2) * &#961;(r<sub>ij</sub>)
+	  - eam_embed_data(1,2) <span style="white-space: nowrap; font-size:larger">&radic;<span style="text-decoration:overline;">&nbsp;
+	    &#961;&nbsp;</span></span>(r<sub>ij</sub>)
+         </li>
+         <li>'table': This is the traditional way of describing EAM embedding function information and presents a table of data that is interpolated to
+          determine the embedding function energy for any density.
+         </li>
+        </ul>
+       </dt>
+       <dt><b>'eam_embed_data' (a15) [double precision, double precision]</b>
+        <ul>
+         <dt>Only listed for <b>classical_potential</b> 'Embedded Atom Method'.  The values used to determine the embedding function energy.
+          The meanings are different depending on the setting of <b>eam_embed_style</b> above.  In all cases there are a number of lines equal to the
+          value set in <b>eam_embed</b>
+         </dt>
+         <li>'table': Each line contains two values.  The first is the density (arbitrary units) and the second is the corresponding embedding
+          function energy (Kelvin/k<sub>b</sub>).
+         </li>
+         <li>'Ackland 2-term': A single line that contains a prefactor (eam_embed(1,1)) and a square factor (eam_embed(2,1) as described above.</li>
+         <li>'Belashchenko': 5 lines where the first 4 lines contain the energy terms (K) and the fifth line contains the density terms (arbitrary units)
+	  as described above.
+	 </li>
+        </ul>
+       </dt>
+       <dt>End of the special 'Embedded Atom Method'  section.</dt>
+       </dt>
+       <hr></hr> 
+       <dt><b>'Mass' (a4) [double precision]</b>
+        <ul>
+         <li>The atomic mass of this element.  Units are grams/mol.</li>
+        </ul>
+       </dt>
+       <dt><b>'Element' (a7) [character string a2]</b>
+        <ul>
+         <li>The elemental name of this Atom Type.</li>
+        </ul>
+       </dt>
+       <dt><b>'Bond Pattern' (a12) [character string a5]</b>
+        <ul>
+         <li>The bond pattern for this Atom Type.  The bond pattern is used with configurational-bias moves that utilize a non-uniform generation of
+          the bond angles and dihedrals.  See the <a href="algorithm/cbmc.html"><b>configurational-bias manual</b></a> for more information.  Set to the
+          word 'null' if you do not want to use this feature.
+         </li>
+        </ul>
+       </dt>
+       <dt><b>'Base Charge' (a12) [double precision]</b>
+        <ul> 
+         <li>The base charge on this atom type for use with the 'bond increment' method of automatically assigning charges.  This value is zero for most
+          atom types, but can take on different values for ionic systems.
+         </li>
+        </ul>
+       </dt>
+       <dt><b>'Polarizability' (a14) [double precision]</b>
+        <ul>
+         <li>The polarizability of each atom type for use with some of the classical mixing rules.  Expressed in units of cubic &#8491;.</li>
+        </ul>
+       </dt>
+       <dt><b>'Force Field Name' (a16) [character string a10]</b>
+        <ul>
+         <li>The name of the Force Field</li>
+        </ul>
+       </dt>
+       <dt><b>'Atom Names' (a10) [character string a10 on four lines]</b>
+        <ul>
+         <li>Each Atom Type has a nonbonded name, a bonded name, an angle name, and a torsion name.  These are listed in that order, one per line.
+          These names are used in combination with the assemble features in Towhee to make it easier to build molecule structures in the towhee_input file.
+         </li>
+        </ul>
+       </dt>
+      </ul>
+      <dt>End of the section that is repeated based on the Number of Nonbonded Types.</dt>
+      <hr></hr>
+      <dt><b>'Number of Bonded Terms' (a22) [integer]</b>
+       <ul>
+	<li>The number of different Bonded terms in the force field file.</li>
+       </ul>
+      </dt>
+      <hr></hr>
+      <dt>This section is repeated once for each of the Number of Bonded Terms</dt>
+      <ul>
+       <dt><b>'Bond Type Number' (a16) [integer]</b>
+        <ul>
+         <li> The number coresponding to the bond type.  These numbers must run from 1 to the Number of Bonded Terms.</li>
+        </ul>
+       </dt>
+       <dt><b>'Bond Style' (a10) [integer]</b>
+        <ul>
+         <li> The number coresponding to the bond style.  Below is a list of Bond Styles, their potential form, and the required vibcoeffs.
+          Previously, the configurational-bias algorithm required the equilibrium bond length term for any bond potential to be stored in vibcoeff(0),
+	  but this is no longer mandatory starting with version 7.1.0.
+         </li>
+         <ul>
+          <li>1: Fixed Bond Length
+           <ul>
+            <dt>U<sub>bond</sub> = Infinity, if ( length - vibcoeff(0) ) / vibcoeff(0) > 0.01</dt>
+            <dt>U<sub>bond</sub> = 0 otherwise.</dt>
+           </ul>
+          </li>
+          <li>2: Standard Harmonic
+           <ul>
+            <dt>U<sub>bond</sub> = vibcoeff(1)*[ length - vibcoeff(0) ]<sup>2</sup></dt>
+           </ul>
+          </li>
+          <li>3: Gromos Quartic
+           <ul>
+            <dt>U<sub>bond</sub> = vibcoeff(1)*[ length<sup>2</sup> - vibcoeff(0)<sup>2</sup> ]<sup>2</sup></dt>
+           </ul>
+          </li>
+          <li>4: Nonlinear
+           <ul>
+            <dt> distance = [ length - vibcoeff(0) ]<sup>2</sup></dt>
+            <dt>U<sub>bond</sub> = [ vibcoeff(1)*distance ] / [ vibcoeff(2) - distance ]</dt>
+           </ul>
+          </li>
+          <li>5: MM2 Quadradic and Triplet
+           <ul>
+            <dt> distance = [ length - vibcoeff(0) ]</dt>
+            <dt>U<sub>bond</sub> = vibcoeff(1)*distance<sup>2</sup> * [ 1.0 - 2.0*distance ], if distance &le; 1/3</dt>
+            <dt>U<sub>bond</sub> = Infinity, if distance > 1/3</dt>
+           </ul>
+          </li>
+          <li>6: Compass Quartic
+           <ul>
+            <dt> distance = [ length - vibcoeff(0) ]</dt>
+            <dt>U<sub>bond</sub> = vibcoeff(1)*distance<sup>2</sup> + vibcoeff(2)*distance<sup>3</sup> + vibcoeff(3)*distance<sup>4</sup></dt>
+           </ul>
+          </li>
+          <li>7: Nonbonded interactions used as the Bonding potential
+           <ul>
+            <dt> This has no vibcoeffs as it uses the nonbond van der Waals and coulombic potentials instead.</dt>
+           </ul>
+          </li>
+          <li>8: No interaction
+           <ul>
+            <dt>Zero energy regardless of interatomic separation.</dt>
+           </ul>
+          </li>
+          <li>9: Morse
+           <ul>
+            <dt> distance = [ length - vibcoeff(0) ]</dt>
+            <dt>U<sub>bond</sub> = vibcoeff(1)*[ e<sup>vibcoeff(2)*distance</sup> - 1 ]<sup>2</sup></dt>
+           </ul>
+          </li>
+          <li><a name="bond_infinite_square_well">10: Infinite Square Well</a>
+           <ul>
+            <dt>vibcoeff(0) is no longer listed for this potential starting with version 7.1.0</dt>
+            <dt>U<sub>bond</sub> = infinity if length &lt; vibcoeff(1)</dt>
+	    <dt>U<sub>bond</sub> = vibcoeff(3) if vibcoeff(1) &le; length &le; vibcoeff(2)</dt>
+	    <dt>U<sub>bond</sub> = infinity if vibcoeff(2) &lt; length</dt>
+	   </ul>
+          </li>
+          <li>11: Standard Harmonic plus nonbonded interactions
+           <ul>
+            <dt>U<sub>bond</sub> = vibcoeff(1)*[ length - vibcoeff(0) ]<sup>2</sup>
+             + U<sub>nonbond</sub>(r<sub>ij</sub>) + U<sub>electrostatic</sub>(r<sub>ij</sub>)
+            </dt>
+           </ul>
+          </li>
+          <li>12: FENE plus nonbonded interactions (Reference: <a href="references.html#kremer_grest_1990">Kremer and Grest, 1990</a>
+           <ul>
+            <dt>U<sub>bond</sub> = - 0.5 * vibcoeff(2) * vibcoeff(1)<sup>2</sup> * ln[ 1.0 - (length/(vibcoeff(1)))<sup>2</sup> ]
+             + U<sub>nonbond</sub>(r<sub>ij</sub>) + U<sub>electrostatic</sub>(r<sub>ij</sub>) if length &lt; vibcoeff(1).
+	    </dt>
+            <dt>U<sub>bond</sub> = Infinity otherwise.
+            </dt>
+           </ul>
+          </li>
+         </ul>   
+        </ul>
+       </dt>
+       <dt><b>'Bond Coefficients' (a17) [double precision]</b>
+        <ul>
+         <li> The values of the vibcoeffs listed in order (starting with 0) with a single coefficient per line.</li>
+        </ul>
+       </dt>
+       <dt><b>'Vibration Order' (a15) [character string a10]</b>
+        <ul>
+         <li>This is used to distinguish between bond types for atoms that can make more than one kind of bond (for example, sp<sup>2</sup> 
+          carbons bond to each other with either single or double bonds).  Commonly used options are listed in the
+          <a href="inpstyle/inpstyle_6.html#vibration">advanced connectivity map manual</a>.
+         </li>
+        </ul>
+       </dt>
+       <dt><b>'Force Field Name' (a16) [character string a10]</b>
+        <ul>
+         <li>The name of the Force Field</li>
+        </ul>
+       </dt>
+       <dt><b>'Number of Atoms with Same Parameters' (a38) [integer]</b>
+        <ul>
+         <li>The number of pairs of atoms in this force field which use the same bond parameters.</li>
+        </ul>
+       </dt>
+       <dt><b>'Atom Names' (a10) [pairs of character strings a10,1x,a10] </b>
+        <ul>
+         <li>All of the pairs of Atom Names for this Bond Type.  These are listed with one pair of atom names per line.</li>
+        </ul>
+       </dt>
+      </ul>
+      <dt>End of the section repeated based on the Number of Bonded Terms</dt>
+      <hr></hr>
+      <dt><b>'Number of Angle Terms' (a21) [integer]</b>
+       <ul>
+	<li>The number of different Angle terms in the force field file.</li>
+       </ul>
+      </dt>
+      <hr></hr>
+      <dt>This section is repeated based on the Number of Angle Terms</dt>
+      <ul>
+       <dt><b>'Angle Type Number' (a17) [integer]</b>
+	<ul>
+         <li> The number coresponding to the angle type.  These numbers must run from 1 to the Number of Angle Terms.</li>
+	</ul>
+       </dt>
+       <dt><b>'Angle Style' (a11) [integer]</b>
+	<ul>
+         <li> The number coresponding to the angle style.  Below is a list of Angle Styles,their potential form, and the bencoeffs.  All of the angles
+          are listed using degrees in the force field file, and are converted into radians for use in the code.  Thus, all of the force constants need to be 
+          appropriate for use with radians, while the angles are listed in degrees.  The equilibrium angle is always listed in bencoeff(0) and only this
+          value is converted from degrees to radians.
+         </li>
+         <ul>
+          <li>0: Rigid Angle
+           <ul>
+            <dt>U<sub>angle</sub>(&theta;) = Infinity, if <b>|</b>(&theta; - bencoeff(0)<b>)|</b> > bencoeff(1)</dt>
+            <dt>U<sub>angle</sub>(&theta;) = 0 otherwise.</dt>
+           </ul>
+          </li>
+          <li>1: Standard Harmonic
+           <ul>
+            <dt>U<sub>angle</sub>(&theta;) = bencoeff(1)*[ &theta; - bencoeff(0) ]<sup>2</sup></dt>
+           </ul>
+          </li>
+          <li>2: DREIDING 1 + Cos(&theta;)
+           <ul>
+            <dt>U<sub>angle</sub>(&theta;) = bencoeff(1)*[ 1.0 + Cos(&theta;) ]</dt>
+           </ul>
+          </li>
+          <li>3: Harmonic Cosine
+           <ul>
+            <dt>U<sub>angle</sub>(&theta;) = bencoeff(1)*[ Cos(&theta;) - Cos(bencoeff(0)) ]<sup>2</sup></dt>
+           </ul>
+          </li>
+          <li>4: Compass Quartic Angle with autodetection
+           <ul>
+            The Bond-Angle and Bond-Bond (1-2) Class 2 cross terms are incorporated into this angle and that makes the potential assymetric with
+            respect to the atom order.  This uses the Compass atom type definitions to decide the order of the terms.  Then, it finds the
+            appropriate bond terms for use in the bond-angle and bond-bond cross terms.  Two logicals control whether there are any Bond-Angle or
+            Bond-Bond cross terms.
+            Definitions: r<sub>ij</sub> is the distance between the first and second atoms in the angle, r<sub>jk</sub> is the distance between the second
+            and third atoms of the angle, and the appropriate vibcoeff(0) values are determined automatically.
+            <dt>differ = &theta; - bencoeff(0)</dt>
+            <dt>U<sub>angle</sub>(&theta;) = bencoeff(1)*differ<sup>2</sup> + bencoeff(2)*differ<sup>3</sup> + bencoeff(3)*differ<sup>4</sup>
+             + U<sub>bond-angle</sub>(r<sub>ij</sub>,r<sub>jk</sub>,&theta;)
+             + U<sub>bond-bond</sub>(r<sub>ij</sub>,r<sub>jk</sub>)
+            </dt>
+            <dt>if <b>Bond-Angle Logical</b> is true then
+             <ul>
+              U<sub>bond-angle</sub>(&theta;,r<sub>ij</sub>,r<sub>jk</sub>) = differ*[ bencoeff(4)*(r<sub>ij</sub> - vibcoeff(0)<sub>ij</sub>) 
+              +bencoeff(5)*(r<sub>jk</sub> - vibcoeff(1)<sub>jk</sub>) ]
+             </ul>
+             otherwise
+             <ul>
+              U<sub>bond-angle</sub>(r<sub>ij</sub>,r<sub>jk</sub>,&theta;) = 0
+             </ul>
+            </dt>
+            <dt>if <b>Bond-Bond Logical</b> is true then
+             <ul>U<sub>bond-bond</sub>(r<sub>ij</sub>,r<sub>jk</sub>) = bencoeff(6)*[ 
+              (r<sub>ij</sub> - vibcoeff(0)<sub>ij</sub>) *(r<sub>kj</sub> - vibcoeff(0)<sub>jk</sub>) ]
+             </ul>
+             otherwise
+             <ul>
+              U<sub>bond-bond</sub>(r<sub>ij</sub>,r<sub>jk</sub>) = 0
+             </ul>
+            </dt>
+           </ul>
+          </li>
+          <li>5: Charmm Harmonic with Urey-Bradley
+           <ul>
+            U<sub>angle</sub>(&theta;,d<sub>ik</sub>) = bencoeff(1)*[ &theta; - bencoeff(0) ]<sup>2</sup> 
+            + bencoeff(3)*[d<sub>ik</sub> - bencoeff(2) ]<sup>2</sup>
+            <dt>where d<sub>ik</sub> is the distance between the first and third atoms of the angle.</dt>
+           </ul>
+          </li>
+          <li>6: Nonbonded Terms only between the 1-3 atoms of the angle
+           <ul>
+            The angle energies are actually the nonbonded van der Waals plus the nonbonded coulomb terms.  Towhee requires an angle term between all
+            atoms connected by two bonds, so this term is used if you actually want just a nonbonded interaction (for example, with a freely 
+            jointed chain).  There are no bencoeffs for this type.
+           </ul>
+          </li>
+          <li>7: Nonbonded Terms between the 1-3 atoms plus a harmonic angle
+           <ul>
+            The angle energies are the nonbonded van der Waals, the nonbonded coulomb terms, and the following.
+            <ul>
+             <dt>U<sub>angle</sub>(&theta;) = bencoeff(1)*[ &theta; - bencoeff(0)]<sup>2</sup></dt>
+            </ul>
+           </ul>
+          </li>
+          <li>8: Compass Quartic Angle with explicit ordering of terms
+           <ul>
+            The Bond-Angle and Bond-Bond (1-2) Class 2 cross terms are incorporated into this angle and that makes the potential assymetric with
+            respect to the atom order.  This version uses a positive or negative convenction on the type numbers (assigned in towhee_input) to 
+            tell the code whether to follow the order as presented here (positive) or to use the inverse order (negative).  Two logicals control whether
+            there are any Bond-Angle or Bond-Bond cross terms.
+            <dt> differ = angle-bencoeff(0)</dt>
+            <dt>U<sub>angle</sub>(&theta;) = bencoeff(1)*differ<sup>2</sup> + bencoeff(2)*differ<sup>3</sup> + bencoeff(3)*differ<sup>4</sup></dt>
+            <dt>if there are Bond-Angle cross terms then</dt>
+            <dt>U<sub>bond-angle</sub>(&theta;,d<sub>ij</sub>,d<sub>jk</sub>) = [ &theta; - bencoeff(0) ] * {bencoeff(4)*[ d<sub>ij</sub> - bencoeff(5) ] 
+             + bencoeff(6)*[ d<sub>jk</sub> - bencoeff(7) ]}
+            </dt>
+            <dt>U<sub>bond-bond</sub>(d<sub>ij</sub>,d<sub>jk</sub>) = bencoeff(8) * [ d<sub>ij</sub> - bencoeff(9) ] 
+             * [ d<sub>jk</sub> - bencoeff(10) ]
+            </dt>
+           </ul>
+          </li>
+          <li>9: Fourier Expansion with constant plus single term
+           <ul>
+            This was originally implemented for use with the UFF forcefield.  The prefactor is computed in a much more elaborate manner than is usual
+            for angle force constants and only works in combination with the UFF 12-6 classical_potential.  This prefactor is computed for each angle in
+            the simulation during the structure check at the start of a simulation.  Note: this potential is not well designed as it also has a minimum 
+            for a nonphysical &theta; value of zero.
+            <dt>&theta; = bencoeff(0)
+            <dt>r<sub>ik</sub> = [vibcoeff(ij,0)<sup>2</sup>*vibcoeff(jk,0)<sup>2</sup> - 2*vibcoeff(ij,0)*vibcoeff(jk,0)*Cos(&theta;) ]<sup>1/2</sup></dt>
+            <dt>benprefact(ijk) = kcaltok*664.12*nbcoeff(10,i)*nbcoeff(10,k)/(r<sub>ik</sub><sup>5</sup>)
+             * { vibcoeff(ij,0)*vibcoeff(jk,0)*[1 - Cos<sup>2</sup>(&theta;)] - vibcoeff(ik,0)<sup>2</sup>*Cos(&theta;) } / bencoeff(1)<sup>2</sup>
+            </dt>
+            <dt>U<sub>angle</sub>(&theta;) = benprefact(ijk) * [1 + bencoeff(2) * Cos(bencoeff(1)*&theta;)]</dt>
+           </ul>
+          </li>
+          <li>10: Three Term Fourier Expansion
+           <ul>
+            This was originally implemented for use with the UFF forcefield.  The prefactor is computed in a much more elaborate manner than is usual
+            for angle force constants and only works in combination with the UFF 12-6 classical_potential.  This prefactor is computed for each angle 
+            during the structure check at the start of  a simulation.  Note: this prefactor is nearly identical to the one for anglestyle 9, with the 
+            notable exception of not dividing by the bencoeff(1)<sup>2</sup> term.
+            <dt>&theta;<sub>0</sub> = bencoeff(0)</dt>
+            <dt>r<sub>ik</sub> = [vibcoeff(ij,0)<sup>2</sup>*vibcoeff(jk,0)<sup>2</sup> 
+             - 2*vibcoeff(ij,0)*vibcoeff(jk,0)*Cos(&theta;<sub>0</sub>) ]<sup>1/2</sup>
+            </dt>
+            <dt>benprefact(ijk) = kcaltok*664.12*nbcoeff(10,i)*nbcoeff(10,k)/(r<sub>ik</sub><sup>5</sup>)
+             * { vibcoeff(ij,0)*vibcoeff(jk,0)*[1 - Cos<sup>2</sup>(&theta;<sub>0</sub>)] - vibcoeff(ik,0)<sup>2</sup>*Cos(&theta;<sub>0</sub>) }
+            </dt>
+            <dt>U<sub>angle</sub>(&theta;) = benprefact(ijk) * [bencoeff(1) + bencoeff(2)*Cos(&theta;) + bencoeff(3)*Cos(2&theta;)]</dt>
+           </ul>
+          </li>
+          <li>11: No interaction
+           <ul>
+            The angle energy is zero regardless of the distance or angle between the atoms.
+           </ul>
+          </li>
+          <li>12: Sixth Power Angle with Autodetection of Angle-Bond Terms
+           <ul>
+            The Bond-Angle term is incorporated into this angle and that makes the potential assymetric with respect to the atom order.  This version
+            uses the first letter of the angle atom type definitions to decide the order of the terms.  Then, it finds the appropriate bond terms for use
+            in the bond-angle term.
+            <dt> differ = &theta; - bencoeff(0)</dt>
+            <dt>U<sub>angle</sub>(&theta;) = bencoeff(1)*differ<sup>2</sup> * (1 + bencoeff(2)*differ<sup>4</sup>)</dt>
+            <dt>if there are Bond-Angle cross terms then</dt>
+            <dt>U<sub>bond-angle</sub>(&theta;) = bencoeff(3) * [ &theta;<sub>ijk</sub> - bencoeff(0) ]
+             * [ ( r<sub>ij</sub> - Equilibrium bond length<sub>ij</sub> ) + ( r<sub>jk</sub> - Equilibrium bond length<sub>jk</sub> ) ]
+            </dt>
+           </ul>
+          </li>
+          <li><a name="angle_infinite_square_well">13: Infinite Square Well Angle</a>
+           <ul>
+            The angle terms is a 1,3 distance based check with bounds.
+            <dt>U<sub>angle</sub>(&theta;) = infinity if distance<sub>1-3</sub> &lt; bencoeff(1)</dt>
+	    <dt>U<sub>angle</sub>(&theta;) = bencoeff(3) if bencoeff(1) &le; distance<sub>1-3</sub> &le; bencoeff(2)</dt>
+	    <dt>U<sub>angle</sub>(&theta;) = infinity if bencoeff(2) &lt; distance<sub>1-3</sub></dt>
+           </ul>
+          </li>
+          <li>14: Multiple Allowed Rigid Angles
+           <ul>
+            U<sub>angle</sub>(&theta;) = Infinity, if <b>|</b>(&theta; - bencoeff(0))<b>|</b> &gt; bencoeff(2)
+            <ul>and <b>|</b>(&theta; - bencoeff(1))<b>|</b> &gt; bencoeff(2).</ul>
+            <dt>U<sub>angle</sub> = 0 otherwise.</dt>
+           </ul>
+          <li>15: MMFF Cubic with bond-angle cross terms
+           <ul>
+            differ = &theta - bencoeff(0)
+            <dt>U<sub>angle</sub>(&theta;) = bencoeff(1)*differ<sup>2</sup> + bencoeff(2)*differ<sup>3</sup>
+             + U<sub>bond-angle</sub>(r<sub>ij</sub>,r<sub>jk</sub>,&theta;)
+            </dt>
+            <dt>if <b>Bond-Angle Logical</b> is true then
+             <ul>
+              U<sub>bond-angle</sub>(r<sub>ij</sub>,r<sub>jk</sub>,&theta;) = differ*[ bencoeff(3)*(r<sub>ij</sub> - vibcoeff(0)<sub>ij</sub>)
+              +bencoeff(4)*(r<sub>jk</sub> - vibcoeff(0)<sub>jk</sub>) ]
+             </ul>
+             otherwise
+             <ul>
+              U<sub>bond-angle</sub>(r<sub>ij</sub>,r<sub>jk</sub>,&theta;) = 0
+             </ul>
+            </dt>
+           </ul>
+          </li>
+          <li>16: Harmonic Cosine plus 1-3 nonbonded interactions
+           <ul>
+            <dt>U<sub>angle</sub>(&theta;) = bencoeff(1)*[ Cos(&theta;) - Cos(bencoeff(0)) ]<sup>2</sup>
+             + U<sub>nonbond</sub>(r<sub>ik</sub>) + U<sub>electrostatic</sub>(r<sub>ik</sub>)
+            </dt>
+           </ul>
+          </li>
+         </ul>   
+	</ul>
+       </dt>
+       <dt><b>'Bond-Angle Logical' (a18) [logical]</b>
+	<ul>
+         <li> This entry is only present for the Compass angle styles (4 and 8).  It is true if there are bond-angle terms and false otherwise.</li>
+	</ul>
+       </dt>
+       <dt><b>'Bond-Angle Coefficients' (a23) [double precision]</b>
+	<ul>
+         <li> This entry is only present for the Compass angle styles (4 and 8), and only if the Bond-Angle Logical is true.  This lists the Bond-Angle
+          coefficients (those appearing in U<sub>bond-angle</sub>) one per line, in order starting from the lowest index coefficient.
+         </li>
+	</ul>
+       </dt>
+       <dt><b>'Bond-Bond Logical' (a17) [logical]</b>
+	<ul>
+         <li> This entry is only present for the Compass angle styles (4 and 8).  This is true if there are bond-bond terms with this angle type.</li>
+	</ul>
+       </dt>
+       <dt><b>'Bond-Bond Coefficients' (a22) [double precision]</b>
+	<ul>
+         <li> This entry is only present for the Compass angle styles (4 and 8), and only if the Bond-Bond Logical is true.  This lists the Bond-Bond
+          coefficients (those appearing in U<sub>bond-bond</sub>) one per line, in order starting from the lowest index coefficient.
+         </li>
+	</ul>
+       </dt>
+       <dt><b>'Angle Coefficients' (a18) [double precision]</b>
+	<ul>
+         <li> The values of the bencoeffs listed in order (starting with 0) with a single coefficient per line.  Note, that those bencoeffs that appear
+          in the bond-angle or bond-bond cross terms are not listed here.
+         </li>
+	</ul>
+       </dt>
+       <dt><b>'Angle Order' (a11) [character string a15]</b>
+	<ul>
+         <li>This is used to distinguish between angle types that contain the same sets of angles, but in different environments.  The environment is
+          automatically detected according to the appropriate rules for the given forcefield.  Required for all forcefields, but currently only used 
+          for <a href="forcefields/mmff94.html">MMFF94</a>
+         </li>
+	</ul>
+       </dt>
+       <dt><b>'Force Field Name' (a16) [character string a10]</b>
+	<ul>
+         <li>The name of the Force Field</li>
+	</ul>
+       </dt>
+       <dt><b>'Number of Atoms with Same Parameters' (a38) [integer]</b>
+	<ul>
+         <li>The number of triplets of atoms in this force field which use the same angle parameters.</li>
+	</ul>
+       </dt>
+       <dt><b>'Atom Names' (a10) [character string triplets a10,1x,a10,1x,a10]</b>
+	<ul>
+         <li>All of the triplets of Atom Names for this Angle Type.  These are listed with one triplet of atom names per line.</li>
+	</ul>
+       </dt>
+      </ul>
+      <dt>End of the section repeated based on the Number of Angle Terms</dt>
+      <hr></hr>
+      <dt><b>'Number of Torsion Terms' (a23) [integer]</b>
+       <ul>
+	<li>The number of different regular torsion terms in the force field file.  Regular torsions are defined for atoms that are connected through
+         exactly three consecutive bonds.
+	</li>
+       </ul>
+      </dt>
+      <hr></hr>
+      <dt>This is repeated based on the Number of Torsion Terms</dt>
+      <ul>
+       <dt><b>'Torsion Type Number' (a19) [integer]</b>
+	<ul>
+         <li> The number coresponding to the torsion type.  These numbers must run from 1 to the Number of Torsion Terms.</li>
+	</ul>
+       </dt>
+       <dt><b>'Torsion Style' (a13) [integer]</b>
+	<ul>
+         <li> The number coresponding to the torsion style.  Below is a list of Torsion Styles,their potential form, and the torcoeffs.  The
+          torsional potentials have quite a variety of forms (as shown below).  Any energy terms need to use the standard code units of Kelvins.
+          All torsion angles are computed in radians within Towhee, so any additive terms with the torsion angles should also be listed in radians.
+          The torsional angle is listed as &phi; in the equations below.  Please note that different authors define the torsional zero differently.
+          Towhee uses the convention that a perfect cis bond has a torsional angle of 0.
+         </li>
+         <ul>
+          <li>1: Simple Harmonic Potential
+           <ul>
+            <dt>U<sub>torsion</sub>(&phi;) = torcoeff(0) * [&phi; - torcoeff(1)]^2</dt>
+           </ul>
+          </li>
+          <li>2: OPLS style Cosine Series
+           <ul>
+            <dt>U<sub>torsion</sub>(&phi;) = torcoeff(1) * [1 + Cos(&phi;)] + torcoeff(2) * [1 - Cos(2&phi;)] + torcoeff(3) * [1 + Cos(3&phi;)]</dt>
+           </ul>
+          </li>
+          <li>3: Gromos/Charmm/Amber style Cosine Series
+           <ul>
+            <dt>U<sub>torsion</sub>(&phi;) = &#8721;<sup>i=1,ntorloop</sup> torcoeff(3*(i-1)+1) * [ 1 + Cos(torcoeff(3*(i-1)+2)&phi; - torcoeff(3*(i-1)+3))]</dt>
+           </ul>
+          </li>
+          <li>4: Gromos/Charmm/Amber style Cosine Series plus a harmonic term that Charmm traditionally calls an improper term despite the fact that
+           the bonding pattern is that of a regular torsion.
+           <ul>
+            <dt>U<sub>torsion</sub>(&phi;) = [&#8721;<sup>i=1,ntorloop</sup> torcoeff(3*(i-1)+1)
+             * [ 1 + Cos(torcoeff(3*(i-1)+2)&phi; - torcoeff(3*(i-1)+3))]]
+            </dt>
+            <dt>+ torcoeff(3*ntorloop+1) * [ &phi; - torcoeff(3*ntorloop+2)]^2</dt>
+           </ul>
+          </li>
+          <li>5: Compass Cosine series with cross terms and with autodetection.
+           <ul>
+            <dt>The bond and angle terms that appear in the cross terms use the appropriate vibcoeff and bencoeff parameters for the bond or angle in
+             question.  These are determined using the Compass naming conventions.
+            </dt>
+            <dt>U<sub>torsion</sub>(&phi;) = torcoeff(0) * [1 - Cos(&phi;)] + torcoeff(1) * [1 - Cos(2&phi;)] + torcoeff(2) * [1 - Cos(3&phi;)]</dt>
+            <dt>U<sub>bond-torsion</sub> = (bond term 1-2) * [ torcoeff(3) * Cos(&phi;) + torcoeff(4) * Cos(2&phi;) + torcoeff(5) * Cos(3&phi;)]</dt>
+            <dt>+ (bond term 2-3) * [ torcoeff(6) * Cos(&phi;) + torcoeff(7) * Cos(2&phi;) + torcoeff(8) * Cos(3&phi;)]</dt>
+            <dt>+ (bond term 3-4) * [ torcoeff(9) * Cos(&phi;) + torcoeff(10) * Cos(2&phi;) + torcoeff(11) * Cos(3&phi;)]</dt>
+            <dt>U<sub>angle-torsion</sub> = (angle term 1-2-3) * [ torcoeff(12) * Cos(&phi;) + torcoeff(13) * Cos(2&phi;) + torcoeff(14) * Cos(3&phi;)]</dt>
+            <dt>+ (angle term 2-3-4) * [ torcoeff(15) * Cos(&phi;) + torcoeff(16) * Cos(2&phi;) + torcoeff(17) * Cos(3&phi;)]</dt>
+            <dt>U<sub>angle-angle-torsion</sub> = torcoeff(18) * (angle term 1-2-3) * (angle term 2-3-4)</dt>
+            <dt>U<sub>bond-bond</sub> = torcoeff(19) * (bond term 1-2) * (bond term 3-4)</dt>
+           </ul>
+          </li>
+          <li>6: Compass Cosine series without cross terms and with autodetection.
+           <ul>
+            <dt>U<sub>torsion</sub>(&phi;) = torcoeff(0) * [1 - Cos(&phi;)] + torcoeff(1) * [1 - Cos(2&phi;)] + torcoeff(2) * [1 - Cos(3&phi;)]</dt>
+           </ul>
+          </li>
+          <li>7: TraPPE simple Cosine function.
+           <ul>
+            <dt>Note that unlike most force fields, TraPPE uses the convention that a trans bond is 0 &phi;.  That is the reason for the shift of &pi;
+             in this potential as Towhee uses the zero cis convention.
+            </dt>
+            <dt>U<sub>torsion</sub>(&phi;) = torcoeff(0) * [1 - Cos(2*[&phi; - &pi] + torcoeff(1)) ]</dt>
+           </ul>
+          </li>
+          <li>8: Nonbonded Potential only.
+           <ul>
+            <dt>The nonbonded potential for van der Waals and coulombic terms is the only thing used.</dt>
+           </ul>
+          </li>
+          <li>9: Compass cosine series with cross terms and explicit parameter declaration.
+           <ul>
+            <dt>U<sub>torsion</sub>(&phi;) = torcoeff(0) * [1 - Cos(&phi; - torcoeff(3))] + torcoeff(1) * [1 - Cos(2*(&phi; - torcoeff(4)))] 
+             + torcoeff(2) * [1 - Cos(3*(&phi; - torcoeff(5)))]
+            </dt>
+            <dt>U<sub>bond-torsion</sub>(&phi;) = [length(1-2) - torcoeff(9)] * [ torcoeff(6) * Cos(&phi;) + torcoeff(7) * Cos(2&phi;)
+             + torcoeff(8) * Cos(3&phi;)]
+            </dt>
+            <dt>+ [length(2-3) - torcoeff(13)] * [ torcoeff(10) * Cos(&phi;) + torcoeff(11) * Cos(2&phi;) + torcoeff(12) * Cos(3&phi;)]</dt>
+            <dt>+ [length(3-4) - torcoeff(17)] * [ torcoeff(14) * Cos(&phi;) + torcoeff(15) * Cos(2&phi;) + torcoeff(16) * Cos(3&phi;)]</dt>
+            <dt>U<sub>angle-torsion</sub>(&phi;) = [ angle(1-2-3) - torcoeff(24)] * [ torcoeff(18) * Cos(&phi;) 
+             + torcoeff(19) * Cos(2&phi;) + torcoeff(20) * Cos(3&phi;)]
+            </dt>
+            <dt>+ [angle(2-3-4) - torcoeff(25)] * [ torcoeff(21) * Cos(&phi;) + torcoeff(22) * Cos(2&phi;) + torcoeff(23) * Cos(3&phi;)]</dt>
+            <dt>U<sub>angle-angle-torsion</sub>(&phi;) = torcoeff(26) * [angle(1-2-3) - torcoeff(27)] * [angle(2-3-4) - torcoeff(28)]
+             * [Cos(&phi; - torcoeff(3))]
+            </dt>
+            <dt>U<sub>bond-bond</sub> = torcoeff(29) * [length(1-2) - torcoeff(30)] * [length(3-4) - torcoeff(31)]</dt>
+           </ul>
+          </li>
+          <li>10: Cosine Power Series.
+           <ul>
+            <dt>Note that there are actually ntorloop+1 parameters required as this sum runs from a power of 0 to a power of ntorloop.</dt>
+            <dt>U<sub>torsion</sub>(&phi;) = &#8721;<sup>i=0,ntorloop</sup> torcoeff(i)*Cos<sup>i</sup>(&phi;)</dt>
+           </ul>
+          </li>
+          <li>11: Old style OPLS Cosine Series.
+           <ul>
+            <dt>U<sub>torsion</sub>(&phi;) = torcoeff(0) + torcoeff(1)*[1 + Cos(&phi;)] + torcoeff(2)*[1 - Cos(2&phi;)] + torcoeff(3)*[1 + Cos(3&phi;)]</dt>
+           </ul>
+          </li>
+          <li>12: Sum2003 Cosine Series (<a href="references.html#sum_et_al_2003">Sum <i>et al.</i> 2003</a>)
+           <ul>
+	    <dt>Note: this was not functioning properly prior to version 8.1.0.</dt>
+            <dt>U<sub>torsion</sub>(&phi;) = &sum;<sup>i=0, ntorloop-1</sup> torcoeff(i+1) * [ 1 - Cos{i*(&phi; - torcoeff(0))}]</dt>
+           </ul>
+          </li>
+          <li>13: Old OPLS Two term Cosine Series.
+           <ul>
+            <dt>U<sub>torsion</sub>(&phi;) = torcoeff(1)*[1 - Cos(&phi;)] + torcoeff(2)*[1 - Cos(2&phi;)]</dt>
+           </ul>
+          </li>
+          <li>14: UFF 1 - Cosine divided by Total Number of Torsions
+           <ul>
+            <dt>This potential has the initial force constant divided by the total number of torsions that share the central two atoms.  This value is
+             computed on the fly based upon the number of atoms bonded to each of the two central atoms.
+            </dt>
+            <dt>totbond = [invib(atom<sub>2</sub>)-1]*[invib(atom<sub>3</sub>)-1]</dt>
+            <dt>U<sub>torsion</sub>(&phi;) = torcoeff(1) * [1 - torcoeff(2)*Cos(torcoeff(3)&phi;)]/totbond</dt>
+           </ul>
+          </li>
+          <li>15: DREIDING 1 - Cos(n (&phi; - &phi;<sub>0</sub>)) divided by Total Number of Torsions
+           <ul>
+            <dt>This potential has the initial force constant divided by the total number of torsions that share the central two atoms.  This value is
+             computed on the fly based upon the number of atoms bonded to each of the two central atoms.
+            </dt>
+            <dt>totbond = [invib(atom<sub>2</sub>)-1]*[invib(atom<sub>3</sub>)-1]</dt>
+            <dt>U<sub>torsion</sub>(&phi;) = torcoeff(1) * [1 - Cos(torcoeff(2)*(&phi; - torcoeff(3)))]/totbond</dt>
+           </ul>
+          </li>
+          <li>16: 2-fold Cosine
+           <ul>
+            <dt>U<sub>torsion</sub>(&phi;) = torcoeff(1) * [1 - Cos( 2&phi; ) ]</dt>
+           </ul>
+          </li>
+          <li>17: TraPPE planer cosine series
+           <ul>
+            <dt>U<sub>torsion</sub>(&phi;) = torcoeff(1) * [1 + Cos(&phi; + torcoeff(3))] + torcoeff(2) * [1 - Cos<sup>2</sup>(&phi;)]</dt>
+           </ul>
+          </li>
+          <li>18: Square Well 
+           <ul>
+            <dt>U<sub>torsion</sub> = torcoeff(3): if torcoeff(1) &lt; r<sub>ik</sub> &lt; torcoeff(2)</dt>
+	    <dt>U<sub>torsion</sub> = infinity : otherwise</dt>
+           </ul>
+          </li>
+          <li>19: Amber / Number of Torsions
+           <ul>
+            <dt>tottor(jk) = &#8721; of all torsions that share j and k as the central atoms</dt>
+            <dt>U<sub>torsion</sub>(&phi;) = &#8721;<sup>i=1,ntorloop</sup> torcoeff(3*(i-1)+1) * 
+             [ 1 + Cos(torcoeff(3*(i-1)+2)&phi; - torcoeff(3*(i-1)+3))] / tottor(jk)
+            </dt>
+           </ul>
+          </li>
+          <li>20: OPLS Fluorocarbon Four Term
+           <ul>
+            <dt>U<sub>torsion</sub>(&phi;) = torcoeff(1)*(1 + Cos(&phi;)) + torcoeff(2)*(1 - Cos(2&phi;)) + torcoeff(3)*(1 + Cos(3&phi;)) +
+             torcoeff(4)*(1 - Cos(4&phi;))
+            </dt>
+           </ul>
+          </li>
+          <li>21: Multiple Rigid Dihedrals
+           <ul>
+            <dt>U<sub>torsion</sub>(&phi;) = Infinity if for each value of <b>x</b> as <b>x</b> goes from 1 to <b>ntorloop</b></dt>
+            <ul><b>|</b> &phi; - torcoeff(<b>x</b>) <b>|</b> > torcoeff(0)</ul>
+            <dt>U<sub>torsion</sub>(&phi;) = 0 otherwise.
+           </ul>
+          </li>
+          <li>22: Fluoroalkane series from <a href="references.html#cui_et_al_1998">Cui <i>et al.</i> 1998</a>
+           <ul>
+            <dt>U<sub>torsion</sub>(&phi;) = torcoeff(0) + torcoeff(1)*(1 - Cos(&phi;)) + torcoeff(2)*(1 - Cos(3 &phi;))
+             + torcoeff(3)*(1 - Cos(&phi;))<sup>5</sup> + torcoeff(4)*exp[-torcoeff(5) &phi;<sup>2</sup>]
+            </dt>
+           </ul>
+          </li>
+         </ul>   
+	</ul>
+       </dt>
+       <dt><b>'One-Four Nonbond Logical' (a24) [logical]</b>
+	<ul>
+         <li> True if you wish to add nonbonded van der Waals and coulombic terms into the torsional potential.</li>
+	</ul>
+       </dt>
+       <dt><b>'One-Four Coulombic Scaling' (a26) [double precision]</b>
+	<ul>
+         <li> This entry is only present if the One-Four Nonbond Logical is true.  This is the scaling prefactor for the coulombic one-four terms in
+          the torsional potential.  A value of 1.0 uses the same coulombic energy as for all of the other nonbonded terms.
+         </li>
+	</ul>
+       </dt>
+       <dt><b>'Number of Torsion Loops' (a23) [integer]</b>
+	<ul>
+         <li> This entry is only present for those potentials that have the ntorloop variable (see above).  In those cases, this is the number of terms
+          in the Cosine series.
+         </li>
+	</ul>
+       </dt>
+       <dt><b>'Torsion Coefficients' (a20) [double precision]</b>
+	<ul>
+         <li> The torcoeff variables, listed one per line, starting with the lowest index variable and working upwards.</li>
+	</ul>
+       </dt>
+       <dt><b>'Torsion Order' (a13) [character string a15]</b>
+	<ul>
+         <li>This is used to distinguish between torsion types that contain the same sets of atoms, but in different environments.  The environment is
+          automatically detected according to the appropriate rules for the given forcefield.  Required for all forcefields, but currently only used 
+          for <a href="forcefields/mmff94.html">MMFF94</a>
+         </li>
+	</ul>
+       </dt>
+       <dt><b>'Force Field Name' (a16) [character string a10]</b>
+	<ul>
+         <li>The name of the Force Field</li>
+	</ul>
+       </dt>
+       <dt><b>'Number of Atoms with Same Parameters' (a38) [integer]</b>
+	<ul>
+         <li>The number of quartets of atoms in this force field which use the same torsion parameters.</li>
+	</ul>
+       </dt>
+       <dt><b>'Atom Names' (a10) [character string quartets a10,1x,a10,1x,a10,1x,a10]</b>
+	<ul>
+         <li>All of the quartets of Atom Names for this Torsion Type.  These are listed with one quartet of atom names per line.</li>
+	</ul>
+       </dt>
+      </ul>
+      <dt>End of the section repeated based on the Number of Torsion Terms</dt>
+      <hr></hr>
+      <dt><b>'Number of Improper Terms' (a24) [integer]</b>
+       <ul>
+	<li>The number of different improper torsion terms in the force field file.  Improper torsions are defined for three atoms that are all bonded
+         to a single central atom.  They are most often used to enforce planarity of sp<sup>2</sup> centers.
+	</li>
+       </ul>
+      </dt>
+      <hr></hr>
+      <dt>This section is repeated based on the Number of Improper Terms</dt>
+      <ul>
+       <dt><b>'Improper Type Number' (a20) [integer]</b>
+	<ul>
+         <li>The number coresponding to the improper type.  These numbers must run from 1 to the Number of Improper Terms.</li>
+	</ul>
+       </dt>
+       <dt><b>'Improper Form' (a13) [integer]</b>
+	<ul>
+         <li> The number coresponding to the improper form.</li>
+         <ul>
+          <li>1: Amber / Stereocenter Form.</li>
+          <li>2: Charmm / Simple out-of-plane form.</li>
+          <li>3: Average over the three possible Wilson out-of-plane angles form.</li>
+          <li>4: UFF angle between the IL vector and the IJK plane where I is the central atom bonded to atoms J, K, and L.</li>
+          <li>5: Vector of the three possible Wilson out-of-plane angles</li>
+         </ul>
+	</ul>
+       </dt>
+       <dt><b>'Improper Style' (a13) [integer]</b>
+	<ul>
+         <li> The number coresponding to the improper style.  Below is a list of Improper Styles and their impcoeffs.  The improper potentials have a 
+          variety of forms (as shown below).  Any energy terms need to use the standard code units of Kelvins.  All improper angles are computed in
+          radians within Towhee, so any additive terms with the improper angles should also be listed in radians.  The improper angle is listed as
+          &phi; in the equations below.  Please note that different authors define the torsional zero differently.
+         </li>
+         <ul>
+          <li>1: Simple Harmonic Potential
+           <ul>
+            <dt>U<sub>improper</sub>(&phi;) = impcoeff(0) * [&phi; - impcoeff(1)]^2</dt>
+           </ul>
+          </li>
+          <li>2: OPLS style cosine series
+           <ul>
+            <dt>U<sub>improper</sub>(&phi;) = impcoeff(1) * [ 1 + Cos(&phi;)] + impcoeff(2) * [1 - Cos(2&phi;)] + impcoeff(3) * [ 1 + Cos(3&phi;)]</dt>
+           </ul>
+          </li>
+          <li>3: Potentials for enforcing stereochemistry
+           <ul>
+            <dt>This is to be used only with the stereochemistry improper form.  It is used to enforce R/S or D/L stereochemistry centers.  The same
+             potential is used in both cases, but the atom ordering is different.
+            </dt>
+            <dt>U<sub>improper</sub>(&phi;) = 0, if 0 &lt; &phi; ;</dt>
+	    <dt>= impcoeff(0) + impcoeff(1)*[-&phi;], if -0.5 &pi &lt; &phi; &lt; 0 </dt>
+	    <dt>= impcoeff(0) + impcoeff(1)*[&pi + &phi;], if &phi; &lt; -0.5 &pi </dt>
+           </ul>
+          </li>
+          <li>4: Amber cosine
+           <ul>
+            <dt>U<sub>improper</sub>(&phi;) = impcoeff(1) * [ 1 + Cos(impcoeff(2)&phi; - impcoeff(3))]</dt>
+           </ul>
+          </li>
+          <li>5: Wilson Harmonic
+           <ul>
+            <dt>U<sub>improper</sub>(&phi;) = impcoeff(0) * [ &phi; - impcoeff(1) ]<sup>2</sup></dt>
+           </ul>
+          </li>
+          <li>6: UFF Cosine Series
+           <ul>
+            <dt>U<sub>improper</sub>(&phi;) = impcoeff(3)*[impcoeff(0) + imcoeff(1)*Cos(&phi;) + impcoeff(2)*Cos(2&phi;)]
+           </ul>
+          </li>
+          <li>7: 1 - Cos(&phi;)
+           <ul>
+            <dt>U<sub>improper</sub>(&phi;) = impcoeff(1)*[1 - Cos(&phi;)]
+           </ul>
+          </li>
+          <li>8: MMFF Wilson planar enforcer (only works with <b>Improper Form</b> 5)
+           <ul>
+            <dt>U<sub>improper</sub>(&phi;) = impcoeff(1)*[ &phi;<sub>j</sub><sup>2</sup> + &phi;<sub>k</sub><sup>2</sup> + &phi;<sub>l</sub><sup>2</sup>]
+           </ul>
+          </li>
+         </ul>   
+	</ul>
+       </dt>
+       <dt><b>'Improper Coefficients' (a21) [double precision]</b>
+	<ul>
+         <li> The impcoeff variables, listed one per line, starting with the lowest index variable and working upwards.</li>
+	</ul>
+       </dt>
+       <dt><b>'Force Field Name' (a16) [character string a10]</b>
+	<ul>
+         <li>The name of the Force Field</li>
+	</ul>
+       </dt>
+       <dt><b>'Number of Atoms with Same Parameters' (a38) [integer]</b>
+	<ul>
+         <li>The number of quartets of atoms in this force field which use the same improper parameters</li>
+	</ul>
+       </dt>
+       <dt><b>'Atom Names' (a10) [character string quartets a10,1x,a10,1x,a10,1x,a10]</b>
+	<ul>
+         <li>All of the quartets of Atom Names for this Improper Type.  These are listed with one quartet of atom names per line.  The naming
+          conventions for the different force fields are not consistent.  If you wish to use this feature you should look in the code for examples.
+         </li>
+	</ul>
+       </dt>
+      </ul>
+      <dt>End of the section repeated based on the Number of Improper Terms</dt>
+      <hr></hr>
+      <dt><b>'Number of Angle-Angle Terms' (a27) [integer]</b>
+       <ul>
+	<li>The number of different angle-angle terms in the force field file.  Angle-Angle terms are defined for 3 atoms that are all bonded to a
+         single central atom.  The two angles are inaa2-current-inaa3 and inaa2-current-inaa4.
+	</li>
+       </ul>
+      </dt>
+      <hr></hr>
+      <dt>This section is repeated based on the Number of Angle-Angle Terms</dt>
+      <ul>
+       <dt><b>'Angle-Angle Type Number' (a23) [integer]</b>
+	<ul>
+         <li> The number coresponding to the angle-angle type.  These numbers must run from 1 to the Number of Angle-Angle Terms.</li>
+	</ul>
+       </dt>
+       <dt><b>'Angle-Angle Style' (a17) [integer]</b>
+	<ul>
+         <li> The number coresponding to the angle-angle style.  Below is a list of Angle-Angle Styles, their potential form, and the aacoeffs.
+          The angle-angle potentials have a variety of forms (as shown below).  Any energy terms need to use the standard code units of Kelvins.
+          All angles are computed in radians within Towhee, so any additive terms with the angle-angles should also be listed in radians.
+         </li>
+         <ul>
+          <li>1: Compass Angle-Angle with autodetect
+           <ul>
+            <dt>U<sub>angle-angle</sub> = aacoeff(0) * [ angle(inaa0-current-inaa1) - bencoeff(inaa0-current-inaa1) ]
+             * [ angle(inaa0-current-inaa2) - bencoeff(inaa0-current-inaa2) ]
+            </dt>
+           </ul>
+          </li>
+          <li>2: Compass Angle-Angle with explicit parameters
+           <ul>
+            <dt>U<sub>angle-angle</sub> = aacoeff(0) * [ angle(inaa0-current-inaa1) - aacoeff(1) ] * [ angle(inaa0-current-inaa2) - aacoeff(2) ]</dt>
+           </ul>
+          </li>
+         </ul>   
+	</ul>
+       </dt>
+       <dt><b>'Angle-Angle Coefficients' (a24) [double precision]</b>
+	<ul>
+         <li> The aacoeff variables, listed one per line, starting with the lowest index variable and working upwards.</li>
+	</ul>
+       </dt>
+       <dt><b>'Force Field Name' (a16) [character string a10]</b>
+	<ul>
+         <li>The name of the Force Field</li>
+	</ul>
+       </dt>
+       <dt><b>'Number of Atoms with Same Parameters' (a38) [integer]</b>
+	<ul>
+         <li>The number of quartets of atoms in this force field which use the same improper parameters</li>
+	</ul>
+       </dt>
+       <dt><b>'Atom Names' (a10) [character string quartets a10,1x,a10,1x,a10,1x,a10]</b>
+	<ul>
+         <li>All of the quartets of Atom Names for this Angle-Angle Type.  These are listed with one quartet of atom names per line.  
+          The Compass naming convention is followed to add ease of transfer from their publications.  The order for atom output in this convention
+          is inaa1, current, inaa0, inaa2.
+         </li>
+	</ul>
+       </dt>
+      </ul>
+      <dt>End of the section repeated based on the Number of Angle-Angle Terms</dt>
+      <hr></hr>
+      <dt><b>'Number of One-Five Types' (a23) [integer]</b>
+       <ul>
+	<li>The number of different special One-Five interaction types the force field file.</li>
+       </ul>
+      </dt>
+      <hr></hr>
+      <dt>This section is repeated once for each of the Number of One-Five Types</dt>
+      <ul>
+       <dt><b>'One-Five Type Number' (a20) [integer]</b>
+	<ul>
+         <li> The number coresponding to the special one-five interaction type.  These numbers must run from 1 to the Number of One-Five Types.</li>
+	</ul>
+       </dt>
+       <dt><b>'One-Five Style' (a14) [integer]</b>
+	<ul>
+         <li> The number coresponding to the special one-five interaction style.  Below is a list of One-Five Styles, their potential form, and the
+          ofcoeffs.  Currently there is only one kind of one-five potential.  Any energy terms need to use the standard code units of Kelvins.
+         </li>
+         <ul>
+          <li>1: Lennard-Jones 12-6 interactions with special parameters</li>
+          <ul>
+           <dt>U<sub>nonbond</sub> = 4 * ofcoeff(2) * [ (ofcoeff(1)/r)<sup>12</sup> - (ofcoeff(1)/r)<sup>6</sup> - Shift]</dt>
+           <dt>Where the parameters are as follows.</dt>
+           <ul>
+            <li>ofcoeff(1): sigma in units of &#8491;.</li>
+            <li>ofcoeff(2): epsilon in units of Kelvin.</li>
+            <li>Shift: computed automatically by the code if we are using a shifted potential.</li>
+           </ul>
+          </ul>
+	  <li>2: 12th power repulsion</li>
+          <ul>
+           <dt>U<sub>nonbond</sub> = ofcoeff(1) / r<sup>12</sup></dt>
+           <dt>Where the parameter is as follows.</dt>
+           <ul>
+            <li>ofcoeff(1): energy term in units of Kelvin * &#8491;<sup>12</sup>.</li>
+           </ul>
+          </ul>
+	 </ul>   
+	</ul>
+       </dt>
+       <dt><b>'One-Five Coefficients' (a22) [double precision]</b>
+	<ul>
+         <li> The ofcoeff variables, listed one per line, starting with the lowest index variable and working upwards.</li>
+	</ul>
+       </dt>
+       <dt><b>'Force Field Name' (a16) [character string a10]</b>
+	<ul>
+         <li>The name of the Force Field</li>
+	</ul>
+       </dt>
+       <dt><b>'Atom Names' (a10) [character string quintet a10,1x,a10,1x,a10,1x,a10,1x,a10]</b>
+	<ul>
+         <li>The five atom names that, when bonded successively, create a special one-five interaction.  These names are compared with the
+          <b>nbnames</b> to find a valid match.  If no matches are found then it is assumed that no special one-five interaction are needed for
+          these atoms and the normal method of computing nonbonded pair interactions is used instead.
+         </li>
+	</ul>
+       </dt>
+      </ul>
+      <dt>End of the section repeated based on the Number of One-Five Types</dt>
+      <hr></hr>
+      <dt><b>'Number of Bond Increments' (a25) [integer]</b>
+       <ul>
+	<li>The number of different Bond Increment terms in the force field file.</li>
+       </ul>
+      </dt>
+      <hr></hr>
+      <dt>This section is repeated once for each of the Number of Bond Increments</dt>
+      <ul>
+       <dt><b>'Bond Increment Type Number' (a26) [integer]</b>
+	<ul>
+         <li> The number coresponding to the bond increment type.  These numbers must run from 1 to the Number of Bond Increments.</li>
+	</ul>
+       </dt>
+       <dt><b>'Bond Increment Value' (a20) [double precision]</b>
+	<ul>
+         <li> The value of the bond increment.  This value is added to the charge of the first atom listed in the <b>Atom Names</b> and subtracted
+          from the charge of the second atom listed in the <b>Atom Names</b>.
+         </li>
+	</ul>
+       </dt>
+       <dt><b>'Bond Increment Order' (a20) [character string a10]</b>
+	<ul>
+         <li> The bond increment order.  This is used to distinguish between different types of bonds that can be made between the same pairs of atoms 
+          in the same manner as the 'Vibration Order'.
+          Commonly used options are listed in the <a href="inpstyle/inpstyle_6.html#vibration">advanced connectivity map manual</a>.
+         </li>
+	</ul>
+       </dt>
+       <dt><b>'Force Field Name' (a16) [character string a10]</b>
+	<ul>
+         <li>The name of the Force Field</li>
+	</ul>
+       </dt>
+       <dt><b>'Atom Names' (a10) [character string pair a10,1x,a10]</b>
+	<ul>
+         <li>The pair of atoms that share this bond increment.  The bond increment is added to the base charge of the first atom listed and
+          subtracted from the base charge of the second atom listed when these atoms are connected by a bond.
+         </li>
+	</ul>
+       </dt>
+      </ul>
+      <dt>End of the section repeated based on the Number of Bond Increments</dt>
+      <hr></hr>
+     </ul>
+     <a href="index.html">Return to the main towhee web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>
+

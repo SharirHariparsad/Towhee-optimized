@@ -1,0 +1,3 @@
+#!/bin/bash
+xmgrace -p ethane.par ethane.xcrit ethane.xexpg ethane.xexpl ethane.xfita ethane.xfitg ethane.xfitl ethane.asat ethane.vsat ethane.lsat ethane.nlfitc ethane.nlfita ethane.nlfitg ethane.nlfitl
+

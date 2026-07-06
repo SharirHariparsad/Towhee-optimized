@@ -1,0 +1,492 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: Example Manual</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table width="800" border="0" cellspacing="0" cellpadding="0" height="590">
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif"><a name="top"></a>MCCCS Towhee: Example Manual</font></b></font></div>
+    </td>
+   </tr>
+   <tr> 
+    <td width="18" height="371" valign="top"> 
+     <p>&nbsp; </p>
+     <p>&nbsp;</p>
+    </td>
+    <td width="697" valign="top"><b>Overview</b> 
+     <ul>
+      This section describes the examples included with the current download version of Towhee and gives some tips for getting started with these examples.
+      The examples are intended as a place to get started, as well as doubling as the test suite for code validation.  They are almost universally much too short
+      simulation runs to produce statistically useful output for publication, but many of them are otherwise setup properly for performing useful results.
+     </ul>
+     <b>History of the Examples</b>
+     <ul>
+      All of the example files are found in the Examples directory that comes with the default download package.  You will find a file named answer_current
+      in each directory that contains the testing output for each example.
+      <ul>
+       <li>Tests for version 3.14.9 through 4.13.1 were run using gcc version 3.2.2 with the FFLAGS=-fbounds-check option in the configure script.</li>
+       <li>
+        Starting with version 4.13.1, the configure option <code>./configure --enable-safe-compare</code> attempts to minimize differences in the output
+        between platforms for comparison purposes.
+       </li>
+       <li>
+        The examples were substantially reordered and modified with the release of version 6.2.10.
+       </li>
+      </ul> 
+      These compilation options are intended for debugging and comparison purposes, but do not result in especially fast simulations.
+      For production runs letting the <code>./configure</code> option automatically determine the optimization level.
+     </ul>
+     <b>Using the Examples</b> 
+     <ul>
+      Each towhee_input file specifies the complete path for the force field files it requires.  The default setting is something like
+      <code>/towheebase/ForceFields/towhee_ff_Charmm22</code> where Charmm22 would be the force field you are using.  You can either change the
+      <code>/towheebase</code> section to be the directory path for the ForceFields file, or you can set a symbolic link for <code>/towheebase</code> using 
+      the standard unix command
+      <ul><code>ln -s /Your/Actual/Directory /towheebase</code></ul>
+      <p></p>
+      As an alternative to either manually modifying the ForceFields files or creating symbolic links, execute the <code>relocate_examples.pl</code>
+      script in the Examples directory.   This script copies all the examples to a directory named <code>test</code> in the towhee root
+      directory, and will simultaneously rewrite all references to <code>/towheebase</code> appropriately.  
+      You can then execute examples in the normal fashion from the <code>test</code> directory.  
+      <p></p>
+      To run the code you need to be in one of the example directories and then execute a command similar to <code>/towheebase/Source/towhee</code>
+      where again <code>/towheebase</code> is replaced by your actual directory structure.
+     </ul> 
+     <b>Descriptive List of Examples</b> 
+     <ul>
+      <b>Canonical Ensemble</b>
+      <ul>
+       <li><a name="AVB1_Methane">Canonical_Ensemble/AVB1_Methane</a>
+        <ul>
+         A single box simulation that demonstrates the use of the agregation-volume-bias move type 1.
+         Uses the Lennard-Jones potential and the TraPPE-UA force field.  Restarts from a version 1 towhee_initial file.
+        </ul>
+       </li>
+       <li><a name="Amber_Villin">Canonical_Ensemble/Amber_Villin</a>
+        <ul>
+         A toy problem with a short peptide chain in vacuum to demonstrate the use of the protein builder functionality.
+         Uses the Lennard-Jones potential and the Amber96 force field.  Starts a new simulation.
+        </ul>
+       </li>
+       <li><a name="Benzene_AA_autofit">Canonical_Ensemble/Benzene_AA_autofit</a>
+        <ul>
+         A toy problem testing Configurational-bias algorithm regrowths for an all-atom cyclic molecule.  Restarts from a version 4 towhee_initial file.
+        </ul>
+       </li>
+       <li><a name="Charmm19_ubiquitin">Canonical_Ensemble/Charmm19_ubiquitin</a>
+        <ul>
+         A single box simulation that demonstrates the use of the Charmm19-EEF1 potential with implicit water solvation for a protein.
+	 Starts a new simulation.
+        </ul>
+       </li>
+       <li><a name="Charmm27_Benzene">Canonical_Ensemble/Charmm27_Benzene</a>
+        <ul>
+         A toy problem testing Configurational-bias algorithm regrowths for Charmm27 all-atom benzene.  Restarts from a version 4 towhee_initial file.
+        </ul>
+       </li>
+       <li><a name="Charmm27_Heme">Canonical_Ensemble/Charmm27_Heme</a>
+        <ul>
+         A toy problem that shows how to set up a Heme group in Charmm27 using the atom builder.  Starts a new simulation.
+        </ul>
+       </li>
+       <li><a name="Charmm27_Nucleic_Acid">Canonical_Ensemble/Charmm27_Nucleic_Acid</a>
+        <ul>
+         A toy problem that demonstrates the nucleic acid builder for the Charmm27 force field.  Starts a new simulation.
+        </ul>
+       </li>
+       <li><a name="Charmm27_Polyalanine">Canonical_Ensemble/Charmm27_Polyalanine</a>
+        <ul>
+         A toy problem that demonstrates the use of the 'helix cbmc' initialization option.
+         This builds a polypeptide with the C<sub>&alpha</sub> atoms in a helix of specified radius and angle and then grows the rest of the atom using
+         configurational-bias.  Starts a new simulation.
+        </ul>
+       </li>
+       <li><a name="Compass_Methanol">Canonical_Ensemble/Compass_Methanol</a>
+        <ul>
+         A toy problem testing the energy of a single molecule in vacuum by disabling the Ewald sum.
+         Uses the 9-6 potentials and the Compass force field.  Starts a new simulation.
+        </ul>
+       </li>
+       <li><a name="DREIDING">Canonical_Ensemble/DREIDING</a>
+        <ul>
+         A toy problem that shows how to minimize an initial structure by using single atom translations and a low temperature.
+         Uses the <a href="../forcefields/dreiding.html">DREIDING</a> force field.  Starts a new simulation.
+        </ul>
+       </li>
+       <li><a name="Formamide_Scaled">Canonical_Ensemble/Formamide_Scaled</a>
+        <ul>
+         A one box, two component simulation that demonstrates how to perform a simulation with a 'Scaled Lennard-Jones' classical potential.
+	 Starts a new simulation.
+        </ul>
+       </li>
+       <li><a name="Fris_Walls">Canonical_Ensemble/Fris_Walls</a>
+        <ul>
+         A one box, single component simulation that demonstrates how to perform a simulation between Lennard-Jones walls with additional hard walls
+         and an "umbrella" potential.  Starts a new simulation.
+        </ul>
+       </li>
+       <li><a name="Hard_Sphere">Canonical_Ensemble/Hard_Sphere</a>
+        <ul>
+         A single box, multicomponent simulation of hard spheres.  Uses the Hard Sphere potential and force field.  Starts a new simulation.
+        </ul>
+       </li>
+       <li><a name="NaCl_1x1x1">Canonical_Ensemble/NaCl_1x1x1</a>
+        <ul>
+         A toy problem that computes the Madelung constant to verify the accuracy of the Ewald summation.
+         The correct answer is 1.747558 (dimensionless) and this example allows the user to modify the parameters of the Ewald sum and see how this affects
+         the accuracy of the total coulombic energy.  Restarts from a version 2 towhee_initial file.
+        </ul>
+       </li>
+       <li><a name="Shukla_Gasses">Canonical_Ensemble/Shukla_Gasses</a>
+        <ul>
+         A toy problem testing the 'Skukla' classical mixing rule for a simulation containing four different small molecules in the gas phase using the
+         <a href="../forcefields/shukla1987.html">Shukla 1987</a> force field.  Starts a new simulation.
+        </ul>
+       </li>
+       <li><a name="Small_Peptide">Canonical_Ensemble/Small_Peptide</a>
+        <ul>
+         An example of how to create a small peptide with the initial structure generated via CBMC.  Restarts from a version -6 towhee_initial file.
+        </ul>
+       </li>
+       <li><a name="Square_Well_Chain">Canonical_Ensemble/Square_Well_Chain</a>
+        <ul>
+         A single box, single component demonstration of the configurational-bias algorithm for a tangent sphere square well chain in the canonical ensemble.  
+         Uses the Square Well potential with the generic SquareWell force field.  Starts a new simulation.
+        </ul>
+       </li>
+       <li><a name="TraPPE_Isomers">Canonical_Ensemble/TraPPE_Isomers</a>
+        <ul>
+         Two butene isomers that demonstrate the builder features that allow the user to specify the difference between cis and trans dihedrals
+         using the <a href="../forcefields/trappeua.html">TraPPE-UA</a> forcefield.  Starts a new simulation.
+        </ul>
+       </li>
+       <li><a name="TraPPE_Molecules">Canonical_Ensemble/TraPPE_Molecules</a>
+        <ul>
+         A batch of single molecule structures to test the assembler and bond increment method for the TraPPE-UA force field and to test the 
+         center-of-mass switch move for polyatomic molecules.  Starts a new simulation.
+        </ul>
+       </li>
+       <li><a name="Triglycerol">Canonical_Ensemble/Triglycerol</a>
+        <ul>
+         A toy problem showing how to build the simple triglyceride model from the
+         <a href="../references.html#sum_et_al_2003">Sum <i>et al.</i></a> paper using the <a href="../forcefields/sum2003.html">Sum2003</a> forcefield.
+	 Starts a new simulation.
+        </ul>
+       </li>
+       <li><a name="UFF">Canonical_Ensemble/UFF</a>
+        <ul>
+         An example that shows how to minimize an initial structure by using single atom translations and a low temperature.
+         Uses the <a href="../forcefields/uff.html">UFF</a> force field.  Starts a new simulation.
+        </ul>
+       </li>
+       <li><a name="Wall_Water">Canonical_Ensemble/Wall_Water</a>
+        <ul>
+         An example of use of fields in Towhee.  Demonstrates water between two hard walls.  Restarts from a version 6 towhee_initial file.
+        </ul>
+       </li>
+      </ul>
+      <b>Convert</b>
+      <ul>
+       <li><a name="Convert_LAMMPS_class2">Convert/LAMMPS_class2</a>
+        <ul>
+         Demonstrates the conversion of LAMMPS files into Towhee input files.
+         To perform this conversion change the first line of the towhee_input file to the 'LAMMPS' inputformat instead of the 'Towhee' inputformat.
+         Running Towhee will create files suitable for a real Towhee run.
+         Copy these as instructed by the code and then run again to perform a Towhee simulation with the new files.  Uses the 9-6 force field.
+        </ul>
+       </li>
+       <li><a name="Convert_LAMMPS_decane">Convert/LAMMPS_decane</a>
+        <ul>
+         Demonstrates the conversion of LAMMPS files into Towhee input files.
+         To perform this conversion change the first line of the towhee_input file to the 'LAMMPS' inputformat instead of the 'Towhee' inputformat.
+         Running Towhee will create files suitable for a real Towhee run.
+         Copy these as instructed by the code and then run again to perform a Towhee simulation with the new files.  Uses the Lennard-Jones force field.
+        </ul>
+       </li>
+       <li><a name="Convert_LAMMPS_lc">Convert/LAMMPS_lc</a>
+        <ul>
+         Demonstrates the conversion of LAMMPS files into Towhee input files.
+         To perform this conversion change the first line of the towhee_input file to the 'LAMMPS' inputformat instead of the 'Towhee' inputformat.
+         Running Towhee will create files suitable for a real Towhee run.
+         Copy these as instructed by the code and then run again to perform a Towhee simulation with the new files.  
+         Uses the Lennard-Jones force field.
+        </ul>
+       </li>
+      </ul>
+      <b>Gibbs Ensemble</b>
+      <ul>
+       <li><a name="Amber_IsoPropanol">Gibbs_Ensemble/Amber_IsoPropanol</a>
+        <ul>
+         A two box NVT Gibbs ensemble that demonstrates the setup for determining single-component vapor-liquid coexistence.
+         Uses the Lennard-Jones potential and the Amber96 force field.  Restarts from a version 1 towhee_initial file.
+        </ul>
+       </li>
+       <li><a name="Catlow_Zeolite_4a">Gibbs_Ensemble/Catlow_Zeolite_4a</a>
+        <ul>
+         A two box, multi-component simulation demonstrating the setup for computing adsorption isotherms in porous materials.
+         Uses the combined exponential-6 and Lennard-Jones potential and the Catlow force field.  Restarts from a version 1 towhee_initial file.
+        </ul>
+       </li>
+       <li><a name="Cu_VLE">Gibbs_Ensemble/Cu_VLE</a>
+        <ul>
+         A two box simulation using the embedded atom potential to compute vapor-liquid coexistence for copper.  Starts a new simulation.
+        </ul>
+       </li>
+       <li><a name="Cui2002_Hexane">Gibbs_Ensemble/Cui2002_Hexane</a>
+        <ul>
+         A two box simulation using the <a href="../forcefields/cui2002.html">Cui2002</a> force field for n-hexane.  This force field uses many potential
+         forms that are atypical, as they all involve multi-well square well potentials for not just the nonbond interactions, but the bonded terms as well.
+         Provides a test of configurational-bias with all of the square well intramolecular potentials.
+         This example was first included in version 7.1.0.  Restarts from a version 7 towhee_initial file.
+        </ul>
+       </li>
+       <li><a name="Dubb_Zeolite">Gibbs_Ensemble/Dubb_Zeolite</a>
+        <ul>
+         A Gibbs ensemble simulation computing adsorption in a zeolite without using energy biasing for the first atom insertion.
+         Uses the <a href="../forcefields/dubb2004.html">Dubb2004</a> force field.  Starts a new simulation.
+        </ul>
+       </li>
+       <li><a name="EPM_VLCC">Gibbs_Ensemble/EPM_VLCC</a>
+        <ul>
+         An example of an NVT-Gibbs Ensemble single-component vapor-liquid coexistence simulation taken from Table 4 of
+         <a href="../references.html#harris_yung_1995">Harris and Yung 1995</a>.  
+         Uses the Lennard-Jones potential and the <a href="../forcefields/epm.html">EPM2</a> force field.  Starts a new simulation.
+        </ul>
+       </li>
+       <li><a name="FENE_Hexamer">Gibbs_Ensemble/FENE_Hexamer</a>
+        <ul>
+         A toy problem using the FENE bond potential for a simple Lennard-Jones hexamer.  This example was rebuilt to use the FENE bonds
+         (<a href="../references.html#kremer_grest_1990">Kremer and Grest 1990</a>) that were implemented into the
+	 <a href="../forcefields/ljium.html">Lennard-Jonesium</a> force field starting with version 7.1.0.
+         Provides a test of configurational-bias with FENE bonds.
+	 Moved from the Canonical_Ensemble directory to the more appropriate Gibbs_Ensemble directory in version 7.2.0.
+	 Starts a new simulation.
+        </ul>
+       </li>
+       <li><a name="Gordon">Gibbs_Ensemble/Gordon</a>
+        <ul>
+         A toy problem that checks that the Gordon n-6 potential gives the same energies and pressures as the
+         Lennard-Jones potential when n is set to 12.  Starts a new simulation.
+        </ul>
+       </li>
+       <li><a name="Gromos_Isobutane">Gibbs_Ensemble/Gromos_Isobutane</a>
+        <ul>
+         A two box, single component simulation that demonstrates how to perform a single-component vapor-liquid coexistence curve.
+         Uses the Lennard-Jones potential and the Gromos43A1 force field.  Restarts from a version 7 towhee_initial file.
+        </ul>
+       </li>
+       <li><a name="MM2_Ethane">Gibbs_Ensemble/MM2_Ethane</a>
+        <ul>
+         A two box simulation of ethane using the <a href="../forcefields/mm2.html">MM2</a> force field.  Restarts from a version 1 towhee_initial file.
+        </ul>
+       </li>
+       <li><a name="Potter_CF2H2">Gibbs_Ensemble/Potter_CF2H2</a>
+        <ul>
+         An example of the 'LB plus manual' classical mixing rule applied to reproduce a two box vapor-liquid coexistence point using the
+         <a href="../forcefields/potter1997.html">Potter <i>et al.</i> 1997</a> force field.  Starts a new simulation.
+        </ul>
+       </li>
+       <li><a name="SKS_Pentane">Gibbs_Ensemble/SKS_Pentane</a>
+        <ul>
+         An example from the literature to illustrate the calculation of vapor-liquid coexistence using the SKS potential for <i>n</i>-alkanes.
+         Also serves as a test case for rotational-bias and configurational-bias 2 box swap moves.  Starts a new simulation.
+        </ul>
+       </li>
+       <li><a name="SMMKnaip_Ethylpentane">Gibbs_Ensemble/SMMKnaip_Ethylpentane</a>
+        <ul>
+         An example of how to create an initial system suitable for 2-box Gibbs ensemble determination of vapor-liquid coexistence of 3-ethylpentane using
+         the <a href="../forcefields/smmknaip.html">SMMKnaip</a> forcefield.
+         Equilibrating this starting structure (likely several runs of 10,000 cycles) should result in agreement with the densities reported in Table 3 of
+         <a href="../references.html#siepmann_et_al_1997">Siepmann <i>et al.</i> 1997</a>.  Starts a new simulation.
+        </ul>
+       </li>
+       <li><a name="TraPPE_Pentane">Gibbs_Ensemble/TraPPE_Pentane</a>
+        <ul>
+         An example of a single-component vapor-liquid coexistence simulation.  Uses the Lennard-Jones potential and the 
+         <a href="../forcefields/trappeua.html">TraPPE-UA</a> force field.  Restarts from a version 1 towhee_initial file.
+        </ul>
+       </li>
+       <li><a name="Vink2001_Silicon">Gibbs_Ensemble/Vink2001</a>
+        <ul>
+         An example of a vapor-liquid coexistence calculation in the Gibbs ensemble using the multibody Stillinger-Weber potential.
+         Uses the <a href="../forcefields/vink2001.html">Vink 2001</a> force field.  Restarts from a version 4 towhee_initial file.
+        </ul>
+       </li>
+       <li><a name="Weiner1984">Gibbs_Ensemble/Weiner1984</a>
+        <ul>
+         A two box simulation using the <a href="../forcefields/weiner1984.html">Weiner <i>et al.</i> 1984</a> force field.
+	 Restarts from a version 4 towhee_initial file.
+        </ul>
+       </li>
+      </ul>
+      <b>Grand Canonical Ensemble</b>
+      <ul>
+       <li><a name="Amber96_Ethane">Grand_Canonical_Ensemble/Amber96_Ethane</a>
+        <ul>
+         An example of a grand canonical ensemble simulation with the output flags set to generate towhee_histogram files.
+	 Starts a new simulation.
+        </ul>
+       </li>
+       <li><a name="Energy_Biasing">Grand_Canonical_Ensemble/Energy_Biasing</a>
+        <ul>
+         A Grand Canonical ensemble simulation that shows how to set up the input files to create a towhee_map file to utilize energy biasing for adsorption of
+         molecules in porous materials.  Uses the <a href="../forcefields/dubb2004.html">Dubb2004</a> force field.  Starts a new simulation.
+        </ul>
+       </li>
+       <li><a name="Steele_Wall">Grand_Canonical_Ensemble/Steele_Wall</a>
+        <ul>
+         A single box, single component demonstration of the Steele surface potential with the <a href="../forcefields/last1993.html">Last1993</a>
+         Lennard-Jones potential in the grand canonical ensemble.  Starts a new simulation.
+        </ul>
+       </li>
+       <li><a name="Walt2001_Nanotube">Grand_Canonical_Ensemble/Walt2001_Nanotube</a>
+        <ul>
+         An example showcasing the nanotube builder functionallity.
+         Grand canonical ensemble simulation with a single nanotube and the chemical potential set to fill the simulation box with water.
+	 Starts a new simulation.
+        </ul>
+       </li>
+      </ul>
+      <b>Isobaric-Isothermal Ensemble</b>
+      <ul>
+       <li><a name="Au_Cu_Switch">Isobaric_Isothermal_Ensemble/Au_Cu_Switch</a>
+        <ul>
+         A single box simulation demonstrating the use of the center-of-mass switch move for a mixture of monatomic metal molecules with an EAM potential.
+	 Starts a new simulation.
+        </ul>
+       </li>
+       <li><a name="Charmm22_Ethanethiol">Isobaric_Isothermal_Ensemble/Charmm22_Ethanethiol</a>
+        <ul>
+         A single box simulation that demonstrates how to compute a liquid density using the isobaric-isothermal ensemble.
+         Uses the Lennard-Jones potential and the Charmm22 force field.  Restarts from a version 1 towhee_initial file.
+        </ul>
+       </li>
+       <li><a name="Cu_Pb_EAM">Isobaric_Isothermal_Ensemble/Cu_Pb_EAM</a>
+        <ul>
+         A single box simulation using the embedded atom potential for a mixture of copper and lead.  Starts a new simulation.
+        </ul>
+       </li>
+       <li><a name="Dick1994_PETN">Isobaric_Isothermal_Ensemble/Dick1994_PETN</a>
+        <ul>
+         An example that shows how to construct an initial system by replicating a unit cell.
+         Creates a PETN solid using the <a href="../forcefields/dick1994.html">Dick and Ritchie 1994</a> force field.
+	 Starts a new simulation.
+        </ul>
+       </li>
+       <li><a name="Gromos_Methylpropylsulfide">Isobaric_Isothermal_Ensemble/Gromos_Methylpropylsulfide</a>
+        <ul>
+         A single box, single component simulation that demonstrates how to determine liquid densities.  
+         Uses the Lennard-Jones potential and the Gromos43A1 force field.  Restarts from a version 1 towhee_initial file.
+        </ul>
+       </li>
+       <li><a name="Henry_Law">Isobaric_Isothermal/Henry Law</a>
+        <ul>
+         A single box, multicomponent simulation designed to measure the Henry's Law coefficient of four small gases in a liquid ethanol solvent.
+         This example reproduces the results from the winner of the Second Industrial Fluids Simulation Challenge Problem 2 involving
+         the Henry's law coefficient for methane, O<sub>2</sub>, N<sub>2</sub> and CO<sub>2</sub> in ethanol using a combination of the 
+	 <a href="../forcefields/trappeua.html">TraPPE-UA</a>, <a href="../forcefields/trappeeh.html">TraPPE-EH</a>, and
+	 <a href="../forcefields/coon1987.html">Coon1987</a> force fields.  I suggest using an <b>nstep</b> value of 50000 and a <b>blocksize</b> of
+	 10000 for production runs of this system as the chemical potential is challenging to compute precisely with Widom insertion.
+	 Restarts from a version 4 towhee_initial file.
+        </ul>
+       </li>
+       <li><a name="Ideal_Chain">Isobaric_Isothermal/Ideal_Chain</a>
+        <ul>
+         A single box, single component demonstration of the configurational-bias algorithm for a flexible ideal chain in the isobaric-isothermal ensemble.  
+         Uses the Hard Sphere potential with the zero diameter hard sphere force field.  Starts a new simulation.
+        </ul>
+       </li>
+       <li><a name="MMFF94_Ethyleneoxide">MMFF94_Ethyleneoxide</a>
+        <ul>
+         A single box, single component simulation of Ethyleneoxide using the <a href="../forcefields/mmff94.html">MMFF94</a> force field in the
+	 isobaric-isothermal ensemble.
+         Provides a test for configurational-bias on all-atom flexible three membered rings and the Buffered 14-7 potential.
+         This example was first included in version 7.1.1.  Starts a new simulation.
+        </ul>
+       </li>
+       <li><a name="OPLS_Propanamide">Isobaric_Isothermal/OPLS_Propanamide</a>
+        <ul>
+         A single box single component liquid density determination.
+	 Uses the Lennard-Jones potential and the OPLS-aa force field.  Restarts from a version 1 towhee_initial file.
+        </ul>
+       </li>
+       <li><a name="SMMKmain_2244688nonane">Isobaric_Isothermal_Ensemble/SMMKmain_2244688nonane</a>
+        <ul>
+         An example of how to create an initial structure of 2,2,4,4,6,8,8-heptamethyl nonane using the 
+         <a href="../forcefields/smmkmain.html">SMMKmain</a> forcefield.  Also serves as a test of the special one-five interactions.
+	 Starts a new simulation.
+        </ul>
+       </li>
+       <li><a name="Solid_LJium">Isobaric_Isothermal/Solid_LJium</a>
+        <ul>
+         A simulation of solid Lennard-Jonesium to demonstrate the use of the plane shift and row shift moves.  Starts a new simulation.
+        </ul>
+       </li>
+       <li><a name="Wielop1985_Ethyleneoxide">Isobaric_Isothermal/Wielop1985_Ethyleneoxide</a>
+        <ul>
+         A simulation of the <a href="../forcefields/wielop1985.html">Wielop1985</a> rigid ethyleneoxide model A with the same system size 
+         as in the original <a href="../references.html#wielopolski_smith_1985">Wielopolski and Smith 1985</a> paper,
+	 but utlizes the isobaric-isothermal ensemble instead of the canoncal ensemble.
+         Provides a test of the configurational-bias regrowth logic for rigid three membered rings.
+         This example was first included in version 7.1.0.  Starts a new simulation.
+        </ul>
+       </li>
+      </ul>
+      <b>Transition Matrix</b>
+      <ul>
+       <li><a name="TMMC_LJ">TMMC/LJ</a>
+        <ul>
+         Examples with Lennard-Jones for performing grand-canonical transition-matrix Monte Carlo (TMMC).  Starts a new simulation.
+        </ul>
+       </li>
+       <li><a name="TMMC_SPC_E_WATER">TMMC/SPC_E_WATER</a>
+        <ul>
+         Examples with SPC/E Water for performing grand-canonical transition-matrix Monte Carlo (TMMC).  Starts a new simulation.
+        </ul>
+       </li>
+      </ul>
+      <b>Other Examples</b>
+      <ul>
+       <li><a name="DFT_Field">DFT_Field</a>
+        <ul>
+         Test case that combines Towhee with the Tramonto package as an implicit solvent.  This test case is one of the few that is not included in the test suite
+         and is therefore likely to be out of date.
+        </ul>
+       </li>
+       <li><a name="Histogram">Histogram</a>
+        <ul>
+         This directory contains three subdirectories (Phase, PVT, Weights) that each illustrate one aspect of the
+         <a href="../utils/analyse_histogram.html">analyse_histogram</a> routine.  This routine is used to process the output from grand canonical
+         simulations using the <a href="../references.html#methods_histogram_reweighting">Histogram Reweighting</a> method.  Please 
+         see the README.histogram file in the Examples/Histogram directory for more information.
+        </ul>
+       </li>
+       <li><a name="Parallel_Test">Parallel_Test</a>
+        <ul>
+         An example of how to use the towhee_parallel file with the mpitowhee version of the code to run multiple simulations on one or more processors.
+        </ul>
+       </li>
+       <li><a name="VLCC_Fit">VLCC_Fit</a>
+        <ul>
+         A set of README documents and data files that provides an example of how to use the fitcoex utility program to analyse a set of towhee_vlcc output
+         files to extrapolate a critical temperature and critical density for a single component system and compare that graphically to experimental data.
+         This requires the <a href="../utils/fitcoex.html">fitcoex</a> utility program to process the files and the 
+         <b>plot</b> script uses the freely available <a href="../software.html#xmgrace">xmgrace</a> program to graph the results.
+        </ul>
+       </li>
+      </ul>
+     </ul>
+     <a href="../index.html">Return to the main towhee web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->March 28, 2018<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

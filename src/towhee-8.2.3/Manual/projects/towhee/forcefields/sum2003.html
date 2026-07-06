@@ -1,0 +1,94 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: Sum et al. 2003</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0">
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: Sum <i>et al.</i> 2003</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td> <b>Overview</b> 
+     <ul>
+      This section covers the Sum <i>et al.</i> 2003 United Atom (NERD) force field as it is implemented into
+      the towhee_ff_Sum2003 file in the ForceFields directory.
+      This forcefield is an extension to the <a href="nerdv2.html">NERDv2</a> force field that allows the simulation of acetates and glycerols.
+      It is implemented in a separate file as the energy units in this paper are different from the previous ones and this results in minor
+      (and most likely insignificant) differences in the Carbon-Carbon bond energies.
+      I would like to acknowledge Mary Biddy for providing useful guidence about implementing this force field.
+      Any discrepencies (especially typos) from the published values are the sole responsibility of Marcus Martin,
+      and I welcome feedback on how this implementation compares with other programs.
+      This forcefield was changed in version 8.1.0 so that the forcefield name is always just 'NERD' for all of the various implementations.
+     </ul>
+     <b>References for Sum <i>et al.</i> 2003</b> 
+     <ul>
+      The additional parameters for triglycerols designed to work with previosly published NERD force field parameters are published in a single paper.
+      <ul>
+       <li><a href="../references.html#sum_et_al_2003">Sum <i>et al.</i> 2003</a></li>
+      </ul>
+     </ul>	
+     <b>Sum2003 in Towhee</b> 
+     <ul>
+      The official force field name for Sum <i>et al.</i> United Atom in Towhee is 'NERD'.
+      This list contains all of the atom names for use in the towhee_input file, along with a brief description.
+      I created these atom names in order to work with the molecule assembler and made them consistent with the other NERD forcefield names.
+      Sum2003 is a united-atom force field that lumps hydrogens onto their neighboring carbons.
+      Note that hydrogens that are bonded to atoms other than carbon are not lumped onto their neighboring atoms.
+      The general pattern of the names is a list of the atoms that make up the group, followed by the hybridization of the central atom,
+      and ending in a character string that distinguishes similar atoms.
+      Please note that the capitalization and spacing pattern is important and must be followed exactly as listed here.
+      <dt><font color="red">sp<sup>3</sup> hybridized Carbons</font></dt>
+      <ul>
+       <dt>'<b>CH3sp3oac</b>' : sp<sup>3</sup> carbon plus the 3 hydrogens bonded to it (united-atom) bonded to an sp<sup>3</sup> oxygen in an acetate group.</dt>
+       <dt>'<b>CH3sp3cac</b>' : sp<sup>3</sup> carbon plus the 3 hydrogens bonded to it (united-atom) bonded to an sp<sup>2</sup> carbon in an acetate group.</dt>
+       <dt>'<b>CH2sp3oac</b>' : sp<sup>3</sup> carbon plus the 2 hydrogens bonded to it (united-atom) that is bonded to an sp<sup>3</sup> oxygen in a glycerol.</dt>
+       <dt>'<b>CH2sp3cac</b>' : sp<sup>3</sup> carbon plus the 2 hydrogens bonded to it (united-atom) that
+	is bonded to an sp<sup>2</sup> carbon in an acetate group.
+       </dt>
+       <dt>'<b>CHsp3oac</b>' : sp<sup>3</sup> carbon plus the 1 hydrogen bonded to it (united-atom) that is bonded 
+	to an sp<sup>3</sup> oxygen in a glycerol.
+       </dt>
+      </ul>
+      <dt><font color="red">sp<sup>2</sup> hybridized Carbons</font></dt>
+      <ul>
+       <dt>'<b>Csp2ac</b>' : sp<sup>2</sup> carbon double bonded to an sp<sup>2</sup> oxygen, single bonded to 
+	an sp<sup>3</sup> oxygen, and single bonded to another carbon in an acetate group.
+       </dt>
+      </ul>
+      <dt><font color="red"> Oxygen</font></dt>
+      <ul>
+       <dt>'<b>Osp3</b>' : sp<sup>3</sup> oxygen bonded to two atoms.</dt>
+       <dt>'<b>Osp2</b>' : sp<sup>2</sup> oxygen double bonded to a single atom.</dt>
+      </ul>
+     </ul>
+     <b>Coulombic interactions</b> 
+     <ul>
+      This is the list of charge assignments for methylacetate.
+      It appears that these are also the charges used for an acetate headgroup on other molecules (e.g. glycerols).
+      <dt>'<b>CH3sp3oac</b>' : 0.200</dt>
+      <dt>'<b>Osp3</b>' : -0.400</dt>
+      <dt>'<b>Csp2ac</b>' : 0.650</dt>
+      <dt>'<b>Osp2</b>' : -0.500</dt>
+      <dt>'<b>CH3sp3cac</b>' : 0.050</dt>
+     </ul>
+     <b>Improper torsions</b> 
+     <ul>
+      This force field does not utilize improper torsions.
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

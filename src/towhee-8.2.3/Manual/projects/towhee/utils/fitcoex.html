@@ -1,0 +1,101 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: fitcoex</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table width="675" border="0" cellspacing="0" cellpadding="0" height="590">
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif"><a name="top"></a>MCCCS Towhee: fitcoex</font></b></font></div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"> 
+    <IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" width="210" height="62" border="0" alt="SourceForge.net Logo" align="right"/>
+   </A>
+   <tr> 
+    <td width="18" height="371" valign="top"> 
+     <p>&nbsp; </p>
+     <p>&nbsp;</p>
+    </td>
+    <td width="697" valign="top"> 
+     <dt><b>Overview</b> 
+      <ul>
+       This section explains the fitcoex utility program.  This program is designed for use in conjunction with the towhee_vlcc output files in order to
+       compute the critical temperature and critical density from a sequence of single-component vapour-liquid simulations.  Last updated for version
+       7.0.6.
+      </ul>
+     </dt>
+     <dt><b>Compiling</b> 
+      <ul>
+       fitcoex is compiled using the Utility Makefile.
+       <ul>
+	<dt><code>cd /towheebase/Utils</code></dt>
+	<dt><code>make fitcoex</code></dt>
+       </ul>
+       This creates the fitcoex executable that can is run from the command line.
+      </ul>
+     </dt>
+     <dt><b>Features</b> 
+      <ul>
+       In order to successfully run fitcoex, two sources of input are required.  The first is an input file (*.sim), which contains some comment lines, a value
+       for the critical exponent "beta", the towhee_vlcc data from at least 3 different temperatures, and a special end of file zero line.  The second file
+       (*.exp) is optional and is for transforming experimental data into a similar format as the simulation data for comparison purposes.
+       An example with the input files and a for plotting the output is provided in the 
+       <a href="../examples/example_manual.html#VLCC_Fit">Examples/VLCC_Fit</a> directory.
+      </ul>
+     </dt>
+     <dt><b>File Format for the towhee_vlcc compilation file (*.sim)</b>
+      <ul>
+       <dt><b>Line 1</b> comment line (typically has a comment about how the data was generated)</dt>
+       <dt><b>Line 2</b> comment line (typically says 'beta' to remind the user that the beta value is on the next line</dt>
+       <dt><b>Line 3</b> beta (double precision).  I typically use a value of 0.325 for this variable</dt>
+       <dt><b>Line 4</b> comment line (typically has a header for the vlcc data)</dt>
+       <dt><b>Line 5 to 5+n</b> towhee_vlcc data lines (double precision).
+        You must have at least 3 of these lines at different temperatures in order for the code to compute the critical properties.
+       </dt>
+       <dt><b>Line 6+n</b> zero end line.  The code only knows it has hit the end of the file when it gets a line that has a zero value for the variables.
+        9 double precision zeros go on this line.
+       </dt>
+      </ul>
+     </dt>
+     <dt><b>File Format for the experimental data file (*.exp)</b>
+      <ul>
+       There are currently two experimental data file formats implemented into this routine.  These files are translated into units of g/ml and output to
+       several files by fitcoex.  
+       <ul>
+        <li>Smith and Srivastava:  This format is similar to the one used in the reference book 
+         <a href="../references.html#smith_srivastava_1986">Smith and Srivastava 1986</a>.  
+         <dt><b>Line 1</b> comment line</dt>
+         <dt><b>Line 2</b> molecular weight of the molecule (g/mol)</dt>
+         <dt><b>Line 3</b> comment line</dt>
+         <dt><b>Line 4</b> comment line</dt>
+         <dt><b>Line 5 to 5+n</b> experimental temperature (K), liquid phase molar volume (ml/mol), and vapor phase molar volume (ml/mol).</dt>
+        </li>
+        <li>Hensel and Warren: This format is similar to the one used in the reference book
+         <a href="../references.html#hensel_warren_1999">Hensel and Warren 1999</a>.
+         <dt><b>Line 1</b> comment line</dt>
+         <dt><b>Line 2</b> molecular weight of the molecules (g/mol)</dt>
+         <dt><b>Line 3-4</b> comment lines</dt>
+         <dt><b>Line 5 to 5+n</b> experimental temperature (C), saturation pressure (bar), liquid density (g/ml), vapor density (g/ml)</dt>
+        </li>
+       </ul>
+      </ul>
+     </dt>
+     <dt><b>Run the code by typing</b>
+      <ul>
+       <dt><code>/towheebase/Utils/fitcoex</code></dt>
+      </ul>
+     </dt>
+     <a href="utility_summary.html">Return to the Utility Summary page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->March 28, 2018<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

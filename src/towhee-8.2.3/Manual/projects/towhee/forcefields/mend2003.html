@@ -1,0 +1,65 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: Mendelev et al. 2003</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" height="590">
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: Mendelev <i>et al.</i> 2003</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the Mendelev <i>et al.</i> 2003 iron parameters as they are implemented into the 
+      towhee_ff_Mend2003 file in the ForceFields directory.  All of the Towhee atom types for this force field 
+      are listed, along with a short description of their meanings.  This force field was intended for solid and liquid
+      simulation of iron and uses the 'Embedded Atom Method' potential and is not easily combined with other 
+      potentials due to the explicit mixing rules used with that potential.
+      I would like to acknowledge Mikhail Mendelev for kindly providing me with an electronic copy of these parameters.
+      Any discrepencies (especially typos) from the published values are the sole responsibility of Marcus Martin,
+      and I welcome feedback on how this implementation compares with other programs.
+     </ul>
+     <b>References for Mend2003</b> 
+     <ul>
+      <li><a href="../references.html#mendelev_et_al_2003">Mendelev <i>et al.</i> 2003</a></li>
+     </ul>	
+     <b>Typos and clarifications for Mend2003</b> 
+     <ul>
+      <li>a<sub>7</sub><sup>phi</sup> in Table A 1 is listed incorrectly and should be negative instead 
+       of positive, as noted on 
+       <a href="http://homepages.ed.ac.uk/graeme/moldy/moldy.html">Graeme Ackland's metals page.</a>
+      </li>
+     </ul>
+     <b>Mendelev <i>et al.</i> 2003 in Towhee</b> 
+     <ul>
+      The official force field name for these parameters is 'Mend2003'.  Here I list the 
+      atom names for use in the towhee_input file, along with a brief description (although 
+      the meaning of the atom names should be obvious).  There were two parameterizations presented 
+      in that paper and they are both implemented here.
+      Please note that the capitalization and spacing pattern is important and must be followed exactly as listed here.
+      <ul>
+       <dt>'<b>Fe-p2</b>' : iron potential 2.  Uses a 5.2 Angstrom cutoff.</dt>
+       <dt>'<b>Fe-p4</b>' : iron potential 4.  Uses a 6.0 Angstrom cutoff.</dt>
+      </ul>
+     </ul>
+     <b>Coulombic interactions</b> 
+     <ul>
+      There are no coulombic interactions for this potential.
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

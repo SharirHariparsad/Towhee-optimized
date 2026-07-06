@@ -1,0 +1,320 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: Charmm27</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" ><tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: Charmm27</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the Charmm27 force field as it is implemented into the towhee_ff_Charmm27 file in the ForceFields directory.  
+      All of the Towhee atom types for the Charmm27 force field are listed, along with a short description of their meanings.  
+      Charmm27 is a Lennard-Jones (12-6) force field and typically uses the Lorentz-Berthelot mixing rules.
+      Any discrepencies (especially typos) from the published Charmm27 force field values are the sole responsibility of Marcus Martin,
+      and I welcome feedback on how this implementation compares with other programs.
+     </ul>
+     <b>References for Charmm27</b> 
+     <ul>
+      The best literature references for the Charmm27 forcefield parameters are
+      <ul>
+       <li><a href="../references.html#foloppe_mackerell_2000">Foloppe and MacKerell 2000</a></li>
+      </ul>
+      and 
+      <ul>
+       <li><a href="../references.html#mackerell_et_al_1998">MacKerell <i> et al.</i> 1998</a>.</li>
+      </ul>
+      There is also a forum for Charmm discussion at <a href="http://www.charmm.org">Charmm.org</a>.
+     </ul>	
+     <b>Charmm27 in Towhee</b> 
+     <ul>
+      The official force field name for Charmm27 in Towhee is 'Charmm27'.
+      This list contains all of the Charmm27 atom names for use in the towhee_input file, along with a brief description.
+      Please note that the capitalization and spacing pattern is important and must be followed exactly as listed here.
+      <dt><font color="red">Calcium</font></dt>
+      <ul>
+       <dt>'<b>CAL</b>' : Calcium ion</dt>
+      </ul>
+      <dt><font color="red">Carbon</font></dt>
+      <ul>
+       <dt>'<b>C</b>' : Carbonyl carbon, peptide backbone </dt>
+       <dt>'<b>CA</b>' : Aromatic carbon</dt>
+       <dt>'<b>CC</b>' : Carbonyl carbon (in Asn, Asp, Gln, Glu, and C terminal)</dt>
+       <dt>'<b>CD</b>' : Carbonyl carbon (in protonated Glu and Asp)</dt>
+       <dt>'<b>CE1</b>' : Carbon in alkene (R-CH=CH-R) non-lipid version.  This is essentially the same as the 
+	<b>CEL1</b> term as Charmm27 has some redundancy in its naming conventions.</dt>
+       <dt>'<b>CE2</b>' : Carbon in ethene (CH2=CH2) non-lipid version.  This is essentially the same as the 
+	<b>CEL2</b> term as Charmm27 has some redundancy in its naming conventions.</dt>
+       <dt>'<b>CEL1</b>' : Carbon in alkene (R-CH=CH-R) lipid.  This is essentially the same as the 
+	<b>CE1</b> term as Charmm27 has some redundancy in its naming conventions.</dt>
+       <dt>'<b>CEL2</b>' : Carbon in ethene (CH2=CH2) lipid version.  This is essentially the same as the 
+	<b>CE2</b> term as Charmm27 has some redundancy in its naming conventions.</dt>
+       <dt>'<b>CL</b>' : Methyl Acetate update.</dt>
+       <dt>'<b>CM</b>' : Heme CO carbon</dt>
+       <dt>'<b>CN1</b>' : Carbonyl carbon (Nucleic Acids)</dt>
+       <dt>'<b>CN1A</b>' : NAD+/NADH amide carbonyl carbon (Nucleic Acids)</dt>
+       <dt>'<b>CN1T</b>' : Carbonyl carbon for thymine/uridine C2 (Nucleic Acids)</dt>
+       <dt>'<b>CN2</b>' : Aromatic carbon to amide (Nucleic Acids)</dt>
+       <dt>'<b>CN3</b>' : Aromatic carbon (Nucleic Acids)</dt>
+       <dt>'<b>CN3A</b>' : Aromatic carbon for NAD+ (Nucleic Acids)</dt>
+       <dt>'<b>CN3B</b>' : Aromatic carbon for NAD+ (Nucleic Acids)</dt>
+       <dt>'<b>CN3C</b>' : Aromatic carbon for NADH (Nucleic Acids)</dt>
+       <dt>'<b>CN3D</b>' : Aromatic carbon for 5-methylcytosine (Nucleic Acids)</dt>
+       <dt>'<b>CN3T</b>' : Aromatic carbon for thymine C5 (Nucleic Acids)</dt>
+       <dt>'<b>CN4</b>' : Carbon for purine C8 and ADE C2 (Nucleic Acids)</dt>
+       <dt>'<b>CN5</b>' : Carbon for purine C4 and C5 (Nucleic Acids)</dt>
+       <dt>'<b>CN5G</b>' : Carbon for quanine C5 (Nucleic Acids)</dt>
+       <dt>'<b>CN7</b>' : Aliphatic sp3 carbon for CH (equivalent to protein CT1) (Nucleic Acids)</dt>
+       <dt>'<b>CN7B</b>' : Aliphatic carbon for C1' (Nucleic Acids)</dt>
+       <dt>'<b>CN7C</b>' : Carbon for C2' in arabinose (Nucleic Acids)</dt>
+       <dt>'<b>CN7D</b>' : Carbon for C2' in nucleic acid fluorine derivatives (Nucleic Acids)</dt>
+       <dt>'<b>CN8</b>' : Aliphatic sp3 carbon for CH2 (equivalent to protein CT2) (Nucleic Acids)</dt>
+       <dt>'<b>CN8B</b>' : Aliphatic sp3 carbon for CH2 (equivalent to protein CT2) (Nucleic Acids)</dt>
+       <dt>'<b>CN9</b>' : Aliphatic sp3 carbon for CH3 (equivalent to protein CT3) (Nucleic Acids)</dt>
+       <dt>'<b>CNA</b>' : Pure aromatic carbon (Nucleic Acids)</dt>
+       <dt>'<b>CNA2</b>' : Pure aromatic carbon bound to fluorine (Nucleic Acids)</dt>
+       <dt>'<b>CNE1</b>' : Carbon in alkene (RHC=CR) (Nucleic Acids)</dt>
+       <dt>'<b>CNE2</b>' : Carbon in alkene (H2C=CR) (Nucleic Acids)</dt>
+       <dt>'<b>CP1</b>' : Tetrahedral carbon (proline CA)</dt>       
+       <dt>'<b>CP2</b>' : Tetrahedral carbon (proline CB/CG)</dt>       
+       <dt>'<b>CP3</b>' : Tetrahedral carbon (proline CD)</dt>       
+       <dt>'<b>CPA</b>' : Heme alpha-carbon</dt>       
+       <dt>'<b>CPB</b>' : Heme beta-carbon</dt>       
+       <dt>'<b>CPH1</b>' : Histidine CG and CD2 carbons</dt>       
+       <dt>'<b>CPH2</b>' : Histidine CE1 carbon</dt>       
+       <dt>'<b>CPM</b>' : Heme meso-carbon</dt>       
+       <dt>'<b>CPT</b>' : Tryptophan carbon between rings</dt>       
+       <dt>'<b>CS</b>' : Thiolate carbon</dt>       
+       <dt>'<b>CT1</b>' : Aliphatic sp<sup>3</sup> carbon for CH non-lipid version</dt>
+       <dt>'<b>CT2</b>' : Aliphatic sp<sup>3</sup> carbon for CH2 non-lipid version</dt>
+       <dt>'<b>CT3</b>' : Aliphatic sp<sup>3</sup> carbon for CH3 non-lipid version</dt>
+       <dt>'<b>CTL1</b>' : Aliphatic sp<sup>3</sup> carbon for CH lipid version</dt>
+       <dt>'<b>CTL2</b>' : Aliphatic sp<sup>3</sup> carbon for CH2 lipid version</dt>
+       <dt>'<b>CTL3</b>' : Aliphatic sp<sup>3</sup> carbon for CH3 lipid version</dt>
+       <dt>'<b>CTL5</b>' : tetramethylammonium</dt>
+       <dt>'<b>CY</b>' : Tryptophan carbon in pyrole ring</dt>       
+      </ul>
+      <dt><font color="red">Cesium</font></dt>
+      <ul>
+       <dt>'<b>CES</b>' : Cesium ion</dt>
+      </ul>
+      <dt><font color="red">Chlorine</font></dt>
+      <ul>
+       <dt>'<b>CLA</b>' : Chlorine ion</dt>
+      </ul>
+      <dt><font color="red">Fluorine</font></dt>
+      <ul>
+       <dt>'<b>FA1</b>' : Aromatic fluorine</dt>
+       <dt>'<b>FN1</b>' : Fluorine for sugar derivatives</dt>
+      </ul>
+      <dt><font color="red">Hydrogen</font></dt>
+      <ul>
+       <dt>'<b>H</b>' : Polar hydrogen</dt>
+       <dt>'<b>HA</b>' : Nonpolar hydrogen</dt>
+       <dt>'<b>HAL1</b>' : Nonpolar hydrogen in a lipid, bonded to <b>CTL1</b></dt>
+       <dt>'<b>HAL2</b>' : Nonpolar hydrogen in a lipid, bonded to <b>CTL2</b></dt>
+       <dt>'<b>HAL3</b>' : Nonpolar hydrogen in a lipid, bonded to <b>CTL3</b></dt>
+       <dt>'<b>HB</b>' : Backbone hydrogen</dt>
+       <dt>'<b>HC</b>' : Hydrogen in N terminal group</dt>
+       <dt>'<b>HCL</b>' : Hydrogen in ethanolamine</dt>
+       <dt>'<b>HE1</b>' : Hydrogen in alkene (RHC=CR)</dt>
+       <dt>'<b>HE2</b>' : Hydrogen in alkene (H2C=CR)</dt>
+       <dt>'<b>HEL1</b>' : Hydrogen in alkene (lipid version) bonded to <b>CEL1</b></dt>
+       <dt>'<b>HEL2</b>' : Hydrogen in alkene (lipid version) bonded to <b>CEL2</b></dt>
+       <dt>'<b>HL</b>' : Polar hydrogen on NC4+</dt>
+       <dt>'<b>HN1</b>' : Amine proton (Nucleic Acids)</dt>
+       <dt>'<b>HN2</b>' : Ring nitrogen proton (Nucleic Acids)</dt>
+       <dt>'<b>HN3</b>' : Aromatic carbon proton (Nucleic Acids)</dt>
+       <dt>'<b>HN3B</b>' : NAD+ aromatic hydrogen (Nucleic Acids)</dt>
+       <dt>'<b>HN3C</b>' : Standard aromatic hydrogen (as in benzene) (Nucleic Acids)</dt>
+       <dt>'<b>HN4</b>' : Phosphate hydroxyl proton (Nucleic Acids)</dt>
+       <dt>'<b>HN5</b>' : Ribose hydroxyl proton (Nucleic Acids)</dt>
+       <dt>'<b>HN6</b>' : Ribose aliphatic proton (Nucleic Acids)</dt>
+       <dt>'<b>HN7</b>' : Nonpolar hydrogen (equivalent to protein HA) (Nucleic Acids)</dt>
+       <dt>'<b>HN8</b>' : Hydrogen bound to CN8 in nucleic acids/model compounds (Nucleic Acids)</dt>
+       <dt>'<b>HN9</b>' : Hydrogen bound to CN9 in nucleic acids/model compounds (Nucleic Acids)</dt>
+       <dt>'<b>HNE1</b>' : Hydrogen in alkene (RHC=CR) (Nucleic Acids)</dt>
+       <dt>'<b>HNE2</b>' : Hydrogen in alkene (H2C=CR) (Nucleic Acids)</dt>
+       <dt>'<b>HNP</b>' : Pure aromatic hydrogen (Nucleic Acids)</dt>
+       <dt>'<b>HOL</b>' : Hydrogen bondd to oxygen in acetic acid</dt>
+       <dt>'<b>HP</b>' : Aromatic hydrogen</dt>
+       <dt>'<b>HR1</b>' : Histidine HE1 hydrogen, (+)-charged histidine HG and HD2 hydrogens </dt>
+       <dt>'<b>HR2</b>' : (+)-charged histidine HE1 hydrogen </dt>
+       <dt>'<b>HR3</b>' : Histidine HG and HD2 hydrogens </dt>
+       <dt>'<b>HS</b>' : Thiol hydrogen</dt>
+       <dt>'<b>HT</b>' : Water hydrogen, modified TIP3P model</dt>
+      </ul>
+      <dt><font color="red">Iron</font></dt>
+      <ul>
+       <dt>'<b>FE</b>' : Iron in heme</dt>
+      </ul>
+      <dt><font color="red">Magnesium</font></dt>
+      <ul>
+       <dt>'<b>MG</b>' : Magnesium ion</dt>
+      </ul>
+      <dt><font color="red">Nitrogen</font></dt>
+      <ul>
+       <dt>'<b>N</b>' : Proline nitrogen</dt>
+       <dt>'<b>NC2</b>' : Guanidinium nitrogen</dt>
+       <dt>'<b>NH1</b>' : Peptide nitrogen</dt>
+       <dt>'<b>NH2</b>' : Amide nitrogen</dt>
+       <dt>'<b>NH3</b>' : Ammonium nitrogen</dt>
+       <dt>'<b>NH3L</b>' : Ethanolamine nitrogen</dt>
+       <dt>'<b>NN1</b>' : Amide nitrogen (Nucleic Acids)</dt>
+       <dt>'<b>NN1C</b>' : Imine nitrogen (cytosine) (Nucleic Acids)</dt>
+       <dt>'<b>NN2</b>' : Protonated ring nitrogen (Nucleic Acids)</dt>
+       <dt>'<b>NN2B</b>' : For N9 in guanine (Nucleic Acids)</dt>
+       <dt>'<b>NN2C</b>' : Protonated ring nitrogen (cytosine) (Nucleic Acids)</dt>
+       <dt>'<b>NN2G</b>' : Protonated ring nitrogen for guanine N1 (Nucleic Acids)</dt>
+       <dt>'<b>NN2U</b>' : Protonated ring nitrogen for uridine N3 (Nucleic Acids)</dt>
+       <dt>'<b>NN3</b>' : Unprotonated ring nitrogen (Nucleic Acids)</dt>
+       <dt>'<b>NN3A</b>' : Unprotonated ring nitrogen for adenine N1 and N3 (Nucleic Acids)</dt>
+       <dt>'<b>NN3G</b>' : Unprotonated ring nitrogen for guanine N3 (Nucleic Acids)</dt>
+       <dt>'<b>NN3I</b>' : Unprotonated ring nitrogen for inosine N3 (Nucleic Acids)</dt>
+       <dt>'<b>NN4</b>' : Nitrogen for purine N7 (Nucleic Acids)</dt>
+       <dt>'<b>NN5</b>' : sp2 amine nitrogen (Nucleic Acids)</dt>
+       <dt>'<b>NN6</b>' : sp3 amine nitrogen (equivalent to protein NH3) (Nucleic Acids)</dt>
+       <dt>'<b>NP</b>' : Proline ring NH2+</dt>
+       <dt>'<b>NPH</b>' : Heme pyrole nitrogen</dt>
+       <dt>'<b>NR1</b>' : Neutral histidine protonated ring nitrogen</dt>
+       <dt>'<b>NR2</b>' : Neutral histidine unprotonated ring nitrogen</dt>
+       <dt>'<b>NR3</b>' : (+)-charged histidine ring nitrogen</dt>
+       <dt>'<b>NTL</b>' : tetramethyl ammonium</dt>
+       <dt>'<b>NY</b>' : Tryptophan nitrogen in pyrole ring</dt>
+      </ul>
+      <dt><font color="red">Oxygen</font></dt>
+      <ul>
+       <dt>'<b>O</b>' : Carbonyl oxygen</dt>
+       <dt>'<b>O2L</b>' : Oxygen in sulfate or phosphate</dt>
+       <dt>'<b>OB</b>' : Carbonyl oxygen in acetic acid non-lipid version</dt>
+       <dt>'<b>OBL</b>' : Carbonyl oxygen in acetic acid lipid version</dt>
+       <dt>'<b>OC</b>' : Carboxylate oxygen non-lipid version</dt>
+       <dt>'<b>OCL</b>' : Carboxylate oxygen lipid version</dt>
+       <dt>'<b>OH1</b>' : Hydroxyl oxygen non-lipid version</dt>
+       <dt>'<b>OHL</b>' : Hydroxyl oxygen lipid version</dt>
+       <dt>'<b>OM</b>' : Heme CO/O2 oxygen</dt>
+       <dt>'<b>ON1</b>' : Carbonyl oxygen (Nucleic Acids)</dt>
+       <dt>'<b>ON1C</b>' : Carbonyl oxygen for cytosine O2 (Nucleic Acids)</dt>
+       <dt>'<b>ON2</b>' : Phosphate ester oxygen (Nucleic Acids)</dt>
+       <dt>'<b>ON3</b>' : Double bonded oxygen in phospate (Nucleic Acids)</dt>
+       <dt>'<b>ON4</b>' : Phospate hydroxyl oxygen (Nucleic Acids)</dt>
+       <dt>'<b>ON5</b>' : Ribose hydroxyl oxygen (Nucleic Acids)</dt>
+       <dt>'<b>ON6</b>' : Deoxyribose ring oxygen (Nucleic Acids)</dt>
+       <dt>'<b>ON6B</b>' : Ribose ring oxygen (Nucleic Acids)</dt>
+       <dt>'<b>OS</b>' : Ester oxygen non-lipid version</dt>
+       <dt>'<b>OSL</b>' : Ester oxygen lipid version</dt>
+       <dt>'<b>OT</b>' : Water oxygen, modified TIP3P model</dt>
+      </ul>
+      <dt><font color="red">Phosphorous</font></dt>
+      <ul>
+       <dt>'<b>P</b>' : Phosphorous non-lipid version</dt>
+       <dt>'<b>P2</b>' : Pyrophosphate phosphorous</dt>
+       <dt>'<b>PL</b>' : Phosphorous lipid version</dt>
+      </ul>
+      <dt><font color="red">Potassium</font></dt>
+      <ul>
+       <dt>'<b>POT</b>' : Potassium ion</dt> 
+      </ul>
+      <dt><font color="red">Sodium</font></dt>
+      <ul>
+       <dt>'<b>SOD</b>' : Sodium ion</dt>
+      </ul>
+      <dt><font color="red">Sulfur</font></dt>
+      <ul>
+       <dt>'<b>S</b>' : Sulfur</dt>
+       <dt>'<b>SL</b>' : Sulfur in sulfate</dt>
+       <dt>'<b>SM</b>' : Sulfur (C-S-S-C type)</dt>
+       <dt>'<b>SS</b>' : Thiolate sulfur</dt>
+      </ul>
+     </ul>
+     <b>Coulombic Interactions</b> 
+     <ul>
+      Charmm27 utilizes point charges on atomic centers to represent the charge distribution on a molecule.  As far as I know,
+      there is no automated system for assigning the charges in Charmm27.
+     </ul>
+     <b>Improper torsions</b> 
+     <ul>
+      Improper torsions are not automatically generated by the Towhee code as the rules for determining where they are applied are not always straight-forward.
+      Charmm27 exclusively uses the out-of-plane version of the improper torsions, and they are typically centered on an sp<sup>2</sup> atom in order
+      to enforce planarity with its three neighbors.
+      These torsions are listed in the Charmm27 literature as i-j-k-l where the angle is the dihedral between i-j-k and j-k-l.
+      The bonding pattern is not completely clear to me, but it appears that either i or l is the central atom which is bonded to all three
+      of the other atoms, and none of the other three atoms are bonded to each other.
+      In the towhee_input file the improper torsions are listed starting from the central atom and the three other atoms are listed in the same order as Charmm27.
+      So, if the central atom is i, then the atoms are listed j, k, l.
+      If the central atom is l then the atoms are listed k, j, i.
+      Automatic improper torsion type detection is implemented for this force field.
+     </ul>
+     <b>Proteins</b> 
+     <ul>
+      All of the 20 common amino acids (including the 3 forms of hystidine and the thiol and disulfide forms of cysteine) are
+      functional for the Charmm27 force field. I have implemented the atom types and charges according to the published Charmm27 values.
+      Below is a complete list of the codes for the 20 amino acids, plus some other functional groups that work with the protein builder.
+      <ul>
+       <dt>'<b>a0</b>' : alanine</dt>
+       <dt>'<b>c0</b>' : cysteine with hydrogen on the sulfur</dt>
+       <dt>'<b>cs</b>' : cysteine in a disulfide bond</dt>
+       <dt>'<b>d-</b>' : aspartic acid deprotonated</dt>
+       <dt>'<b>e-</b>' : glutamic acid deprotonated</dt>
+       <dt>'<b>f0</b>' : phenylalanine</dt>
+       <dt>'<b>g0</b>' : glycine</dt>
+       <dt>'<b>h+</b>' : histidine both N protonated</dt>
+       <dt>'<b>hd</b>' : histidine neutral with only N<sub>d</sub> protonated</dt>
+       <dt>'<b>he</b>' : histidine neutral with only N<sub>e</sub> protonated</dt>
+       <dt>'<b>i0</b>' : isoleucine</dt>
+       <dt>'<b>k+</b>' : lysine protonated</dt>
+       <dt>'<b>l0</b>' : leucine</dt>
+       <dt>'<b>m0</b>' : methionine</dt>
+       <dt>'<b>n0</b>' : asparagine</dt>
+       <dt>'<b>p0</b>' : proline</dt>
+       <dt>'<b>q0</b>' : glutamine</dt>
+       <dt>'<b>r+</b>' : arginine protonated</dt>
+       <dt>'<b>s0</b>' : serine</dt>
+       <dt>'<b>t0</b>' : threonine</dt>
+       <dt>'<b>v0</b>' : valine</dt>
+       <dt>'<b>w0</b>' : tryptophan</dt>
+       <dt>'<b>y0</b>' : tyrosine</dt>
+       <dt>'<b>za</b>' : acetyl cap on the N-terminus</dt>
+       <dt>'<b>zm</b>' : amide cap (NH<sub>2</sub>) on the C-terminus.  Note: differs from official Charmm27 by
+	having a 0.31 charge on both terminal H instead of giving one 0.30 and the other 0.32.</dt>
+       <dt>'<b>zn</b>' : N-methylamide cap on the C-terminus</dt>
+      </ul>
+     </ul>
+     <b>Nucleic acids</b> 
+     <ul>
+      All of the common nucleic acids are functional for the Charmm27 force field. I have implemented the atom types and charges according to the 
+      published Charmm27 values.  Below is a complete list of the codes for the nucleic acids.  Notice that there is a 'd</b>' : as the first character 
+      in the codes for the deoxyribonucleotides (used in DNA) and no 'd</b>' : in the codes for the ribonucleotides (used in RNA).  Generally, thymine is 
+      only found in DNA and uridine is only found in RNA, but both the deoxyribonucleotides and the ribonucleotides are implemented here.  
+      The shortname is also provided (in parenthesis) for use with the buildpartial features.
+      <ul>
+       <dt>'<b>A</b>' : adenosine (AMP)</dt>
+       <dt>'<b>dA</b>' : deoxyadenosine (dAMP)</dt>
+       <dt>'<b>C</b>' : cytidine (CMP)</dt>
+       <dt>'<b>dC</b>' : deoxycytidine (dCMP)</dt>
+       <dt>'<b>G</b>' : guanosine (GUA)</dt>
+       <dt>'<b>dG</b>' : deoxyguanosine (dGUA)</dt>
+       <dt>'<b>T</b>' : thymidine (TMP)</dt>
+       <dt>'<b>dT</b>' : deoxythymidine (dTMP)</dt>
+       <dt>'<b>U</b>' : uridine (UMP)</dt>
+       <dt>'<b>dU</b>' : deoxyuridine (dUMP)</dt>
+      </ul>
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

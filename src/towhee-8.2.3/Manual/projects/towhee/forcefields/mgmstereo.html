@@ -1,0 +1,54 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: MGM Stereochem Enforcer</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: MGM Steroechemistry Enforcer</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the MGM Stereochemistry Enforcer improper torsion as implemented into the towhee_ff_mgmstereo file in the ForceFields directory.
+      This is by no means a complete force field, as it only exists to enforce L or D (or if you prefer R or S) stereochemistry.
+      This is needed because configurational-bias is easily able to switch stereochemistry of a center during a configuartional-bias regrowth.
+      That problem is remedied by adding this improper torsion onto the stereochemical center.
+     </ul>
+     <b>MGM Stereochemistry Enforcer in Towhee</b> 
+     <ul>
+      There are no atom names for this force field, it is used in combination with other force fields.
+     </ul>
+     <b>Improper torsions</b> 
+     <ul>
+      The 'mgmstereo' improper torsion is combined with other forcefields by listing an improper torsion with a type of -1.
+      This triggers a special flag in <a href="../code/code_manual.html#assemble.F"><code>assemble.F</code></a>
+      to look for the mgmstereo improper torsion instead of searching the atom types of the actual force field for the molecule.
+      To use this improper you need to define three improper torsions.  
+      If you wanted to define an "L" stereocenter on an amino acid C<sub>alpha</sub> you would define the following torsions from the C<sub>alpha</sub> atom.
+      List the actual atom number instead of the names, but this example shows the general concept.
+      <dt>N H<sub>alpha</sub> C<sub>beta</sub> -1</dt>
+      <dt>N C<sub>beta</sub> C(=O) -1</dt>
+      <dt>N C(=O) H<sub>alpha</sub> -1</dt>
+      <dt>In order to define a "D" stereocenter you simply reverse the atom orders.</dt>
+      <dt>N C<sub>beta</sub> H<sub>alpha</sub> -1</dt>
+      <dt>N C(=O) C<sub>beta</sub> -1</dt>
+      <dt>N H<sub>alpha</sub> C(=O) -1</dt>
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

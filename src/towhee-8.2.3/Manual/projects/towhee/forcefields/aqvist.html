@@ -1,0 +1,63 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: Aqvist</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: Aqvist</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the Aqvist ion parameters as they are implemented into the towhee_ff_Aqvist file in the ForceFields directory.
+      All of the Towhee atom types for the Aqvist ion force field are listed, along with a short description of their meanings.
+      This is not really a comphrehensive stand-alone force field, but is instead a collection of parameters for the positive ions
+      in the first two columns of the periodic table.  
+      Ion parameters are sometimes hard to come by in the literature so I have included these parameters for use in conjunction with other force fields.
+      Note that these are Lennard-Jones (12-6) parameters and can only be combined with other Lennard-Jones (12-6) force fields.
+      Any discrepencies (especially typos) from the published Aqvist force field values are the sole responsibility of Marcus Martin,
+      and I welcome feedback on how this implementation compares with other programs.
+     </ul>
+     <b>References for Aqvist cations</b> 
+     <ul>
+      <li><a href="../references.html#aqvist_1990">Aqvist 1990</a></li>
+     </ul>	
+     <b>Aqvist in Towhee</b> 
+     <ul>
+      The official force field name for Aqvist ions in Towhee is 'Aqvist'.
+      This list contains all of the Aqvist atom names for use in the towhee_input file, along with a brief description.
+      Please note that the capitalization and spacing pattern is important and must be followed exactly as listed here.
+      <ul>
+       <dt>'<b>Ba+2</b>' : barium ion with a +2 charge</dt>
+       <dt>'<b>Ca+2</b>' : calcium ion with a +2 charge</dt>
+       <dt>'<b>Cs+</b>' : cesium ion with a +1 charge</dt>
+       <dt>'<b>K+</b>' : potasium ion with a +1 charge</dt>
+       <dt>'<b>Li+</b>' : lithium ion with a +1 charge</dt>
+       <dt>'<b>Mg+2</b>' : magnesium ion with a +2 charge</dt>
+       <dt>'<b>Na+</b>' : sodium ion with a +1 charge</dt>
+       <dt>'<b>Rb+</b>' : rubidium ion with a +1 charge</dt>
+       <dt>'<b>Sr+2</b>' : strontium ion with a +2 charge</dt>
+      </ul>
+     </ul>
+     <b>Coulombic Interactions</b> 
+     <ul>
+      The Aqvist ions utilize point charges.  All of the atoms in this force field are ions so the charge assignment is obvious.
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

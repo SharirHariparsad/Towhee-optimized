@@ -1,0 +1,59 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: Fris2008</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: Frischknecht and Martin 2008</font></b></font></div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the Frischknecht and Martin 2008 (Fris2008) force field as it is implemented into the towhee_ff_Fris2008 file in the ForceFields directory.
+      This force field was originally designed for fluid simulations of water and carbon nanotubes.
+      This is a Lennard-Jones force field that uses 'Lorentz-Berthelot' mixing rules so it is easily combined with other Lennard-Jones force fields.
+      It was specifically designed to be combined with the <a href="charmm27.html">Charmm27</a> force field.
+      Any discrepencies (especially typos) from the published values are the sole responsibility of Marcus Martin,
+      and I welcome feedback on how this implementation compares with other programs.
+     </ul>
+     <b>References for Fris2008</b> 
+     <ul>
+      This implementation is a combination of the intramolecular terms from the <a href="walt2001.html">Walther <i>et al.</i> 2001</a> nanotube forcefield
+      with an extrapolation of the Carbon-Oxygen cross terms for water and graphite/nanotubes from
+      <a href="../references.html#werder_et_al_2003">Werder <i>et al.</i> 2003</a> specifically designed to work with the water model in
+      <a href="charmm27.html">Charmm27</a>.
+      The nonbonded parameters for the Fris2008 forcefield are discussed in Appendix A of the following paper.
+      <ul>
+       <li><a href="../references.html#frischknecht_martin_2008">Frischknecht and Martin 2008</a></li>
+      </ul>
+     </ul>	
+     <b>Fris2008 in Towhee</b> 
+     <ul>
+      The official force field name for Frischknecht and Martin 2008 in Towhee is 'Fris2008'.  Here the atom name is listed, along with a brief description.
+      Please note that the capitalization and spacing pattern is important and must be followed exactly as listed here.
+      <ul>
+       <dt>'<b>C</b>' : Carbon in a carbon nanotube.</dt>
+      </ul>
+     </ul>
+     <b>Coulombic interactions</b> 
+     <ul>
+      There are no assigned coulombic interactions for the carbon nanotube.
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

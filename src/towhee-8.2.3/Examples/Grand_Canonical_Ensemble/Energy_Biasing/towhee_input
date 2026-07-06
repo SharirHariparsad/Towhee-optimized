@@ -1,0 +1,3700 @@
+random_number_generator
+'RANLUX'
+random_luxlevel
+3
+random_seed
+1302552
+random_allow_restart
+T
+ensemble 
+'uvt'
+temperature
+298.15d0
+nmolty
+2
+nmolectyp
+1 50
+chempot
+0 -500.0d0
+numboxes
+1 
+stepstyle
+'moves'
+nstep
+1000
+printfreq
+100
+blocksize
+200
+moviefreq
+10000000
+backupfreq
+100000
+runoutput
+'blocks'
+pdb_output_freq
+1000000
+trmaxdispfreq
+1
+volmaxdispfreq
+10000000
+linit   
+T
+initboxtype
+'dimensions'
+initstyle
+'coords' 'full cbmc'
+initlattice
+'none' 'center'
+initmol
+1 0
+inix iniy iniz
+1    1    1
+hmatrix
+20.0511d0 0.0d0 0.0d0
+0.0d0   19.87570d0  0.0d0
+0.0d0 0.0d0  26.73640d0
+pmuvtcbswap
+1.0d0
+          pmuvtcbmt
+          0.0d0 1.0d0
+pm1boxcbswap
+0.0d0
+          pm1cbswmt
+          0.0d0 1.0d0
+pmavb1    
+0.0d0     
+          pmavb1in
+          0.5d0
+          pmavb1mt
+          0.2d0 1.0d0
+          pmavb1ct
+          0.33d0 1.0d0
+          0.33d0 1.0d0
+          avb1rad
+          5.0d0
+pmavb2
+0.0d0     
+          pmavb2in
+          0.5d0
+          pmavb2mt
+          0.2d0 1.0d0
+          pmavb2ct
+          0.33d0 1.0d0
+          0.33d0 1.0d0
+          avb2rad
+          5.0d0
+pmavb3
+0.0d0     
+          pmavb3mt
+          0.2d0  1.0d0
+          pmavb3ct
+          0.33d0 1.0d0
+          0.33d0 1.0d0
+          avb3rad
+          5.0d0
+pmcb
+0.35d0
+          pmcbmt
+          0.0d0 1.0d0 
+          pmall
+          0.0d0 0.5d0
+pmback
+0.0d0
+          pmbkmt
+          0.0d0 1.0d0
+pmpivot
+0.0d0
+          pmpivmt
+          0.0d0 1.0d0
+pmconrot
+0.0d0
+          pmcrmt
+          0.0d0 1.0d0
+pmcrback
+0.0d0
+          pmcrbmt
+          0.0d0 1.0d0
+pmplane
+0.0d0
+          pmplanebox
+          1.0d0
+          planewidth
+          3.0d0
+pmrow
+0.0d0
+          pmrowbox
+          1.0d0
+          rowwidth
+          3.0d0
+pmtraat
+0.00d0
+          pmtamt
+          0.0d0 1.0d0 
+          rmtraa
+          0.5d0 
+          tatraa
+          0.5d0
+pmtracm
+0.00d0
+          pmtcmt
+          0.0d0 1.0d0      	
+          rmtrac
+          0.5d0 
+          tatrac
+          0.5d0
+pmrotate
+1.0d0
+          pmromt  
+          0.0d0 1.0d0
+          rmrot
+          0.05d0
+          tarot
+          0.5d0
+cbmc_formulation
+'Martin and Siepmann 1999 + Martin and Thompson 2004'
+cbmc_setting_style
+'explicit'
+cbmc_nb_one_generation
+'uniform' 'energy bias'
+mapmolty
+2  
+lcreatemap
+T                      
+cubex cubey cubez
+10 10 10  
+nch_nb_one
+1 1
+nch_nb
+1 1
+cbmc_dihedral_generation
+'ideal'
+nch_tor
+1 360
+nch_tor_connect
+1 360
+cbmc_bend_generation
+'ideal'
+nch_bend_a
+1 1000
+nch_bend_b
+1 1000
+cbmc_bond_generation
+'r^2 with bounds'
+vibrang
+0.85 1.15	
+nch_vib
+1 1
+two_bond_fixed_endpoint_bias_style
+'none'
+three_bond_fixed_endpoint_bias_style
+'none'
+ffnumber
+1
+ff_filename
+/towheebase/ForceFields/towhee_ff_Dubb2004
+classical_potential
+'Lennard-Jones'               
+classical_mixrule
+'Explicit'
+lshift
+.false.
+ltailc
+.true.
+rmin  
+1.0d0 
+rcut  
+9.5d0
+rcutin 
+9.5d0
+electrostatic_form
+'none'
+#silicalite
+input_style
+'basic connectivity map'
+nunit
+576
+nmaxcbmc
+576
+lpdbnames
+F
+forcefield
+'Dubb2004'
+charge_assignment
+'none
+unit ntype 
+   1 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+   2 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+   3 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+   4 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+   5 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+   6 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+   7 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+   8 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+   9 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  10 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  11 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  12 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  13 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  14 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  15 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  16 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  17 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  18 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  19 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  20 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  21 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  22 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  23 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  24 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  25 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  26 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  27 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  28 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  29 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  30 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  31 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  32 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  33 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  34 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  35 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  36 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  37 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  38 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  39 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  40 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  41 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  42 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  43 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  44 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  45 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  46 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  47 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  48 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  49 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  50 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  51 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  52 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  53 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  54 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  55 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  56 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  57 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  58 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  59 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  60 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  61 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  62 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  63 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  64 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  65 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  66 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  67 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  68 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  69 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  70 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  71 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  72 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  73 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  74 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  75 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  76 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  77 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  78 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  79 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  80 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  81 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  82 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  83 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  84 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  85 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  86 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  87 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  88 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  89 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  90 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  91 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  92 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  93 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  94 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  95 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  96 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  97 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  98 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+  99 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 100 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 101 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 102 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 103 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 104 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 105 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 106 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 107 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 108 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 109 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 110 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 111 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 112 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 113 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 114 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 115 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 116 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 117 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 118 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 119 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 120 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 121 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 122 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 123 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 124 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 125 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 126 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 127 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 128 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 129 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 130 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 131 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 132 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 133 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 134 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 135 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 136 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 137 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 138 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 139 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 140 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 141 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 142 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 143 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 144 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 145 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 146 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 147 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 148 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 149 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 150 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 151 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 152 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 153 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 154 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 155 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 156 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 157 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 158 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 159 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 160 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 161 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 162 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 163 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 164 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 165 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 166 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 167 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 168 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 169 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 170 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 171 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 172 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 173 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 174 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 175 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 176 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 177 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 178 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 179 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 180 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 181 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 182 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 183 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 184 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 185 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 186 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 187 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 188 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 189 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 190 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 191 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 192 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 193 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 194 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 195 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 196 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 197 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 198 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 199 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 200 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 201 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 202 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 203 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 204 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 205 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 206 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 207 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 208 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 209 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 210 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 211 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 212 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 213 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 214 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 215 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 216 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 217 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 218 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 219 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 220 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 221 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 222 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 223 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 224 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 225 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 226 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 227 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 228 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 229 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 230 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 231 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 232 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 233 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 234 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 235 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 236 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 237 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 238 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 239 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 240 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 241 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 242 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 243 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 244 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 245 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 246 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 247 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 248 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 249 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 250 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 251 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 252 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 253 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 254 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 255 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 256 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 257 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 258 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 259 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 260 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 261 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 262 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 263 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 264 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 265 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 266 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 267 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 268 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 269 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 270 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 271 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 272 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 273 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 274 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 275 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 276 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 277 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 278 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 279 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 280 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 281 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 282 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 283 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 284 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 285 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 286 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 287 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 288 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 289 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 290 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 291 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 292 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 293 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 294 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 295 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 296 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 297 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 298 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 299 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 300 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 301 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 302 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 303 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 304 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 305 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 306 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 307 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 308 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 309 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 310 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 311 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 312 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 313 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 314 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 315 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 316 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 317 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 318 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 319 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 320 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 321 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 322 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 323 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 324 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 325 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 326 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 327 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 328 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 329 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 330 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 331 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 332 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 333 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 334 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 335 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 336 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 337 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 338 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 339 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 340 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 341 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 342 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 343 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 344 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 345 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 346 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 347 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 348 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 349 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 350 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 351 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 352 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 353 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 354 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 355 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 356 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 357 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 358 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 359 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 360 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 361 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 362 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 363 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 364 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 365 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 366 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 367 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 368 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 369 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 370 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 371 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 372 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 373 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 374 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 375 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 376 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 377 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 378 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 379 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 380 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 381 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 382 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 383 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 384 'Si    '   
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 385 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 386 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 387 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 388 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 389 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 390 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 391 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 392 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 393 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 394 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 395 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 396 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 397 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 398 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 399 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 400 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 401 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 402 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 403 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 404 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 405 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 406 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 407 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 408 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 409 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 410 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 411 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 412 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 413 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 414 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 415 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 416 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 417 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 418 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 419 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 420 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 421 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 422 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 423 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 424 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 425 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 426 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 427 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 428 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 429 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 430 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 431 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 432 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 433 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 434 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 435 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 436 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 437 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 438 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 439 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 440 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 441 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 442 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 443 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 444 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 445 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 446 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 447 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 448 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 449 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 450 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 451 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 452 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 453 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 454 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 455 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 456 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 457 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 458 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 459 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 460 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 461 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 462 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 463 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 464 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 465 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 466 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 467 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 468 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 469 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 470 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 471 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 472 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 473 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 474 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 475 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 476 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 477 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 478 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 479 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 480 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 481 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 482 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 483 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 484 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 485 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 486 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 487 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 488 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 489 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 490 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 491 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 492 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 493 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 494 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 495 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 496 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 497 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 498 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 499 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 500 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 501 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 502 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 503 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 504 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 505 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 506 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 507 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 508 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 509 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 510 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 511 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 512 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 513 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 514 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 515 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 516 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 517 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 518 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 519 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 520 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 521 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 522 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 523 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 524 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 525 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 526 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 527 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 528 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 529 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 530 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 531 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 532 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 533 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 534 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 535 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 536 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 537 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 538 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 539 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 540 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 541 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 542 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 543 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 544 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 545 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 546 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 547 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 548 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 549 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 550 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 551 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 552 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 553 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 554 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 555 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 556 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 557 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 558 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 559 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 560 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 561 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 562 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 563 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 564 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 565 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 566 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 567 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 568 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 569 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 570 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 571 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 572 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 573 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 574 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 575 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+unit ntype 
+ 576 'O     '  
+vibration
+ 0
+improper torsion
+ 0
+#Methane
+input_style
+'basic connectivity map'
+nunit
+1
+nmaxcbmc
+1
+lpdbnames
+F
+forcefield
+'Dubb2004'
+charge_assignment
+'none
+unit ntype    
+1    'CH4'
+vibration
+0
+improper torsion
+0
+

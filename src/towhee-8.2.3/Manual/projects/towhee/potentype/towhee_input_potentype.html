@@ -1,0 +1,568 @@
+<html>
+<head>
+  <title>MCCCS Towhee (towhee_input potentype)</title>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000">
+<table width="675" border="0" cellspacing="0" cellpadding="0" height="590">
+  <tr> 
+    <td colspan="2" height="29"> 
+      <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif"><a name="top"></a>MCCCS 
+        Towhee (towhee_input potentype)</font></b> </font> </div>
+    </td>
+  </tr>
+<A href="http://sourceforge.net"> 
+  <IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" width="210" height="62" border="0" 
+  alt="SourceForge.net Logo" align="right"/>
+</A>
+  <tr> 
+    <td width="18" height="371" valign="top"> 
+      <p>&nbsp; </p>
+      <p>&nbsp;</p>
+    </td>
+
+    <td width="697" valign="top"> 
+      <dt><a name="potentype"><b>potentype (integer)</b></a> 
+        <ul>
+          The different settings for <b>potentype</b> require a different set of variables afterwards.  For each 
+	  <b>potentype</b> I list a description of the nonbonded potential and the set of variables that must be 
+	  specified below the <b>potentype</b>.  This documentation is only kept up to date for the most current 
+	  release version.  Last updated for version 4.0.0.
+	  <hr></hr>
+          <li><a name="potentype_0"> potentype = 0: 12-6 Lennard-Jones potential.</a>
+            <ul>
+              <dt>If the two atoms are separated by more than 3 bonds, or are on different molecules then</dt>
+	      <dt>U<sub>nonbond</sub> = 4 * nbcoeff(2) * [ (nbcoeff(1)/r)<sup>12</sup> - (nbcoeff(1)/r)<sup>6</sup> ]</dt>
+              <dt>else if the two atoms are separated by exactly 3 bonds then</dt>
+	      <dt>U<sub>nonbond</sub> = 4 * nbcoeff(4) * [ (nbcoeff(3)/r)<sup>12</sup> - (nbcoeff(3)/r)<sup>6</sup> ]</dt>
+
+	      <dt><a name="p0_mixrule"><b>mixrule (integer)</b></a> 
+	        <ul>
+		  <li> mixrule = 0: Lorentz-Berthelot (arithmetic mean of sigma, geometric 
+		  mean of epsilon) mixing rules.</li>
+		  <li> mixrule = 1: Geometric (geometric mean of sigma and epsilon) 
+		  mixing rules.</li>
+		  <li> mixrule = 3: Gromos (geometric mean of sigma and epsilon with 
+		  some special cases) mixing rules.</li>
+		  <li> mixrule = 4: Explicit (defined in towhee_ff files) mixing rules.</li>
+	        </ul>
+              </dt>
+
+	      <dt><a name="lshift"><b>lshift (logical)</b></a> 
+	        <ul>
+		  <li> .true. if you want the nonbonded potential to be 
+		  shifted so that it is zero at the cutoff.</li>
+		  <li> .false. if you do not want to shift the nonbonded potential.</li>
+		</ul>
+	      </dt>
+
+	      <dt><a name="ltailc"><b>ltailc (logical)</b></a> 
+	        <ul>
+		  <li>.true. if you want to apply analytical tail corrections for the 
+		  portion of the potential that is past the cutoff. 
+		  Note that you cannot have a shifted potential and tail corrections 
+		  at the same time.</li>
+		  <li>.false. if you do not want analytical tail corrections.</li>
+		</ul>
+	      </dt>
+
+	      <dt><a name="rmin"><b>rmin (double precision)</b></a> 
+	        <ul>
+		  <li> A hard inner cutoff that can speed computation for Lennard-Jones 
+		  systems, and is required to avoid the potential hitting infinity 
+		  for exponential repulsion systems which also contain point charges. 
+		  This should be set smaller than the smallest radius of any atom. 
+		  Generally I set this to 0.5 or 1.0 Angstroms.</li>
+		</ul>
+	      </dt>
+
+	      <dt><a name="rcut"><b>rcut (double precision)</b></a> 
+		<ul>
+		  <li> The potential cutoff in Angstroms.</li>
+		</ul>
+	      </dt>
+
+	      <dt><a name="rcutin"><b>rcutin (double precision)</b></a> 
+		<ul>
+		  <li> The inner nonbonded cutoff used in configurational-bias Monte 
+		  Carlo moves. This dual-cutoff method can speed configurational-bias 
+		  computations by at least a factor of 2, without affecting the acceptance 
+		  rate. The inner cutoff is used during the growth procedure, and 
+		  the full potential is calculated at the end of the move and everything 
+		  is fixed up in the acceptance criteria. I typically set this to 
+		  5 Angstroms for noncoulombic simulations, and to 10 Angstroms for 
+		  coulombic simulations.</li>
+		</ul>
+	      </dt>
+            </ul>
+	  </li>
+	  <hr></hr>
+          <li><a name="potentype_1"> potentype = 1: 9-6 Lennard-Jones potential</a>
+	    <ul>
+              <dt>If the two atoms are separated 3 or more bonds, or are on different molecules then</dt>
+	      <dt>U<sub>nonbond</sub> = nbcoeff(2) * [ 2*(nbcoeff(1)/r)<sup>9</sup> - 3*(nbcoeff(1)/r)<sup>6</sup> ]</dt>
+
+	      <dt><a name="p0_mixrule"><b>mixrule (integer)</b></a> 
+		<ul>
+		  <li> mixrule = 2: Compass (sixth order combination of sigma and epsilon) mixing rules.</li>
+		</ul>
+	      </dt>
+
+	      <dt><a name="lshift"><b>lshift (logical)</b></a> 
+		<ul>
+		  <li> .true. if you want the nonbonded potential to be 
+		  shifted so that it is zero at the cutoff.</li>
+		  <li> .false. if you do not want to shift the nonbonded potential.</li>
+		</ul>
+	      </dt>
+
+	      <dt><a name="ltailc"><b>ltailc (logical)</b></a> 
+		<ul>
+		  <li>.true. if you want to apply analytical tail corrections for the 
+		  portion of the potential that is past the cutoff. 
+		  Note that you cannot have a shifted potential and tail corrections 
+		  at the same time.</li>
+		  <li>.false. if you do not want analytical tail corrections.</li>
+		</ul>
+	      </dt>
+
+	      <dt><a name="rmin"><b>rmin (double precision)</b></a> 
+		<ul>
+		  <li> A hard inner cutoff that can speed computation for Lennard-Jones 
+		  systems, and is required to avoid the potential hitting infinity 
+		  for exponential repulsion systems which also contain point charges. 
+		  This should be set smaller than the smallest radius of any atom. 
+		  Generally I set this to 0.5 or 1.0 Angstroms.</li>
+		</ul>
+	      </dt>
+
+	      <dt><a name="rcut"><b>rcut (double precision)</b></a> 
+		<ul>
+		  <li> The potential cutoff in Angstroms.</li>
+		</ul>
+	      </dt>
+
+	      <dt><a name="rcutin"><b>rcutin (double precision)</b></a> 
+		<ul>
+		  <li> The inner nonbonded cutoff used in configurational-bias Monte 
+		  Carlo moves. This dual-cutoff method can speed configurational-bias 
+		  computations by at least a factor of 2, without affecting the acceptance 
+		  rate. The inner cutoff is used during the growth procedure, and 
+		  the full potential is calculated at the end of the move and everything 
+		  is fixed up in the acceptance criteria. I typically set this to 
+		  5 Angstroms for noncoulombic simulations, and to 10 Angstroms for 
+		  coulombic simulations.</li>
+		</ul>
+	      </dt>
+            </ul>
+	  </li>
+	  <hr></hr>
+          <li><a name="potentype_2">potentype = 2: Exponential-6 potential</a>
+	    <ul>
+              <dt>If the two atoms are separated by more than 3 bonds, or are on different molecules then</dt>
+	      <dt>U<sub>nonbond</sub> = nbcoeff(1)/r^6  + nbcoeff(2) * exp[nbcoeff(3)*r]</dt>
+	      <dt><a name="p0_mixrule"><b>mixrule (integer)</b></a> 
+	        <ul>
+		  <li> mixrule = 4: Explicit (defined in towhee_ff files) mixing rules.</li>
+		</ul>
+	      </dt>
+
+	      <dt><a name="lshift"><b>lshift (logical)</b></a> 
+		<ul>
+		  <li> .true. if you want the nonbonded potential to be 
+		  shifted so that it is zero at the cutoff.</li>
+		  <li> .false. if you do not want to shift the nonbonded potential.</li>
+		</ul>
+	      </dt>
+
+	      <dt><a name="ltailc"><b>ltailc (logical)</b></a> 
+		<ul>
+		  <li>.true. if you want to apply analytical tail corrections for the 
+		  portion of the potential that is past the cutoff. 
+		  Note that you cannot have a shifted potential and tail corrections 
+		  at the same time.</li>
+		  <li>.false. if you do not want analytical tail corrections.</li>
+		</ul>
+	      </dt>
+
+	      <dt><a name="rcut"><b>rcut (double precision)</b></a> 
+		<ul>
+		  <li> The potential cutoff in Angstroms.</li>
+		</ul>
+	      </dt>
+
+	      <dt><a name="rcutin"><b>rcutin (double precision)</b></a> 
+		<ul>
+		  <li> The inner nonbonded cutoff used in configurational-bias Monte 
+		  Carlo moves. This dual-cutoff method can speed configurational-bias 
+		  computations by at least a factor of 2, without affecting the acceptance 
+		  rate. The inner cutoff is used during the growth procedure, and 
+		  the full potential is calculated at the end of the move and everything 
+		  is fixed up in the acceptance criteria. I typically set this to 
+		  5 Angstroms for noncoulombic simulations, and to 10 Angstroms for 
+		  coulombic simulations.</li>
+		</ul>
+	      </dt>
+            </ul>
+	  </li>
+	  <hr></hr>
+          <li><a name="potentype_3">potentype = 3: Hard Sphere potential</a>
+	    <ul>
+              <dt>If the two atoms are separated by more than 3 bonds, or are on different molecules then</dt>
+	      <dt>U<sub>nonbond</sub> = Infinity if r <= nbcoeff(1), or 0 otherwise</dt>
+	      <dt><a name="p0_mixrule"><b>mixrule (integer)</b></a> 
+		<ul>
+		  <li> mixrule = 5: Hard sphere (arithmetic mean of sigmas) mixing rules.</li>
+		</ul>
+	      </dt>
+
+	      <dt><a name="rcutin"><b>rcutin (double precision)</b></a> 
+		<ul>
+		  <li> The inner nonbonded cutoff used in configurational-bias Monte 
+		  Carlo moves. This dual-cutoff method can speed configurational-bias 
+		  computations by at least a factor of 2, without affecting the acceptance 
+		  rate. The inner cutoff is used during the growth procedure, and 
+		  the full potential is calculated at the end of the move and everything 
+		  is fixed up in the acceptance criteria. If you are using the Hard Sphere potential 
+		  without coulombic interations then just set this to something large (like 100), if you are 
+		  using coulombic interactions then I would suggest a value of 5 sigma.</li>
+		</ul>
+	      </dt>
+            </ul>
+	  </li>
+	  <hr></hr>
+          <li><a name="potentype_-3">potentype = -3: Repulsive Sphere potential.</a>  Added to towhee in version 1.4.6.  This 
+          is used to help setup and equilibrate a hard sphere system where it is sometimes challenging to create an 
+	  initial conformation with no overlaps.  Use the -3 option to equilibrate until the nonbonded potential energy 
+	  is 0.0, and then switch back to the normal hard sphere potential.
+	    <ul>
+              <dt>If the two atoms are separated by more than 3 bonds, or are on different molecules then</dt>
+	      <dt>U<sub>nonbond</sub> = 1d5 + 1d5 * (nbcoeff(1)^2 - r^2)  if r <= nbcoeff(1), or 0 otherwise</dt>
+	      <dt><a name="p0_mixrule"><b>mixrule (integer)</b></a> 
+		<ul>
+		  <li> mixrule = 5: Hard sphere (arithmetic mean of sigmas) mixing rules.</li>
+		</ul>
+	      </dt>
+
+	      <dt><a name="rcutin"><b>rcutin (double precision)</b></a> 
+		<ul>
+		  <li> The inner nonbonded cutoff used in configurational-bias Monte 
+		  Carlo moves. This dual-cutoff method can speed configurational-bias 
+		  computations by at least a factor of 2, without affecting the acceptance 
+		  rate. The inner cutoff is used during the growth procedure, and 
+		  the full potential is calculated at the end of the move and everything 
+		  is fixed up in the acceptance criteria. If you are using the Hard Sphere potential 
+		  without coulombic interations then just set this to something large (like 100), if you are 
+		  using coulombic interactions then I would suggest a value of 5 sigma.</li>
+		</ul>
+	      </dt>
+            </ul>
+	  </li>
+	  <hr></hr>
+          <li><a name="potentype_4">potentype = 4: Exponential plus 12-6 Lennard-Jones potential</a>
+            <ul>
+              <dt>If the two atoms are separated by more than 3 bonds, or are on different molecules then</dt>
+	      <dt>U<sub>nonbond</sub> = nbcoeff(1)/r^6 + nbcoeff(2)/r^12 + nbcoeff(3)*exp[nbcoeff(4)*r]</dt>
+	      <dt><a name="p0_mixrule"><b>mixrule (integer)</b></a> 
+		<ul>
+		  <li> mixrule = 4: Explicit (defined in towhee_ff files) mixing rules.</li>
+		</ul>
+	      </dt>
+
+	      <dt><a name="lshift"><b>lshift (logical)</b></a> 
+		<ul>
+		  <li> .true. if you want the nonbonded potential to be 
+		  shifted so that it is zero at the cutoff.</li>
+		  <li> .false. if you do not want to shift the nonbonded potential.</li>
+		</ul>
+	      </dt>
+
+	      <dt><a name="ltailc"><b>ltailc (logical)</b></a> 
+		<ul>
+		  <li>.true. if you want to apply analytical tail corrections for the 
+		  portion of the potential that is past the cutoff. 
+		  Note that you cannot have a shifted potential and tail corrections 
+		  at the same time.</li>
+		  <li>.false. if you do not want analytical tail corrections.</li>
+		</ul>
+	      </dt>
+
+	      <dt><a name="rmin"><b>rmin (double precision)</b></a> 
+	        <ul>
+		  <li> A hard inner cutoff that can speed computation for Lennard-Jones 
+		  systems, and is required to avoid the potential hitting infinity 
+		  for exponential repulsion systems which also contain point charges. 
+		  This should be set smaller than the smallest radius of any atom. 
+		  Generally I set this to 0.5 or 1.0 Angstroms.</li>
+		</ul>
+	      </dt>
+
+	      <dt><a name="rcut"><b>rcut (double precision)</b></a> 
+		<ul>
+		  <li> The potential cutoff in Angstroms.</li>
+		</ul>
+	      </dt>
+		  
+	      <dt><a name="rcutin"><b>rcutin (double precision)</b></a> 
+		<ul>
+		  <li> The inner nonbonded cutoff used in configurational-bias Monte 
+		  Carlo moves. This dual-cutoff method can speed configurational-bias 
+		  computations by at least a factor of 2, without affecting the acceptance 
+		  rate. The inner cutoff is used during the growth procedure, and 
+		  the full potential is calculated at the end of the move and everything 
+		  is fixed up in the acceptance criteria. I typically set this to 
+		  5 Angstroms for noncoulombic simulations, and to 10 Angstroms for 
+		  coulombic simulations.</li>
+		</ul>
+	      </dt>
+            </ul>
+	  </li>
+	  <hr></hr>
+          <li><a name="potentype_5">potentype = 5: Stillinger-Weber potential</a> 
+	  (see <a href="../references.html#stillinger_weber_1985"> Stillinger and Weber 1985</a>)
+            <ul>
+              <dt>This is an atomic potential and can only be used with monatomic molecules in Towhee</dt>
+	      <dt>U = nbcoeff(1)*[nbcoeff(2)*Sum u2(r<sub>ij</sub>) + nbcoeff(7)*Sum u3(r<sub>ij</sub>,r<sub>jk</sub>)]</dt>
+	      <dt>u2(rij) = [nbcoeff(3)*{r<sub>ij</sub>/nbcoeff(4)}<sup>-nbcoeff(5)</sup> - 1] 
+	      * exp{1/[(r<sub>ij</sub>/nbcoeff(4) - nbcoeff(6))]}
+	      * Heaviside(nbcoeff(6) - [r<sub>ij</sub>/nbcoeff(4)])</dt>
+	      <dt>u3(r<sub>ij</sub>,r<sub>jk</sub>) = 
+	      exp[ nbcoeff(8)/{r<sub>ij</sub>/nbcoeff(4) - nbcoeff(6)} + nbcoeff(8)/{r<sub>jk</sub>/nbcoeff(4) - nbcoeff(6)}]
+	      * (cos(theta<sub>ijk</sub>)-nbcoeff(9))^2 * Heaviside(nbcoeff(6) 
+	      - r<sub>ij</sub>/nbcoeff(4)) * Heaviside(nbcoeff(6) - r<sub>jk</sub>/nbcoeff(4))</dt>
+	      <dt><a name="p0_mixrule"><b>mixrule (integer)</b></a> 
+		<ul>
+		  <li> mixrule = 4: Explicit (defined in towhee_ff files) mixing rules.</li>
+		</ul>
+	      </dt>
+            </ul>
+	  </li>
+	  <hr></hr>
+          <li><a name="potentype_6">potentype = 6: Embedded Atom Method</a> 
+	  (see <a href="../references.html#daw_baskes_1983">Daw and Baskes 1983</a>)
+            <ul>
+              <dt>This is an atomic potential and can only be used
+	      with monatomic molecules in Towhee.  Historically, the
+	      Embedded Atom Method (EAM) used a lookup table for
+	      computing intermolecular interactions and this is an
+	      option in Towhee.  When tabular data is used the
+	      <b>interpolatestyle</b> determines the method for
+	      interpolating between the specified values.  Other
+	      functional forms are allowed as described in the 
+	      <a href="../towhee_ff.html">Towhee Force Field Documentation</a>.  
+	      EAM is a short-ranged potential
+	      that captures the many-body effects by computing a local
+	      density about each atom.  This so-called density is
+	      actually a distance dependent function.  The sum of the
+	      local densities is then fed into the embedding function to
+	      yield the embedding energy.  Additionally, there is a
+	      pair potential term.</dt> <dt><a
+	      name="interpolatestyle"><b>interpolatestyle
+	      (character*20)</b></a>
+		<ul>
+		  <li> 'cubicspline': Uses a cubic spline to interpolate between the tabulated force field data points 
+		  provided in the force field files.</li>
+		  <li> 'linear': Linear interpolation between the data points of the tabulated force field</li>
+		</ul>
+	      </dt>
+	      <dt><a name="rcut"><b>rcut (double precision)</b></a> 
+		<ul>
+		  <li> The distance (in Angstroms) beyond which the density and pair potential are set to zero.  
+		  Please note that this will be automatically adjusted up to the maximum entry in the case of a EAM potential 
+		  using tabular potential forms.</li>
+		</ul>
+	      </dt>
+            </ul>
+	  </li>
+	  <hr></hr>
+          <li><a name="potentype_7">potentype = 7: 12-6 Lennard-Jones with implicit solvent</a>
+            <ul>
+	      <dt>This uses the standard Lennard-Jones 12-6 plus an extra implicit solvation term.  See 
+	      <a href="../references.html#lazaridis_karplus_1999">Lazaridis and Karplus 1999</a> for more information.
+
+	      <dt><a name="p7_mixrule"><b>mixrule (integer)</b></a> 
+		<ul>
+		  <li> mixrule = 1: Geometric (geometric mean of the nbcoeffs) mixing rules.</li>
+		  <li> mixrule = 4: Explicit (defined in towhee_ff files) mixing rules.</li>
+		</ul>
+	      </dt>
+
+	      <dt><a name="lshift"><b>lshift (logical)</b></a> 
+		<ul>
+		  <li> .true. if you want the nonbonded potential to be 
+		  shifted so that it is zero at the cutoff.</li>
+		  <li> .false. if you do not want to shift the nonbonded potential.</li>
+		</ul>
+	      </dt>
+
+	      <dt><a name="ltailc"><b>ltailc (logical)</b></a> 
+		<ul>
+		  <li>.true. if you want to apply analytical tail corrections for the 
+		  portion of the potential that is past the cutoff. 
+		  Note that you cannot have a shifted potential and tail corrections 
+		  at the same time.</li>
+		  <li>.false. if you do not want analytical tail corrections.</li>
+		</ul>
+	      </dt>
+
+	      <dt><a name="rmin"><b>rmin (double precision)</b></a> 
+		<ul>
+		  <li> A hard inner cutoff that can speed computation for Lennard-Jones 
+		  systems, and is required to avoid the potential hitting infinity 
+		  for exponential repulsion systems which also contain point charges. 
+		  This should be set smaller than the smallest radius of any atom. 
+		  Generally I set this to 0.5 or 1.0 Angstroms.</li>
+		</ul>
+	      </dt>
+
+	      <dt><a name="rcut"><b>rcut (double precision)</b></a> 
+		<ul>
+		  <li> The potential cutoff in Angstroms.</li>
+		</ul>
+	      </dt>
+
+	      <dt><a name="rcutin"><b>rcutin (double precision)</b></a> 
+		<ul>
+		  <li> The inner nonbonded cutoff used in configurational-bias Monte 
+		  Carlo moves. This dual-cutoff method can speed configurational-bias 
+		  computations by at least a factor of 2, without affecting the acceptance 
+		  rate. The inner cutoff is used during the growth procedure, and 
+		  the full potential is calculated at the end of the move and everything 
+		  is fixed up in the acceptance criteria. I typically set this to 
+		  5 Angstroms for noncoulombic simulations, and to 10 Angstroms for 
+		  coulombic simulations.</li>
+		</ul>
+              </dt>
+	    </ul>
+	  </li>
+	  <hr></hr>
+          <li><a name="potentype_8">potentype = 8: 12-9-6 potential</a>
+            <ul>
+	      <dt>This is a variant of the Lennard-Jones family of potentials.  It was implemented for force fields
+	      that use a combination of LJ 12-6 and LJ 9-6. 
+	      <dt>v(r) = nbcoeff(1) * (1/r)<sup>12</sup> + nbcoeff(2) * (1/r)<sup>9</sup> + nbcoeff(3) * (1/r)<sup>6</sup></dt>
+
+	      <dt><a name="p7_mixrule"><b>mixrule (integer)</b></a> 
+		<ul>
+		  <li> mixrule = 1: Geometric (geometric mean of the nbcoeffs) mixing rules.</li>
+		  <li> mixrule = 4: Explicit (defined in towhee_ff files) mixing rules.</li>
+		</ul>
+              </dt>
+
+	      <dt><a name="lshift"><b>lshift (logical)</b></a> 
+		<ul>
+		  <li> .true. if you want the nonbonded potential to be 
+		  shifted so that it is zero at the cutoff.</li>
+		  <li> .false. if you do not want to shift the nonbonded potential.</li>
+		</ul>
+              </dt>
+
+	      <dt><a name="ltailc"><b>ltailc (logical)</b></a> 
+		<ul>
+		  <li>.true. if you want to apply analytical tail corrections for the 
+		  portion of the potential that is past the cutoff. 
+		  Note that you cannot have a shifted potential and tail corrections 
+		  at the same time.</li>
+		  <li>.false. if you do not want analytical tail corrections.</li>
+		</ul>
+              </dt>
+
+	      <dt><a name="rmin"><b>rmin (double precision)</b></a> 
+		<ul>
+		  <li> A hard inner cutoff that can speed computation for Lennard-Jones 
+		  systems, and is required to avoid the potential hitting infinity 
+		  for exponential repulsion systems which also contain point charges. 
+		  This should be set smaller than the smallest radius of any atom. 
+		  Generally I set this to 0.5 or 1.0 Angstroms.</li>
+		</ul>
+              </dt>
+
+	      <dt><a name="rcut"><b>rcut (double precision)</b></a> 
+		<ul>
+		  <li> The potential cutoff in Angstroms.</li>
+		</ul>
+              </dt>
+
+	      <dt><a name="rcutin"><b>rcutin (double precision)</b></a> 
+		<ul>
+		  <li> The inner nonbonded cutoff used in configurational-bias Monte 
+		  Carlo moves. This dual-cutoff method can speed configurational-bias 
+		  computations by at least a factor of 2, without affecting the acceptance 
+		  rate. The inner cutoff is used during the growth procedure, and 
+		  the full potential is calculated at the end of the move and everything 
+		  is fixed up in the acceptance criteria. I typically set this to 
+		  5 Angstroms for noncoulombic simulations, and to 10 Angstroms for 
+		  coulombic simulations.</li>
+		</ul>
+              </dt>
+            </ul>
+          </li>
+	  <hr></hr>
+          <li><a name="potentype_9">potentype = 9: Square Well potential</a>
+	    <ul>
+	      <dt>U<sub>nonbond</sub> = Infinity if r <= nbcoeff(1)</dt>
+	      <dt>U<sub>nonbond</sub> = -nbcoeff(3) if nbcoeff(1) < r <= nbcoeff(2)</dt>
+	      <dt>U<sub>nonbond</sub> = 0 if nbcoeff(2) < r</dt>
+	      <dt><a name="p0_mixrule"><b>mixrule (integer)</b></a> 
+		<ul>
+		  <li> mixrule = 4: Explicit (defined in towhee_ff files) mixing rules.</li>
+		  <li> mixrule = 7: Square Well mixing rules.  Arithmetic mean
+		    for nbcoeff(1) and nbcoeff(2).  Geometric mean for
+		    nbcoeff(3)
+		  </li>
+		</ul>
+	      </dt>
+
+	      <dt><a name="rcutin"><b>rcutin (double precision)</b></a> 
+		<ul>
+		  <li> The inner nonbonded cutoff used in configurational-bias Monte 
+		  Carlo moves. This dual-cutoff method can speed configurational-bias 
+		  computations by at least a factor of 2, without affecting the acceptance 
+		  rate. The inner cutoff is used during the growth procedure, and 
+		  the full potential is calculated at the end of the move and everything 
+		  is fixed up in the acceptance criteria. If you are using the
+		  Square Well potential without coulombic interations then
+		  this isn't going to help you at all as the potential is
+		  already very short ranged so just set this to something larger
+		  than the largest nbcoeff(2), 
+		  if you are 
+		  using coulombic interactions then I would suggest a value of
+		  around 5 times the largest nbcoeff(1).</li>
+		</ul>
+	      </dt>
+            </ul>
+	  </li>
+	  <hr></hr>
+          <li><a name="potentype_10">potentype = 10: Tabulated Pair Potential</a> 
+            <ul>
+              <dt>This potential uses a table to describe the interactions between atoms.
+	      The <b>interpolatestyle</b> determines the method for interpolating between the specified values.
+	      pair potential term.  Cross terms between unlike atoms are described explicitly.  The potential is 
+	      listed with the distance and corresponding energy on each line.</dt> 
+	      <dt><a name="interpolatestyle"><b>interpolatestyle (character*20)</b></a>
+		<ul>
+		  <li> 'cubicspline': Uses a cubic spline to interpolate between the tabulated force field data points 
+		  provided in the force field files.</li>
+		  <li> 'linear': Linear interpolation between the data points of the tabulated force field</li>
+		</ul>
+	      </dt>
+            </ul>
+	  </li>
+
+	</ul>
+      </dt>
+      <a href="../index.html">Return to the main towhee web page</a> 
+      <p>&nbsp;</p>
+    </td>
+  </tr>
+</table>
+
+<hr width="715" align="left">
+<i><font size="2">Send comments to:</font></i> <font size="2"> <a href="mailto:marcus_martin@users.sourceforge.net">Marcus 
+G. Martin</a><br>
+<i>Last updated:</i> 
+<!-- #BeginDate format:Am1 -->October 08, 2004<!-- #EndDate -->
+</font> <br>
+</body>
+</html>
+

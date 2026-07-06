@@ -1,0 +1,244 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: Capabilities</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table>
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif"><a name="top"></a>MCCCS Towhee: Capabilities</font></b></font></div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"> 
+    <IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" width="210" height="62" border="0" alt="SourceForge.net Logo" align="right"/>
+   </A>
+   <tr> 
+    <td valign="top"> 
+     <p>&nbsp; </p>
+     <p>&nbsp;</p>
+    </td>
+    <td valign="top">
+     <b>Summary</b> 
+     <ul>
+      Towhee is a Monte Carlo molecular simulation code that was designed for computing phase equilibria, but is suited for other tasks as well. This 
+      documentation contains a list of the current capabilities of the Towhee code. 
+     </ul>
+     <p></p>
+     <dt><b>Ensembles</b> 
+      <ul>
+       <dt>
+        <a href="citation_manual.html#canonical_ensemble">Canonical</a> (NVT)
+       </dt>
+       <dt>
+        <a href="citation_manual.html#isobaric_isothermal_ensemble">Isobaric-isothermal</a> (NpT)
+       </dt>
+       <dt>
+        <a href="citation_manual.html#grand_canonical_ensemble">Grand Canonical</a> (uVT)
+       </dt>
+       <dt>
+        <a href="citation_manual.html#gibbs_ensemble">Gibbs</a> (both NVT and NpT)
+       </dt>
+      </ul>
+     </dt>
+     <p></p>
+     <dt><a name="force_fields"><b>Force Fields</b></a> 
+      <ul>
+       <dt>12-6 plus 12-10 H-bond
+        <ul>
+         <dt><a href="forcefields/weiner1984.html">Weiner <i>et al.</i> 1984</a></dt>
+         <dt><a href="forcefields/weiner1986.html">Weiner <i>et al.</i> 1986</a></dt>
+         <dt><a href="forcefields/dick1994.html">Dick and Ritchie 1994</a></dt>
+        </ul>
+       </dt>
+       <dt>12-6 plus solvation
+        <ul>
+         <dt><a href="forcefields/c19eef1.html">Charmm19 EEF1</a></dt>
+         <dt><a href="forcefields/c19sasa.html">Charmm19 SASA</a></dt>
+        </ul>
+       </dt>
+       <dt>12-9-6
+        <ul>
+         <dt><a href="forcefields/fris2003.html">Frischknecht and Curro 2003</a></dt>
+        </ul>
+       </dt>
+       <dt>9-6
+        <ul>
+         <dt><a href="forcefields/compass.html">COMPASS Version 1</a></dt>
+         <dt><a href="forcefields/qmff_viii.html">QMFF-VIII</a></dt>
+        </ul>
+       </dt>
+       <dt>Buffered 14-7
+        <ul>
+         <dt><a href="forcefields/mmff94.html">MMFF94</a></dt>
+        </ul>
+       </dt>
+       <dt>Double Exponential
+        <ul>
+         <dt><a href="forcefields/mcy1976.html">MCY 1976</a> water</dt>
+        </ul>
+       </dt>
+       <dt>Embedded Atom Method
+        <ul>
+         <dt><a href="forcefields/ackl2004.html">Ackland <i>et al.</i> 2004</a> Fe and P</dt>
+         <dt><a href="forcefields/belash2006.html">Belashchenko 2006</a> Hg</dt>
+         <dt><a href="forcefields/belash2013.html">Belashchenko 2013</a> Hg</dt>
+         <dt><a href="forcefields/hoyt2003.html">Hoyt <i>et al.</i> 2003</a> Cu and Pb</dt>
+         <dt><a href="forcefields/mend2003.html">Mendelev <i>et al</i> 2003</a> Fe</dt>
+        </ul>
+       </dt>
+       <dt>Exponential-12-6
+        <ul>
+         <dt><a href="forcefields/catlow_faux.html">Catlow and Faux</a> </dt>
+        </ul>
+       </dt>
+       <dt>Exponential-6
+        <ul>
+         <dt><a href="forcefields/kfvbvs.html">Kramer Farragher van Beest van Santen</a> (also known as BKS)</dt>
+         <dt><a href="forcefields/mm2.html">MM2</a></dt>
+        </ul>
+       </dt>
+       <dt>Gordon n-6
+        <ul>
+         <dt><a href="forcefields/gordon.html">Gordon</a></dt>
+        </ul>
+       </dt>
+       <dt>Hard 2580 Multistep or Repulsive 2580 Multistep
+        <ul>
+         <dt><a href="forcefields/cui2002.html">Cui and Elliott 2002</a></dt>
+        </ul>
+       </dt>
+       <dt>Hard Sphere or Repulsive Sphere
+        <ul>
+         <dt><a href="forcefields/hardsphere.html">Hard Sphere</a></dt>
+        </ul>
+       </dt>
+       <dt>Lennard-Jones
+        <ul>
+         <dt><a href="forcefields/alavi2005.html">Alavi <i>et al.</i> H<sub>2</sub></a></dt>
+         <dt><a href="forcefields/amber_param96.html">Amber param96</a></dt>
+         <dt><a href="forcefields/aqvist.html">Aqvist</a> cations</dt>
+         <dt><a href="forcefields/charmm22.html">Charmm22</a></dt>
+         <dt><a href="forcefields/charmm22fe.html">Charmm22fe</a> supplementary parameters for fluoroethanes in CHARMM22</dt>
+         <dt><a href="forcefields/charmm27.html">Charmm27</a></dt>
+         <dt><a href="forcefields/charmm27x.html">Charmm27x</a> some supplementary parameters for CHARMM27</dt>
+         <dt><a href="forcefields/c27rigid.html">Charmm27 rigid water</a></dt>
+         <dt><a href="forcefields/clayff.html">ClayFF</a></dt>
+         <dt><a href="forcefields/coon1987.html">Coon <i>et al.</i> 1987</a> O<sub>2</sub> and N<sub>2</sub></dt>
+         <dt><a href="forcefields/cui1998.html">Cui <i>et al.</i> 1998</a> perfluorinated alkane models</dt>
+         <dt><a href="forcefields/dacnisua.html">DACNIS United Atom</a></dt>
+         <dt><a href="forcefields/dreiding.html">DREIDING</a></dt>
+         <dt><a href="forcefields/dubb2004.html">Dubbeldam <i>et al.</i></a> alkanes and zeolites</dt>
+         <dt><a href="forcefields/epm.html">EPM</a> family of CO<sub>2</sub> models</dt>
+         <dt><a href="forcefields/fris2008.html">Frischknecht and Martin 2008</a> carbon nanotube intended for use with CHARMM27</dt>
+         <dt><a href="forcefields/gala1994.html">Galassi and Tildesly 1994</a> diatomic gasses</dt>
+         <dt><a href="forcefields/gromos43a1.html">Gromos 43A1</a></dt>
+         <dt><a href="forcefields/jaramillo.html">Jaramillo <i>et al.</i> 2001</a> Hydrofluorocarbons</dt>
+         <dt><a href="forcefields/kbff.html">Kirkwood-Buff force field</a> for acetone</dt>
+         <dt><a href="forcefields/last1993.html">Lastoskie <i>et al.</i> 1993</a> N<sub>2</sub></dt>
+         <dt><a href="forcefields/ljium.html">Lennard-Jones beads</a></dt>
+         <dt><a href="forcefields/lgm.html">Lybrand Ghosh McCammon 1985</a> anions</dt>
+         <dt><a href="forcefields/morrow2002.html">Morrow and Maginn 2002</a> ionic liquids</dt>
+         <dt><a href="forcefields/nerdv1.html">NERD United Atom (Version 1)</a></dt>
+         <dt><a href="forcefields/nerdv2.html">NERD United Atom (Version 2)</a></dt>
+         <dt><a href="forcefields/nerdv3.html">NERD United Atom (Version 3)</a></dt>
+         <dt><a href="forcefields/oplsaa.html">OPLS-aa</a> </dt>
+         <dt><a href="forcefields/oplsua.html">OPLS-ua</a> </dt>
+         <dt><a href="forcefields/opls1996.html">OPLS-1996</a> </dt>
+         <dt><a href="forcefields/opls2001.html">OPLS-2001</a> </dt>
+         <dt><a href="forcefields/pana1989.html">Panagiotopoulos 1989</a> noble gasses</dt>
+         <dt><a href="forcefields/potter1997.html">Potter <i>et al.</i> 1997</a> fluoromethanes</dt>
+         <dt><a href="forcefields/richar1995.html">Richards <i>et al.</i> 1995</a> N<sub>2</sub> and O<sub>2</sub> in zeolite Li-X</dt>
+         <dt><a href="forcefields/shah2004.html">Shah and Maginn 2004</a> ionic liquids</dt>
+         <dt><a href="forcefields/shukla1987.html">Shukla 1987</a> gasses</dt>
+         <dt><a href="forcefields/sks.html">SKS n-alkanes</a></dt>
+         <dt><a href="forcefields/smith1994.html">Smith and Dang 1994</a> NaCl</dt>
+         <dt><a href="forcefields/smmkmain.html">SMMK (main text) alkanes</a></dt>
+         <dt><a href="forcefields/smmknaip.html">SMMK (note added in proof) alkanes</a></dt>
+         <dt><a href="forcefields/spce.html">SPC-E water</a></dt>
+         <dt><a href="forcefields/sum2003.html">Sum <i>et al.</i> 2003</a></dt>
+         <dt><a href="forcefields/tele1987.html">Teleman <i>et al.</i> 1987 water</a></dt>
+         <dt><a href="forcefields/tip3p.html">TIP3P water</a></dt>
+         <dt><a href="forcefields/tip4p.html">TIP4P water</a></dt>
+         <dt><a href="forcefields/tip5p.html">TIP5P water</a></dt>
+         <dt><a href="forcefields/trappeeh.html">TraPPE Explicit Hydrogen</a></dt>
+         <dt><a href="forcefields/trappeua.html">TraPPE United Atom</a></dt>
+         <dt><a href="forcefields/trappeuaf.html">TraPPE United Atom flexible bonds</a></dt>
+         <dt><a href="forcefields/walt2001.html">Walther <i>et al.</i> 2001</a> carbon nanotubes and water</dt>
+         <dt><a href="forcefields/wielop1985.html">Wielopolski and Smith 1985</a> two ethylene oxide models</dt>
+        </ul>
+       </dt>
+       <dt>Multiwell
+        <ul>
+         <dt><a href="forcefields/elli2002.html">Elliott 2002 <i>n</i>-alkanes and benzene</a></dt>
+        </ul>
+       </dt>
+       <dt>Stillinger-Weber
+        <ul>
+         <dt><a href="forcefields/ding1986.html">Ding and Anderson 1986</a> Ge</dt>
+         <dt><a href="forcefields/stil1985.html">Stillinger and Weber 1985</a> Si</dt>
+         <dt><a href="forcefields/vink2001.html">Vink <i>et al.</i> 2001</a> Si</dt>
+        </ul>
+       </dt>
+       <dt>Square Well or Repulsive Well
+        <ul>
+         <dt><a href="forcefields/squarewell.html">SquareWell</a></dt>
+         <dt><a href="forcefields/vega1992.html">Vega <i>et al.</i> 1992</a></dt>
+        </ul>
+       </dt>
+       <dt>Tabulated Pair
+        <ul>
+         <dt>No forcefield files currently available for this potential.
+        </ul>
+       </dt>
+       <dt>UFF 12-6
+        <ul>
+         <dt><a href="forcefields/uff.html">Universal Force Field (UFF)</a></dt>
+        </ul>
+       </dt>
+       <dt>Other (works with multiple classical_potential values)
+        <ul>
+         <dt><a href="forcefields/mgmstereo.html">MGM Stereochem enforcer</a> </dt>
+        </ul>
+       </dt>
+      </ul>
+     </dt>
+     <p></p>
+     <dt><b>Monte Carlo Moves</b> 
+      <ul>
+       <dt>Isotropic volume change by scaling the center-of-mass of all molecules in the simulation box 
+        (<a href="references.html#mcdonald_1972">McDonald 1972</a>)
+       </dt>
+       <dt>Non-isotropic adjustment of the unit cell vectors.</dt>
+       <dt>Rotational-bias interbox molecule transfer (<a href="references.html#cracknell_et_al_1990">Cracknell <i>et al.</i> 1990</a>)</dt>
+       <dt><a href="algorithm/cbmc.html">Coupled-decoupled configurational-bias</a> interbox molecule transfer</dt>
+       <dt><a href="algorithm/cbmc.html">Coupled-decoupled configurational-bias</a> intrabox molecule transfer</dt>
+       <dt><a href="algorithm/cbmc.html">Coupled-decoupled configurational-bias</a> molecule creation or deletion (grand canonical)</dt>
+       <dt>Aggregation-volume-bias move number 1 (<a href="references.html#chen_siepmann_2000">Chen and Siepmann 2000</a>)</dt>
+       <dt>Aggregation-volume-bias move number 2 (<a href="references.html#chen_siepmann_2001">Chen and Siepmann 2001</a>)</dt>
+       <dt>Aggregation-volume-bias move number 3 (<a href="references.html#chen_siepmann_2001">Chen and Siepmann 2001</a>)</dt>
+       <dt><a href="algorithm/cbmc.html">Coupled-decoupled configurational-bias</a> regrowth for linear, branched and cyclic molecules</dt>
+       <dt>Fixed endpoint <a href="algorithm/cbmc.html">Coupled-decoupled configurational-bias</a> regrowth of interior segments along a polypeptide
+        backbone.
+       </dt>
+       <dt>Pivot of one portion of a molecule about a torsional axis. (first used by <a href="references.html#lal_1969">Lal 1969</a>)</dt>
+       <dt>Concerted rotation of a portion of the molecule backbone (<a href="references.html#dodd_et_al_1993">Dodd <i>et al.</i> 1993</a>)</dt>
+       <dt>Translations of an entire slab of molecules</dt>
+       <dt>Translations of an entire cylinder of molecules</dt>
+       <dt>Translation of a single atom in a molecule</dt>
+       <dt>Translation of an entire molecule (<a href="references.html#metropolis_et_al_1953">Metropolis <i>et al.</i> 1953</a>)</dt>
+       <dt>Rotation about the center-of-mass</dt>
+      </ul>
+     </dt>
+     <a href="index.html">Return to the main towhee web page</a>
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

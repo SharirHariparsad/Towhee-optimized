@@ -1,0 +1,1928 @@
+<html>
+<head>
+  <title>MCCCS Towhee (towhee_input Version 4.8.x)</title>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000">
+<table width="675" border="0" cellspacing="0" cellpadding="0" height="590">
+  <tr> 
+    <td colspan="2" height="29"> 
+      <div align="center"> <font size="5"> <b><font face="Arial, Helvetica,
+    sans-serif">
+    <a name="top"></a>MCCCS 
+        Towhee (towhee_input Version 4.8.x)</font></b> </font> </div>
+    </td>
+  </tr>
+<A href="http://sourceforge.net"> 
+  <IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" width="210" height="62" border="0" 
+  alt="SourceForge.net Logo" align="right"/>
+</A>
+  <tr> 
+    <td width="18" height="371" valign="top"> 
+      <p>&nbsp; </p>
+      <p>&nbsp;</p>
+    </td>
+    <td width="697" valign="top"> <b>Overview</b> 
+      <ul>
+        This section covers the variables that are set in the towhee_input
+	file Version 4.8.x. Each variable is listed along with its type 
+	(logical, character, integer, or double precision). towhee_input 
+	is the main input file for Towhee and is generally the only file 
+	that needs to be edited on a regular basis. It has a regimented 
+	style to the input. The variables are described here in the order 
+	they appear in this file. Please look at one of the example files 
+	(available with the code package) for the precise file format. 
+	<p></p>
+	Note that for each variable listed below you must include the name of 
+	the variable on the previous line.  In addition, the variables that
+	are subsets of various Monte Carlo moves must be indented 10 spaces.
+      </ul>
+
+      <b>Bug reports / feature enhancements for 4.8.x versions</b>
+      <ul>
+        <li>4.8.2: Added the <a href="../forcefields/weiner1984.html">Weiner <i>et al.</i> 1984</a> force field and 
+	also modified the code to handle the logic of the special hydrogen bond terms in that force field.  Added 
+	a new <b>classical_potential</b> named '12-6 plus 12-10 H-bond' and modified the towhee_ff files to handle 
+	some of the new data structures required for this <b>classical_potential</b>.  Added a new dihedral style 
+	(number 19) that is similar to the Amber/Charmm/Gromos cosine, but divides the energy by the total number of 
+	torsions across the central bond.  Modified writelammps so that it could output information for these new 
+	potentials.  Added the <a href="../forcefields/weiner1986.html">Weiner <i>et al.</i> 1986</a> and
+	<a href="../forcefields/dick1994.html">Dick and Ritchie 1994</a> force fields.</li>
+        <li>4.8.1: Modified the <a href="../utils/analyse_movie.html">analyse_movie.F</a> utlity so that it outputs 
+	dihedral angles using the same cis=0.0 convention used in the main code (previously was outputting with 
+	trans=0.0).  Added a square well torsion style for use with the <a href="../forcefields/elli2002.html">Elli2002</a> 
+	force field.</li>
+        <li>4.8.0: Added the <b>cmix_rescaling_style</b> variable and created styles 'none' and 
+	'grossfield 2003' along with some associated variables such as <b>cmix_lambda</b>,
+	<b>cmix_npair</b>, and <b>cmix_pair_list</b>.  Fixed a bug in a portion of the random number 
+	generator that is not currently used by Towhee.</li>
+      </ul>
+
+      <b>towhee_input file differences from version 4.7.x</b> 
+
+      <ul>
+        <li> Added the <b>cmix_rescaling_style</b> variable along with several variables that are also needed 
+	depending upon the setting of <b>cmix_rescaling_style</b> such as <b>cmix_lambda</b>, <b>cmix_npair</b>,
+	and <b>cmix_pair_list</b>.
+      </ul>
+
+      <b>Variable explanations for towhee_input</b> 
+
+      <ul>
+        <dt><a name="randomseed"><b>randomseed (integer)</b></a> 
+          <ul>
+            <li>The 32 bit integer seed that is used to initialize the ranlux 
+	    random number generator.  Must be positive.</li>
+          </ul>
+        </dt>
+
+        <dt><a name="inputformat"><b>inputformat (character string)</b></a> 
+          <ul>
+            <li>'Towhee' : reads in the input variables following the format 
+	    for Towhee.  This format is described in this file.</li>
+	    <li>'LAMMPS' : reads in the input variables from the lammps_input 
+	    and lammps_data files.  Outputs files suitable for use with
+	    Towhee.</li>
+	    <li>'Database' : reads in the input variables from the 
+	    database_input file.  Runs energy calculations for a database 
+	    of conformations.  See the 
+	    <a href=../database/towhee_input_database.html>towhee_input database<a/> 
+	    format for more information about this feature.</li>
+          </ul>
+	</dt>
+
+        <dt><a name="ensemble"><b>ensemble (character string of size 3)</b></a> 
+          <ul>
+            <li> 'npt': Isobaric-Isothermal Ensemble.  The volume moves for
+	      each simulation box are performed in an exchange with an
+	      external pressure bath set at a specified pressure.  
+	      The total number of molecules is conserved.</li>
+            <li> 'nvt': Canonical Ensemble.  The total volume of the system is conserved. 
+	      The total number of molecules in the system is conserved.  In
+	      the case of a multi-box simulation this exchanges volume between 
+              pairs of boxes (canonical Gibbs ensemble).</li>
+	    <li> 'uvt': Grand Canonical Ensemble.  The total volume of the system is
+              conserved.  The total number of molecules in the system 
+	      equilibrates with an external ideal gas bath set at a specified
+	      chemical potential.  
+	  </ul>
+	</dt>
+
+        <dt><a name="temperature"><b>temperature (double precision)</b></a> 
+          <ul>
+            <li> The temperature in Kelvin.</li>
+          </ul>
+	</dt>
+
+	<hr></hr>
+	<dt>The variable in this subsection is only included in the input file if <b>ensemble</b>
+	is set to 'npt'</dt>	
+        <dt><a name="pressure"><b>pressure (double precision)</b></a> 
+          <ul>
+            <li> The external pressure in kPa.</li>
+          </ul>
+	</dt>
+	<dt>End of the subsection only included if <b>ensemble</b> is 'npt'</dt>
+	<hr></hr>
+
+        <dt><a name="nmolty"><b>nmolty (integer)</b></a> 
+          <ul>
+            <li> The total number of molecule types in the simulation. This must 
+              be less then or equal to NTMAX 
+	      (see <a href="../code/code_manual.html#preproc">preproc.h</a>).</li>
+          </ul>
+	</dt>
+
+        <dt><a name="nmolectyp"><b>nmolectyp (integer) [one value for each molecule type]</b></a> 
+          <ul>
+            <li> The number of molecules of each type (listed sequentially on 
+             a single line).  For the constant N ensembles (nvt, npt) this is
+	     the actual number of molecules in the simulation.  For the constant
+	     chemical potential ensembles (uvt) this is the maximum number of molecules allowed in
+	     the simulation.</li>
+          </ul>
+	</dt>
+
+	<hr></hr>
+	<dt>The variable in this subsection is only included in the input file if <b>ensemble</b>
+	is set to 'uvt'</dt>	
+        <dt><a name="chempot"><b>chempot (double precision)</b></a> 
+          <ul>
+            <li> The real chemical potential (this includes intramolecular portions 
+	     and is identical to the CB chemical potential output by the code) for
+	     molecules of each type (listed sequentially on 
+             a single line).  The units are in Kelvin  
+	     (identical to the output CB chemical potential).</li>
+          </ul>
+	</dt>
+	<dt>End of the subsection only included if <b>ensemble</b> is 'uvt'</dt>
+	<hr></hr>
+
+        <dt><a name="numboxes"><b>numboxes (integer)</b></a> 
+          <ul>
+            <li> The number of simulation boxes in the system. This value must 
+              be less than or equal to MAXBOXES (set in 
+	      <a href="../code/code_manual.html#preproc">preproc.h</a>). Note that 
+              many of the variables below depend upon numboxes as you will have 
+              to provide information for each box (such as box lengths) and
+	      some Monte Carlo moves are only valid for multiple box ensembles.</li>
+          </ul>
+	</dt>
+
+        <dt><a name="stepstyle"><b>stepstyle (character string of length 10)</b></a> 
+          <ul>
+	    The different settings for stepstyle require a different set of
+	    variables afterwards.  For each
+	    <b>stepstyle</b> I list a description of the resutling step style
+	    and the set of variables that must follow.
+	    <li> 'cycles': Run a Monte Carlo simulation for <b>nstep</b> Monte Carlo cycles.  
+	    A cycle is equal to <b>N</b> Monte Carlo moves, where <b>N</b> is the number of 
+	    molecules in the system.</li>
+	    <ul>
+	      <dt><a name="stepstyle_cycles_nstep"><b>nstep (integer)</b></a> 
+		<ul>
+		  <li> The number of Monte Carlo steps to perform where each step is a cycle.</li>
+                </ul>
+              </dt>
+	    </ul>
+
+            <li> 'moves': Run a Monte Carlo simulation for <b>nstep</b> Monte Carlo moves.</li>
+	      <ul>
+	        <dt><a name="stepstyle_moves_nstep"><b>nstep (integer)</b></a> 
+		  <ul>
+		    <li> The number of Monte Carlo steps to perform where each step is a 
+		    single move.</li>
+                  </ul>
+                </dt>
+	      </ul>
+
+            <li> 'minimize': Perform a minimization.</li>
+	      <ul>
+	        <dt><a name="stepstyle_minimize_optstyle"><b>optstyle (integer)</b></a> 
+		  <ul>
+		    <li> 1: Use the Broyden-Fletcher-Goldfarb-Shanno variant of the variable-metric
+		    or quasi-newton method for minimization.  The suggested reference in Numerical 
+		    Recipes was <a href="../references.html#polak_1971">Polak 1971</a>.</li>
+                  </ul>
+                </dt>
+	        <dt><a name="stepstyle_minimize_mintol"><b>mintol (double precision)</b></a> 
+		  <ul>
+		    <li> The convergance tolerance for the minimization.</li>
+                  </ul>
+                </dt>
+	      </ul>
+	  </ul>
+	</dt>
+
+        <dt><a name="printfreq"><b>printfreq (integer)</b></a> 
+          <ul>
+            <li> The step frequency for outputting information about the system to stdout (fort.6). 
+	      The information is the number of Monte 
+              Carlo steps performed thus far during the run, the total energy 
+              in each box, the x-box length of each box, the pressure of each 
+              box, and the number of molecules of each type in each box.</li>
+          </ul>
+	</dt>
+
+        <dt><a name="blocksize"><b>blocksize (integer)</b></a> 
+          <ul>
+            <li> The size of the blocks for computing block averages. If you want 
+              this to be meaningful then blocksize should divide cleanly into nstep. 
+              The quantities that are averaged (in each simulation box) are the 
+              specific density, the pressure, all of the energy terms, the chemical 
+              potential of each molecule type, number density of each molecule 
+              type, and the mole fractions.</li>
+          </ul>
+	</dt>
+
+        <dt><a name="moviefreq"><b>moviefreq (integer)</b></a></a>
+          <ul>
+            <li> The step frequency for outputting the system conformations 
+              to the towhee_movie file. This file is analyzed after the run using 
+              the analyze_movie.F routine to compute a variety of distribution 
+              functions. This file can get pretty big if you output frequently 
+              so be careful if you have a limited amount of hard disk space available.</li>
+          </ul>
+	</dt>
+
+        <dt><a name="backupfreq"><b>backupfreq (integer)</b></a> 
+          <ul>
+            <li> The step frequency for writing a file named 
+              towhee_backup that is suitable for use as a restart file. It overwrites 
+              the previous version of towhee_backup each time so it does not take 
+              up much space. Typically I set backupfreq so that I get around 10 backups 
+              during a run. For more information about restart files look at the 
+              manual entries for towhee_initial, towhee_backup, and towhee_final.</li>
+          </ul>
+	</dt>
+
+        <dt><a name="runoutput"><b>runoutput (character*20)</b></a> 
+          <ul>
+            <li>'full': if you want information about the individual blocks of the 
+	    block averages and information about the maximum displacement updates.</li>
+            <li>'blocks': if you want information about the individual blocks of the 
+	    block averages and don't want information about the maximum displacement updates.</li>
+            <li>'updates': if you don't want information about the individual blocks of the 
+	    block averages and do want information about the maximum displacement updates.</li>
+            <li>'none': if you don't want information about the individual blocks of the 
+	    block averages or information about the maximum displacement updates.</li>
+          </ul>
+	</dt>
+
+        <dt><a name="loutpdb"><b>loutpdb (logical)</b></a> 
+          <ul>
+            <li> .true. if you wish to output Protein Data Bank (pdb) files for 
+              each simulation box at the end of the run. These files are named 
+              box_xx.pdb where xx is the simulation box number.</li>
+            <li> .false. if you do not want to output pdb files.</li>
+          </ul>
+	</dt>
+
+        <dt><a name="loutdft"><b>loutdft (logical)</b></a> 
+          <ul>
+            <li> .true. if you wish to output files for use with the Tramonto 
+              classical density functional theory code. This outputs dft_surfaces.dat 
+              and dft_decode.dat. See the Tramonto code for information on what 
+              these files mean.</li>
+            <li> .false. if you do not want to output dft files.</li>
+          </ul>
+	</dt>
+
+        <dt><a name="loutlammps"><b>loutlammps (logical)</b></a> 
+          <ul>
+            <li> .true. if you wish to output files for use with the LAMMPS massively 
+              parallel molecular dynamics code. This outputs lammps_input and 
+              lammps_data# where the number is each of the simulation box numbers. 
+              See the LAMMPS documentation for more information on how to read 
+              in these files.</li>
+            <li> .false. if you do not want to output LAMMPS files.</li>
+          </ul>
+	</dt>
+
+	<hr></hr>
+	<dt>The variables in this subsection are only included if <b>ensemble</b> is 'uvt'</dt>
+        <dt><a name="louthist"><b>louthist (logical)</b></a> 
+          <ul>
+            <li> .true. if you wish to output files used for histogram reweighting.  When 
+	    set to this value you must also include two additional variables</li>
+	    <dt><a name="histcalcfreq"><b>histcalcfreq (integer)</b></a> 
+              <ul>
+	        <li>The step frequency for computing the information needed for histogram 
+	        reweighting.</li>
+              </ul>
+	    </dt>
+	    <dt><a name="histdumpfreq"><b>histdumpfreq (integer)</b></a> 
+              <ul>
+	        <li>The step frequency for outputting the information needed for histogram 
+	        reweighting to the various towhee_histogram files.  The ratio of 
+	        <b>histdumpfreq</b>/<b>histcalcfreq</b> must be less than the 
+	        <b>NDUMPHIST</b> value specified in preproc.h.</li>
+              </ul>
+	    </dt>
+            <li> .false. if you do not wish to output files for histogram reweighting.
+	    No additional variables are required for this setting.</li>
+	  </ul>	
+	</dt>
+	<dt>End of the subsection only included if <b>ensemble</b> is 'uvt'</dt>
+	<hr></hr>
+
+        <dt><a name="pressurefreq"><b>pressurefreq (integer)</b></a> 
+          <ul>
+            <li> The step frequency for computing the pressure in each simulation box.
+	      Be aware that computing the pressure is a fairly expensive 
+              task (especially for large systems) so if you don't really care 
+              about the computed pressure then it will pay to set <b>pressurefreq</b> to a high 
+              value.</li>
+          </ul>
+	</dt>
+
+        <dt><a name="trmaxdispfreq"><b>trmaxdispfreq (integer)</b></a> 
+          <ul>
+            <li> The step frequency for updating the maximum translational (atom and center-of-mass) and rotational 
+              displacements. They are 
+              adjusted to try and achieve the target acceptance rates (see <b>tatraa</b>, 
+              <b>tatrac</b>, and <b>tarot</b>). It is a good idea to do this fairly frequently 
+              at the start of the simulation (every step or every 10 steps) in 
+              order to get good values for the maximum displacements. Once the 
+              acceptance rates are near their desired values I typically set <b>trmaxdispfreq</b>
+              to do 10 updates during a run.</li>
+          </ul>
+	</dt>
+
+        <dt><a name="volmaxdispfreq"><b>volmaxdispfreq (integer)</b></a> 
+          <ul>
+            <li> The step frequency for updating the maximum volume displacements. 
+	      They are adjusted to try and achieve the target acceptance 
+              rates (see <b>tavol</b>). It is a good idea to do this fairly frequently 
+              at the start of the simulation (every few steps) in order to get 
+              good values for the maximum displacements. Once the acceptance rates 
+              are near their desired values I typically set <b>volmaxdisp</b> to do 10 updates 
+              during a run.</li>
+          </ul>
+	</dt>
+
+        <dt><a name="chempotperstep"><b>chempotperstep (integer)</b></a> 
+          <ul>
+            <li> The number of additional trial insertions to perform in each box for 
+	    at the end of every Monte Carlo step (listed sequentially for 
+	    each molecule type on a single line).  This allows the 
+	    measurement of chemical potential in ensembles that do not have an insertion 
+	    and deletion move (such as canonical and isobaric-isothermal).</li>
+          </ul>
+	</dt>
+
+        <dt><a name="potentialstyle"><b>potentialstyle</b></a> 
+          <ul>
+            <li>'classical': uses a classical intermolecular potential to describe the 
+	    energies between atoms.  This is currently the only fully functional option 
+	    for potentialstyle, although some quantum options are under active development 
+	    and should be available soon.</li>
+          </ul>
+	</dt>
+
+	<hr></hr>
+	<dt>The variables in this subsection are only included in the input file if <b>potentialstyle</b>
+	is set to 'classical' or 'quantum//classical'</dt>	
+
+        <dt><a name="ffnumber"><b>ffnumber (integer)</b></a> 
+          <ul>
+	    <li> 1 or more: reads the force field information from this number of file(s) listed in the 
+	    <b>ff_filename</b>.</li>
+          </ul>
+	</dt>
+
+        <dt><a name="ff_filename"><b>ff_filename (formatted character*70) [one line for each force field]</b></a> 
+          <ul>
+            <li>A list of the filenames (one per line) that contain the force field information.  On most systems 
+	    you can just list this directory and then end the line.  However, if you have trouble then adding 
+	    sufficient blank spaces to the end of the line to get up to 70 characters could resolve your problem.</li>
+          </ul>
+	</dt>
+
+        <dt><a name="classical_potential"><b>classical_potential (character*30)</b></a> 
+          <ul>
+	  The setting for this variable controls the nonbonded potential type.  Depending on the setting 
+	  there are a number of other variables that are also required.
+	  Please see the <a href="../potentype/towhee_input_classical_potential.html">classical_potential</a> 
+	  web page for more information.
+          </ul>
+	</dt>
+
+        <dt><a name="coulombstyle"><b>coulombstyle (character*20)</b></a> 
+          <ul>
+	    <li>'ewald_fixed_kmax' if you want to use point charges with an Ewald sum that utlilizes a constant number 
+	    of inverse space vectors (<b>kmax</b>) and a variable electrostatic cutoff (<b>rcelect</b>) equal to half 
+	    the current box length.
+	      When using this option you will also need to list the following variables.
+	      <ul>
+                <dt><a name="kalp"><b>kalp (double precision)</b></a> 
+                  <ul>
+		    <li> Value used in the Ewald sum to compute alpha.  The actual Ewald sum alpha term is equal to 
+		    <b>kalp</b> divided by the shortest box length.  The recommended value for <b>kalp</b> is 5.6.</li>
+		  </ul>
+		</dt>
+
+		<dt><a name="kmax"><b>kmax (integer)</b></a> 
+		  <ul>
+		    <li> Maximum number of inverse space vectors to use in any dimension 
+		    for the Ewald sum. Recommended value of this parameter is 5.  If 
+		    you want to set this to a larger value to may have to increase VECTORMAX 
+		    (see <a href="../code/code_manual.html#preproc">preproc.h</a>).</li>
+		  </ul>
+		</dt>
+
+		<dt><a name="dielect"><b>dielect (double precision)</b></a> 
+		  <ul>
+		    <li> The dielectric constant used when computing coulombic interactions.  Generally this
+		    should be set to 1.0 as the solvated system will act as the screening that the dielectric
+		    constant is intended to represent.  If you are performing a simulation without any solvent 
+		    (for example a protein without the water) you might want to set the dielectric constant to represent 
+		    the missing solvent.</li>
+		  </ul>
+		</dt>
+	      </ul>
+	    </li>
+
+	    <li>'ewald_fixed_cutoff' if you want to use point charges with an Ewald sum that utilizes a 
+	      constant electrostatic cutoff (<b>rcelect</b>) and adjusts the number of inverse space vectors 
+	      (<b>kmax</b>) according to the following heuristic.  
+	      <dt>alpha = ( 1.35 - 0.15 log[<b>ewald_prec</b>]) / <b>rcelect</b></dt>
+	      <dt>kmax = ( alpha * Max[box length] / Pi) * (log[<b>ewald_prec</b>])<sup>0.5</sup></dt>
+	      When using this option you will also need to list the following variables.
+	      <ul>
+                <dt><a name="ewald_prec"><b>ewald_prec (double precision)</b></a> 
+                  <ul>
+		    <li> Controls the precision of the Ewald summation technique.  The smaller the value, the 
+		    better the results (and the more expensive the simulation).  The recommended value of 1d-4 is generally 
+		    adequate, while a value of 1d-5 is very good (but more expensive).
+		  </ul>
+		</dt>
+
+		<dt><a name="rcelect"><b>rcelect (double precision)</b></a> 
+		  <ul>
+		    <li>The cutoff for electrostatic interations computed in the "real space" portion of the Ewald sum.
+		    Decreasing this value means less work in the "real space", but correspondingly more work in the 
+		    "inverse space".  Setting this equal to the general nonbonded cutoff 
+		    (see <b>rcut</b> in <a href="../potentype/towhee_input_classical_potential.html">classical_potential</a>) is recommended.</li>
+		  </ul>
+		</dt>
+
+		<dt><a name="dielect"><b>dielect (double precision)</b></a> 
+		  <ul>
+		    <li> The dielectric constant used when computing coulombic interactions.  Generally this
+		    should be set to 1.0 as the solvated system will act as the screening that the dielectric
+		    constant is intended to represent.  If you are performing a simulation without any solvent 
+		    (for example a protein without the water) you might want to set the dielectric constant to represent 
+		    the missing solvent.</li>
+		  </ul>
+		</dt>
+	      </ul>
+	    </li>
+
+	    <li>'minimum image' uses the minimum image convention to compute the coulombic interactions between 
+	      all pairs of atoms in a system.  When using this option you will also need to list the following variable.
+	      <ul>
+		<dt><a name="dielect"><b>dielect (double precision)</b></a> 
+		  <ul>
+		    <li> The dielectric constant used when computing coulombic interactions.  Generally this
+		    should be set to 1.0 as the solvated system will act as the screening that the dielectric
+		    constant is intended to represent.  If you are performing a simulation without any solvent 
+		    (for example a protein without the water) you might want to set the dielectric constant to represent 
+		    the missing solvent.</li>
+		  </ul>
+		</dt>
+	      </ul>
+	    </li>
+
+	    <li>'none' if you do no want to compute any coulombic interactions.</li>
+
+          </ul>
+	</dt>
+
+        <dt><a name="nfield"><b>nfield (integer)</b></a> 
+          <ul>
+	    The number of external fields to apply in the simulation.  These fields can take on a variety 
+	    of forms, but are always applied relative to a plane in one of the simulation boxes.  Typical 
+	    uses are for simulating the effect of a rigid surface without having to treat the surface atoms 
+	    explicitly.  If nfield is set to anything other than 0 you will need to list the following 
+	    variables for each field you wish to specify.
+
+	    <dt><a name="fieldtype"><b>fieldtype (character*20)</b></a>
+	      <ul>
+	        <li>'Hard Wall': Places a hard wall of a specified diameter in one of the boxes.  This 
+		  wall excludes the center of each atom in the simulation, so a hard wall with a radius of 
+		  6.0 would exclude all atoms within 6.0 Angstroms of its center point.  With this option 
+		  you must also specify the following variables.
+		  <ul>
+		    <dt><b>hrdbox (integer)</b></a>
+		      <ul>
+		        <li> This is the number of the simulation box which contains this 
+			hard wall. Must range from 1 to numboxes.</li>
+		       </ul>
+		    </dt>
+		    <dt><b>hrdxyz (character*1)</b></a>
+		      <ul>
+		        <li>'x': hard wall is perpendicular to the x-axis (in the yz plane)</li>
+			<li>'y': hard wall is perpendicular to the y-axis (in the xz plane)</li>
+			<li>'z': hard wall is perpendicular to the z-axis (in the xy plane)</li>
+		      </ul>
+		    </dt>
+		    <dt><b>hrdcen (double precision)</b></a> 
+		      <ul>
+		        <li> Position of the center of the hard wall. Must be between 
+			0.0 and the box length of the axis that is perpendicular to 
+			the wall.</li>
+		      </ul>
+		    </dt>
+		    <dt><b>hrdrad (double precision)</b></a> 
+		      <ul>
+		        <li> Radius of the hard wall. The wall will exclude all atoms 
+			whose centers are within this radius regardless of the potentype 
+			or any of the atom parameters. The wall is felt through the periodic 
+			boundaries.</li>
+		      </ul>
+		    </dt>
+		  </ul>
+                </li>
+                <li>'Harmonic Attractor': Uses a harmonic potential to root certain atoms to a defined point or
+                    their initial positions. 
+		  <ul>
+		    <dt><b>hafbox (integer)</b></a>
+		      <ul>
+		        <li> This is the number of the simulation box in which this harmonic attractor 
+			is employed. Must range from 1 to numboxes.</li>
+		       </ul>
+		    </dt>
+		    <dt><b>hafk (double precision)</b></a>
+		      <ul>
+		        <li> This is the force constant for the harmonic potential.</li>
+		       </ul>
+		    </dt>
+		    <dt><b>hafentries (integer)</b></a>
+		      <ul>
+		        <li> This is the number of types or elements to which this field is applied. </li>
+		       </ul>
+		    </dt>
+		    <dt><b>hafrefpos (character*7)</b></a>
+		      <ul>
+		        <li> This is the type of reference position that you want to use.
+                          <ul>
+                            <li> 'Global': Uses a global set of coordinates for each atom. 
+                              <ul>
+                                <dt><b>hafglobxyz (double precision)</b></a>
+                                  <ul>
+                                    <li> This is the x,y, and z coordinates of the global position.  
+                                      This should be entered all on the same line just separated by spaces.
+                                    </li>
+                                  </ul>
+                                </dt>
+                               </ul>
+                            </li>
+                            <li> 'Initial': Uses the initial coordinates of each atom.
+                            </li>
+                          </ul>
+                        </li>
+		       </ul>
+		    </dt>
+                    <dt><b> hafkey (character*7)</b></a>
+                      <ul>
+                        <li> This is the way you want to identify which atoms to which this field is applied.
+                          <ul>
+                            <li> 'Element': Allows the user to chose to apply this field to a specific 
+                               group of atoms which are all the same type of element.  The following variables must
+                               be included for each entry.
+                              <ul>
+                                <dt><b>hafmolec (integer)</b></a>
+                                  <ul>
+                                    <li> The field is applied to the element of choice in this molecule number.
+                                    </li>
+                                  </ul>
+                                </dt>
+                                <dt><b>hafelement (character*2)</b></a>
+                                  <ul>
+                                    <li> This is the element type to which apply this field. </li>
+                                  </ul>
+                                </dt>  
+                              </ul> 
+                            </li>
+                            <li> 'FFtype': Allows the user to chose to apply this field to a specific 
+                               group of atoms which are all the same nonbond type.  The following variables must
+                               be included for each entry.
+                              <ul>
+                                <dt><b>hafmolec (integer)</b></a>
+                                  <ul>
+                                    <li> The field is applied to the element of choice in this molecule number.
+                                    </li>
+                                  </ul>
+                                </dt>
+                                <dt><b>hafname (character*10)</b></a>
+                                  <ul>
+                                    <li> This is the nonbond type to which apply this field. </li>
+                                  </ul>
+                                </dt>  
+                              </ul> 
+                            </li>
+                          </ul>
+                        </li>
+		      </ul>
+		    </dt>
+		  </ul>
+		</li>
+		<li>'Hooper Umbrella': Places a Hooper Umbrella field 
+		  (see <a href="../references.html#hooper_et_al_2000">Hooper <i>et al.</i> 2000</a>) in a 
+		  simulation box.  This is a 4th power energy function based on displacement along a single axis.
+		  <dt>v(d) = umba * [ (d - umbcenter) / umbcenter ]</dt>
+		  With this option you must also specify the following variables.
+		  <ul>
+		    <dt><b>umbbox (integer)</b></a> 
+		      <ul>
+		        <li> This is the number of the simulation box which contains this 
+			Umbrella field. Must range from 1 to numboxes.</li>
+		      </ul>
+		    </dt>
+		    <dt><b>umbxyz (character*1)</b></a> 
+		      <ul>
+		        <li>'x': Field is perpendicular to the x-axis (in the yz plane)</li>
+			<li>'y': Field is perpendicular to the y-axis (in the xz plane)</li>
+			<li>'z': Field is perpendicular to the z-axis (in the xy plane)</li>
+		      </ul>
+		    </dt>
+		    <dt><b>umbcenter (double precision)</b></a> 
+		      <ul>
+		        <li>The zero energy point of the field, listed as a distance in Angstroms along the axis 
+			specified in <b>umbxyz</b></li>
+		      </ul>
+		    </dt>
+		    <dt><b>umba (double precision)</b></a> 
+		      <ul>
+		        <li>The energy constant in units of K/k<sub>B</sub>.</li>
+		      </ul>
+		    </dt>
+		  </ul>
+		</li>
+		<li>'LJ 9-3 Wall': Places a 9-3 Lennard-Jones wall in one of the simulation boxes
+		  The wall potential has the following functional form.
+		  <dt>v(d) = [ 2/3 Pi Eps<sub>wf</sub> sig<sub>wf</sub><sup>3</sup> rho<sub>wall</sub> ] 
+		  * [ 2/15 (sig<sub>wf</sub>/d)<sup>9</sup> - (sig<sub>wf</sub>/d)<sup>3</sup> ]</dt>
+		  With this option you must also specify the following variables.
+		  <ul>
+		    <dt><b>ljfbox (integer)</b></a> 
+		      <ul>
+		        <li> This is the number of the simulation box which contains this 
+			Lennard-Jones wall. Must range from 1 to numboxes.</li>
+		      </ul>
+		    </dt>
+		    <dt><b>ljfxyz (character*1)</b></a> 
+		      <ul>
+		        <li>'x': Lennard-Jones wall is perpendicular to the x-axis (in 
+			the yz plane)</li>
+			<li>'y': Lennard-Jones wall is perpendicular to the y-axis (in 
+			the xz plane)</li>
+			<li>'z': Lennard-Jones wall is perpendicular to the z-axis (in 
+			the xy plane)</li>
+		      </ul>
+		    </dt>
+		    <dt><b>ljfcen (double precision)</b></a> 
+		      <ul>
+		        <li> Position of the center of the Lennard-Jones wall. Must be 
+			between 0.0 and the box length of the axis that is perpendicular 
+			to the wall.</li>
+		      </ul>
+		    </dt>
+		    <dt><b>ljfdir (integer)</b></a> 
+		      <ul>
+		        <li> -1: Atoms only interact with the "left" face of this wall. 
+			Unlike the hard walls, this does not extend through the periodic boundary.</li>
+			<li> 1: Atoms only interact with the "right" face of this wall. 
+			Unlike the hard walls, this does not extend through the periodic boundary.</li>
+		      </ul>
+		    </dt>
+		    <dt><b>ljfcut (double precision)</b></a> 
+		      <ul>
+		        <li> The distance beyond which the wall-atom interactions are 
+			not computed and assumed to be zero.</li>
+		      </ul>
+		    </dt>
+		    <dt><b>ljfshift (logical)</b></a> 
+		      <ul>
+		        <li>T: if you want to shift the lj wall potential to be zero at the cutoff.</li>
+			<li>F: if you do not want to shift the potential.</li>
+		      </ul>
+		    </dt>
+		    <dt><b>ljfrho (double precision)</b></a> 
+		      <ul>
+		        <li>The number density of atoms in the integrated wall potential (units of 
+			atoms per cubic Angstrom).</li>
+		      </ul>
+		    </dt>
+		    <dt><b>ljfntypes (integer)</b></a> 
+		      <ul>
+		        <li>The number of atom types in the system that interact with the wall.  Any atom type not
+			  listed here will have zero interaction with the wall.  For each value of <ljfntypes> 
+			  you must list the following variables.
+			  <ul>
+			    <dt><b>ljfname (character*6)</b></a> 
+			      <ul>
+			        <li> The name of the atom.  This must match up with the atom names listed down in the
+			        <b>inpstyle</b> 2 portion of each molecule that is interacting with this wall.  
+			        If you are not using that <b>inpstyle</b> this will still work except
+			        you will need to know the atom names in the appropriate towhee_ff_whatever files.</li>
+			      </ul>
+			    </dt>
+			    <dt><b>ljfsig (double precision)</b></a> 
+			      <ul>
+			        <li> Sigma parameter for the interaction between this atom and the wall atoms.  
+			        Units are Angstroms.</li>
+			      </ul>
+			    </dt>
+			    <dt><b>ljfeps (double precision)</b></a> 
+			      <ul>
+			        <li> Epsilon parameter for the interaction bewteen this atom and the wall atoms.
+			        Units are K/k<sub>B</sub>.</li>
+			      </ul>
+			    </dt>
+			  </ul>
+			</li>
+		      </ul>
+		    </dt>
+		  </ul>
+		</li>
+		<li>'Steele Wall': Places a 10-4 Lennard-Jones wall in one of the simulation boxes
+		  The wall potential has the following functional form.
+		  <dt>v(z) = epsilon<sub>w</sub> [ 2/5 (sigma<sub>sf</sub>/z)<sup>10</sup> 
+		    - (sigma<sub>sf</sub>/z)<sup>4</sup>
+		    - sigma<sub>sf</sub><sup>4</sup> / [ 3 Delta ( z + 0.61 Delta )<sup>3</sup> ] ]
+		  </dt>
+		  where 
+		  <dt>epsilon<sub>w</sub> = 2 Pi epsilon<sub>sf</sub> rho<sub>s</sub> 
+		    sigma<sub>sf</sub><sup>2</sup> Delta
+		  </dt>
+		  This potential is attributed to <a href="../references.html#steele_1973">Steele 1973</a>, but I 
+		  found that reference a bit confusing so I implemented the equations as presented in 
+		  <a href="../references.html#lastoskie_et_al_1993">Lastoskie <i>et al.</i> 1993</a> and the variable 
+		  names here follow the notation in that paper.
+		  <dt>With this option you must also specify the following variables.</dt>
+		  <ul>
+		    <dt><b>steele box (integer)</b></a> 
+		      <ul>
+		        <li> This is the number of the simulation box which contains this 
+			Steele wall. Must range from 1 to numboxes.</li>
+		      </ul>
+		    </dt>
+		    <dt><b>steele xyz (character*1)</b></a> 
+		      <ul>
+		        <li>'x': wall is perpendicular to the x-axis (in the yz plane)</li>
+			<li>'y': wall is perpendicular to the y-axis (in the xz plane)</li>
+			<li>'z': wall is perpendicular to the z-axis (in the xy plane)</li>
+		      </ul>
+		    </dt>
+		    <dt><b>steele surface (double precision)</b></a> 
+		      <ul>
+		        <li> Position of the surface of the wall. Must be 
+			between 0.0 and the box length of the axis that is perpendicular 
+			to the wall.</li>
+		      </ul>
+		    </dt>
+		    <dt><b>steele dir (integer)</b></a> 
+		      <ul>
+		        <li> -1: Atoms only interact with the "left/bottom" face of this wall. 
+			Unlike the hard walls, this does not extend through the periodic boundary.</li>
+			<li> 1: Atoms only interact with the "right/top" face of this wall. 
+			Unlike the hard walls, this does not extend through the periodic boundary.</li>
+		      </ul>
+		    </dt>
+		    <dt><b>steele cutoff (double precision)</b></a> 
+		      <ul>
+		        <li> The distance beyond which the wall-atom interactions are 
+			not computed and assumed to be zero.</li>
+		      </ul>
+		    </dt>
+		    <dt><b>steele shift (logical)</b></a> 
+		      <ul>
+		        <li>T: if you want to shift the wall potential to be zero at the cutoff.</li>
+			<li>F: if you do not want to shift the potential.</li>
+		      </ul>
+		    </dt>
+		    <dt><b>steele delta (double precision)</b></a> 
+		      <ul>
+		        <li>The spacing between the layers in the solid represented by this surface potential.
+			  Units are in Angstroms.</li>
+		      </ul>
+		    </dt>
+		    <dt><b>steele rho_s (double precision)</b></a> 
+		      <ul>
+		        <li>The density of the atom in the solid represented by this surface potential.
+			  Units are in atoms per cubic Angstrom.</li>
+		      </ul>
+		    </dt>
+		    <dt><b>steele ntype (integer)</b></a> 
+		      <ul>
+		        <li>The number of atom types in the system that interact with the wall.  Any atom type not
+			  listed here will have zero interaction with the wall.  For each type you must list the 
+			  following variables.
+			  <ul>
+			    <dt><b>steele name (character*6)</b></a> 
+			      <ul>
+			        <li> The name of the atom.  This must match up with the atom names listed down in the
+			        <b>inpstyle</b> 2 portion of each molecule that is interacting with this wall.  
+			        If you are not using that <b>inpstyle</b> this will still work except
+			        you will need to know the atom names in the appropriate towhee_ff_whatever files.</li>
+			      </ul>
+			    </dt>
+			    <dt><b>sigma_sf (double precision)</b></a> 
+			      <ul>
+			        <li> Sigma parameter for the interaction between this atom and the wall atoms.  
+			        Units are Angstroms.</li>
+			      </ul>
+			    </dt>
+			    <dt><b>epsilon_sf (double precision)</b></a> 
+			      <ul>
+			        <li> Epsilon parameter for the interaction bewteen this atom and the wall atoms.
+			        Units are K/k<sub>B</sub>.</li>
+			      </ul>
+			    </dt>
+			  </ul>
+			</li>
+		      </ul>
+		    </dt>
+		  </ul>
+		</li>
+
+	      </ul>
+	    </dt>
+	  </ul>
+	</dt>
+
+        <dt><a name="isolvtype"><b>isolvtype (integer)</b></a> 
+          <ul>
+            <li>0: Perform a simulation without any implicit solvation.  This is the default choice 
+	    for performing a simulation.</li>
+	    <li>1: not yet working.</li>
+	    <li>2: solvation using the Charmm19-EEF1 potential.</li>
+	    <li>3: solvation using the classical density functional theory code Tramonto to 
+	    compute a solvation free energy.  The Tramonto code is not yet publically available.</li>
+          </ul>
+	</dt>
+
+	<dt>End of the subsection that is only included in the input file if <b>potentialstyle</b>
+	is set to 'classical' or 'quantum//classical'</dt>	
+	<hr></hr>
+
+        <dt><a name="linit"><b>linit (logical)</b></a> 
+          <ul>
+            <li> .true. if you are starting the simulation and wish to generate 
+              the positions of all of the atoms, assign initial box lengths and 
+              maximum displacements.</li>
+            <li> .false. if you want to continue the simulation by reading in 
+              box lengths, maximum displacements, and coordinates from towhee_initial.</li>
+          </ul>
+	</dt>
+
+	<dt><a name="initstyle"><b>initstyle (integer) [one line for each simulation box and on each line one value 
+	  for each molecule type]</b></a> 
+          <ul>
+            One line for each simulation box in the system. Each line contains 
+            a value for each molecule type. 
+            <li> 0: A template for this molecule type is created using configurational-bias. 
+              This template is then replicated throughout the simulation box to 
+              generate an initial configuration.</li>
+            <li> 1: A template for this molecule type is read from towhee_template. 
+              This template is then replicated throughout the simulation box to 
+              generate an initial configuration.</li>
+            <li> 2: The coordinates for each atom are read from towhee_coords. 
+              This is useful if you are starting from a different file format 
+              (such as pdb), or have another code for building an initial configuration.</li>
+            <li> 3: The coordinates for each atom are read from towhee_nanotube.
+	      This file is generated by the Towhee code if you use the inpstyle for carbon 
+	      nanotubes.</li>
+            <li> 4: The molecule is generated by placing some of the backbone atoms onto 
+	      a helix and then growing the rest of the atoms using CBMC.  Any molecule 
+	      initialized using this style must have the following information listed 
+	      subsequent to the <b>initstyle</b> variables.
+	      <ul>
+	        <dt><a name="helix_moltyp"><b>helix_moltyp (integer)</b></a>
+		  <ul>
+		    An integer corresponding to the molecule type that had an <b>initstyle</b>
+		    variable set to 4 in one of the simulation boxes.  These must be listed 
+		    in consecutive order.
+		  </ul>
+		</dt>
+		<dt><a name="helix_radius"><b>helix_radius (double precicion)</b></a>
+		  <ul>
+		    The radius of the helix (units of Angstroms).
+		  </ul>
+		</dt>
+		<dt><a name="helix_angle"><b>helix_angle (double precision)</b></a>
+		  <ul>
+		    The pitch angle the helix makes with respect to the z-axis 
+		    (units of degrees).
+		  </ul>
+		</dt>
+		<dt><a name="helix_keytype"><b>helix_keytype (character*10)</b></a>
+		  <ul>
+		    <li>'element' compares the <b>helix_keyname</b> with the character*2 
+		    variable element that contains the 2 letter elemental code for each atom.</li>
+		    <li>'nbname' compares the <b>helix_keyname</b> with the character*10 
+		    variable nbname that contains the 10 character code for each atom type.  This 
+		    is the same variable that is used when inputting the atom names with the 
+		    Atom-based connectivity map (<b>inpstyle</b> 2).</li>
+		    <li>'pdbname' compares the <b>helix_keyname</b> with the character*4 
+		    variable pdbname that contains the 4 character code used in the pdb format output.
+		    This is most suitable for use with the Polypeptide builder (<b>inpstyle</b> 1) 
+		    or the Nucleic acid builder (<b>inpstyle</b> 4).</li>
+                  </ul>
+		</dt>
+		<dt><a name="helix_keyname"><b>helix_keyname (character*10)</b></a>
+		  <ul>
+		    The key for finding matches of the atom with the data structures for the molecule 
+		    that is being grown as a helix.  You need to choose an atom name that only appears 
+		    in the backbone (e.g. 'P' for Charmm27 nucleic acids when using the element keytype, 
+		    or ' CA ' for the C alpha backbone carbon of a polypeptide when using the pdbname keytype).
+                  </ul>
+		</dt>
+		<dt><a name="helix_conlen"><b>helix_conlen (double precision)</b></a>
+		  <ul>
+		    The distance between consecutive <b>helix_element</b> atoms 
+		    (units of Angstroms).
+                  </ul>
+                </dt>
+		<dt><a name="helix_phase"><b>helix_phase (double precision)</b></a>
+		  <ul>
+		    The initial angle of the helixcal chain (units of degrees).  Normally,
+		    this has little effect as it is just a rotation about the z-axis, but 
+		    if you are trying to set up two complementary nucleic acid chains to 
+		    form a double helix then you would want their phase angles to differ 
+		    by 180 degrees.
+		  </ul>
+		</dt>
+              </ul>
+            </li>
+            <li>5: The molecule is constructed in two steps.  First, a partial list of atom positions, amino acid 3-letter codes,
+              and 4-letter atom identifiers (following the pdb standard) is read from towhee_partial and matched up against the expected
+              amino acid and atom codes from the molecule template listed in towhee_input.  Then configurational-bias is used to grow all 
+              of the missing atoms to create the initial structure.
+            </li>
+          </ul>
+	</dt>
+
+        <dt><a name="initmol"><b>initmol (integer)</b></a> 
+          <ul>
+            <li> The initial number of each type of molecule in each box (one 
+              line per box).</li>
+          </ul>
+	</dt>
+
+        <dt><a name="inix"><b>inix, iniy, iniz (integer)</b></a> 
+          <ul>
+            <li> The initial number of molecules in each direction in each box. 
+              The product of inix*iniy*iniz must be greater than or equal to the 
+              initial number of molecules in that box (the sums of initmol).  While these 
+	      are labeled x, y, and z they actually correspond to the three coordinate 
+	      vectors.</li>
+          </ul>
+	</dt>
+
+        <dt><a name="inimix"><b>inimix (integer)</b></a> 
+          <ul>
+	    One line for each simulation box in the system.
+            <li> -1: molecules are initially placed in each box in alternating 
+              order.</li>
+            <li> 0: molecules are initially placed in each box in random order.</li>
+            <li> 1: molecules are initially placed in each box in order. Thus all 
+              molecules of type 1 are placed in a box before any molecules of 
+              type 2. If you are using initstyle = 2 then this is the only valid 
+              option and the other options will be reset to this option by the
+              code.</li>
+          </ul>
+	</dt>
+
+	<dt><a name="initboxtype"><b>initboxtype (character*20)</b></a>
+	  <ul>
+	    <li>'dimensions': the dimensions of the initial boxes are entered in order 
+	      to construct the initial boxes.  When using this option you must also include 
+	      the following variable.
+	      <dt><a name="hmatrix"><b>hmatrix (double precision)</b></a> 
+		<ul>
+		  <li> The initial box dimensions (Angstroms) for the three
+		    vectors that describe the simulation box.  There are nine
+		    entries (3 for each of the 3 vectors) in total for each
+		    simulation box.  These are listed one vector at a time, with the three numbers
+		    which make up each vector listed on the same line.  Note that the coordinate system
+		    you choose does not have to be orthogonal, but it must follow the right hand rule.  The 
+		    three vectors must also all be at least 45 degrees apart.  Note that if you wish to use 
+		    a rectangular box then only the diagonal elements of hmatrix will be non-zero, and these 
+		    will be equal to the boxlengths in the x, y, and z dimensions.
+		  </li>
+		</ul>
+	      </dt>
+	    </li>
+	    <li>'number density': the total number density of molecules in the initial boxes are entered in order 
+	      to compute the initial sizes of the boxes.  This option generates cubic boxes and requires
+	      the following variable.
+	      <dt><a name="box_number_density"><b>box_number_density (double precision)</b></a> 
+		<ul>
+		  <li>  The initial total number density of molecules in each simulation box.  Listed as 
+		    a single value per line with one line for each box as specified by <b>numboxes</b>.
+		    Unit are molecules per nm<sup>3</sup>.
+		  </li>
+		</ul>
+	      </dt>
+	    </li>
+	  </ul>
+	</dt>
+
+	<hr></hr>
+        <li>Note: the pm* variables are used to determine which move type to 
+	    perform every time we want to do a Monte Carlo move. A move is selected 
+            by choosing a random number between 0.0 and 1.0 and then going down 
+            the list of pm* until you find one which has a value higher than the 
+            random number.  At least one of the variables must be set to 1.0.
+	    A similar procedure is performed when we want to determine which boxes or molecule types 
+            to perform the selected move upon. These are done using the pm**pr 
+            and pm**mt arrays.
+        </li>
+	<li>Comment: The formatting of the move variables is very specific.  In all cases 
+	    the first variable for a move (pm***) is left justified (as is the standard for 
+	    most variable) while all other variables for that move are indented 10 spaces.
+	</li>
+
+	<hr></hr>
+	<dt>Isotropic Volume Move: These variables are only included for the following cases</dt>
+	<ul>
+	  <li><b>ensemble</b> is 'npt'</li>
+	  <li><b>ensemble</b> is 'nvt' and <b>numboxes</b> is 2 or more.</li>
+	</ul>
+        <dt><a name="pmvol"><b>pmvol (double precision)</b></a> 
+          <ul>
+            <li> Probability of performing a volume move. If (<b>ensemble</b> is 'npt') then 
+              a single box is selected and it exchanges volume with an external 
+              pressure bath (see pressure). If (<b>ensemble</b> = 'nvt' and numboxes > 
+              1) a pair of boxes are selected and volume is exchanged between 
+              them.</li>
+          </ul>
+	</dt>
+	<ul>
+          <dt><a name="pmvlpr"><b>pmvlpr (double precision)</b></a> 
+            <ul>
+              <li> Probability of performing a volume move on a particular box, 
+                or box pair. All of these variables are listed on a single line 
+                If (<b>ensemble</b> = 'npt') then a value of pmvlpr is listed for each box. 
+                If (<b>ensemble</b> = 'nvt') then a value is listed for each pair of simulation 
+                boxes where the pairs are ordered (1,2), (1,3), ... (1,numboxes), 
+                (2,3), ... (numboxes-1,numboxes).
+	      </li>
+            </ul>
+	  </dt>
+
+          <dt><a name="rmvol"><b>rmvol (double precision) [a single value regardless 
+	  of the actual number of box pairs]</b></a> 
+            <ul>
+              <li> The initial volume maximum displacement. If this is an isobaric-isothermal 
+              ensemble (<b>ensemble</b> = 'npt') then this is the initial maximum volume 
+              displacement (cubic Angstroms) in each box. If this is the canonical 
+              Gibbs ensemble (<b>ensemble</b> = 'nvt' and numboxes > 1 ) then this is the 
+              maximum displacement (logarithmic space) for each pair of boxes. 
+              As the simulation progresses, these values will be updated for each 
+              box, or each pair of boxes (see iratv).</li>
+            </ul>
+	  </dt>
+
+          <dt><a name="tavol"><b>tavol (double precision)</b></a> 
+            <ul>
+              <li> The target acceptance rate for the volume move. Must be a value 
+              between 0.0 and 1.0. The volume displacement (rmvol) is periodically 
+              adjusted (see iratv) to yield this acceptance rate. I typically use 
+              a value of 0.5, though some researchers prefer smaller values.</li>
+            </ul>
+	  </dt>
+	</ul>
+
+	<hr></hr>
+	<dt>Anisotropic Volume Move: These variables are only included for the following cases</dt>
+	<ul>
+	  <li><b>ensemble</b> is 'npt'</li>
+	  <li><b>ensemble</b> is 'nvt' and <b>numboxes</b> is 2 or more.</li>
+	</ul>
+        <dt><a name="pmcell"><b>pmcell (double precision)</b></a> 
+          <ul>
+            <li> Probability of performing a unit cell adjustment move. If (<b>ensemble</b> = 'npt' )
+	    then a single box is selected and a single hmatrix element is changed.  This results in 
+	    a volume exchange with a fictional external pressure bath (see pressure). If 
+	    (<b>ensemble</b> = 'nvt' and numboxes > 1) a pair of boxes are selected.  One of the 
+	    boxes is then selected according to the pmcellpt variable and a single hmatrix element 
+	    is changed in that box.  This results in a change of volume for 
+	    the first box which is countered by isotropically changing the volume in the second 
+	    box.</li>
+          </ul>
+	</dt>
+
+	<ul>
+          <dt><a name="pmcellpr"><b>pmcellpr (double precision)</b></a> 
+            <ul>
+              <li> Probability of performing a unit cell adjustment move on a particular box, 
+              or box pair. All of these variables are listed on a single line 
+              If (<b>ensemble</b> = 'npt') then a value of pmvlpr is listed for each box. 
+              If (<b>ensemble</b> = 'nvt') then a value is listed for each pair of simulation 
+              boxes where the pairs are ordered (1,2), (1,3), ... (1,numboxes), 
+              (2,3), ... (numboxes-1,numboxes).</li>
+            </ul>
+	  </dt>
+
+          <dt><a name="pmcellpt"><b>pmcellpt (double precision)</b></a> 
+            <ul>
+              <li> Probability of selecting the first box of the pair as the box to perform the 
+	      non-isotropic volume move upon, while its partner undergoes an isotropic volume move.  
+	      This variable is only meaningful if (<b>ensemble</b> = 'nvt').  Note that you can 
+	      choose to perform the non-isotropic volume move always on the same box and this might be 
+	      useful if you are doing a solid-vapor equilibria calculation.</li>
+            </ul>
+	  </dt>
+
+          <dt><a name="rmcell"><b>rmcell (double precision)</b></a> 
+            <ul>
+              <li> The initial unit cell adjustment maximum displacement.  In all cases, this is 
+	      the maximum amount (in Angstroms) that a single element of the hmatrix can change in 
+	      a single unit cell move.  Note, the in the canonical Gibbs ensemble case it is possible 
+	      for the isotropic box to undergo an hmatrix change that is larger than this value as 
+	      that box simply makes up for the volume change caused by the non-isotropic adjustment 
+	      in the first box.  As the simulation progresses, these values are
+	      updated for each box with a frequency controlled by <b>iratv</b>.</li>
+            </ul>
+	  </dt>
+
+          <dt><a name="tacell"><b>tacell (double precision)</b></a> 
+            <ul>
+              <li> The target acceptance rate for the unit cell adjustment move. Must be a value 
+              between 0.0 and 1.0. The unit cell displacement (rmcell) is periodically 
+              adjusted (see iratv) to yield this acceptance rate. I typically use 
+              a value of 0.5.</li>
+            </ul>
+	  </dt>
+	</ul>
+
+        <hr></hr>
+	<dt>Rotational-bias 2 box molecule Transfer Move: These variables are only included 
+	if <b>numboxes</b> is greater than or equal to 2</dt>
+        <dt><a name="pm2boxrbswap"><b>pm2boxrbswap (double precision)</b></a> 
+          <ul>
+            <li>Probability of performing a rotational-bias interbox
+              molecule transfer move. This move takes a molecule out
+              of one box and tries to place it in another box. The
+              molecule is grown using <b>nch_nb_one</b> attempted
+              different orientations and position (of the
+              center-of-mass) for the new molecule.</li>
+          </ul>
+	</dt> 
+
+	<ul>
+          <dt><a name="pm2rbswmt"><b>pm2rbswmt (double precision)</b></a> 
+            <ul>
+	      <li>Probability of performing a rotational-bias interbox molecule 
+              transfer move on each type of molecule in the system.</li>
+            </ul>
+	  </dt> 
+
+          <dt><a name="pm2rbswpr"><b>pm2rbswpr (double precision)</b></a> 
+            <ul>
+              <li> Probability of performing a rotational-bias interbox molecule transfer move 
+              between each pair of boxes in the system. The box pairs are ordered 
+              (1,2), (1,3), ... (1,numboxes), (2,3), ... (numboxes-1,numboxes).</li>
+            </ul>
+	  </dt>
+	</ul>
+
+        <hr></hr>
+	<dt>Configurational-bias 2 box molecule Transfer Move: These variables are only included 
+	if <b>numboxes</b> is greater than or equal to 2</dt>
+        <dt><a name="pm2boxcbswap"><b>pm2boxcbswap (double precision)</b></a> 
+          <ul>
+            <li>Probability of performing a configurational-bias interbox molecule 
+              transfer move. This move takes a molecule out of one box and tries 
+              to place it in another box. The molecule is grown using 
+	      <a href="../algorithm/cbmc.html">coupled-decoupled 
+              configurational-bias Monte Carlo</a>.</li>
+          </ul>
+	</dt> 
+
+	<ul>
+          <dt><a name="pm2cbswmt"><b>pm2cbswmt (double precision)</b></a> 
+            <ul>
+	      <li>Probability of performing a configurational-bias interbox molecule 
+              transfer move on each type of molecule in the system.</li>
+            </ul>
+	  </dt> 
+
+          <dt><a name="pm2cbswpr"><b>pm2cbswpr (double precision)</b></a> 
+            <ul>
+              <li> Probability of performing a configurational-bias interbox molecule transfer move 
+              between each pair of boxes in the system. The box pairs are ordered 
+              (1,2), (1,3), ... (1,numboxes), (2,3), ... (numboxes-1,numboxes).</li>
+            </ul>
+	  </dt>
+	</ul>
+
+        <hr></hr>
+	<dt>Configurational-bias grand-canonical insertion/deletion Move: These variables are only included 
+	if <b>ensemble</b> is 'uvt'</dt>
+        <dt><a name="pmuvtcbswap"><b>pmuvtcbswap (double precision)</b></a> 
+          <ul>
+	     <li>Probability of performing a grand-canonical configurational-bias insertion or
+	     deletion move.</li>
+          </ul>
+	</dt> 
+
+	<ul>
+          <dt><a name="pm2cbswpr"><b>pmuvtcbmt (double precision)</b></a> 
+            <ul>
+	      <li>Probability of performing a grand-canonical configurational-bias insertion or
+	      deletion move on each type of molecule in the system.</li>
+            </ul>
+	  </dt>
+	</ul>
+
+        <hr></hr>
+	<dt>Configurational-bias single box molecule Reinsertion Move</dt>
+        <dt><a name="pm1boxcbswap"><b>pm1boxcbswap (double precision)</b></a> 
+          <ul>
+            <li> Probability of performing an intrabox configurational-bias molecule 
+              transfer move. This move takes a molecule out of one box and tries 
+              to place it back into the same box. The molecule is grown using 
+              <a href="../algorithm/cbmc.html">coupled-decoupled configurational-bias Monte Carlo</a>.</li>
+          </ul>
+	</dt>
+
+	<ul>
+          <dt><a name="pm1cbswmt"><b>pm1cbswmt (double precision)</b></a> 
+            <ul>
+              <li> Probability of performing an intrabox configurational-bias molecule 
+              transfer move on each type of molecule in the system.</li>
+            </ul>
+	  </dt>
+	</ul>
+
+        <hr></hr>
+	<dt>Aggregation Volume Bias Move Type 1</dt>
+        <dt><a name="pmavb1"><b>pmavb1 (double precision)</b></a> 
+          <ul>
+            <li> Probability of performing an aggregation volume bias move of type 1, as described in 
+	      <a href="../references.html#chen_siepmann_2000">Chen and Siepmann 2000</a>.
+	       This is useful for forming and destroying clusters in simulations with molecules 
+	       that tend to aggregate together.
+          </ul>
+	</dt>
+
+	<ul>
+          <dt><a name="pmavb1in"><b>pmavb1in (double precision)</b></a> 
+            <ul>
+              <li> Probability of trying to move a molecule into an inner region for aggregation 
+	      volume bias move of type 1.</li>
+            </ul>
+	  </dt>
+
+          <dt><a name="pmavb1mt"><b>pmavb1mt (double precision)</b></a> 
+            <ul>
+              <li> Probability of performing an aggregation volume bias move of type 1 where a 
+	      molecule of a certain type is moved.  
+	      This is an array with one element for each molecule type.</li>
+            </ul>
+	  </dt>
+
+          <dt><a name="pmavb1ct"><b>pmavb1ct (double precision)</b></a> 
+            <ul>
+              <li> Probability of performing an aggregation volume bias move of type 1 where the 
+	      molecule target is of a certain type.
+	      The molecule that is moved is chosen according to <b>pmavb1mt</b> and then the type 
+	      of molecule that is used as a reference 
+	      for determining the inner and outer regions is found using this variable.   
+	      This is a two dimensional array and uses one line of text for each type of molecule 
+	      in the system.</li>
+            </ul>
+	  </dt>
+
+          <dt><a name="avb1rad"><b>avb1rad (double precision)</b></a> 
+            <ul>
+              <li> The radius used to define the inner and outer volumes in the aggregation volume 
+	      bias move of type 1.
+	      The distance is specified in Angstroms and must be greater than zero, but less than 
+	      or equal to <b>rcut</b>.</li>
+            </ul>
+	  </dt>
+	</ul>
+
+	<hr></hr>
+	<dt>Aggregation Volume Bias Move Type 2</dt>
+        <dt><a name="pmavb2"><b>pmavb2 (double precision)</b></a> 
+          <ul>
+            <li> Probability of performing an aggregation volume bias move of type 2, as described in 
+	      <a href="../references.html#chen_siepmann_2001">Chen and Siepmann 2001</a>.
+	       This is useful for forming and destroying clusters in simulations with molecules that 
+	       tend to aggregate together.
+          </ul>
+	</dt>
+
+	<ul>
+          <dt><a name="pmavb2in"><b>pmavb2in (double precision)</b></a> 
+            <ul>
+              <li> Probability of trying to move a molecule into an inner region for aggregation 
+	      volume bias move of type 2.</li>
+            </ul>
+	  </dt>
+
+          <dt><a name="pmavb2mt"><b>pmavb2mt (double precision)</b></a> 
+            <ul>
+              <li> Probability of performing an aggregation volume bias move of type 2 where a 
+	      molecule of a certain type is moved.  
+	      This is an array with one element for each molecule type.</li>
+            </ul>
+	  </dt>
+
+          <dt><a name="pmavb2ct"><b>pmavb2ct (double precision)</b></a> 
+            <ul>
+              <li> Probability of performing an aggregation volume bias move of type 2 where the 
+	      molecule target is of a certain type.
+	      The molecule that is moved is chosen according to <b>pmavb2mt</b> and then the type 
+	      of molecule that is used as a reference 
+	      for determining the inner and outer regions is found using this variable.   
+	      This is a two dimensional array and uses one line of text for each type of molecule 
+	      in the system.</li>
+            </ul>
+	  </dt>
+
+          <dt><a name="avb2rad"><b>avb2rad (double precision)</b></a> 
+            <ul>
+              <li> The radius used to define the inner and outer volumes in the aggregation 
+	      volume bias move of type 2.
+	      The distance is specified in Angstroms and must be greater than zero, but less than 
+	      or equal to <b>rcut</b>.</li>
+            </ul>
+	  </dt>
+	</ul>
+
+	<hr></hr>
+	<dt>Aggregation Volume Bias Move Type 3</dt>
+        <dt><a name="pmavb3"><b>pmavb3 (double precision)</b></a> 
+          <ul>
+            <li> Probability of performing an aggregation volume bias move of type 3, as described in 
+	      <a href="../references.html#chen_siepmann_2001">Chen and Siepmann 2001</a>.
+	       This is useful for transfering molecules between clusters.
+          </ul>
+	</dt>
+
+	<ul>
+          <dt><a name="pmavb3mt"><b>pmavb3mt (double precision)</b></a> 
+            <ul>
+              <li> Probability of performing an aggregation volume bias move of type 3 where a 
+	      molecule of a certain type is moved.  
+	      This is an array with one element for each molecule type.</li>
+            </ul>
+	  </dt>
+
+          <dt><a name="pmavb3ct"><b>pmavb3ct (double precision)</b></a> 
+            <ul>
+              <li> Probability of performing an aggregation volume bias move of type 3 where the 
+	      molecule target is of a certain type.
+	      The molecule that is moved is chosen according to <b>pmavb1mt</b> and then the 
+	      type of molecule that is used as a reference 
+	      for determining the inner and outer regions is found using this variable.   
+	      This is a two dimensional array and uses one line of text for each type of molecule 
+	      in the system.</li>
+            </ul>
+	  </dt>
+
+          <dt><a name="avb3rad"><b>avb3rad (double precision)</b></a> 
+            <ul>
+              <li> The radius used to define the inner and outer volumes in the aggregation 
+	      volume bias move of type 3.
+	      The distance is specified in Angstroms and must be greater than zero, but less 
+	      than or equal to <b>rcut</b>.</li>
+            </ul>
+	  </dt>
+	</ul>
+
+	<hr></hr>
+	<dt>Configurational-Bias Partial Molecule Regrowth</dt>
+        <dt><a name="pmcb"><b>pmcb (double precision)</b></a> 
+          <ul>
+            <li> Probability of performing a molecule regrowth move 
+              on a molecule without regard to which box the molecule is currently 
+              located in. This move chooses a molecule of the appropriate type 
+              at random, selects an atom of the molecule at random, and then regrows 
+              the molecule either entirely (if a random number < pmall) or in 
+              all directions except for one.  The molecule is regrown using
+	      <a href="../algorithm/cbmc.html">configurational-bias</a>.</li>
+          </ul>
+	</dt>
+
+	<ul>
+          <dt><a name="pmcbmt"><b>pmcbmt (double precision)</b></a> 
+            <ul>
+              <li> Probability of performing a molecule regrowth on 
+              each type of molecule in the system.</li>
+            </ul>
+	  </dt>
+
+          <dt><a name="pmall"><b>pmall (double precision)</b></a> 
+            <ul>
+              <li> pmall is the probability that a molecule regrowth move will regrow 
+              the entire molecule. This is listed for each molecule type in the 
+              simulation.</li>
+            </ul>
+	  </dt>
+	</ul>
+
+        <hr></hr>
+	<dt>Configurational-Bias Protein backbone Regrowth</dt>
+        <dt><a name="pmback"><b>pmback (double precision)</b></a> 
+          <ul>
+            <li> Probability of performing configurational-bias fixed-endpoint
+	      regrowth of a portion of the protein backbone.  This selects an atom along the 
+	      peptide backbone, chooses another backbone atom that is connected by three bonds 
+	      to the first atom, and then regrows all of the atoms inbetween these two atoms.</li>
+          </ul>
+	</dt>
+
+	<ul>
+          <dt><a name="pmbkmt"><b>pmbkmt (double precision)</b></a> 
+            <ul>
+              <li> Probability of performing a backbone regrowth 
+              move on each type of molecule in the system.</li>
+            </ul>
+	  </dt>
+	</ul>
+
+        <hr></hr>
+	<dt>Torsional Pivot Move</dt>
+        <dt><a name="pmpivot"><b>pmpivot (double precision)</b></a> 
+          <ul>
+            <li> Probability of performing a pivot move about a random bond in the molecule.
+	    This move chooses a bond that is not entirely contained in a single ring structure, 
+	    and has at least one bond emenating from each end, 
+	    and then rotates one side of the molecule about that bond.</li>
+          </ul>
+	</dt>
+
+	<ul>
+          <dt><a name="pmpivmt"><b>pmpivmt (double precision)</b></a> 
+            <ul>
+              <li> Probability of performing a pivot
+              move on each type of molecule in the system.</li>
+            </ul>
+	  </dt>
+	</ul>
+
+        <hr></hr>
+	<dt>Concerted Rotation Move on a non-peptide backbone</dt>
+        <dt><a name="pmconrot"><b>pmconrot (double precision)</b></a> 
+          <ul>
+            <li> Probability of performing a concerted rotation move for a sequence of 9 
+	    atoms in a molecule.</li>
+          </ul>
+	</dt>
+
+	<ul>
+          <dt><a name="pmcrmt"><b>pmcrmt (double precision)</b></a> 
+            <ul>
+              <li> Probability of performing a concerted rotation move
+              move on each type of molecule in the system.</li>
+            </ul>
+	  </dt>
+	</ul>
+
+        <hr></hr>
+	<dt>Concerted Rotation Move over a 3 peptides backbone sequence</dt>
+        <dt><a name="pmcrback"><b>pmcrback (double precision)</b></a> 
+          <ul>
+            <li> Probability of performing a concerted rotation move on a sequence of three 
+	    peptides in a polypeptide.  This move only works for polypeptides.</li>
+          </ul>
+	</dt>
+
+	<ul>
+          <dt><a name="pmcrbmt"><b>pmcrbmt (double precision)</b></a> 
+            <ul>
+              <li> Probability of performing a protein backbone concerted rotation 
+              move on each type of molecule in the system.</li>
+            </ul>
+	  </dt>
+	</ul>
+
+	<hr></hr>
+	<dt>Plane Shift Move</dt>
+	<dt><a name="pmplane"><b>pmplane (double precision)</b></a>
+	  <ul>
+	    <li> Probability of performing a plane shift move.  This move displaces all of the 
+	    molecules whose center of mass lies in a plane of width <b>planewidth</b>.  A new trial 
+	    position for the center of the plane of atoms is generated uniformly across the available 
+	    plane.</li>
+	  </ul>
+	</dt>
+
+	<ul>
+	  <dt><a name="pmplanebox"><b>pmplanebox (double precision)</b></a>
+	    <ul>
+	      <li> Probability of performing a plane shift in each of the simulation boxes.  List one
+	      value for each simulation box.  At least one of the boxes must have a value of 1.0d0.</li>
+	    </ul>  
+	  </dt>
+
+	  <dt><a name="planewidth"><b>planewidth (double precision)</b></a>
+	    <ul>
+	      <li> The width of the plane for the plane shift move.  Any molecule whose center of 
+	      mass is within a plane of this thickness (whose position is chosen uniformly along 
+	      one axis) will move during the plane shift move.  The value of planewidth must be 
+	      greater than 0.0d0 and less than the shortest boxlength.</li>
+             </ul>
+	  </dt>
+        </ul>
+
+	<hr></hr>
+	<dt>Row Shift Move</dt>
+	<dt><a name="pmrow"><b>pmrow (double precision)</b></a>
+	  <ul>
+	    <li> Probability of performing a row shift move.  This move displaces all of the 
+	    molecules whose center of mass lies in a row of diameter <b>rowwidth</b>.  A new trial 
+	    position for the center of the row of atoms is generated uniformly across the available 
+	    row.</li>
+	  </ul>
+	</dt>
+
+	<ul>
+          <dt><a name="pmrowbox"><b>pmrowbox (double precision)</b></a>
+	    <ul>
+	      <li> Probability of performing a row shift in each of the simulation boxes.  List one
+	      value for each simulation box.  At least one of the boxes must have a value of 1.0d0.</li>
+	    </ul>  
+	  </dt>
+
+	  <dt><a name="rowwidth"><b>rowwidth (double precision)</b></a>
+	    <ul>
+	      <li> The width of the plan for the row shift move.  Any molecule whose center of mass is 
+	      within a row of this thickness (whose position is chosen uniformly along one axis) will 
+	      move during the row shift move.  The value of rowwidth must be greater than 0.0d0 and less 
+	      than the shortest boxlength.</li>
+            </ul>
+	  </dt>
+	</ul>
+
+        <hr></hr>
+	<dt>Intramolecular Single Atom Translation Move</dt>
+        <dt><a name="pmtraat"><b>pmtraat (double precision)</b></a> 
+          <ul>
+            <li> Probability of performing a single-atom translation 
+              move on a molecule without regard to which box the molecule is currently 
+              located in. This move chooses a molecule of the appropriate type 
+              at random, selects an atom of the molecule at random, selects a vector on 
+	      a unit sphere at random, and then attempts to displace the 
+              atom a random distance between -rmtraa and +rmtraa in that direction.</li>
+          </ul>
+	</dt>
+
+	<ul>
+          <dt><a name="pmtamt"><b>pmtamt (double precision)</b></a> 
+            <ul>
+              <li> Probability of performing a single-atom translation 
+              move on each type of molecule in the system.</li>
+            </ul>
+	  </dt>
+
+          <dt><a name="rmtraa"><b>rmtraa (double precision)</b></a> 
+            <ul>
+              <li> The initial Atom-translation maximum displacement (Angstroms) 
+              for all molecules types in all boxes. As the simulation progresses, 
+              these values are updated to yield the desired acceptance 
+              rate for each molecule type in each box (see trmaxdispfreq).</li>
+            </ul>
+	  </dt>
+
+          <dt><a name="tatraa"><b>tatraa (double precision)</b></a> 
+            <ul>
+              <li> The target acceptance rate for the atom translation move. Must 
+              be a value between 0.0 and 1.0. The maximum atom translational displacement 
+              (rmtraa) is periodically adjusted (see trmaxdispfreq) to yield this acceptance 
+              rate. I typically use a value of 0.5, though some researchers prefer 
+              smaller values.</li>
+            </ul>
+	  </dt>
+	</ul>
+
+        <hr></hr>
+	<dt>Center-of-Mass Molecule Translation Move</dt>
+        <dt><a name="pmtracm"><b>pmtracm (double precision)</b></a> 
+          <ul>
+            <li> Probability of performing a center-of-mass translation 
+              move on a molecule without regard to which box the molecule is currently 
+              located in. This move chooses a molecule of the appropriate type 
+              at random, chooses a vector on a unit sphere at random, and then attempts 
+              to displace the entire molecule a random distance between -rmtrac 
+              and +rmtrac in that direction.</li>
+          </ul>
+	</dt>
+
+	<ul>
+          <dt><a name="pmtcmt"><b>pmtcmt (double precision)</b></a> 
+            <ul>
+              <li> Probability of performing a center-of-mass translation 
+              move on each type of molecule in the system.</li>
+            </ul>
+	  </dt>
+
+          <dt><a name="rmtrac"><b>rmtrac (double precision)</b></a> 
+            <ul>
+              <li> The initial Center-of-mass translation maximum displacement (Angstroms) 
+              for all molecule types in all boxes. As the simulation progresses, 
+              these values are updated to yield the desired acceptance 
+              rate for each molecule type in each box (see trmaxdispfreq).</li>
+            </ul>
+	  </dt>
+
+          <dt><a name="tatrac"><b>tatrac (double precision)</b></a> 
+            <ul>
+              <li> The target acceptance rate for the center-of-mass translation 
+              move. Must be a value between 0.0 and 1.0. The maximum center-of-mass 
+              translational displacement (rmtrac) is periodically adjusted (see 
+              trmaxdispfreq) to yield this acceptance rate. I typically use a value of 
+              0.5, though some researchers prefer smaller values.</li>
+            </ul>
+	  </dt>
+	</ul>
+
+        <hr></hr>
+	<dt>Rotation about the Center-of-Mass Move</dt>
+        <dt><a name="pmrotate"><b>pmrotate (double precision)</b></a> 
+          <ul>
+            <li> Probability of performing a rotation about the center-of-mass move for 
+              a molecule without regard to the box the molecule is currently 
+              located in.  This move chooses a molecule of the 
+              appropriate type at random and then attempts to rotate the entire molecule about
+	      the x, y, and z axes that run through the center-of-mass a random number of radians 
+              between -<b>rmrot</b> and +<b>rmrot</b> around each of the three axes.</li>
+          </ul>
+	</dt>
+
+	<ul>
+          <dt><a name="pmromt"><b>pmromt (double precision)</b></a> 
+            <ul>
+              <li> Probability of performing a rotation move on each 
+              type of molecule in the system.</li> 
+            </ul>
+	  </dt>
+
+          <dt><a name="rmrot"><b>rmrot (double precision)</b></a> 
+            <ul>
+              <li> The initial molecular rotation maximum displacement (radians) 
+              for all molecule types in all boxes. As the simulation progresses, 
+              these values are updated to yeild  the desired acceptance 
+              rate for each molecule type in each box (see trmaxdispfreq).</li>
+            </ul>
+	  </dt>
+
+          <dt><a name="tarot"><b>tarot (double precision)</b></a> 
+            <ul>
+              <li> The target acceptance rate for the rotation move. Must be a value 
+              between 0.0 and 1.0. The rotation displacement (rmrot) is periodically 
+              adjusted (see trmaxdispfreq) to yield this acceptance rate. I typically 
+              use a value of 0.5, though some researchers prefer smaller values.</li>
+            </ul>
+	  </dt>
+	</ul>
+
+        <hr></hr>
+        <dt><a name="tor_cbstyle"><b>tor_cbstyle (integer)</b></a> 
+          <ul>
+            <li> 0: When performing a <a href="../algorithm/cbmc.html">configurational-bias</a> 
+	    move, generate trial dihedral angles 
+	    according to the true, ideal probability distribution.  This is the method described in 
+	    <a href="../references.html#martin_siepmann_1999">Martin and Siepmann 1999</a></li>
+            <li> 1: When performing a <a href="../algorithm/cbmc.html">configurational-bias</a> move, 
+	      generate trial dihedral angles 
+	      according to a different probability density and then
+	      fix this up in the acceptance rules.  This work is still in progress and is 
+	      not yet published.  When using this option you must also include the following
+	      variable.
+	      <ul>
+                <dt><a name="sdevtor"><b>sdevtor (double precision)</b></a> 
+                  <ul>
+		    <li> This is the standard deviation of a gaussian distribution that is used to 
+		      sample dihedral angles [on 0,360] during a 
+		      <a href="../algorithm/cbmc.html">configurational-bias</a> 
+		      regrowth for <b>tor_cbstyle</b> 1.  Specify a value in degrees.  Right now I am using a 
+		      value of 20.0.
+		    </li>
+		  </ul>
+		</dt>
+	      </ul>
+	    </li>
+          </ul>
+	</dt>
+
+        <dt><a name="bend_cbstyle"><b>bend_cbstyle (integer)</b></a> 
+          <ul>
+            <li> 0: When performing a <a href="../algorithm/cbmc.html">configurational-bias</a> move, 
+	    generate trial bending angles
+	    according to the true, ideal probability distribution. 
+	    This is the method described in 
+	    <a href="../references.html#martin_siepmann_1999">Martin and Siepmann 1999</a></li>
+            <li> 1: When performing a <a href="../algorithm/cbmc.html">configurational-bias</a> move, 
+	      generate trial bending angles according to a different probability density and then
+	      fix this up in the acceptance rules.  This work is still in progress and is not 
+	      yet published.  When using this option you must also include the following 
+	      variables.
+	      <ul>
+	        <dt><a name="sdevbena"><b>sdevbena (double precision)</b></a> 
+		  <ul>
+		    <li> This is the standard deviation of a gaussian distribution that is used to 
+		      generate trials for the part A bending angles [on 0,180] during a 
+		      <a href="../algorithm/cbmc.html">configurational-bias</a>
+		      regrowth for <b>bend_cbstyle</b> 1.  Specify a value in degrees.  
+		      Right now I am using a value of 10.0.  
+		    </li>
+		  </ul>
+		</dt>
+
+		<dt><a name="sdevbenb"><b>sdevbenb (double precision)</b></a> 
+		  <ul>
+		    <li> This is the standard deviation of a gaussian distribution that is used to 
+		      generate trials for the part B bending angles [on 0,360] during a 
+		      <a href="../algorithm/cbmc.html">configurational-bias</a>
+		      regrowth for <b>bend_cbstyle</b> 1.  Specify a value in degrees.  
+		      Right now I am using a value of 20.0.  
+		    </li>
+		  </ul>
+		</dt>
+	      </ul>
+	    </li>
+          </ul>
+	</dt>
+
+        <dt><a name="vib_cbstyle"><b>vib_cbstyle (integer)</b></a> 
+          <ul>
+            <li> 0: When performing a <a href="../algorithm/cbmc.html">configurational-bias</a> move, 
+	      generate trial bond lengths according to the true, ideal probability distribution 
+	      within the ranges set by the <b>vibrang</b> variable.  When using this option 
+	      you also need to incude the following variable.
+	      <ul>
+	        <dt><a name="vibrang"><b>vibrang (double precision, double precision)</b></a> 
+                  <ul>
+                    <li> This is the range of bond lengths to sample via 
+		      <a href="../algorithm/cbmc.html">configurational-bias</a>
+		      Monte Carlo. The range is expressed as a fraction of the equilibrium 
+		      bond length for the lower bound and the upper bound. I usually use values 
+		      of 0.85 and 1.15.
+		    </li>
+		  </ul>
+	        </dt>
+	      </ul>
+	    </li>
+            <li> 1: When performing a <a href="../algorithm/cbmc.html">configurational-bias</a> move, 
+	      generate trial bond lengths according to a different probability density and then
+	      fix this up in the acceptance rules.  This work is still in progress and is not 
+	      yet published.  When using this option you must also include the following variable.
+	      <ul>
+	        <dt><a name="sdevvib"><b>sdevvib (double precision)</b></a> 
+		  <ul>
+		    <li> This is the standard deviation of a gaussian distribution that is used to 
+		      sample bond lengths during a <a href="../algorithm/cbmc.html">configurational-bias</a> 
+		      regrowth for <b>vib_cbstyle</b> 1.  Specify a value in Angtroms.  
+		      Right now I am using a value of 0.1.
+		    </li>
+		  </ul>
+		</dt>
+	      </ul>
+	    </li>
+          </ul>
+	</dt>
+
+        <dt><a name="cdform"><b>cdform (integer)</b></a> 
+          <ul>
+            <li> cdform = 0: When performing a <a href="../algorithm/cbmc.html">configurational-bias</a> 
+	    move use the coupled-decoupled formulation presented in the appendix of 
+	    <a href="../references.html#martin_siepmann_1999">Martin and Siepmann 1999</a>.</li>
+            <li> cdform = 1: Uses a new algorithm that is not yet published.</li>
+          </ul>
+	</dt>
+
+        <dt><a name="nch_nb_one"><b>nch_nb_one (integer) [one value for each molecule type]</b></a> 
+          <ul>
+            <li> This is the number of trial positions that are
+              sampled for the first atom inserted during a <a
+              href="../algorithm/cbmc.html">configurational-bias</a> or rotational-bias molecule
+              exchange move (see pm2boxrbswap, pm2boxcbswap, and pm1boxcbswap). I typically use a
+              value of 10. The value must be less than or equal to NCHMAX (see <a
+              href="../code/code_manual.html#preproc">preproc.h</a>).</li>
+          </ul>
+	</dt>
+
+        <dt><a name="nch_nb"><b>nch_nb (integer) [one value for each molecule type]</b></a> 
+          <ul>
+            <li> This is the number of trial positions that are sampled for all 
+              atoms except for the first atom inserted during a 
+	      <a href="../algorithm/cbmc.html">configurational-bias</a>
+              molecule exchange move (see pm2boxcbswap and pm1boxcbswap). This is used for 
+              all atoms in a <a href="../algorithm/cbmc.html">configurational-bias</a> regrowth move. I 
+              typically use a value of 10. The value must be less than or equal 
+              to NCHMAX (see <a href="../code/code_manual.html#preproc">preproc.h</a>).</li>
+          </ul>
+	</dt>
+
+        <dt><a name="nch_tor_out"><b>nch_tor_out (integer) [one value for each molecule type]</b></a> 
+          <ul>
+            <li> This is the number of outer loops over the dihedral angles that are sampled 
+              during <a href="../algorithm/cbmc.html">configurational-bias</a> moves with 
+	      <b>cdform</b> = 1.  This has no meaning for 
+	      <b>cdform</b> = 0.  I typically use a value in the range 1 to 10 with <b>cdform</b> = 1.
+	      The value must be less than or equal to NCHTOR_MAX 
+	      (see <a href="../code/code_manual.html#preproc">preproc.h</a>).</li>
+          </ul>
+	</dt>
+
+        <dt><a name="nch_tor_in"><b>nch_tor_in (integer) [one value for each molecule type]</b></a> 
+          <ul>
+            <li> This is the number of trial dihedral angles that are sampled 
+              during <a href="../algorithm/cbmc.html">configurational-bias</a> moves. 
+	      I typically use a value in the range 100 to 360 for <b>tor_cbstyle</b> 0 and in 
+	      the range 10 to 100 for <b>tor_cbstyle</b> 1. 
+	      The value must be less than or equal to NCHTOR_MAX 
+              (see <a href="../code/code_manual.html#preproc">preproc.h</a>).
+	    </li>
+          </ul>
+	</dt>
+
+        <dt><a name="nch_tor_in_con"><b>nch_tor_in_con (integer) 
+	[one value for each molecule type]</b></a> 
+          <ul>
+            <li> This is the number of trial dihedral angles that are sampled during 
+	      <a href="../algorithm/cbmc.html">configurational-bias</a> moves when we have grown the 
+	      molecule such that we need to connect back up with atoms that already exist. 
+	      This is needed in order to regrow cyclic molecules, and also could 
+	      be used to regrow the interiors of large molecules. 
+	      I typically use a value in the range 100 to 360. The value must 
+	      be less than or equal to NCHTOR_MAX 
+	      (see <a href="../code/code_manual.html#preproc">preproc.h</a>).
+	    </li>
+          </ul>
+	</dt>
+
+        <dt><a name="nch_bend_a"><b>nch_bend_a (integer) [one value for each molecule type]</b></a> 
+          <ul>
+            <li> This is the number of trial angles that are sampled during 
+	      <a href="../algorithm/cbmc.html">configurational-bias</a>
+              moves when we are selecting the iugrow-iufrom-iuprev angle.  I typically use a value of 
+              1000 for <b>bend_cbstyle</b> of 0, and 10 for <b>bend_cbstyle</b> of 1.
+	    </li>
+          </ul>
+	</dt>
+
+        <dt><a name="nch_bend_b"><b>nch_bend_b (integer) [one value for each molecule type]</b></a> 
+          <ul>
+            <li> This is the number of trial angles that are sampled during 
+	      <a href="../algorithm/cbmc.html">configurational-bias</a>
+              moves when we are selecting the rotation about a cone of one of 
+              the iugrow angles relative to the others. 
+              I typically use a value of 1000 for <b>bend_cbstyle</b> of 0, and 10 for 
+	      <b>bend_cbstyle</b> of 1.
+	    </li>
+          </ul>
+	</dt>
+
+        <dt><a name="nch_vib"><b>nch_vib (integer) [one value for each molecule type]</b></a> 
+          <ul>
+            <li> This is the number of trial bond lengths that are sampled during 
+              <a href="../algorithm/cbmc.html">configurational-bias</a> moves when we are growing atoms. 
+	      I typically use a value of 1000 for <b>vib_cbstyle</b> 0 and 10 for 
+	      <b>vib_cbstyle</b> 1, unless I am using a fixed-bond length force 
+              field, in which case you might as well just use 1.
+	    </li>
+          </ul>
+	</dt>
+
+        <p>&nbsp;</p>
+        <dt>The final section of towhee_input contains the information that 
+            is used to construct the forcefield for the molecule types in the 
+            system. The choice of inpstyle determines which other variables are required 
+	    to describe the molecule.  Click on the appropriate link for each inpstyle to learn about
+	    the remaining variables that are required for each case.
+	</dt> 
+
+	<dt><a name="inpstyle"><b>inpstyle (integer)</b></a> 
+          <ul>
+            <li> 0: <a href="../inpstyle/inpstyle_0.html">Explicit declaration of all terms</a></li>
+            <li> 1: <a href="../inpstyle/inpstyle_1.html">Polypeptide builder</a></li>
+            <li> 2: <a href="../inpstyle/inpstyle_2.html">Atom-based connectivity map</a></li>
+            <li> 3: <a href="../inpstyle/inpstyle_3.html">Nucleic acid builder</a></li>
+            <li> 4: <a href="../inpstyle/inpstyle_4.html">Nanotube builder</a></li>
+          </ul>
+	</dt>
+      </ul>
+      <a href="../index.html">Return to the main towhee web page</a> 
+      <p>&nbsp;</p>
+    </td>
+  </tr>
+</table>
+<hr width="715" align="left">
+<i><font size="2">Send comments to:</font></i> <font size="2"> 
+<a href="mailto:marcus_martin@users.sourceforge.net">Marcus G. Martin</a><br>
+<i>Last updated:</i> 
+<!-- #BeginDate format:Am1 -->July 08, 2005<!-- #EndDate -->
+</font> <br>
+</body>
+</html>

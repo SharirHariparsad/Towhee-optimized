@@ -1,0 +1,162 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: input_style 'explicit'</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif"><a name="top"></a>MCCCS Towhee: input_style 'explicit'</font></b></font>
+     </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"> 
+    <IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/>
+   </A>
+   <tr> 
+    <td valign="top"> 
+     <p>&nbsp; </p>
+     <p>&nbsp;</p>
+    </td>
+    <td valign="top"> 
+     This section describes the input parameters associated with an <b>input_style</b> setting of 'explicit'.  
+     Requires explicit declaration of all terms of the force field that describes this molecule type.
+     This is most difficult way to set up the molecule information and is intimately tied to the order in which forcefield files are read into towhee_input.
+     This is the original method for inputting molecule information and all subsequant methods were designed to be easier, more general, and more powerful.
+     This option is only recommended when it is not possible to use the more sophisticated options to set up the molecule of interest.
+     Last updated with version 8.0.0.
+     <dt><a name="nunit"><b>nunit (integer)</b></a>
+      <ul>
+       The number of atoms (or united-atoms) in this molecule. Must be less than or equal to <a href="../code/code_manual.html#numax">NUMAX</a>.
+      </ul>
+     </dt>
+     <dt><a name="nmaxcbmc"><b>nmaxcbmc (integer)</b></a> 
+      <ul>
+       The maximum number of atoms to regrow during a <a href="../algorithm/cbmc.html">configurational-bias</a> regrowth.
+      </ul>
+     </dt>
+     <dt><a name="lpdbnames"><b>lpdbnames (logical)</b></a>
+      <ul>
+       <li><code><b>.TRUE.</b></code> enable the input of information about the pdb (protein data bank) atom name, amino acid number, amino acid name. This 
+        information is needed in order to use the cartoon feature of certain pdb viewers (such as <a href="../software.html#rasmol">Rasmol</a>).
+       </li>
+       <li><code><b>.FALSE.</b></code> disable the input of additional pdb information.  This does not disable the output of pdb files, it just means thing like 
+        the <a href="../software.html#rasmol">Rasmol</a> cartoon feature will not work properly.
+       </li>
+      </ul>
+     </dt>
+     <hr></hr>
+     The parameters listed immediately below (unit through improper) are listed as a group for each atom in the molecule. 
+     These are repeated one time for each atom in the molecule.  Thus, you input all of the information about the first atom before you list information
+     for the subsequent atoms.
+     <hr></hr>
+     <dt><a name="unit"><b>unit (integer), ntype (integer), qqatom (double precision)</b></a>
+      <ul>
+       The atom number starting from 1, the number code for the nonbonded force field, and the charge on this atom.
+      </ul>
+     </dt>
+     <dt><a name="pdbname"><b>pdbname (character*4), aminonum (integer), aminoshort (character*3)</b></a>
+      <em>only if <a href="#lpdbnames"><b>lpdbnames</b></a> is <code><b>.TRUE.</b></code></em>
+      <ul>
+       A four letter/number string that is output in the pdb file. The precise spacing is important if you want to get most pdb 
+       viewers to recognize the atoms as the pdb file is extremely specific.  Then the number of each amino acid starting from the N-terminus.
+       Finally, a the three letter code for each amino acid, or other group (such as caps on the C or N termini).  All on a single line.
+      </ul>
+     </dt>
+     <dt><b>vibration</b> 
+      <ul>
+       <li> The first line under the vibration heading is the number of atoms that are bonded to the current atom (internally stored as <b>invib</b>).
+	Must be between 0 and <a href="../code/code_manual.html#nnbond">NNBOND</a>.
+       </li>
+       <li> The next <b>invib</b> lines underneath the vibration heading are a list of the bond partner and bond force field number for the
+        <b>invib</b> atoms that are bonded to the current atom. Thus if you have 4 vibrations the next 4 lines will list the bond partner and bond
+        force field number for each bond.
+       </li>
+      </ul>
+     </dt>
+     <dt><b>bending</b> 
+      <ul>
+       <li>
+	The first line under the bending heading is the number of bond bending angles that terminate at the current atom (internally stored as <b>inben</b>).
+	You must list all bond bending angles that have the current atom at one of the ends, but you do not list bond bending angles that contain 
+	the current atom in the center. Must be a number between 0 and <a href="../code/code_manual.html">MAXBEND</a>.
+       </li>
+       <li>The next <b>inben</b> lines underneath the bending heading are a list of the other atoms in the bond bending angle
+	(internally <b>ijben2</b> and <b>ijben3</b>),
+	the integer type of the bending angle (internally <b>itben</b>),
+	the order of the bending angle that is used for force fields with assymetric bending angles (internally <b>orderben</b>),
+	the bond-angle type (internally <b>itbang</b>),
+	and the order of the bond-angletype (internally <b>orderbang</b>).
+        The bending angle order and bond-angle order are only used for force fields that have parameters that depend upon the order of the three atoms in the bond
+	(typically those that have class 2 cross terms).
+        Valid entries for the <b>orderben</b> and <b>orderbang</b> order are as follows.
+        <ul>
+         <li>1 : the atoms in the bending angle force field are in the same order as the atoms listed here</li>
+	 <li>-1 : the atoms in the bending angle force field are in the reverse order compared to the atoms listed here</li>
+         <li>0 : null entry for force fields that do not depend upon the bending order</li>
+        </ul>
+       </li>
+      </ul>
+     </dt>
+     <dt><b>torsion</b> 
+      <ul>
+       <li>The first line under the torsion heading is the number of regular torsions that terminate at the current atom (internaly <b>intor</b>). 
+        You must list all regular torsion angles which have the current atom at one of the ends, but you do not list regular torsion angles 
+        that contain the current atom in the center positions. Must be a number between 0 and <a href="../code/code_manual.html#maxtor">MAXTOR</a>.
+       </li>
+       <li>The next <b>intor</b> lines underneath the torsion heading are a list of the other atoms in the regular torsion angle
+	(internally <b>ijtor2</b>, <b>ijtor3</b>, <b>ijtor4</b>),
+	and the torsion force field number (internally <b>ittor</b>) for the <b>intor</b> torsions that contain the current atom at one of the ends.
+       </li>
+      </ul>
+     </dt>
+     <dt><b>angle-angle</b> 
+      <ul>
+       <li>The first line under the angle-angle heading is the number of angle-angle terms which have their shared central atom located 
+        at the current atom (internally <b>inaa</b>).
+	You must list all angle-angle terms which have the current atom at the shared central position, but you do not list
+        angle-angle terms that contain the current atom at one of the ends.
+	Must be a number between 0 and <a href="../code/code_manual.html#maxaa">MAXAA</a>.
+       </li>
+       <li>The next <b>inaa</b> lines underneath the angle-angle heading are a list of the other atoms in the angle-angle term
+	(internally <b>ijaa0</b>, <b>ijaa1</b>, <b>ijaa2</b>),
+	and and the angle-angle force field number (internally <b>itaa</b>)
+	for the <b>inaa</b> angle-angle terms that contain the current atom at the shared central atom.
+	The format for listing the angle-angle is to consider the current atom as the central shared atom in the angle-angle term
+	between the angles <b>ijaa0</b>-current-<b>ijaa1</b> and <b>ijaa0</b>-current-<b>ijaa2</b>.
+       </li>
+      </ul>
+     </dt>
+     <dt><b>improper torsion</b> 
+      <ul>
+       <li>The first line under the improper heading is the number of improper torsions (any form) that have the central atom located at the current atom
+	(internally <b>inimprop</b>).
+        You must list all improper torsions that have the current atom at the central position, but you do not list improper torsions which contain 
+        the current atom at one of the ends.
+	Must be a number between 0 and <a href="../code/code_manual.html#maximprop">MAXIMPROP</a>.
+       </li>
+       <li>The next <b>inimprop</b> lines underneath the improper torsion heading are a list of the other atoms in the improper torsion
+	(internally <b>ijimprop2</b>, <b>ijimprop3</b>, <b>ijimprop4</b>),
+	and the improper force field number (internally <b>itimprop</b>)
+	for the <b>inimprop</b> improper torsions that contain the current atom at the central atom.
+	There are currently three different forms of improper torsions, and these forms are specified in the force field files.
+	In all cases, the three atoms must be bonded to the current atom.  
+       </li>
+      </ul>
+     </dt>  
+     <hr></hr>
+     This is the end of the section that is repeated for each atom for input_style 'explicit'
+     <hr></hr>
+     <dt><a href="../index.html">Return to the main towhee web page</a> </dt>
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

@@ -1,0 +1,177 @@
+ensemble
+'nvt'
+temperature
+350.0d0
+nmolty
+1
+nmolectyp
+200
+numboxes
+2
+stepstyle
+'cycles'
+nstep
+1
+controlstyle
+'production'
+linit   
+F
+initboxtype
+'dimensions'
+initstyle
+'full cbmc'
+'full cbmc'
+initlattice
+'simple cubic' 
+'simple cubic'
+initmol
+125
+75
+inix iniy iniz
+5    5    5
+5    5    5
+hmatrix
+30.0d0 0.0d0 0.0d0
+0.0d0 30.0d0 0.0d0
+0.0d0 0.0d0 30.0d0
+50.d0 0.0d0 0.0d0
+0.0d0  50.d0 0.0d0
+0.0d0 0.0d0  50.d0
+pmvol
+0.01d0   
+          pmvlpr
+          1.0d0
+          rmvol
+          0.1d0
+          tavol
+          0.5d0
+pm2boxcbswap
+0.40d0     
+          pm2cbswmt
+          1.0d0
+          pm2cbswpr
+          1.0d0
+pmavb1
+0.41d0
+          pmavb1in
+          0.5d0
+          pmavb1mt
+          1.0d0
+          pmavb1ct
+          1.0d0
+          avb1rad
+          5.0d0
+pmavb2
+0.42d0
+          pmavb2in
+          0.5d0
+          pmavb2mt
+          1.0d0
+          pmavb2ct
+          1.0d0
+          avb2rad
+          5.0d0
+pmavb3
+0.43d0
+          pmavb3mt
+          1.0d0
+          pmavb3ct
+          1.0d0
+          avb3rad
+          5.0d0
+pmcb
+0.6d0     
+          pmcbmt
+          1.0d0
+          pmall
+          0.0d0 
+pmtracm
+0.80d0	  
+          pmtcmt
+          1.0d0
+          rmtrac
+          0.5d0 
+          tatrac
+          0.5d0
+pmrotate
+1.0d0
+          pmromt
+          1.0d0
+          rmrot
+          0.05d0
+          tarot
+          0.5d0
+cbmc_analysis
+'full'
+cbmc_formulation
+'Martin and Frischknecht 2006'
+cbmc_setting_style
+'Martin and Frischknecht'
+ffnumber
+1
+ff_filename
+/towheebase/ForceFields/towhee_ff_Cui2002
+classical_potential
+'Hard 2580 Multistep'
+#'Repulsive 2580 Multistep'
+classical_mixrule
+'Lorentz-Berthelot'
+radial_pressure_delta
+1.0d02
+electrostatic_form
+'none'
+#Cui2002 n-hexane
+input_style
+'basic connectivity map'
+nunit
+6
+nmaxcbmc
+6
+lpdbnames
+F
+forcefield
+'Cui2002'
+charge_assignment
+'none'
+unit ntype
+1    'CH3'
+vibration
+1
+2
+improper torsion
+0
+unit ntype
+2    'CH2'
+vibration
+2
+1 3
+improper torsion
+0
+unit ntype
+3    'CH2'
+vibration
+2
+2 4
+improper torsion
+0
+unit ntype
+4    'CH2'
+vibration
+2
+3 5
+improper torsion
+0
+unit ntype
+5    'CH2'
+vibration
+2
+4 6
+improper torsion
+0
+unit ntype
+6    'CH3'
+vibration
+1
+5 
+improper torsion
+0

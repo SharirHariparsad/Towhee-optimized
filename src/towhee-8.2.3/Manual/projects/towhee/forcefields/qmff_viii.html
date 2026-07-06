@@ -1,0 +1,251 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: QMFF-VIII</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: QMFF-VIII</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the QMFF-VIII force field as it is implemented into the towhee_ff_QMFF-VIII file in the ForceFields directory.
+      This force field was designed for a variety of organic liquids.
+      Note that this is a Class-2 9-6 force field that uses the 'Sixth Power' mixing rules.
+      Any discrepencies (especially typos) from the published values are the sole responsibility of Marcus Martin,
+      and I welcome feedback on how this implementation compares with other programs.
+     </ul>
+     <b>References for QMFF-VIII</b> 
+     <ul>
+      This forcefield is described in a single paper, and the supplementary information for that paper.
+      <ul>
+       <li><a href="../references.html#ewig_et_al_2001">Ewig <i>et al.</i> 2001</a></li>
+      </ul>
+     </ul>	
+     <b>Typos and comments for QMFF-VIII</b>
+     <ul>
+      <li>The supplementary information contains a few additional parameters that were not mentioned in the main paper.
+       These have been implemented, although I am not positive about how they were intended to be used.
+      </li>
+      <li>The supplementary information does not contain the c= h* and n= parameters.  I believe that a formatting error 
+       has replaced those symbols with additional c h and n parameters because there are duplicates of those listed there.
+       I have been unable to get a useful response from any of the authors and therefore have used some logic combined 
+       with inspiration in order to attempt to reproduce the true values from the duplicates.  Here I list all of the 
+       changes I made to the supplementary information in order to create the values implemented into Towhee.
+       <ul>
+	<li>The <b>h</b> and <b>h*</b> atom types are distinct, but given that they are mixed together due to a 
+	 formatting error in the file, and that they are bonded to different atom types, all of their bonded terms 
+	 are treated as a generic <b>h</b>.  This will work properly so long as the <b>h</b> atom types are only 
+	 bonded to carbon and sulfur while the <b>h*</b> atom types are only bonded to oxygen and nitrogen.
+	</li>
+	<li>The <b>c=</b> term was erroneously listed as an additional <b>c</b> term in the supplementary information.
+	 Any time a duplicate term is listed that includes a <b>c</b> I assume that this was actually supposed to 
+	 be a <b>c=</b>.  Given that most of the terms are listed in order in that file it is relatively easy to 
+	      figure out which terms should be <b>c=</b>.
+	</li>
+	<li>The <b>n=</b> term was erroneously listed as an additional <b>n</b> term in the supplementary information.
+	 Any time a duplicate term is listed that includes a <b>n</b> I assume that this was actually supposed to 
+	 be a <b>n=</b>.  Given that most of the terms are listed in order in that file it is relatively easy to 
+	 figure out which terms should be <b>n=</b>.
+	</li>
+	<li>An additional oxygen term is listed and I do not know the purpose for which it was originally intended.
+	 I have labeled the second of any duplicate oxygens as <b>o?</b>.
+	</li>
+	<li>Page 50 Line 29: assumed that the duplicate van der Waals listing for <b>c</b> was intended for <b>c=</b></li>
+	<li>Page 50 Line 38: assumed that the duplicate van der Waals listing for <b>h</b> was intended for <b>h*</b></li>
+	<li>Page 50 Line 44: assumed that the duplicate van der Waals listing for <b>n</b> was intedned for <b>n=</b></li>
+	<li>Page 51 Line 5: a duplicate van der Waals listing for <b>o</b> is on this line is a mystery and was set 
+	 to the mystery oxygen <b>o?</b>
+	</li>
+       </ul>
+      </li>
+     </ul>
+     <b>QMFF-VIII in Towhee</b> 
+     <ul>
+      The official force field name for QMFF-VIII in Towhee is 'QMFF-VIII'.
+      Here is the list of atom names for use in the towhee_input file, along with a brief description.
+      These names are from the main text of the paper, and also include atoms from the supplementary information that are lacking a description.
+      Please note that the capitalization and spacing pattern is important and must be followed exactly as listed here.
+      <dt><font color="red">Bromine</font></dt>
+      <ul>
+       <dt>'<b>Br</b>' : no explanation provided.  This was assigned a mass appropriate for bromine and 
+	I suspect it is intended for Br<sup>-</sup> ion.</dt>
+       <dt>'<b>br</b>' : no explanation provided.  This was assigned a mass appropriate for bromine and 
+	I suspect it is intended for a bonded bromine, but while bond increment parameters are included, 
+	there are no bond vibration parameters so it is not usable as currently implemented.
+       </dt>
+      </ul>
+      <dt><font color="red">Calcium</font></dt>
+      <ul>
+       <dt>'<b>Ca</b>' : no explanation provided.  This was assigned a mass appropriate for calcium and 
+	I suspect it is intended for Ca<sup>2+</sup> ion.</dt>
+      </ul>
+      <dt><font color="red">Carbon</font></dt>
+      <ul>
+       <dt>'<b>c</b>' : carbon (sp<sup>3</sup>) in alkanes</dt>
+       <dt>'<b>c"</b>' : carbonyl carbon except in amides.  Be sure that you are surrounding this atom type with 
+	single quotes in towhee_input as using double quotes will cause a read error for <b>c"</b></dt>
+       <dt>'<b>c`</b>' : carbonyl carbon in amides (connected to nitrogen).  This is listed as <b>c'</b> in their 
+	work, but is implemented using the alternate style of single quote in order to avoid problems reading 
+	character strings surrounded by the typical Fortran single quotes.
+       </dt>
+       <dt>'<b>c+</b>' : triply connected carbon in amidine and imidazole cations.</dt>
+       <dt>'<b>c-</b>' : carbon in carboxylate groups</dt>
+       <dt>'<b>c=</b>' : carbon (sp<sup>2</sup>) in alkenes.  This atom type was erronously listed as <b>c</b> in
+	the supplementary information so some inference was required in order to determine which parameters 
+	belong to <b>c=</b> instead of <b>c</b>.  See the Typos and Comments section above for a complete 
+	list of inferred parameters for this atom type.
+       </dt>
+       <dt>'<b>co</b>' : anomeric carbon in acetals and hemiacetals.</dt>
+       <dt>'<b>cp</b>' : carbon in aromatic rings.</dt>
+       <dt>'<b>cpb</b>' : bridging carbon in bridged aromatics</dt>
+       <dt>'<b>cr</b>' : no explanation provided.  This was assigned a mass appropriate for carbon and I suspect 
+	it is some form of bonded carbon.  The only other parameters provided for this type are bond increment 
+	values with a few forms of nitrogen so this is probably not useful as implemented into Towhee.
+       </dt>
+       <dt>'<b>ct</b>' : carbon (sp) in alkynes.</dt>
+      </ul>
+      <dt><font color="red">Chlorine</font></dt>
+      <ul>
+       <dt>'<b>Cl</b>' : no explanation provided.  This was assigned a mass appropriate for chlorine and 
+	I suspect it is intended for Cl<sup>-</sup> ion.</dt>
+       <dt>'<b>cl</b>' : chlorine.  This appears to be intended for use when bonded to other atoms.</dt>
+      </ul>
+      <dt><font color="red">Cesium</font></dt>
+      <ul>
+       <dt>'<b>Cs</b>' : no explanation provided.  This was assigned a mass appropriate for cesium and 
+	I suspect it is intended for Cs<sup>+</sup> ion.</dt>
+      </ul>
+      <dt><font color="red">Copper</font></dt>
+      <ul>
+       <dt>'<b>Cu</b>' : no explanation provided.  This was assigned a mass appropriate for copper and 
+	I suspect it is intended for a Cu ion, but I am not sure of the charge state.</dt>
+      </ul>
+      <dt><font color="red">Fluorine</font></dt>
+      <ul>
+       <dt>'<b>F</b>' : no explanation provided.  This was assigned a mass appropriate for fluorine and
+	I suspect it is intended for F<sup>-</sup> ion.</dt>
+       <dt>'<b>f</b>' : fluorine.  This appears to be intended for use when bonded to other atoms.</dt>
+      </ul>
+      <dt><font color="red">Hydrogen</font></dt>
+      <ul>
+       <dt>'<b>h</b>' : hydrogen connected to carbon or sulfur.</dt>
+       <dt>'<b>h*</b>' : hydrogen connected to oxygen or nitrogen (except in ammonium).  This atom type was
+	erroneously listed as <b>h</b> in the supplementary information so some inference was required in order
+	to determine which parameters belong to <b>h*</b> insteda of <b>h</b>.  See the Typos and Comments 
+	section above for a complete list of inferred parameters for this atom type.</dt>
+       <dt>'<b>h+</b>' : hydrogen in ammonium groups.</dt>
+      </ul>
+      <dt><font color="red">Iron</font></dt>
+      <ul>
+       <dt>'<b>Fe</b>' : no explanation provided.  This was assigned  a mass appropriate for iron and 
+	I suspect it is intended for an Fe ion, but I am not sure of the charge state.</dt>
+      </ul>
+      <dt><font color="red">Iodine</font></dt>
+      <ul>
+       <dt>'<b>I</b>' : no explanation provided.  This was assigned a mass appropriate for iodine and
+	I suspect it is intended for I<sup>-</sup> ion.</dt>
+       <dt>'<b>i</b>' : no explanation provided.  This was assigned a mass appropriate for iodine and I suspect
+	it is intended for iodine bonded to another atom.  Unforunately the only other parameters provided for
+	this atom type are bond increments so this is probably not useful as implemented into Towhee.
+       </dt>
+      </ul>
+      <dt><font color="red">Potassium</font></dt>
+      <ul>
+       <dt>'<b>K</b>' : no explanation provided.  This was assigned a mass appropriate for potassium and 
+	I suspect it is intended for K<sup>+</sup> ion.</dt>
+      </ul>
+      <dt><font color="red">Lithium</font></dt>
+      <ul>
+       <dt>'<b>Li</b>' : no explanation provided.  This was assigned a mass appropriate for lithium and 
+	I suspect it is intended for Li<sup>+</sup> ion.</dt>
+      </ul>
+      <dt><font color="red">Magnesium</font></dt>
+      <ul>
+       <dt>'<b>Mg</b>' : no explanation provided.  This was assigned a mass appropriate for magnesium and 
+	I suspect it is intended for Mg<sup>2+</sup> ion.</dt>
+      </ul>
+      <dt><font color="red">Nitrogen</font></dt>
+      <ul>
+       <dt>'<b>n</b>' : nitrogen in amides and amidines</dt>
+       <dt>'<b>n`</b>' : nitrogen in nitro groups.  This is listed as <b>n'</b> in their 
+	work, but is implemented using the alternate style of single quote in order to avoid problems reading 
+	character strings surrounded by the typical Fortran single quotes.
+       </dt>
+       <dt>'<b>n+</b>' : nitrogen in ammonium groups.</dt>
+       <dt>'<b>n=</b>' : doubly bonded nitrogen.  This atom type was erronously listed as <b>n</b> in
+	the supplementary information so some inference was required in order to determine which parameters 
+	belong to <b>n=</b> instead of <b>n</b>.  See the Typos and Comments section above for a complete 
+	list of inferred parameters for this atom type.
+       </dt>
+       <dt>'<b>na</b>' : nitrogen (sp<sup>3</sup>) in amines</dt>
+       <dt>'<b>nh</b>' : nitrogen (sp<sup>2</sup>) triply connected in five- and six-membered rings (e.g. pyrrole)</dt>
+       <dt>'<b>nn</b>' : nitrogen (sp<sup>2</sup>) connected to aromatic rings (e.g. aniline)</dt>
+       <dt>'<b>np</b>' : nitrogen (sp<sup>2</sup>) doubly connected in five- and six-membered rings (e.g. pyridine)</dt>
+      </ul>
+      <dt><font color="red">Oxygen</font></dt>
+      <ul>
+       <dt>'<b>o</b>' : doubly connected oxygen</dt>
+       <dt>'<b>o`</b>' : carbonyl and sulfonyl oxygen.  This is listed as <b>o'</b> in their 
+	work, but is implemented using the alternate style of single quote in order to avoid problems reading 
+	character strings surrounded by the typical Fortran single quotes.
+       </dt>
+       <dt>'<b>o-</b>' : oxygen in carboxylates, dialkyl phosphaes, and phosphate dianions</dt>
+       <dt>'<b>op</b>' : oxygen in aromatic rings</dt>
+       <dt>'<b>o?</b>' : no explanation provided.  There are several instances of duplicate oxygen parameters and 
+	I suspect it is an additional unpublished oxygen value that got mixed up with the normal <b>o</b> in
+	the formatting problems.  I have given it the <b>o?</b> name and included it in case anyone knows 
+	its true purpose.
+       </dt>
+      </ul>
+      <dt><font color="red">Phosphorus</font></dt>
+      <ul>
+       <dt>'<b>p</b>' : phosphorus in dialkyl phosphates</dt>
+       <dt>'<b>p-</b>' : phosphorus in phosphate dianions</dt>
+      </ul>
+      <dt><font color="red">Sodium</font></dt>
+      <ul>
+       <dt>'<b>Na</b>' : no explanation provided.  This was assigned a mass appropriate for sodium and 
+	I suspect it is intended for Na<sup>+</sup> ion.</dt>
+      </ul>
+      <dt><font color="red">Sulfur</font></dt>
+      <ul>
+       <dt>'<b>s</b>' : sulfur (sp<sup>3</sup>) doubly connected</dt>
+       <dt>'<b>s"</b>' : sulfur in solfones and solfonamides.  Be sure that you are surrounding this atom type with 
+	single quotes in towhee_input as using double quotes will cause a read error for <b>s"</b></dt>
+       <dt>'<b>sp</b>' : sulfur in aromatic rings</dt>
+      </ul>
+      <dt><font color="red">Rubidium</font></dt>
+      <ul>
+       <dt>'<b>Rb</b>' : no explanation provided.  This was assigned a mass appropriate for rubidium and 
+	I suspect it is intended for Mg<sup>+</sup> ion.</dt>
+      </ul>
+      <dt><font color="red">Zinc</font></dt>
+      <ul>
+       <dt>'<b>Zn</b>' : no explanation provided.  This was assigned a mass appropriate for zinc and
+	I suspect it is intended for a Zn ion, but am not sure of the charge state.</dt>
+      </ul>
+     </ul>
+     <b>Coulombic interactions</b> 
+     <ul>
+      This force field uses point charges and has been set up to assign the point charges using the bond increment method.
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>
+

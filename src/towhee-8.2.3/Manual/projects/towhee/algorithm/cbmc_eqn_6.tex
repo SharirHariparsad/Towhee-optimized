@@ -1,0 +1,21 @@
+\documentclass[12pt]{article}
+\pagestyle{empty}
+\begin{document}
+\begin{displaymath}
+P_{\rm accept} ({\bf r}_m, ..., {\bf r}_z)
+ = {\rm Min}\left[1,
+{
+{\prod_{k=1}^{n_{\rm step}} W_{k}^{\rm new}}
+\over
+{\prod_{k=1}^{n_{\rm step}} W_{k}^{\rm old}}
+}
+\times
+{
+{\prod_{s=m}^{z} w_{\rm bias}({{\bf r}_s},{\bf r}_{\rm exist})^{\rm old}}
+\over
+{\prod_{s=m}^{z} w_{\rm bias}({{\bf r}_s},{\bf r}_{\rm exist})^{\rm new}}
+}
+\right]
+\end{displaymath}
+\end{document}
+

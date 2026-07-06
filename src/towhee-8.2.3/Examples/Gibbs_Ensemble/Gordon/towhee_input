@@ -1,0 +1,217 @@
+ensemble
+'nvt'
+temperature
+336.0d0
+nmolty
+1
+nmolectyp
+300
+numboxes
+2
+stepstyle
+'cycles'
+nstep
+1
+printfreq 
+1000   
+blocksize 
+2000
+moviefreq
+100000
+backupfreq  
+1000
+runoutput
+'full'
+pdb_output_freq
+10
+pressure_virial_freq
+20
+trmaxdispfreq
+1000
+volmaxdispfreq
+1000
+linit   
+.true.
+initboxtype
+'dimensions'
+initstyle
+'full cbmc'
+'full cbmc'
+initlattice
+'simple cubic'
+'simple cubic'
+initmol
+260
+40
+inix iniy iniz
+8    8    7   
+4    4    4   
+hmatrix
+30.0d0 0.0d0 0.0d0
+0.0d0 30.0d0 0.0d0
+0.0d0 0.0d0 30.0d0
+60.d0 0.0d0 0.0d0
+0.0d0  60.d0 0.0d0
+0.0d0 0.0d0  60.d0
+pmvol     
+0.002d0   
+          pmvlpr
+          1.0d0
+          rmvol
+          0.1d0
+          tavol
+          0.5d0
+pmcell
+0.0d0
+          pmcellpr
+          1.0d0
+          pmcellpt
+          0.5d0
+          rmcell
+          1.0d0
+          tacell
+          0.5d0
+pm2boxrbswap    
+0.0d0     
+          pm2rbswmt
+          1.0d0
+          pm2rbswpr
+          1.0d0
+pm2boxcbswap    
+0.01d0     
+          pm2cbswmt
+          1.0d0
+          pm2cbswpr
+          1.0d0
+pm1boxcbswap
+0.0d0     
+          pm1cbswmt
+          1.0d0
+pmavb1
+0.02d0
+          pmavb1in
+          0.5d0
+          pmavb1mt
+          1.0d0
+          pmavb1ct
+          1.0d0
+          avb1rad
+          8.0d0
+pmavb2
+0.0d0
+          pmavb2in
+          0.5d0
+          pmavb2mt
+          1.0d0
+          pmavb2ct
+          1.0d0
+          avb2rad
+          8.0d0
+pmavb3
+0.0d0
+          pmavb3mt
+          1.0d0
+          pmavb3ct
+          1.0d0
+          avb3rad
+          8.0d0
+pmcb      
+0.0d0     
+          pmcbmt
+          1.0d0
+          pmall
+          0.0d0 
+pmback
+0.0d0
+          pmbkmt
+          1.0d0
+pmpivot
+0.0d0
+          pmpivmt
+          1.0d0
+pmconrot
+0.0d0
+          pmcrmt
+	  1.0d0
+pmcrback
+0.0d0
+          pmcrbmt
+	  1.0d0
+pmplane
+0.0d0
+          pmplanebox
+          0.5d0 1.0d0
+          planewidth
+          3.0d0
+pmrow
+0.0d0
+          pmrowbox
+          0.5d0 1.0d0
+          rowwidth
+          3.0d0
+pmtraat   
+0.0d0	  
+          pmtamt
+          1.0d0
+          rmtraa
+          0.5d0 
+          tatraa
+          0.5d0
+pmtracm   
+0.67d0	  
+          pmtcmt
+          1.0d0
+          rmtrac
+          0.5d0 
+          tatrac
+          0.5d0
+pmrotate
+1.0d0
+          pmromt  
+          1.0d0
+          rmrot
+          0.05d0
+          tarot
+          0.5d0
+cbmc_formulation
+'Martin and Siepmann 1999 + Martin and Thompson 2004'
+cbmc_setting_style
+'default ideal'
+ffnumber
+1
+ff_filename
+/towheebase/ForceFields/towhee_ff_Gordon
+classical_potential
+'Gordon n-6'
+classical_mixrule
+'Lorentz-Berthelot'
+lshift
+.false.
+ltailc
+.true.
+rmin  
+1.0d0 
+rcut  
+14.0d0
+rcutin 
+10.0d0 
+electrostatic_form
+'none'
+input_style
+'basic connectivity map'
+nunit
+1
+nmaxcbmc
+1
+lpdbnames
+F
+forcefield
+'Gordon'
+charge_assignment
+'manual'
+unit ntype qqatom
+1    'CH4n12'   0.0d0
+vibration
+0
+improper torsion
+0

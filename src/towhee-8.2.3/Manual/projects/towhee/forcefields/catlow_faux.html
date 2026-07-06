@@ -1,0 +1,109 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: Catlow/Faux</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: Catlow/Faux</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the Catlow and Faux force field as it is implemented into the towhee_ff_CatlowFaux file in the ForceFields directory.
+      All of the Towhee atom types for the Catlow and Faux force field are listed, along with a short description of their meanings. 
+      Note that the Catlow and Faux force fields are a hybrid of Lennard-Jones (12-6) 
+      and an exponential replusion and cannot be combined with any other force fields.
+      I would like to acknowledge David A. Faux for providing very useful guidance about implementing Catlow and Faux force field.  
+      Any discrepencies (especially typos) from the published force field values are the sole responsibility
+      of Marcus Martin, and I welcome feedback on how this implementation compares with other programs.
+     </ul>
+     <b>References for Catlow and Faux</b> 
+     <ul>
+      This force field comes from a variety of sources.  Several authors have used zeolite parameters that are 
+      similar (but often slightly different) to those published in
+      <ul>
+       <li><a href="../references.html#jackson_catlow_1988">Jackson and Catlow 1988</a></li>
+      </ul>
+      The implementation in Towhee uses the zeolite (OZ, Al, Si, Na) parameters as modified in
+      <ul>
+       <li><a href="../references.html#faux_et_al_1997">Faux <i>et al.</i> 1997</a></li>
+      </ul>
+      with the exception that there is a typo in Table 1 of that paper which listed harmonic terms for the Al-OZ-Si and 
+      Si-OZ-Al angles.  That should instead be harmonic parameters for the OZ-Al-OZ and OZ-Si-OZ angles.  Note that these
+      harmonic terms are in addition to the normal van der Waals and coulombic interaction between these atoms.  There is 
+      no additional harmonic term for either the Al-OZ-Si or Si-OZ-Al (personal communication between M.G. Martin and D.A. Faux
+      February 13, 2001).
+      <dt>The hydrocarbon (Cc and Hc) nonbonded parameters, and the cross terms with OZ, Al, Si (note the cross terms are set to zero 
+       for Cc-Si, Cc-Al, Hc-Si, and Hc-Al) are from
+       <ul>
+	<li><a href="../references.html#raj_et_al_1999">Raj <i>et al.</i> 1999</a>
+       </ul>
+       However, we wanted a fully flexible alkane model so we used the bonded parameters from
+       <ul>
+	<li><a href="../references.html#catlow_et_al_1991">Catlow <i>et al.</i> 1991</a></li>
+       </ul>
+       instead of the semi-rigid model from <a href="../references.html#raj_et_al_1999">Raj <i>et al.</i> 1999</a>.
+      <dt>I also concocted some cross terms for Na-Cc and Na-Hc by combining 
+       <a href="../references.html#raj_et_al_1999">Raj <i>et al.</i> 1999</a> with sodium parameters from 
+       <ul>
+	<li><a href="../references.html#aqvist_1990">Aqvist 1990</a></li>
+       </ul>
+       using geometric mixing rules. 
+     </ul>	
+     <b>Catlow/Faux in Towhee</b> 
+     <ul>
+      The official force field name for these parameters is 'CatlowFaux' (starting with version 3.2.9) Here I list all of the Catlow and Faux
+      atom names for use in the towhee_input file, along with a brief description of what atoms we are talking about.
+      Please note that the capitalization and spacing pattern is important and must be followed exactly as listed here.
+      <ul>
+       <dt>'<b>Cc</b>' : carbon in an alkane</dt>
+       <dt>'<b>Hc</b>' : hydrogen bonded to carbon in an alkane</dt>
+       <dt>'<b>Al</b>' : aluminum in a zeolite</dt>
+       <dt>'<b>Na</b>' : sodium ion</dt>
+       <dt>'<b>OZ</b>' : oxygen in a zeolite</dt>
+       <dt>'<b>Si</b>' : silicon in a zeolite</dt>
+      </ul>
+     </ul>
+      <b>Coulombic Interactions</b> 
+      <ul>
+       This force field uses point charges on atomic centers.  Here we list suggested charges for each of the 
+       atom types in this force field.  
+       <dt>Catlow charges are only listed for n-octane in <a href="../references.html#raj_et_al_1999">Raj <i>et al.</i> 1999</a>.
+	It is not obvious how to interpolate those charges for other alkanes, but it would be consistent with the reasoning in that paper 
+	to set all of the Hydrogens to 0.100 and then evenly divide the counter charge across all of the carbons.
+	<ul>
+         <dt>'<b>Cc</b>' : In n-octane this is set to -0.225.  One possible way to do this for general alkanes would be
+	  a charge equal to the number of hydrogens times the charge on each hydrogen divided by the total number of carbons.</dt>
+         <dt>'<b>Hc</b>' : In n-octane this is set to 0.100.  One possible way to do this for general alkanes would be to 
+	  always set the Hc charge to 0.100 and adjust the counter charge on the carbons.</dt>
+	</ul>
+       <dt>Faux charges from <a href="../references.html#faux_et_al_1997">Faux <i>et al.</i> 1997</a></dt>
+       <ul>
+        <dt>'<b>Al</b>' : 2.775</dt>
+        <dt>'<b>Na</b>' : 1.0</dt>
+        <dt>'<b>OZ</b>' : -1.86875</dt>
+        <dt>'<b>Si</b>' : 3.7</dt>
+       </ul>
+      </ul>
+      <b>Improper torsions</b> 
+      <ul>
+       There are no improper torsions in the Catlow or Faux force fields.
+      </ul>
+      <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

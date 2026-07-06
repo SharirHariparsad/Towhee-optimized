@@ -1,0 +1,64 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: Tele1987</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: Teleman <i>et al.</i> 1987</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the Teleman <i>et al.</i> (Tele1987) force field as it is implemented into 
+      the towhee_ff_Tele1987 file in the ForceFields directory.
+      This force field has a flexible implementation of the SPC water model.
+      Note that this is a Lennard-Jones force field that uses either Lorentz-Berthelot or Geometric mixing rules so it is easily combined with other force fields.
+      Any discrepencies (especially typos) from the published values are the sole responsibility of Marcus Martin,
+      and I welcome feedback on how this implementation compares with other programs.
+     </ul>
+     <b>References for Tele1987</b> 
+     <ul>
+      What I term Tele1987 is described in the following paper.
+      <ul>
+       <li><a href="../references.html#teleman_et_al_1987">Teleman <i>et al.</i> 1987</a></li>
+      </ul>
+     </ul>	
+     <b>Tele1987 in Towhee</b> 
+     <ul>
+      The official force field name for Teleman <i>et al.</i> 1987 in Towhee is 'Tele1987'.
+      This list contains the atom names for use in the towhee_input file, along with a brief description.
+      I created these atom names in order to work with the molecule assembler.
+      Please note that the capitalization and spacing pattern is important and must be followed exactly as listed here.
+      <ul>
+       <dt>'<b>H</b>' : hydrogen in water</dt>
+       <dt>'<b>O</b>' : oxygen in water</dt>
+      </ul>
+     </ul>
+     <b>Coulombic interactions</b> 
+     <ul>
+      This force field assigns coulombic interactions to the atoms.
+      The 'bond increment' method of <b>charge_assignment</b> is implemented for this forcefield.
+      Here I list the bond increments using the atom names listed above.  The value of the bond increment is added 
+      to the first atom listed and subtracted from the second atom listed.
+      <ul>
+       <dt><b>H</b> - <b>O</b>: 0.41</dt>
+      </ul>
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

@@ -1,0 +1,100 @@
+ensemble
+'npt'
+temperature
+1000.0d0
+pressure
+100.0d0
+nmolty
+2
+nmolectyp
+2000 2000
+numboxes
+1
+stepstyle
+'cycles'
+nstep
+0
+controlstyle
+'equilibration'
+linit
+T
+initboxtype
+'dimensions'
+initstyle
+'coords' 'coords'
+initlattice
+'none' 'none'
+initmol
+2000 2000
+inix iniy iniz
+27   27   28
+hmatrix
+36.3282601 0.0d0 0.0d0
+0.0d0  36.3308503  0.0d0
+0.0d0 0.0d0  36.3231923
+pmvol
+0.01d0
+          pmvlpr
+          1.0d0
+          rmvol
+          10.0d0
+          tavol
+          0.5d0
+pmtracm
+1.0d0
+          pmtcmt
+          1.0d0 1.0d0
+          rmtrac
+          0.5d0
+          tatrac
+          0.5d0
+ffnumber
+1
+ff_filename
+/towheebase/ForceFields/towhee_ff_Hoyt2003
+classical_potential
+'Embedded Atom Method'       
+interpolatestyle
+'cubicspline'
+rcut
+1.0d0
+electrostatic_form
+'none'
+#copper
+input_style
+'basic connectivity map'
+nunit
+1
+nmaxcbmc
+1
+lpdbnames
+F
+forcefield
+'Hoyt2003'
+charge_assignment
+'manual'
+unit ntype qqatom
+1    'Cu' 0.0d0
+vibration
+0
+improper torsion
+0
+# lead
+input_style
+'basic connectivity map'
+nunit
+1
+nmaxcbmc
+1
+lpdbnames
+F
+forcefield
+'Hoyt2003'
+charge_assignment
+'manual'
+unit ntype qqatom
+1    'Pb' 0.0d0
+vibration
+0
+improper torsion
+0

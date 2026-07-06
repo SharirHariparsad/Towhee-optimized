@@ -1,0 +1,56 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: Square Well</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: Square Well</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers Square Well parameters as they are implemented into the towhee_ff_SquareWell file in the ForceFields directory.
+      This file explains how to use the builder with the square well potential,
+      and how to add in any other square well parameters that you might want to use in a simulation.
+     </ul>
+     <b>Square Well in Towhee</b> 
+     <ul>
+      The official force field name for Square Well in Towhee is 'SquareWell'.
+      This list contains all of the Square Well atom names currently in use for the towhee_input file, along with a brief description.
+      If you want to add any new parameters into Towhee just take a look in the
+      <a href="../potentype/towhee_input_classical_potential.html">towhee_input classical_potential</a> documentation
+      for a complete description of the functional form.
+      I am happy to add	some more of these parameter sets into the release version as well (only takes a few minutes), or you can do this
+      yourself by editing the <a href="../code/code_manual.html#ffsquarewell.F"><code>ffsquarewell.F</code></a> subroutine and
+      then compiling the <a href="../utils/forcefield.html"><code>forcefield</code></a> utility.
+      The distance units are in Angstroms, and the well depth is in Kelvin divided by Boltzmann's constant.
+      Please note that the capitalization and spacing pattern is important and must be followed exactly as listed here.
+      <ul>
+       <dt>'<b>type_a</b>' : sigma [nbcoeff(1)] is 1.0, lamda [nbcoeff(2)]
+	is 1.5, and the well depth [nbcoeff(3)] is 1.0.</dt>
+       <dt>'<b>type_b</b>' : sigma [nbcoeff(1)] is 2.0, lamda [nbcoeff(2)]
+	is 3.0, and the well depth [nbcoeff(3)] is 1.0.</dt>
+      </ul>
+     </ul>
+     <b>Coulombic interactions</b> 
+     <ul>
+      It is possible to combine the square well potential with point charges.  Simply assign the point charges to the atoms as desired.
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

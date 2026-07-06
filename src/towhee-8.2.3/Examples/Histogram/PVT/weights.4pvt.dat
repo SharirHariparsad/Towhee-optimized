@@ -1,0 +1,15 @@
+ *** Final weights ***
+Number of iterations =     681
+Number of components =       1
+Number of files =       1
+ *** Individual data for each file ***
+ Name of file # 1
+ towhee_histogram7a      
+ Number of entries in file
+ 76000
+ Determined weight for file
+    1.00000    
+ Temperature
+  0.96
+ Chemical potentials (comp 1 to n)
+       -4.2000

@@ -1,0 +1,6 @@
+#!/bin/bash
+/bin/cp ../towhee_convert towhee_input
+/towheebase/Source/towhee > middle
+/bin/cp towhee_altinp towhee_input
+cat lammps_coords_* > towhee_coords
+/towheebase/Examples/do_test

@@ -1,0 +1,70 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: Charmm27fe</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: Charmm22fe</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers some extra parameters for use in combination with the <a href="charmm22.html">CHARMM22</a> force field as it is implemented into the 
+      towhee_ff_Charmm22fe file in the ForceFields directory.  
+      This file is only likely to be useful in combination with the standard CHARMM22 forcefield.
+      Charmm22 is a Lennard-Jones (12-6) force field and typically uses the Lorentz-Berthelot mixing rules.
+      The parameters in this force field were developed for fluoroethanes. However, to extend the force field's capability to handle other fluorohydrocarbons,
+      missing bond, angle and torsion terms are assumed to be equal to the similar ones reported in the reference.
+      These new additions are the sole responsibility of Marcus Martin.
+     </ul>
+     <b>References for Charmm22fe</b> 
+     <ul>
+      <li><a href="../references.html#Chen_2001">Chen et. al 2001</a></li>
+     </ul>	
+     <b>Charmm22fe in Towhee</b> 
+     <ul>
+      The official force field name for Charmm222fe in Towhee is 'Charmm22' as the name has to be the same in order to get the 
+      molecule assembler to consider these parameters when building a molecule.
+      This list contains atom names for use in the towhee_input file, along with a brief description.  
+      Please note that the capitalization and spacing pattern is important and must be followed exactly as listed here.
+      <ul>
+       <dt>'<b>CF1</b>' : carbon in monofluoroethane</dt>
+       <dt>'<b>CF2</b>' : carbon in difluoroethane</dt>
+       <dt>'<b>CF3</b>' : carbon in trifluoroethane</dt>
+       <dt>'<b>HF1</b>' : hydrogen in monofluoroethanes</dt>
+       <dt>'<b>HF2</b>' : hydrogen in difluoroethanes</dt>
+       <dt>'<b>F1</b>' : fluorine in monofluoroethane</dt>
+       <dt>'<b>F2</b>' : fluorine in difluoroethane</dt>
+       <dt>'<b>F3</b>' fluorine in trifluoroethane</dt>
+      </ul>
+     </ul>
+     <b>Coulombic interactions</b> 
+     <ul>
+      In the original paper following partial charges were reported 
+      <dt>'<b>CF1</b>' -0.06</dt>
+      <dt>'<b>CF2</b>' 0.24</dt>
+      <dt>'<b>CF3</b>' 0.38</dt>
+      <dt>'<b>HF1</b>' 0.11</dt>
+      <dt>'<b>HF2</b>' 0.10</dt>
+      <dt>'<b>F1</b>' -0.22</dt>
+      <dt>'<b>F2</b>' -0.19</dt>
+      <dt>'<b>F3</b>' -0.15</dt>
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

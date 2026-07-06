@@ -1,0 +1,92 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: input_style 'polypeptide builder'</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" height="590">
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"><font size="5"><b><font face="Arial, Helvetica, sans-serif"><a name="top"></a>
+	 MCCCS Towhee: input_style 'polypeptide builder'</font></b></font>
+     </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"> 
+    <IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/>
+   </A>
+   <tr> 
+    <td valign="top"> 
+     <p>&nbsp; </p>
+     <p>&nbsp;</p>
+    </td>
+    <td valign="top"> 
+     This section describes the input parameters associated with an <b>input_style</b> setting of 'polypeptide builder'.
+     Uses the polypeptide builder functionallity to set up everything for proteins from a list of the amino acids.  Documentation of the currently available
+     monomers is presented along with the forcefield information for each force field (see <a href="../towhee_capabilities.html">Towhee Capabilities</a>).
+     <dt><a name="nunit"><b>nunit (integer)</b></a>
+      <ul>
+       The number of monomers in this molecule. Must be less than or equal to <a href="../code/code_manual.html#numax">NUMAX</a>
+       and there is also a check in the builder to make sure you do not exceed NUMAX with the number of atoms that all of your monomers require. 
+      </ul>
+     </dt>
+     <dt><a name="nmaxcbmc"><b>nmaxcbmc (integer)</b></a> 
+      <ul>
+       The nmaxcbmc parameter determines the maximum number of atoms that are regrown during a
+       <a href="../algorithm/cbmc.html">configurational-bias</a> regrowth.
+      </ul>
+     </dt>
+     <dt><a name="forcefield"><b>forcefield (character*10)</b></a>
+      <ul>
+       The forcefield that you want to use to build this molecule.
+      </ul>
+     </dt>
+     <dt><a name="protgeom"><b>protgeom (character*15)</b></a>
+      <ul>
+       <li> linear: The polypeptide will be generated starting from the N-terminus and finishing at the C-terminus.  Also allows for multiple N and C
+        terminii where the different linear polypeptides are connected by disulfide bonds.
+       </li>
+       <li> cyclic: The polypeptide is cyclic so the first amino acid is bonded to the final amino acid. </li>
+      </ul>
+     </dt>
+     <hr></hr>
+     <font color="red"> The parameters in this section are listed as a group for each amino acid in the molecule.</font>
+     <dt><a name="pepname"><b>pepname (unformatted character string of length 2), stereochem (unformatted character string of length 1), bondpartner (integer),
+	terminus (unformatted character of length 1)</b></a>
+      <ul>
+       <li> pepname is a two letter code for the building blocks of the molecule. Peptides use a code where the first letter is the one letter code for each
+        amino acid. The second character is generally the charge state of the side chain, but has some different meanings for histidine and cysteine.  The
+        peptide codes can be found in the documentation for each force field.
+       </li>
+       <li> stereochem is a single letter which determines the stereochemistry of the peptide. The valid options are l (L-amino acid), d (D-amino acid) and
+        r (racemic).
+       </li>
+       <li> bondpartner is the number of the amino acid which is bonded to this amino acid through the side chain. This is only used for cysteines that have
+        a disulfide bridge (type cs), otherwise set this value to 0. The bondpartner integers refer to the amino acids starting with the first amino acid
+        listed in towhee_input as amino acid #1.
+       </li>
+       <li> terminus is a single character string which tells the code whether this peptide is at one of the terminii, or if it is in the central part of
+        the polypeptide.  You may have multiple N and C terminii, but all C terminii must be immediately preceded by an N-terminus.
+        <ul>
+         <li>'N': N-terminus.  All linear polypeptides must begin with an N-terminus</li>
+         <li>'-': Central polypeptide (anything that isn't an N or C terminus)</li>
+         <li>'C': C-terminus.  All linear polypeptides must end with a C-terminus.
+        </ul>
+       </li>
+      </ul>
+     </dt>
+     <dt><font color="red"> This is the end of the section that is repeated for each atom for input_style 'polypeptide builder'</font></dt>
+     <hr></hr>
+     <a href="../index.html">Return to the main towhee web page</a> 
+     <p>&nbsp;</p>
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

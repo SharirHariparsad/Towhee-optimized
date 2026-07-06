@@ -1,0 +1,66 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: SKS</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: SKS</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the Smit-Karaborni-Siepmann Force Field (SKS) for n-alkanes as it is implemented into the towhee_ff_SKS file in the ForceFields directory.
+      All of the Towhee atom types for this force field are listed, along with a short description of their meanings.
+      SKS uses a 'Lennard-Jones' classical_potential and the 'Lorentz-Berthelot' classical_mixrule.
+      This forcefield is best used with a 13.8 Angstrom cutoff with no tail corrections and without shifting at the cutoff.
+      This strange set of parameters is due to a bug in the code originally used to produce this forcefield.
+      Please see the Erratum in the references section for more information.
+      The SKS forcefield was later extended to branched alkanes (<a href="smmkmain.html">SMMK Main</a>) 
+      and eventually superceded by the <a href="trappeua.html">TraPPE-UA</a> force field.
+      Any discrepencies (especially typos) from the published force field values are the sole responsibility of Marcus Martin,
+      and I welcome feedback on how this implementation compares with other programs. 
+     </ul>
+     <b>References for SKS</b> 
+     <ul>
+      The parameters and detailed results for the SKS force field are found here.
+      <ul>
+       <li><a href="../references.html#smit_et_al_1995">Smit <i>et al.</i> 1995</a></li>
+      </ul>
+      Please note that an error was made in the code that produced the results in that paper that essentially meant that tail corrections were not employed.
+      Please see the following erratumfor more information.
+      <ul>
+       <li><a href="../references.html#smit_et_al_erratum_1998">Smit <i>et al.</i> Erratum 1998</a></li>
+      </ul>
+     </ul>
+     <b>SKS in Towhee</b> 
+     <ul>
+      The official force field name for SKS in Towhee is 'SKS'.
+      This list contains the atom names for use in the towhee_input file, along with a brief description.
+      Please note that the capitalization and spacing pattern is important and must be followed exactly as listed here. 
+      <ul>
+       <dt>'<b>CH3</b>' methyl group (C plus 3 bonded H as a united-atom) on an <i>n</i>-alkane of C<sub>4</sub> or longer.</dt>
+       <dt>'<b>CH2</b>' methylene group (C plus 2 bonded H as a united-atom) on an <i>n</i>-alkane of C<sub>4</sub> or longer.</dt>
+      </ul>
+     </ul>
+     <b>Coulombic interactions</b> 
+     <ul>
+      There are no coulombic interactions for this force field.
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

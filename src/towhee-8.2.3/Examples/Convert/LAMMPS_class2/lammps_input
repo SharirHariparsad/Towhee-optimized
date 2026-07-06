@@ -1,0 +1,27 @@
+# Phenyalanine using cff95 forcefield (class 2)
+# newton flag = 0
+
+neighbor	2.0 0 1 10 1
+newton flag	0
+
+coulomb style  	cutoff 40.0
+nonbond style	class2/cutoff 40.0 0
+
+bond style      class2
+angle style     class2
+dihedral style  class2
+improper style  class2
+
+periodicity     1 1 1
+
+read data	data.class2
+create temp	uniform 300 387983
+
+timestep        0.5
+
+special bonds   0.0 0.0 1.0
+thermo flag	10
+thermo style	2
+
+run		100
+

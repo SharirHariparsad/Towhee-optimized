@@ -1,0 +1,210 @@
+ensemble
+'nvt'
+temperature
+300.0d0
+nmolty
+2
+nmolectyp
+256 256
+numboxes
+1
+stepstyle
+'moves'
+nstep
+0
+printfreq 
+1   
+blocksize 
+2
+moviefreq
+100000
+backupfreq  
+1000
+runoutput
+'full'
+pdb_output_freq
+100000
+pressure_virial_freq
+20
+trmaxdispfreq
+1000
+volmaxdispfreq
+1000
+linit   
+.false. 
+initboxtype
+'dimensions'
+initstyle
+'coords' 'coords'
+initlattice
+'none' 'none'
+initmol
+256 256
+inix iniy iniz
+8    8    8
+hmatrix
+26.3424d0 0.0d0 0.0d0
+0.0d0 26.3424d0 0.0d0
+0.0d0 0.0d0 26.3424d0
+pm1boxcbswap
+0.0d0
+          pm1cbswmt
+          0.5d0 1.0d0
+pmavb1    
+0.0d0     
+          pmavb1in
+          0.5d0
+          pmavb1mt
+          0.5d0 1.0d0
+          pmavb1ct
+          0.5d0 1.0d0
+          0.5d0 1.0d0
+          avb1rad
+          5.0d0 5.0d0
+pmavb2
+0.0d0     
+          pmavb2in
+          0.5d0
+          pmavb2mt
+          0.5d0 1.0d0
+          pmavb2ct
+          0.5d0 1.0d0
+          0.5d0 1.0d0
+          avb2rad
+          5.0d0 5.0d0
+pmavb3
+0.0d0     
+          pmavb3mt
+          0.5d0 1.0d0
+          pmavb3ct
+          0.5d0 1.0d0
+          0.5d0 1.0d0
+          avb3rad
+          5.0d0 5.0d0
+pmcb
+0.4d0
+          pmcbmt
+          0.5d0 1.0d0 
+          pmall
+          0.0d0 0.0d0
+pmback
+0.0d0
+          pmbkmt
+          0.5d0 1.0d0
+pmpivot
+0.0d0
+          pmpivmt
+          0.5d0 1.0d0
+pmconrot
+0.0d0
+          pmcrmt
+          0.0d0 1.0d0
+pmcrback
+0.0d0
+          pmcrbmt
+          0.0d0 1.0d0
+pmplane
+0.0d0
+          pmplanebox
+          1.0d0
+          planewidth
+          1.0d0
+pmrow
+0.0d0
+          pmrowbox
+          1.0d0
+          rowwidth
+          1.0d0
+pmtraat
+0.0d0
+          pmtamt          
+          0.5d0 1.0d0      	
+          rmtraa
+          0.5d0 
+          tatraa
+          0.5d0
+pmtracm
+0.7d0
+          pmtcmt          
+          0.5d0 1.0d0      	
+          rmtrac
+          0.5d0 
+          tatrac
+          0.5d0
+pmrotate
+1.0d0
+          pmromt  
+          0.5d0 1.0d0
+          rmrot
+          0.05d0
+          tarot
+          0.5d0
+ffnumber
+2
+ff_filename
+/towheebase/ForceFields/towhee_ff_Aqvist
+/towheebase/ForceFields/towhee_ff_LGM
+classical_potential
+'Lennard-Jones'       
+classical_mixrule
+'Lorentz-Berthelot'
+lshift
+.false.
+ltailc
+.true.
+rmin  
+1.0d0 
+rcut  
+10.0d0
+rcutin 
+10.0d0 
+electrostatic_form
+'coulomb'
+coulombstyle
+'ewald_fixed_kmax'
+kalp 
+5.6d0
+kmax
+5
+dielect
+1.0d0
+lcompute_madelung
+T
+#aqvist Na+
+input_style
+'basic connectivity map'
+nunit
+1
+nmaxcbmc
+1
+lpdbnames
+F
+forcefield
+'Aqvist'
+charge_assignment
+'manual'
+unit ntype qqatom
+1    'Na+' 1.0d0
+vibration
+0
+improper torsion
+0
+#lgm Cl-
+input_style
+'basic connectivity map'
+nunit
+1
+nmaxcbmc
+1
+lpdbnames
+F
+forcefield
+'LGM'
+charge_assignment
+'manual'
+unit ntype qqatom
+1    'Cl-' -1.0d0
+vibration
+0
+improper torsion
+0

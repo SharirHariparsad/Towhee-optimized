@@ -1,0 +1,162 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: Monte Carlo Primer</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table width="675" border="0" cellspacing="0" cellpadding="0" height="590">
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif"><a name="top"></a>MCCCS Towhee: Monte Carlo Primer</font></b></font></div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"> 
+    <IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" width="210" height="62" border="0" alt="SourceForge.net Logo" align="right"/>
+   </A>
+   <tr> 
+    <td width="18" height="371" valign="top"> 
+     <p>&nbsp; </p>
+     <p>&nbsp;</p>
+    </td>
+    <td width="697" valign="top"> <b>Overview</b> 
+     <ul>
+      This section provides a quick overview of statistical mechanics and discusses the reasons why somebody might want to perform a Monte Carlo molecular
+      simulation.  This was adapted from the <a href="../references.html#martin_thesis_1999">Ph.D. thesis of Marcus Martin</a>.
+     </ul>
+     <b>Why would you perform a Molecular Simulation?</b> 
+     <ul>
+      Statistical mechanics is a theory that takes as its input the total energy of a system of molecules as a function of their positions and momenta and
+      yields as an output any thermodynamic property of interest.  This involves an integral in which momenta (kinetic energy) and positions (potential energy)
+      are easily separated and the part involving the momenta can be integrated analytically.  Unfortunately, except for some very trivial (and not realistic)
+      functional forms for the potential energy, it is not possible to analytically integrate the part involving the positions, and a numeric solution is
+      useless because a derivative of the original integral must be taken in order to compute most of the thermodynamic properties.
+      <p></p>
+      Rewriting this problem in the language of probability theory allows some (but not all) of the thermodynamic properties to be computed as the expected
+      value or variance of some distribution.  For the canonical ensemble, where we have a constant number of molecules (<b>N</b>), a constant total volume
+      (<b>V</b>), and a constant temperature (<b>T</b>), the expected value of any observable <i>j</i> can be written
+      <p></p>
+      <dt><div align="center"><IMG src="mc_eqn_1.gif" alt="Equation 1" /></div><div align="right"><b>Equation 1</b></div></dt>
+      <p></p>
+      where <b>r</b> is the set of positions of all <b>N</b> molecules, <i>B</i> is 1/( k<sub>B</sub> T), k<sub>B</sub> is Boltzmann's constant,
+      and U(<b>r</b>) is the potential energy of the system.  This integral is not analytic either (in fact the denominator is the same integral as
+      discussed above) but numerical integration now yields the desired thermodynamic properties.
+      <p></p>
+      Numerical integration works by evaluating the integrand at many points inside the integration region and using the average value to estimate the 
+      integral.  The accuracy of numeric integration is highest when you evaluate at a large number of points and when the function does not change rapidly
+      over short distances.  Neither of these are the case for Equation 1 because this is a 3<b>N</b> dimensional integral and if any two particles are
+      overlapping then they have a very large, positive potential energy that leads to a zero in the exponential.  Since we are integrating over all of the
+      positions, then even for a system of only 10 particles we would have 30 degrees of freedom (x, y, and z coordinates for each particle).  Breaking each
+      of these up into just 10 points to evaluate per degree of freedom would result in 10<sup>30</sup> computations.  My old Pentium computer could do
+      about 50 million computations per second so it would take about 10<sup>14</sup> years to complete this calculation.  As this is appreciably longer than
+      the 10<sup>10</sup> years the universe has existed it is clearly not a viable option without an amazing improvement in computational power.
+      <p></p>
+      It is possible to take advantage of the very property that makes this a difficult numerical integration, namely the fact that even though
+      the configurational phase space (the <b>3N</b> dimensional volume that we need to sample) is huge, most of it does not contribute anything
+      significant to the integral.  What we do instead is start the system in one of the "good" states (set of positions) and propagate it through either
+      time or ensemble space in such a way that the fraction of time it spends in any particular state is given by
+      <p></p>
+      <dt><div align="center"><IMG src="mc_eqn_2.gif" alt="Equation 2" /></div><div align="right"><b>Equation 2</b></div></dt>
+      <p></p>
+      where <b><i>p</i><sub>i</sub></b> is the probability that the system is in state <b>i</b>.  This is the idea behind molecular simulation.  There are
+      two different ways in which we can sample a system according to this probability distribution in such a way that we compute the average value of our
+      observable without wasting computer time on the states that are unimportant.  The two different ways of moving from one state to the next are called
+      Molecular Dynamics (time average) and Monte Carlo (ensemble average) and they form the two branches of molecular simulation.  While they are distinctly
+      different approaches, they are equivalent from the viewpoint of statistical mechanics because the second postulate of statistical mechanics states that
+      time averages are equivalent to ensemble averages.
+     </ul>
+     <b>Why choose Monte Carlo?</b>
+     <ul>
+      Molecular dynamics (MD) and Monte Carlo (MC) are equivalent methods, but they have different strengths and weaknesses.  Molecular dynamics
+      follows the natural time evolution of the system and this allows the calculation of time-dependent quantities like diffusion constants and viscosities.
+      In MD you calculate the current forces on the system, compute the instantaneous velocities that would result from those forces, and assume that the
+      molecules move with that velocity for a small increment of time.  This "time step" typically ranges from around 0.5 to 10 fs, and this limits MD
+      simulations to time scales under a microsecond.  Monte Carlo does not follow the time evolution so dynamical quantities cannot be computed, but this also
+      means that processes which take a long physical time can be studied if the simulation is designed properly.  The Monte Carlo method also
+      enables the use of certain ensembles specifically designed for computing phase equilibria (particularly the Gibbs ensemble) that are very difficult to
+      simulate using molecular dynamics.
+      <p></p>
+      The phrase "Monte Carlo simulation" is used in a wide variety of contexts throughout the scientific literature.  The main idea of all Monte Carlo
+      simulations is to generate a large set of configurations and to measure the average (and sometimes variance) of some quantity of the system.  These
+      simulations are named after the famous gambling location Monte Carlo due to the random numbers that are used in order to generate and accept or reject
+      trial moves.  In our case, a Monte Carlo simulation is used in order to sample configurations according to a statistical mechanical ensemble.
+      <p></p>
+      The main algorithmic challenge of designing a Monte Carlo molecular simulation lies in devising ways to adequately and efficiently sample the equilibrium
+      distribution of the correct statistical mechanical ensemble.  If we can devise an algorithm that samples states with the probability distribution given
+      in Equation 2 then we will be able to compute the canonical ensemble averages.  
+      <a href="../references.html#metropolis_et_al_1953">Metropolis <i>et al.</i></a>
+      were the first to show that you can sample such a distribution by treating the problem as if it were a Markov chain.  A Markov chain is a collection
+      of states where the probability of moving from one state to another depends only upon the state that the system is currently residing in, independent
+      of how the system got into that current state.  The trick is to select the probabilities of moving from one state to another in such a way that the
+      system converges to a stationary distribution with the probabilities given in Equation 2.
+      <p></p>
+      This is best illustrated by considering a system of monatomic molecules in a periodic box. A periodic box is one in which molecules that exit out of
+      one side of the box re-enter on the other side, and this is used to eliminate the effects of placing walls around the system.  A Monte Carlo move is
+      an attempt to change the system from one state to another.  In this system the only move that is required to equilibrate the system (reach the
+      stationary distribution) is a translational move.  The algorithm for a translational move is as follows.  
+      <dt>1) Select a molecule in the system at random.</dt>  
+      <dt>2) Displace that molecule in a random direction by a distance <b>Z<sub>1</sub>*M</b>  where <b>Z<sub>1</sub></b> is a random number uniformly
+       distributed over the interval (0,1), and <b>M</b> is the maximum displacement.
+      </dt>
+      <dt>3) Compute the potential energy change [<b>U(r<sub>new</sub>) - U(r<sub>old</sub>)</b>] caused by moving this particle from its old location
+       to the new location.
+      </dt>
+      <dt>4) Accept or reject the move according to the acceptance probability</dt>
+      <p></p>
+      <dt><div align="center"><IMG src="mc_eqn_3.gif" alt="Equation 3" /></div><div align="right"><b>Equation 3</b></div></dt>
+      <p></p>
+      If the energy change is negative, then the exponential term is greater than 1 and the move is accepted with probability 1.  If the energy change is
+      positive, then the move is accepted with probability <b>exp(-<i>B</i> [U(r<sub>new</sub>) - U(r<sub>old</sub>)] )</b>.  
+      This is done by computing a random number <b>Z<sub>2</sub></b> that is uniformly distributed over the interval (0,1).  If <b>Z<sub>2</sub></b> is
+      less than <b>exp(-<i>B</i> [U(r<sub>new</sub>) - U(r<sub>old</sub>)] )</b>, then the move is accepted and the new location is counted in the averaging,
+      otherwise the molecule is returned to its original location and the old configuration is counted again in the averaging.
+      <p></p>
+      The reason for using this particular acceptance probability is revealed by analyzing the move according to the detailed balance condition in order
+      to determine the stationary distribution of the Markov chain.  For any two states in the system (<b>i</b> and <b>j</b>) the following must be true
+      of the stationary distribution
+      <p></p>
+      <dt><div align="center"><IMG src="mc_eqn_4.gif" alt="Equation 4" /></div><div align="right"><b>Equation 4</b></div></dt>
+      <p></p>
+      where <b><i>&rho;<sub>x</sub></i></b>
+      is the stationary probability the Markov chain is in state <b>x</b>,
+      <b>T<sub>x &rarr; y</sub></b> is the transition probability of attempting a move from state <b>x</b> to state <b>y</b>,
+      and <b>A<sub>x &rarr; y</sub></b> is the probability of accepting an attempted move from state <b>x</b> to state <b>y</b>.
+      Let the potential energy of state <b>i</b> be higher than the potential energy of
+      state <b>j</b>, (i.e. <b>U(r<sub>i</sub>) &gt; U(r<sub>j</sub>)</b>).  We can then combine Equation 3 and Equation 4 and rewrite as
+      <p></p>
+      <dt><div align="center"><IMG src="mc_eqn_5.gif" alt="Equation 5" /></div><div align="right"><b>Equation 5</b></div></dt>
+      <p></p>
+      where the transition probabilities cancel out because the underlying Markov chain transition matrix is symmetric, that is 
+      <b>T<sub>j &rarr; i</sub> = T<sub>i &rarr; j</sub></b> for all <b>i</b> and <b>j</b>.  We can also compute this ratio using Equation 2.
+      <p></p>
+      <dt><div align="center"><IMG src="mc_eqn_6.gif" alt="Equation 6" /></div><div align="right"><b>Equation 6</b></div></dt>
+      <p></p>
+      Since these two quantities are equal, this demonstrates that the stationary distribution of this Markov chain is identical to the canonical
+      distribution.  This proof needs to be performed whenever a new move is proposed in order to insure that you are sampling from the desired statistical
+      mechanical ensemble.
+     </ul>
+     <b>The next step</b>
+     <ul>
+      In theory, the Metropolis translation move is sufficient to sample the canonical ensemble.  In practice, many other different kinds of moves are
+      also utilized in order to reduce the amount of computer time required to get good convergence to the stationary distribution, and also to sample
+      ensembles other than canonical.  The broadly stated goal of Monte Carlo algorithm development is to achieve the best statistical precision using the
+      least amount of computer time.  Biased Monte Carlo methods is an active area of research and the 
+      <a href="cbmc.html">Configurational-bias Monte Carlo page</a> explains how these methods enable efficient simulation of molecules with complex
+      architectures (long, branched and cyclic molecules) by utilizing an asymmetric underlying Markov chain transition matrix that makes it  more
+      likely to attempt to move to a molecular conformation with a lower energy than to attempt to move to one with a higher energy.
+      <p></p>
+      While algorithm power controls the precision of the simulation, the intermolecular potential functions (also known as force fields) control the
+      accuracy of a simulation that is attempting to reproduce the behavior of real molecules.  More information about the force fields implemented into
+      Towhee is found on the <a href="../towhee_capabilities.html">Towhee Capabilities page</a>
+     </ul>
+     <a href="algorithm.html">Return to the Towhee algorithm page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->March 28, 2018<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

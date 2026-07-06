@@ -1,0 +1,219 @@
+ensemble
+'nvt'
+temperature
+300.0d0
+nmolty
+1
+nmolectyp
+1
+numboxes
+1
+stepstyle
+'cycles'
+nstep
+100
+printfreq
+10   
+blocksize 
+20
+moviefreq
+100000
+backupfreq  
+100000
+runoutput
+'none'
+pdb_output_freq
+100000
+pressure_virial_freq
+2000000
+trmaxdispfreq
+10
+volmaxdispfreq
+1000
+linit   
+F
+initboxtype
+'dimensions'
+initstyle
+'full cbmc'
+initlattice
+'simple cubic'
+initmol
+1
+inix iniy iniz
+1    1    1
+hmatrix
+30.0d0 0.0d0 0.0d0
+0.0d0  30.0d0 0.0d0
+0.0d0 0.0d0  30.0d0   
+pmcb      
+1.0d0    
+          pmcbmt
+          1.0d0
+          pmall
+          1.0d0 
+cbmc_formulation
+'Martin and Frischknecht 2006'
+cbmc_setting_style
+'explicit'
+cbmc_nb_one_generation
+'uniform'
+nch_nb_one
+10    
+nch_nb
+10
+nch_pre_nb
+10
+cbmc_dihedral_generation
+'autofit gaussian'
+dihedral_peak_weight_style
+'uniform'
+dihedral_sdev_multiplier
+1.0d0
+nch_tor
+10
+nch_tor_connect
+10
+cbmc_bend_generation 
+'autofit gaussian' 
+bend_a_sdev_multiplier 
+1.0d0 
+bend_b_sdev_multiplier 
+0.25d0
+nch_bend_a
+1 
+nch_bend_b
+1
+max_bond_length
+3.0d0
+cbmc_bond_generation
+'autofit gaussian'
+bond_sdev_multiplier
+1.0d0
+nch_vib
+1
+two_bond_fixed_endpoint_bias_style
+'analytic Boltzmann dihedral energy sum'
+three_bond_fixed_endpoint_bias_style
+'analytic using max and min 2-4 distance'
+ffnumber
+1
+ff_filename
+/towheebase/ForceFields/towhee_ff_Charmm27
+classical_potential
+'Lennard-Jones'
+classical_mixrule
+'Lorentz-Berthelot'
+lshift
+.false.
+ltailc
+.true.
+rmin  
+1.0d0 
+rcut  
+10.0d0
+rcutin 
+10.0d0 
+electrostatic_form
+'coulomb'
+coulombstyle
+'minimum image'
+dielect
+1.0
+# benzene
+input_style
+'basic connectivity map'
+nunit
+12
+nmaxcbmc
+12
+lpdbnames
+F
+forcefield
+'Charmm27'
+charge_assignment
+'manual'
+unit ntype qqatom
+1    'CA' -0.115d0
+vibration
+3
+2 6 7
+improper torsion
+0
+unit ntype qqatom
+2    'CA' -0.115d0
+vibration
+3
+1 3 8
+improper torsion
+0
+unit ntype qqatom
+3    'CA' -0.115d0
+vibration
+3
+2 4 9
+improper torsion
+0
+unit ntype qqatom
+4    'CA' -0.115d0
+vibration
+3
+3 5 10
+improper torsion
+0
+unit ntype qqatom
+5    'CA' -0.115d0
+vibration
+3
+4 6 11
+improper torsion
+0
+unit ntype qqatom
+6    'CA' -0.115d0
+vibration
+3
+5 1 12
+improper torsion
+0
+unit ntype qqatom
+7    'HP' 0.115d0
+vibration
+1
+1
+improper torsion
+0
+unit ntype qqatom
+8    'HP' 0.115d0
+vibration
+1
+2
+improper torsion
+0
+unit ntype qqatom
+9    'HP' 0.115d0
+vibration
+1
+3
+improper torsion
+0
+unit ntype qqatom
+10    'HP' 0.115d0
+vibration
+1
+4
+improper torsion
+0
+unit ntype qqatom
+11    'HP' 0.115d0
+vibration
+1
+5
+improper torsion
+0
+unit ntype qqatom
+12    'HP' 0.115d0
+vibration
+1
+6
+improper torsion
+0

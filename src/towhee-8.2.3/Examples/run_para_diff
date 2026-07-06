@@ -1,0 +1,227 @@
+#!/bin/bash
+cd Canonical_Ensemble/AVB1_Methane
+../../do_para_diff
+cd ../../
+#
+cd Canonical_Ensemble/Amber_Villin
+../../do_para_diff
+cd ../../
+#
+cd Canonical_Ensemble/Benzene_AA_autofit
+../../do_para_diff
+cd ../../
+#
+cd Canonical_Ensemble/Charmm19_ubiquitin
+../../do_para_diff
+cd ../../
+#
+cd Canonical_Ensemble/Charmm27_Benzene
+../../do_para_diff
+cd ../../
+#
+cd Canonical_Ensemble/Charmm27_Heme
+../../do_para_diff
+cd ../../
+#
+cd Canonical_Ensemble/Charmm27_Nucleic_Acid
+../../do_para_diff
+cd ../../
+#
+cd Canonical_Ensemble/Charmm27_Polyalanine
+../../do_para_diff
+cd ../../
+#
+cd Canonical_Ensemble/Compass_Methanol
+../../do_para_diff
+cd ../../
+#
+cd Canonical_Ensemble/DREIDING
+../../do_para_diff
+cd ../../
+#
+cd Canonical_Ensemble/Formamide_Scaled
+../../do_para_diff
+cd ../../
+#
+cd Canonical_Ensemble/Fris_Walls
+../../do_para_diff
+cd ../../
+#
+cd Canonical_Ensemble/Hard_Sphere
+../../do_para_diff
+cd ../../
+#
+cd Canonical_Ensemble/NaCl_1x1x1
+../../do_para_diff
+cd ../../
+#
+cd Canonical_Ensemble/Shukla_Gasses
+../../do_para_diff
+cd ../../
+#
+cd Canonical_Ensemble/Small_Peptide
+../../do_para_diff
+cd ../../
+#
+cd Canonical_Ensemble/Square_Well_Chain
+../../do_para_diff
+cd ../../
+#
+cd Canonical_Ensemble/TraPPE_Isomers
+../../do_para_diff
+cd ../../
+#
+cd Canonical_Ensemble/TraPPE_Molecules
+../../do_para_diff
+cd ../../
+#
+cd Canonical_Ensemble/Triglycerol
+../../do_para_diff
+cd ../../
+#
+cd Canonical_Ensemble/UFF
+../../do_para_diff
+cd ../../
+#
+cd Canonical_Ensemble/Wall_Water
+../../do_para_diff
+cd ../../
+#
+cd Gibbs_Ensemble/Amber_IsoPropanol
+../../do_para_diff
+cd ../../
+#
+cd Gibbs_Ensemble/Catlow_Zeolite_4a
+../../do_para_diff
+cd ../../
+#
+cd Gibbs_Ensemble/Cu_VLE
+../../do_para_diff
+cd ../../
+#
+cd Gibbs_Ensemble/Cui2002_Hexane
+../../do_para_diff
+cd ../../
+#
+cd Gibbs_Ensemble/Dubb_Zeolite
+../../do_para_diff
+cd ../../
+#
+cd Gibbs_Ensemble/EPM_VLCC
+../../do_para_diff
+cd ../../
+#
+cd Gibbs_Ensemble/FENE_Hexamer
+../../do_para_diff
+cd ../../
+#
+cd Gibbs_Ensemble/Gordon
+../../do_para_diff
+cd ../../
+#
+cd Gibbs_Ensemble/Gromos_Isobutane
+../../do_para_diff
+cd ../../
+#
+cd Gibbs_Ensemble/MM2_Ethane
+../../do_para_diff
+cd ../../
+#
+cd Gibbs_Ensemble/Potter_CF2H2
+../../do_para_diff
+cd ../../
+#
+cd Gibbs_Ensemble/SKS_Pentane
+../../do_para_diff
+cd ../../
+#
+cd Gibbs_Ensemble/SMMKnaip_Ethylpentane
+../../do_para_diff
+cd ../../
+#
+cd Gibbs_Ensemble/TraPPE_Pentane
+../../do_para_diff
+cd ../../
+#
+cd Gibbs_Ensemble/Vink2001_Silicon
+../../do_para_diff
+cd ../../
+#
+cd Gibbs_Ensemble/Weiner1984
+../../do_para_diff
+cd ../../
+#
+cd Grand_Canonical_Ensemble/Energy_Biasing
+../../do_para_diff
+cd ../../
+#
+cd Grand_Canonical_Ensemble/Steele_Wall
+../../do_para_diff
+cd ../../
+#
+cd Grand_Canonical_Ensemble/Amber96_Ethane
+../../do_para_diff
+cd ../../
+#
+cd Grand_Canonical_Ensemble/Walt2001_Nanotube
+../../do_para_diff
+cd ../../
+#
+cd Isobaric_Isothermal_Ensemble/Au_Cu_Switch
+../../do_para_diff
+cd ../../
+#
+cd Isobaric_Isothermal_Ensemble/Charmm22_Ethanethiol
+../../do_para_diff
+cd ../../
+#
+cd Isobaric_Isothermal_Ensemble/Cu_Pb_EAM
+../../do_para_diff
+cd ../../
+#
+cd Isobaric_Isothermal_Ensemble/Dick1994_PETN
+../../do_para_diff
+cd ../../
+#
+cd Isobaric_Isothermal_Ensemble/Gromos_Methylpropylsulfide
+../../do_para_diff
+cd ../../
+#
+cd Isobaric_Isothermal_Ensemble/Henry_Law
+../../do_para_diff
+cd ../../
+#
+cd Isobaric_Isothermal_Ensemble/Ideal_Chain
+../../do_para_diff
+cd ../../
+#
+cd Isobaric_Isothermal_Ensemble/MMFF94_Ethyleneoxide
+../../do_para_diff
+cd ../../
+#
+cd Isobaric_Isothermal_Ensemble/OPLS_Propanamide
+../../do_para_diff
+cd ../../
+#
+cd Isobaric_Isothermal_Ensemble/SMMKmain_2244688nonane
+../../do_para_diff
+cd ../../
+#
+cd Isobaric_Isothermal_Ensemble/Solid_LJium
+../../do_para_diff
+cd ../../
+#
+cd Isobaric_Isothermal_Ensemble/Wielop1985_Ethyleneoxide
+../../do_para_diff
+cd ../../
+#
+cd TMMC/LJ
+../../do_para_diff
+cd ../../
+#
+cd TMMC/SPC_E_WATER
+../../do_para_diff
+cd ../../
+#
+cat */*/para_results > para_test_report
+/bin/rm */*/para_results

@@ -1,0 +1,81 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: Kramer-Farragher-van Beest-van Santen</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: Kramer-Farragher-van Beest-van Santen</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the Kramer-Farragher-van Beest-van Santen (KFvBvS) 
+      force field as it is implemented into the towhee_ff_KFvBvS file in the ForceFields directory.  
+      All of the Towhee atom types for the KFvBvS force field are listed, along with a short description of their meanings. 
+      The KFvBvS force field uses the exponential-6 potential type and explicit combining rules.
+      It therefore cannot be combined with other force fields.
+      Any discrepencies (especially typos) from the published force field values are the sole responsibility
+      of Marcus Martin, and I welcome feedback on how this implementation compares with other programs.
+     </ul>
+     <b>References for KFvBvS</b> 
+     <ul>
+      This force field comes from the work of Kramer, Farragher, van Beest, and van Santen.  I created 
+      the name for this force field from the initials of the last names of the authors.  The parameters 
+      were taken from the mixed SCF empirical force field listed in 
+      <ul>
+       <li><a href="../references.html#vanbeest_et_al_1990">van Beest <i>et al.</i> 1990</a></li>
+       <li><a href="../references.html#kramer_et_al_1991">Kramer <i>et al.</i> 1991</a></li>
+      </ul>
+     </ul>	
+     <b>KFvBvS in Towhee</b> 
+     <ul>
+      The official force field name for these parameters is either 'KFvBvS'.  Here I list all of the KFvBvS
+      atom names for use in the towhee_input file, along with a brief description of what atoms we are talking about.
+      This force field is intended for use with silacious materials (zeolites, silica, etc.).
+      For some reason they did not include repulsive potentials between many of the atoms and Cl.  Thus, Cl can 
+      only be used in combination with other negative ions, or with Na.
+      Please note that the capitalization and spacing pattern is important 
+      and must be followed exactly as listed here.
+      <ul>
+       <dt>'<b>Al</b>' : aluminum</dt>
+       <dt>'<b>Cl</b>' : chlorine</dt>
+       <dt>'<b>Na</b>' : sodium</dt>
+       <dt>'<b>O</b>' : oxygen</dt>
+       <dt>'<b>P</b>' : phosphorous</dt>
+       <dt>'<b>Si</b>' : silicon</dt>
+      </ul>
+     </ul>
+     <b>Coulombic interactions</b> 
+     <ul>
+      Atom centered point charges are used to represent the electrostatic interactions.  Below is a list 
+      of charges taken from the mixed SCF empirical force field in 
+      <a href="../references.html#kramer_et_al_1991">Kramer <i>et al.</i> 1991</a>
+      <dt>'<b>Al</b>' : 1.4</dt>
+      <dt>'<b>Cl</b>' : -1.0</dt>
+      <dt>'<b>Na</b>' : 1.0</dt>
+      <dt>'<b>O</b>' : -1.2</dt>
+      <dt>'<b>P</b>' : 3.4</dt>
+      <dt>'<b>Si</b>' : 2.4</dt>
+     </ul>
+     <b>Improper torsions</b> 
+     <ul>
+      There are no improper torsions in this force field.
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

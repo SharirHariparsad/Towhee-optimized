@@ -1,0 +1,121 @@
+<html>
+ <head><title>MCCCS Towhee: DREIDING</title></head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"><font size="5"><b><font face="Arial,Helvetica,sans-serif">
+	 <a name="top"></a>MCCCS Towhee: DREIDING</font></b></font></div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the DREIDING Force Field as it is implemented into the towhee_ff_DREIDING file in the ForceFields directory.
+      All of the Towhee atom types for this force field are listed, along with a short description of their meanings.
+      Note that this is a Lennard-Jones force field and is easily combined with other similar force fields.
+      The classical_potential is 'Lennard-Jones' for the this force field and the suggested mixing rules are 'Geometric',
+      although 'Lorentz-Berthelot' is also enabled.
+      Any discrepencies (especially typos) from the published force field values are the sole responsibility of Marcus Martin,
+      and we welcome feedback on how this implementation compares with other programs. 
+     </ul>
+     <b>References for DREIDING</b> 
+     <ul>
+      The parameters implemented here are from Tables I, II, and III of the primary DREIDING paper.
+      <ul>
+       <li><a href="../references.html#mayo_et_al_1990">Mayo <i>et al.</i> 1990</a></li>
+      </ul>
+      The special hydrogen bonding interactions are not implememted and therefore the atom type 'H___HB' is not included.
+     </ul>
+     <b>DREIDING in Towhee</b> 
+     <ul>
+      The official force field name for DREIDING in Towhee is 'DREIDING'. Here is a list of the atom names for use in the towhee_input file, 
+      along with a brief description taken from the DREIDING literature.  DREIDING uses a five-character label to describe every element.  
+      The first two letters are the chemical symbol (appended with an underscore for single letter elements).  The third character describes the geometry
+      of the molecule as follows.
+      <ul>
+       <li>1: linear</li>
+       <li>2: trigonal</li>
+       <li>R: resonant</li>
+       <li>3: tetrahedral</li>
+      </ul>
+      The fourth and fifth characters are there to help distinguish between otherwise similar atoms (for example, the charge state of metals and
+      special characters for certain atoms).  Towhee follows the DREDING naming convension.  Please note that the atom type 'H__HB' is omitted from
+      this implementation as we did not wish to deal with the special hydrogen bonding interactions that have subsequently fallen out of favor with 
+      most force field developers.  The element names are generally obvious (given the rules above), but a notes are added to some potentially confusing
+      elements, and to the united-atom options.   Please note that the capitalization and spacing pattern is important and must be followed exactly 
+      as listed here. 
+      <dt><font color="red">All Atom</font></dt>
+      <ul>
+       <dt>'<b>H_</b>'</dt>
+       <dt>'<b>H_b</b>': hydrogen bridging between two boron atoms</dt>
+       <dt>'<b>B_3</b>'</dt>
+       <dt>'<b>B_2</b>'</dt>
+       <dt>'<b>C_3</b>'</dt>
+       <dt>'<b>C_R</b>'</dt>
+       <dt>'<b>C_2</b>'</dt>
+       <dt>'<b>C_1</b>'</dt>
+       <dt>'<b>N_3</b>'</dt>
+       <dt>'<b>N_R</b>'</dt>
+       <dt>'<b>N_2</b>'</dt>
+       <dt>'<b>N_1</b>'</dt>
+       <dt>'<b>O_3</b>'</dt>
+       <dt>'<b>O_R</b>'</dt>
+       <dt>'<b>O_2</b>'</dt>
+       <dt>'<b>O_1</b>'</dt>
+       <dt>'<b>F_</b>'</dt>
+       <dt>'<b>Na_+</b>'</dt>
+       <dt>'<b>Al3</b>'</dt>
+       <dt>'<b>Si3</b>'</dt>
+       <dt>'<b>P_3</b>'</dt>
+       <dt>'<b>S_3</b>'</dt>
+       <dt>'<b>Cl</b>'</dt>
+       <dt>'<b>Ca_+2</b>'</dt>
+       <dt>'<b>Fe_+2</b>'</dt>
+       <dt>'<b>Zn_+2</b>'</dt>
+       <dt>'<b>Ga3</b>'</dt>
+       <dt>'<b>Ge3</b>'</dt>
+       <dt>'<b>As3</b>'</dt>
+       <dt>'<b>Se3</b>'</dt>
+       <dt>'<b>Br</b>'</dt>
+       <dt>'<b>In3</b>'</dt>
+       <dt>'<b>Sn3</b>'</dt>
+       <dt>'<b>Sb3</b>'</dt>
+       <dt>'<b>Te3</b>'</dt>
+       <dt>'<b>I_</b>'</dt>
+      </ul>
+      <dt><font color="red">United Atom lumping of Hydrogens onto Carbon</font></dt>
+      <ul>
+       <dt>'<b>C_R1</b>'aromatic carbon plus one bonded hydrogen</dt>
+       <dt>'<b>C_34</b>'sp<sup>3</sup> carbon plus four bonded hydrogen (methane).</dt>
+       <dt>'<b>C_33</b>'sp<sup>3</sup> carbon plus three bonded hydrogen (methyl group).</dt>
+       <dt>'<b>C_32</b>'sp<sup>3</sup> carbon plus two bonded hydrogen (methylene group).</dt>
+       <dt>'<b>C_31</b>'sp<sup>3</sup> carbon plus one bonded hydrogen (methine group).</dt>
+      </ul>
+     </ul>
+     <b>Coulombic interactions</b> 
+     <ul>
+      The DREIDING paper suggests that the user either ignore charges completely, or assign them using the method of
+      <a href="../references.html#gasteiger_marsili_1980">Gasteiger and Marsili 1980</a>.  Unfortunately, this method is not currently available in Towhee
+     </ul>
+     <b>Improper torsions</b> 
+     <ul>
+      DREIDING uses an improper torsion (called an inversion in their paper) on any atom (I) that is bonded to exactly three other atoms (J,K, and L)
+      and also has a planar geometry (sp<sup>2</sup> or resonant central atoms).  The improper considers the angle each of the vectors (IJ, IK or IL)
+      makes with a plane described by the other substituants.  For example, the angle between the IJ vector and the IKL plane.  
+      Automatic assignment of improper torsion types is implemented for this force field.
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

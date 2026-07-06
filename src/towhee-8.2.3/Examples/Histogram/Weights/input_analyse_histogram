@@ -1,0 +1,30 @@
+ncomp
+1
+box volume
+343.0
+lweight
+.true.
+ndump
+2
+lphase 
+.false.
+lpvt
+.false.
+lold
+.false.
+lnew
+.true.
+nfiles
+3
+filename #1
+towhee_histogram7a
+number of entries
+76000
+filename #2
+towhee_histogram4a
+number of entries
+76000
+filename #3
+towhee_histogram1a
+number of entries
+76000

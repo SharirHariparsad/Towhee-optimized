@@ -1,0 +1,9 @@
+README.histogram
+The files included in the Phase, PVT, and Weights subdirectories show sample 
+input files that are required for the different functions (phase coexistence,
+pvt, and histogram reweighting calculations) which are included
+in the analyse_histogram.F code.  These files are included so that the user 
+can see sample input scripts when making their own.  The only other files
+that will be required will be the histograms themselves, which are output
+by Towhee.  The histograms are not included in these examples due to the
+very large file sizes.

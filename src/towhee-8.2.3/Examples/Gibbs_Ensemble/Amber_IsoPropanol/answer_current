@@ -1,0 +1,497 @@
+ MCCCS Towhee - Version 8.2.3   (July 22 2021)      
+ Copyright (C) <2000-2021> Marcus G. Martin
+ Code Contributors for 2021: Marcus G. Martin;
+ Code Contributors for 2020: Marcus G. Martin;
+ Code Contributors for 2019: Marcus G. Martin;
+ Code Contributors for 2018: Marcus G. Martin;
+ Code Contributors for 2017: Marcus G. Martin;
+ Code Contributors for 2016: Marcus G. Martin;
+ Code Contributors for 2015: Marcus G. Martin;
+ Code Contributors for 2014: Marcus G. Martin;
+ Code Contributors for 2013: Wesley Emeneker; Marcus G. Martin;
+ Code Contributors for 2012: Marcus G. Martin;
+ Code Contributors for 2011: Fred James; Marcus G. Martin; Suleiman Oloriegbe;
+ Code Contributors for 2010: Rene Haber; Andrej Lajovic; Marcus G. Martin; Loukas Peristeras;
+ Code Contributors for 2009: Rene Haber; Marcus G. Martin; Loukas Peristeras;
+ Code Contributors for 2008: Rene Haber; Iyad A. Hijazi; Marcus G. Martin; Loukas Peristeras; Craig Tenney;
+ Code Contributors for 2007: Bernhard Eckl; Frank Heilmann; Jianhui Li; Marcus G. Martin; Craig M. Tenney; Ozgur Yazaydin
+ Code Contributors for 2006: Alan A. Chen; Arben Jusufi; Christian D. Lorenz; Marcus G. Martin; Jeffrey J. Potoff; Vincent K. Shen; Matthew A. Wyczalkowski; Ozgur Yazaydin
+ Code Contributors for 2005: Marcus G. Martin; Alan A. Chen; Christian D. Lorenz; Matthew A. Wyczalkowski
+ Code Contributors for 2004: Marcus G. Martin; Christian D. Lorenz; Peter A. Schultz; Aidan P. Thompson; Jeffrey J. Potoff; Steve R. Lustig; Paul S. Crozier; Nicholas du Preez
+ Code Contributors for 2003: Marcus G. Martin; Christian D. Lorenz; David B. Ritch; Michael L. Greenfield; Yogesh Srivastava; Evangelos A Coutsias
+ Code Contributors for 2002: Marcus G. Martin; Christian D. Lorenz; Aidan P. Thompson; Allen G. Sault
+ Code Contributors for 2001: Marcus G. Martin
+ Code Contributors for 2000: Marcus G. Martin
+ Copyright (C) <1999> J. Ilja Siepmann and Marcus G. Martin
+ Code Contributors for 1999: J. Ilja Siepmann; Marcus G. Martin; Bin Chen; Collin D. Wick; John Stubbs
+
+ Direct comments about this code to Marcus G. Martin (marcus_martin@users.sourceforge.net)
+ See the MCCCS Towhee web site for more information and the users manual.
+ http://towhee.sourceforge.net
+
+ We would like to thank the following agencies for providing funding used to develop MCCCS Towhee
+ -Department of Energy Industrial Technologies Program (MGM)
+ -National Science Foundation (JIS)
+ -Department of Energy Computational Science Graduate Fellowship (MGM,CDW)
+
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+ Reading from towhee_input file: towhee_input                                                                                                            
+ in directory: current directory
+ ensemble: nvt                           
+ temperature:  410.000    
+ nmolty:            1
+ nmolectyp:          120
+ numboxes:            2
+ stepstyle: cycles  
+ nstep:            1
+ printfreq:            1
+ blocksize:            2
+ moviefreq:       100000
+ backupfreq:         1000
+ runoutput: full                
+Full output of updates and block averages
+ pdb_output_freq:            0
+ pressure_virial_freq:           20
+ trmaxdispfreq:         1000
+ volmaxdispfreq:         1000
+ linit:  F
+ initboxtype: dimensions          
+initstyle Box:    1
+ full cbmc           
+initstyle Box:    2
+ full cbmc           
+Box:  1 initlattice: simple cubic        
+Box:  2 initlattice: simple cubic        
+Box:  1 initmol:        80
+Box:  2 initmol:        40
+Box:  1 inix,iniy,iniz:         5          5          5
+Box:  2 inix,iniy,iniz:         4          4          4
+Box idim hmatrix:    1 1   22.00000    0.00000    0.00000
+Box idim hmatrix:    1 2    0.00000   22.00000    0.00000
+Box idim hmatrix:    1 3    0.00000    0.00000   22.00000
+Box idim hmatrix:    2 1  200.00000    0.00000    0.00000
+Box idim hmatrix:    2 2    0.00000  200.00000    0.00000
+Box idim hmatrix:    2 3    0.00000    0.00000  200.00000
+itest:  1 pairbox:  1   2
+ pmvol: 0.200000E-02
+ pmvlpr:  1.00000    
+ rmvol: 0.100000    
+ tavol: 0.500000    
+ pm2boxcbswap: 0.200000    
+ pm2cbswmt:  1.00000    
+ pm2cbswpr:  1.00000    
+ pmcb: 0.400000    
+ pmcbmt:  1.00000    
+ pmall:  0.00000    
+ pmtracm: 0.700000    
+ pmtcmt:  1.00000    
+ rmtrac: 0.500000    
+ tatrac: 0.500000    
+ pmrotate:  1.00000    
+ pmromt:  1.00000    
+ rmrot: 0.500000E-01
+ tarot: 0.500000    
+cbmc_analysis: normal                        
+cbmc_formulation: Martin and Frischknecht 2006                                
+ Coupled to pre-nonbond formulation from
+ M.G. Martin; A.L. Frischknecht; Mol. Phys. 104 2439-2456 (2006)
+cbmc_setting_style: Martin and Frischknecht       
+default max_bond_length:  3.00
+ ffnumber:            1
+ ff_filename:
+/towheebase/ForceFields/towhee_ff_Amber96                                                                               
+ classical_potential: Lennard-Jones                 
+ READCLASSICAL: pot_num:     1 potential name: Lennard-Jones                 
+ classical_mixrule: Lorentz-Berthelot             
+ lshift:  F
+ ltailc:  T
+ rmin:  1.00000    
+ rcut:  10.0000    
+ rcutin:  10.0000    
+ electrostatic_form: coulomb                                           
+ coulombstyle: ewald_fixed_kmax    
+ kalp:  5.60000    
+ kmax:            5
+ dielect:  1.00000    
+ Setting up force field parameters from files
+ opening forcefield file:    1
+ Lorentz-Berthelot Mixing rules
+ Arithmetic mean of sigma terms
+ Geometric mean of epsilon term
+ No solvation model used
+ input_style: basic connectivity map                            
+ nunit:           12
+ nmaxcbmc:           12
+ lpdbnames:  F
+   using the Amber96    force field
+ charge_assignment: manual                        
+   Building the input file for molecule type:     1
+unit:    1 name:CT         charge:  -0.24380
+unit:    2 name:CT         charge:   0.36400
+unit:    3 name:CT         charge:  -0.24380
+unit:    4 name:OH         charge:  -0.67610
+unit:    5 name:HO         charge:   0.41020
+unit:    6 name:HC         charge:   0.06420
+unit:    7 name:HC         charge:   0.06420
+unit:    8 name:HC         charge:   0.06420
+unit:    9 name:H1         charge:   0.00430
+unit:   10 name:HC         charge:   0.06420
+unit:   11 name:HC         charge:   0.06420
+unit:   12 name:HC         charge:   0.06420
+ Verifying input structures are consistent
+Determining cyclic subunits for molecule type          1
+Default total charge on molecule   1 is   0.00000
+Total charge in the simulation system:   0.00000
+Bond Types
+Type:     40 Style: Standard Harmonic Length: 1.5260 Constant:   155997.1
+Type:     42 Style: Standard Harmonic Length: 1.0900 Constant:   171093.6
+Type:     47 Style: Standard Harmonic Length: 1.4100 Constant:   161029.3
+Type:     51 Style: Standard Harmonic Length: 0.9600 Constant:   278278.8
+Angle Types
+Type:   9 Style: Standard Harmonic  Angle:    109.500 Constant:    25160.8
+Type:  69 Style: Standard Harmonic  Angle:    109.500 Constant:    20128.7
+Type:  77 Style: Standard Harmonic  Angle:    108.500 Constant:    27676.9
+Type:  84 Style: Standard Harmonic  Angle:    109.500 Constant:    17612.6
+Torsion Types
+Type:  23 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:      78.3 m:3.0 d: 0.0000000
+          with 1-4 vdw and scaled (0.833) 1-4 coulomb
+Type:  24 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:      83.9 m:3.0 d: 0.0000000
+          with 1-4 vdw and scaled (0.833) 1-4 coulomb
+Improper Torsion Types
+   No Improper Types
+Energies exclusively from internal potentials
+Nonbonded Force Field
+Lennard-Jones 12-6 potential
+    with tail corrections
+u(r) = 4*epsilon[(sigma/r)^12 - (sigma/r)^6] - shift
+Num. Atom(i)    Num. Atom(j)         sigma    epsilon      shift     1-4sig     1-4eps
+  13 CT           13 CT             3.3997    55.0519     0.0000     3.3997    27.5259
+  13 CT           17 H1             2.9355    20.8552     0.0000     2.9355    10.4276
+  13 CT           23 HC             3.0246    20.8552     0.0000     3.0246    10.4276
+  13 CT           24 HO             1.6998     0.0000     0.0000     1.6998     0.0000
+  13 CT           40 OH             3.2331    76.3460     0.0000     3.2331    38.1730
+  17 H1           17 H1             2.4714     7.9005     0.0000     2.4714     3.9503
+  17 H1           23 HC             2.5604     7.9005     0.0000     2.5604     3.9503
+  17 H1           24 HO             1.2357     0.0000     0.0000     1.2357     0.0000
+  17 H1           40 OH             2.7689    28.9220     0.0000     2.7689    14.4610
+  23 HC           23 HC             2.6495     7.9005     0.0000     2.6495     3.9503
+  23 HC           24 HO             1.3248     0.0000     0.0000     1.3248     0.0000
+  23 HC           40 OH             2.8580    28.9220     0.0000     2.8580    14.4610
+  24 HO           24 HO             0.0000     0.0000     0.0000     0.0000     0.0000
+  24 HO           40 OH             1.5332     0.0000     0.0000     1.5332     0.0000
+  40 OH           40 OH             3.0665   105.8768     0.0000     3.0665    52.9384
+Determining Arbitrary Trial Distribution Parameters: see towhee_cbmc for full details
+ Canonical Gibbs ensemble
+ 3-dimensional periodic box
+ Additional Center-of-Mass cutoff
+ Dual Cutoff Configurational-bias Monte Carlo
+ Coupled-decoupled Configurational-bias MC
+ Coulombic inter- and intra-molecular interactions
+     Ewald Sum with fixed kmax:  5 kalp:  5.600
+     including the real-space terms up to half the shortest box length
+     dielectric constant:   1.0000
+
+Molecular mass for molecule type     1 is    60.0959 g/mol
+ Reading in initial conformation from towhee_inital
+Initial version:    1
+Selected random number generator DX-1597-2-7 and single integer seed    1302002
+Testing random number generator using the single integer seed
+    0.812479  0.687663  0.080298  0.200888  0.516914
+10 million RNG sum (approximately 5 million):   4999978.2264809748
+ new maximum displacements read from towhee_initial
+box:     1
+molecule type:     1
+ Max displacement for Atom translate:   0.513519
+ Max displacement for COM translate:   0.545930
+ Max displacement for rotation:   0.393696
+box:     2
+molecule type:     1
+ Max displacement for Atom translate:  20.000000
+ Max displacement for COM translate:  20.000000
+ Max displacement for rotation:   3.141500
+Max displacement for single box isotropic volume moves
+ Box:  1 rmvol(box):   0.2751E-01
+ Box:  2 rmvol(box):   0.1000E+00
+Max displacement for box pairs isotropic volume moves
+ Pair:  1 rmvol(box):   0.2751E-01
+Max disp. for unit cell perturbation
+  Box   1 idim 1 rmcell:   0.1000E+01  0.1000E+01  0.1000E+01
+  Box   1 idim 2 rmcell:   0.1000E+01  0.1000E+01  0.1000E+01
+  Box   1 idim 3 rmcell:   0.1000E+01  0.1000E+01  0.1000E+01
+  Box   2 idim 1 rmcell:   0.1000E+01  0.1000E+01  0.1000E+01
+  Box   2 idim 2 rmcell:   0.1000E+01  0.1000E+01  0.1000E+01
+  Box   2 idim 3 rmcell:   0.1000E+01  0.1000E+01  0.1000E+01
+  Boxes   1 and   2 idim 1 rmcell:   0.1000E+01  0.1000E+01  0.1000E+01
+  Boxes   1 and   2 idim 2 rmcell:   0.1000E+01  0.1000E+01  0.1000E+01
+  Boxes   1 and   2 idim 3 rmcell:   0.1000E+01  0.1000E+01  0.1000E+01
+
+ new box dimensions read from towhee_initial
+ Box  1 hmatrix(1,x):       24.63894       0.00000       0.00000
+ Box  1 hmatrix(2,x):        0.00000      24.63894       0.00000
+ Box  1 hmatrix(3,x):        0.00000       0.00000      24.63894
+ Box  2 hmatrix(1,x):       59.74048       0.00000       0.00000
+ Box  2 hmatrix(2,x):        0.00000      59.74048       0.00000
+ Box  2 hmatrix(3,x):        0.00000       0.00000      59.74048
+
+Box:     1 Initial calp:    0.22728
+Box:     1 Initial kmax:     5
+Box:     2 Initial calp:    0.09374
+Box:     2 Initial kmax:     5
+
+Number of MC cycles:                    1
+Number of molecules:                  120
+Temperature [K]:       410.00000
+
+Initial Energies for Box     1
+Total molecules in this box         98
+Molecules of type   1 :         98
+ Total vibration (atoms ij bonded together)                221044.557 [K]       439.26325 [kcal/mol]
+  bond (ij) regular                                        221044.557 [K]       439.26325 [kcal/mol]
+  bond (ij) van der waals                                       0.000 [K]         0.00000 [kcal/mol]
+  bond (ij) Electric                                            0.000 [K]         0.00000 [kcal/mol]
+  bond-bond (ij-jk)                                             0.000 [K]         0.00000 [kcal/mol]
+ Total angle (atoms ijk bonded in sequence)                311182.904 [K]       618.38760 [kcal/mol]
+  angle (ijk) regular                                      311182.904 [K]       618.38760 [kcal/mol]
+  bond-angle (ij-ijk)                                           0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) van der waals                                      0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) Electric                                           0.000 [K]         0.00000 [kcal/mol]
+  angle-angle (ijk-ijm)                                         0.000 [K]         0.00000 [kcal/mol]
+ Total torsion (ijkl bonded in sequence)                 -2568727.445 [K]     -5104.61588 [kcal/mol]
+  torsion (ijkl) regular                                    53990.055 [K]       107.28989 [kcal/mol]
+  torsion (ij-kl) bond-bond                                     0.000 [K]         0.00000 [kcal/mol]
+  torsion (ij-ijkl) bond-torsion                                0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-ijkl) angle-torsion                              0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-jkl-ijkl) angle-angle-torsion                    0.000 [K]         0.00000 [kcal/mol]
+  torsion (i-l) one-four van der waals                      68073.826 [K]       135.27738 [kcal/mol]
+  torsion (i-l) one-four Electric                        -2690791.326 [K]     -5347.18315 [kcal/mol]
+ Total improper (ijkm, i,k,m bonded to j)                       0.000 [K]         0.00000 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) vdw              -197904.842 [K]      -393.27964 [kcal/mol]
+  intramolecular                                             3452.624 [K]         6.86111 [kcal/mol]
+  2-body vdw intermolecular                               -188596.759 [K]      -374.78247 [kcal/mol]
+  3-body vdw intermolecular                                     0.000 [K]         0.00000 [kcal/mol]
+  tail correction                                          -12760.707 [K]       -25.35828 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) Electric          863161.921 [K]      1715.28904 [kcal/mol]
+  total real space Electric                                176265.612 [K]       350.27782 [kcal/mol]
+   intramolecular Electric                                 337698.677 [K]       671.08016 [kcal/mol]
+   intermolecular Electric                                -161433.064 [K]      -320.80234 [kcal/mol]
+  self                                                   -1893029.575 [K]     -3761.85836 [kcal/mol]
+  correction                                              2569966.560 [K]      5107.07826 [kcal/mol]
+  reciprocal sum                                             9959.323 [K]        19.79132 [kcal/mol]
+ Total external field                                           0.000 [K]         0.00000 [kcal/mol]
+ Total solvation                                                0.000 [K]         0.00000 [kcal/mol]
+Total classical                                          -1371242.905 [K]     -2724.95563 [kcal/mol]
+ Aggregate van der waals (bond and nonbond)               -129831.016 [K]      -258.00225 [kcal/mol]
+ Aggregate Electric (bond and nonbond)                   -1827629.405 [K]     -3631.89411 [kcal/mol]
+Initial Energies for Box     2
+Total molecules in this box         22
+Molecules of type   1 :         22
+ Total vibration (atoms ij bonded together)                 56144.118 [K]       111.57048 [kcal/mol]
+  bond (ij) regular                                         56144.118 [K]       111.57048 [kcal/mol]
+  bond (ij) van der waals                                       0.000 [K]         0.00000 [kcal/mol]
+  bond (ij) Electric                                            0.000 [K]         0.00000 [kcal/mol]
+  bond-bond (ij-jk)                                             0.000 [K]         0.00000 [kcal/mol]
+ Total angle (atoms ijk bonded in sequence)                 67972.696 [K]       135.07642 [kcal/mol]
+  angle (ijk) regular                                       67972.696 [K]       135.07642 [kcal/mol]
+  bond-angle (ij-ijk)                                           0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) van der waals                                      0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) Electric                                           0.000 [K]         0.00000 [kcal/mol]
+  angle-angle (ijk-ijm)                                         0.000 [K]         0.00000 [kcal/mol]
+ Total torsion (ijkl bonded in sequence)                  -577236.535 [K]     -1147.09359 [kcal/mol]
+  torsion (ijkl) regular                                    15484.936 [K]        30.77191 [kcal/mol]
+  torsion (ij-kl) bond-bond                                     0.000 [K]         0.00000 [kcal/mol]
+  torsion (ij-ijkl) bond-torsion                                0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-ijkl) angle-torsion                              0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-jkl-ijkl) angle-angle-torsion                    0.000 [K]         0.00000 [kcal/mol]
+  torsion (i-l) one-four van der waals                      15223.397 [K]        30.25218 [kcal/mol]
+  torsion (i-l) one-four Electric                         -607944.869 [K]     -1208.11767 [kcal/mol]
+ Total improper (ijkm, i,k,m bonded to j)                       0.000 [K]         0.00000 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) vdw                 -169.886 [K]        -0.33760 [kcal/mol]
+  intramolecular                                              608.818 [K]         1.20985 [kcal/mol]
+  2-body vdw intermolecular                                  -733.589 [K]        -1.45780 [kcal/mol]
+  3-body vdw intermolecular                                     0.000 [K]         0.00000 [kcal/mol]
+  tail correction                                             -45.116 [K]        -0.08965 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) Electric          233688.542 [K]       464.38957 [kcal/mol]
+  total real space Electric                                160086.933 [K]       318.12729 [kcal/mol]
+   intramolecular Electric                                 162154.553 [K]       322.23610 [kcal/mol]
+   intermolecular Electric                                  -2067.620 [K]        -4.10881 [kcal/mol]
+  self                                                    -175269.902 [K]      -348.29913 [kcal/mol]
+  correction                                               248657.781 [K]       494.13668 [kcal/mol]
+  reciprocal sum                                              213.730 [K]         0.42473 [kcal/mol]
+ Total external field                                           0.000 [K]         0.00000 [kcal/mol]
+ Total solvation                                                0.000 [K]         0.00000 [kcal/mol]
+Total classical                                           -219601.066 [K]      -436.39472 [kcal/mol]
+ Aggregate van der waals (bond and nonbond)                 15053.511 [K]        29.91458 [kcal/mol]
+ Aggregate Electric (bond and nonbond)                    -374256.327 [K]      -743.72810 [kcal/mol]
+ initial virial pressure in box  1 =      -25854.93
+ initial virial pressure in box  2 =         349.83
+
+ +++++ start of markov chain +++++
+
+Cycle      Box   Energy [K]  Volume [A^3] Press. [kPa] Molecules
+         1 B: 1 -0.1384E+07  0.1496E+05     -25854.9    99
+           B: 2 -0.2019E+06  0.2132E+06        349.8    21
+
+ +++++ end of markov chain +++++
+
+ Final hmatrix (general box dimensions) 
+Box:     1
+  hmatrix(1,x)      24.63894       0.00000       0.00000
+  hmatrix(2,x)       0.00000      24.63894       0.00000
+  hmatrix(3,x)       0.00000       0.00000      24.63894
+Box:     2
+  hmatrix(1,x)      59.74048       0.00000       0.00000
+  hmatrix(2,x)       0.00000      59.74048       0.00000
+  hmatrix(3,x)       0.00000       0.00000      59.74048
+
+* Configurational-Bias SWAP Moves *
+Molecule type:     1
+  From box  2 to box  1 Attempted:      17 Grown:      17 Accepted:       1
+  From box  1 to box  2 Attempted:      10 Grown:      10 Accepted:       0
+
+* Configurational-Bias REGROWTH Moves *
+ Molecule type:    1 Box:    1
+     Length  Attempts  Regrown  Accepted  %Regrown   %Accep.
+        1         1         1         1    100.00    100.00
+       10         3         3         0    100.00      0.00
+       11        15        15         0    100.00      0.00
+ Molecule type:    1 Box:    2
+     Length  Attempts  Regrown  Accepted  %Regrown   %Accep.
+        1         1         1         1    100.00    100.00
+        7         1         1         1    100.00    100.00
+       10         2         2         1    100.00     50.00
+       11         1         1         0    100.00      0.00
+
+* COM Translation Moves *
+Molecule:  1 Box: 1 Attempts:             31. Accepted:             17. Accepted:  54.839 %
+Molecule:  1 Box: 2 Attempts:              3. Accepted:              2. Accepted:  66.667 %
+
+* Rotation Moves *
+Molecule:  1 Box: 1 Attempts:             27. Accepted:              9. Accepted:  33.333 %
+Molecule:  1 Box: 2 Attempts:              8. Accepted:              7. Accepted:  87.500 %
+
+Final Energies for Box     1
+Total molecules in this box         99
+Molecules of type   1 :         99
+ Total vibration (atoms ij bonded together)                223637.024 [K]       444.41504 [kcal/mol]
+  bond (ij) regular                                        223637.024 [K]       444.41504 [kcal/mol]
+  bond (ij) van der waals                                       0.000 [K]         0.00000 [kcal/mol]
+  bond (ij) Electric                                            0.000 [K]         0.00000 [kcal/mol]
+  bond-bond (ij-jk)                                             0.000 [K]         0.00000 [kcal/mol]
+ Total angle (atoms ijk bonded in sequence)                312925.252 [K]       621.85002 [kcal/mol]
+  angle (ijk) regular                                      312925.252 [K]       621.85002 [kcal/mol]
+  bond-angle (ij-ijk)                                           0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) van der waals                                      0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) Electric                                           0.000 [K]         0.00000 [kcal/mol]
+  angle-angle (ijk-ijm)                                         0.000 [K]         0.00000 [kcal/mol]
+ Total torsion (ijkl bonded in sequence)                 -2595206.846 [K]     -5157.23616 [kcal/mol]
+  torsion (ijkl) regular                                    55234.005 [K]       109.76189 [kcal/mol]
+  torsion (ij-kl) bond-bond                                     0.000 [K]         0.00000 [kcal/mol]
+  torsion (ij-ijkl) bond-torsion                                0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-ijkl) angle-torsion                              0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-jkl-ijkl) angle-angle-torsion                    0.000 [K]         0.00000 [kcal/mol]
+  torsion (i-l) one-four van der waals                      68947.351 [K]       137.01327 [kcal/mol]
+  torsion (i-l) one-four Electric                        -2719388.202 [K]     -5404.01132 [kcal/mol]
+ Total improper (ijkm, i,k,m bonded to j)                       0.000 [K]         0.00000 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) vdw              -196601.752 [K]      -390.69012 [kcal/mol]
+  intramolecular                                             3457.687 [K]         6.87117 [kcal/mol]
+  2-body vdw intermolecular                               -187036.982 [K]      -371.68285 [kcal/mol]
+  3-body vdw intermolecular                                     0.000 [K]         0.00000 [kcal/mol]
+  tail correction                                          -13022.458 [K]       -25.87843 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) Electric          871219.249 [K]      1731.30070 [kcal/mol]
+  total real space Electric                                177158.285 [K]       352.05175 [kcal/mol]
+   intramolecular Electric                                 341914.467 [K]       679.45785 [kcal/mol]
+   intermolecular Electric                                -164756.183 [K]      -327.40610 [kcal/mol]
+  self                                                   -1912346.203 [K]     -3800.24467 [kcal/mol]
+  correction                                              2596342.974 [K]      5159.49389 [kcal/mol]
+  reciprocal sum                                            10064.194 [K]        19.99973 [kcal/mol]
+ Total external field                                           0.000 [K]         0.00000 [kcal/mol]
+ Total solvation                                                0.000 [K]         0.00000 [kcal/mol]
+Total classical                                          -1384027.073 [K]     -2750.36053 [kcal/mol]
+ Aggregate van der waals (bond and nonbond)               -127654.401 [K]      -253.67685 [kcal/mol]
+ Aggregate Electric (bond and nonbond)                   -1848168.953 [K]     -3672.71062 [kcal/mol]
+Final Energies for Box     2
+Total molecules in this box         21
+Molecules of type   1 :         21
+ Total vibration (atoms ij bonded together)                 57691.138 [K]       114.64474 [kcal/mol]
+  bond (ij) regular                                         57691.138 [K]       114.64474 [kcal/mol]
+  bond (ij) van der waals                                       0.000 [K]         0.00000 [kcal/mol]
+  bond (ij) Electric                                            0.000 [K]         0.00000 [kcal/mol]
+  bond-bond (ij-jk)                                             0.000 [K]         0.00000 [kcal/mol]
+ Total angle (atoms ijk bonded in sequence)                 66495.897 [K]       132.14170 [kcal/mol]
+  angle (ijk) regular                                       66495.897 [K]       132.14170 [kcal/mol]
+  bond-angle (ij-ijk)                                           0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) van der waals                                      0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) Electric                                           0.000 [K]         0.00000 [kcal/mol]
+  angle-angle (ijk-ijm)                                         0.000 [K]         0.00000 [kcal/mol]
+ Total torsion (ijkl bonded in sequence)                  -548682.076 [K]     -1090.34971 [kcal/mol]
+  torsion (ijkl) regular                                    16525.374 [K]        32.83948 [kcal/mol]
+  torsion (ij-kl) bond-bond                                     0.000 [K]         0.00000 [kcal/mol]
+  torsion (ij-ijkl) bond-torsion                                0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-ijkl) angle-torsion                              0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-jkl-ijkl) angle-angle-torsion                    0.000 [K]         0.00000 [kcal/mol]
+  torsion (i-l) one-four van der waals                      15209.712 [K]        30.22498 [kcal/mol]
+  torsion (i-l) one-four Electric                         -580417.162 [K]     -1153.41418 [kcal/mol]
+ Total improper (ijkm, i,k,m bonded to j)                       0.000 [K]         0.00000 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) vdw                 -127.968 [K]        -0.25430 [kcal/mol]
+  intramolecular                                              630.742 [K]         1.25342 [kcal/mol]
+  2-body vdw intermolecular                                  -717.602 [K]        -1.42603 [kcal/mol]
+  3-body vdw intermolecular                                     0.000 [K]         0.00000 [kcal/mol]
+  tail correction                                             -41.108 [K]        -0.08169 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) Electric          222739.550 [K]       442.63156 [kcal/mol]
+  total real space Electric                                152507.586 [K]       303.06549 [kcal/mol]
+   intramolecular Electric                                 154745.766 [K]       307.51324 [kcal/mol]
+   intermolecular Electric                                  -2238.180 [K]        -4.44775 [kcal/mol]
+  self                                                    -167303.088 [K]      -332.46735 [kcal/mol]
+  correction                                               237355.436 [K]       471.67648 [kcal/mol]
+  reciprocal sum                                              179.615 [K]         0.35693 [kcal/mol]
+ Total external field                                           0.000 [K]         0.00000 [kcal/mol]
+ Total solvation                                                0.000 [K]         0.00000 [kcal/mol]
+Total classical                                           -201883.458 [K]      -401.18601 [kcal/mol]
+ Aggregate van der waals (bond and nonbond)                 15081.744 [K]        29.97068 [kcal/mol]
+ Aggregate Electric (bond and nonbond)                    -357677.611 [K]      -710.78262 [kcal/mol]
+Averages               Units Type       Box  1      Box  2
+ Volume                 nm^3       0.14958E+02 0.21321E+03
+ Volume^2               nm^6       0.22373E+03 0.45458E+05
+ Molecule Number                1       98.050      21.950
+ Molar Volume         ml/mol       0.91868E+02 0.58495E+04
+ Specific Density       g/ml        0.65415757  0.01027376
+ Number Density         nm-3    1      6.55513     0.10295
+ Mole Fraction                  1    1.0000000   1.0000000
+ Radius of Gyration        A    1    1.3610946   1.3631387
+ Ideal Pressure          kPa       0.37118E+05 0.58294E+03
+ Ideal p_i <N/V>kT       kPa    1  0.37118E+05 0.58294E+03
+ Total Classical           K       -0.1371E+07 -0.2143E+06
+ Inter vdw                 K       -0.1997E+06 -0.7457E+03
+ Angle                     K        0.3114E+06  0.6767E+05
+ Torsion                   K       -0.2570E+07 -0.5745E+06
+ Intra vdw                 K        0.3453E+04  0.6545E+03
+ External Field            K        0.0000E+00  0.0000E+00
+ Vibration                 K        0.2213E+06  0.5978E+05
+ Coulomb                   K        0.8623E+06  0.2329E+06
+ Tail vdw                  K       -0.1277E+05 -0.4492E+02
+ Solvation                 K        0.0000E+00  0.0000E+00
+ u (Density)               K    1    -4762.667   -6465.707
+ u (NVT Insertion)         K    1    20953.850   21567.302
+ u (NpT Insertion)         K    1    20953.850   21567.302
+ u (Den. + NVT Insert)     K    1    16191.183   15101.596
+ u (Den. + NpT Insert)     K    1    16191.183   15101.596
+ u (Gibbs Total)           K    1    16195.136   15115.327
+ G: Sum{<u_i><N_i>}   kJ/mol        0.1320E+05  0.2758E+04
+ U                    kJ/mol       -0.1140E+05 -0.1782E+04
+ H_vap (pV/n=RT)      kJ/mol        0.3853E+02
+ H_vap (thermo p)     kJ/mol        0.3512E+02
+Please see towhee_citations for a list of suggested citations for this simulation

@@ -1,0 +1,53 @@
+#!/bin/bash
+# script to process the output from a single component
+# VLCC simulation run
+# originally written 8-2004 by N. du Preez
+# last modified 09-01-2004 by M.G. Martin
+outputfile=$1
+rm -rf $PWD/Plots
+mkdir $PWD/Plots
+
+# Get instantaneous energies, volumes, pressures, molecules:
+#------------------------------------------------------------
+grep "B: 1" $outputfile | gawk '{ print $4 }' > Plots/energy_box1
+grep "B: 2" $outputfile | gawk '{ print $3 }' > Plots/energy_box2
+grep "B: 1" $outputfile | gawk '{ print $5 }' > Plots/volume_box1
+grep "B: 2" $outputfile | gawk '{ print $4 }' > Plots/volume_box2
+grep "B: 1" $outputfile | gawk '{ print $6 }' > Plots/pressure_box1
+grep "B: 2" $outputfile | gawk '{ print $5 }' > Plots/pressure_box2
+grep "B: 1" $outputfile | gawk '{ print $7 }' > Plots/molecules_box1
+grep "B: 2" $outputfile | gawk '{ print $6 }' > Plots/molecules_box2
+
+# Get block averaged values for energy, volume, pressure, 
+# mole fraction, specific density, number density, CB-mu:
+#---------------------------------------------------------
+grep "BA Box: 1 Specific density" $outputfile \
+| gawk '{ print $7 }' > Plots/avgden_box1
+grep "BA Box: 2 Specific density" $outputfile \
+| gawk '{ print $7 }' > Plots/avgden_box2
+grep "BA Box: 1 Pressure" $outputfile \
+| gawk '{ print $6 }' > Plots/avgpres_box1
+grep "BA Box: 2 Pressure" $outputfile \
+| gawk '{ print $6 }' > Plots/avgpres_box2
+grep "BA Box: 1 Total energy" $outputfile \
+| gawk '{ print $6 }' > Plots/avgeng_box1
+grep "BA Box: 2 Total energy" $outputfile \
+| gawk '{ print $6 }' > Plots/avgeng_box2
+grep "BA Box: 1 Chemical Potential" $outputfile \
+| gawk '{ print $9 }' > Plots/avgchempot_box1
+grep "BA Box: 2 Chemical Potential" $outputfile \
+| gawk '{ print $9 }' > Plots/avgchempot_box2
+grep "BA Box: 1 Number density" $outputfile \
+| gawk '{ print $9 }' > Plots/avgnumden_box1
+grep "BA Box: 2 Number density" $outputfile \
+| gawk '{ print $9 }' > Plots/avgnumden_box2
+
+# Check for any problems with the simulations
+# (such as box vols too small...)
+echo Number of volume moves failed: `grep "VOLN" $outputfile | wc -l` 
+# (such as problems in energy)
+echo Number of problem warnings: `grep "problem" $outputfile | wc -l` 
+
+
+
+

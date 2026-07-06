@@ -1,0 +1,6 @@
+#! /bin/sh
+ 
+# Bootstrap the autoconf process
+aclocal
+automake --foreign --ignore-deps --add-missing --copy
+autoconf

@@ -1,0 +1,63 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: MCY1976</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif"><a name="top"></a>MCCCS Towhee: MCY1976</font></b></font></div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the MCY1976 force field that has two similar four-site water models.  This forcefield is implemented into the towhee_ff_MCY1976
+      file in the ForceFields directory. All of the Towhee atom types for this force field are listed, along with a short description of their meanings.
+      MCY1976 has two different rigid water models with 'Double Exponential' terms on the hydrogens and oxygens and charge sites on the hydrogens and along
+      the bisector between the hydrogens.  These are branched, rigid molecules (when you consider the charged interaction site) and it is recommended to 
+      generate initial structures from a template and also to use the rotational-bias moves instead of the configurational-bias moves for molecule transfers
+      between simulation boxes.
+      Any discrepencies (especially typos) from the published force field values are the sole responsibility of 
+      Marcus Martin, and I welcome feedback on how this implementation compares with other programs. 
+     </ul>
+     <b>References for MCY1976</b> 
+     <ul>
+      MCY1976 was originally published in the following paper
+      <ul>
+       <li><a href="../references.html#matsuoka_et_al_1976">Matsuoka <i>et al.</i> 1976</a></li>
+      </ul>
+     </ul>
+     <b>MCY1976 in Towhee</b> 
+     <ul>
+      The official force field name for this potential in Towhee is 'MCY1976'.  This section lists all of the atom names for use in the towhee_input file, 
+      along with a brief description of the atom names.
+      Please note that the capitalization and spacing pattern is important and must be followed exactly as listed here. 
+      <ul>
+       <dt>'<b>H:CI</b>' : hydrogen in water using the model they fit to the CI data</dt>
+       <dt>'<b>O:CI</b>' : oxygen in water using the model they fit to the CI data</dt>
+       <dt>'<b>M:CI</b>' : charge site along the bisector between the hydrogens using the model they fit to the CI data</dt>
+       <dt>'<b>H:inter</b>' : hydrogen in water using the model they fit to the inter data</dt>
+       <dt>'<b>O:inter</b>' : oxygen in water using the model they fit to the inter data</dt>
+       <dt>'<b>M:inter</b>' : charge site along the bisector between the hydrogens using the model they fit to the inter data</dt>
+      </ul>
+     </ul>
+     <b>Coulombic interactions</b> 
+     <ul>
+      This forcefield uses atom-centered point charges to represent the electrostatic interactions.
+      The 'bond increment' method is implemented for this potential and assigns charges according to Table VIII of their original paper.
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

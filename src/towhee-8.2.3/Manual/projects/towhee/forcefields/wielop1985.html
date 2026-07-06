@@ -1,0 +1,77 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: Wielopolski and Smith 1985</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: Wielopolski and Smith 1985</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the two versions of the Wielopolski and Smith 1985 ethylene oxide models as they are implemented into Towhee.
+      All of the Towhee atom types for the Wielopolski and Smith 1985 force field are listed, along with a short description of their meanings.
+      Note that Wielopolski and Smith 1985 is a Lennard-Jones force field and can only be combined with other 'Lennard-Jones' force fields.
+      Any discrepencies (especially typos) from the published force field values are the sole responsibility of Marcus Martin,
+      and I welcome feedback on how this implementation compares with other programs.
+     </ul>
+     <b>References for Wielopolski and Smith 1985</b> 
+     <ul>
+      <ul>
+       <li><a href="../references.html#wielopolski_smith_1985">Wielopolski and Smith 1985.</a></li>
+      </ul>
+     </ul>	
+     <b>Typos and comments for Wielopolski and Smith 1985</b> 
+     <ul>
+      <li>Model A on page 472 of <a href="../references.html#wielopolski_smith_1985">Wielopolski and Smith 1985</a> lists  &sigma;(O-C),
+       while I assume they meant &sigma;(O-O).
+      </li>
+     </ul>       
+     <b>Wielopolski and Smith 1985 in Towhee</b> 
+     <ul>
+      The official force field name for Wielopolski and Smith in Towhee is 'Wielop1985' and the file name is towhee_ff_Wielop1985 in the ForceFields directory.
+      An undocumented version of this forcefield was available prior to Towee version 7.1.0, but it contained
+      errors in the rigid bond angles and was therefore unusable.
+      This list contains all the atom names for use in the towhee_input file, along with a brief description taken
+      from the <a href="../references.html#wielopolski_smith_1985">Wielopolski and Smith 1985</a> paper.
+      Please note that the capitalization and spacing pattern is important and must be followed exactly as listed here.
+      <ul>
+       <dt>'<b>CH2:A</b>' : united sp<sup>3</sup> carbon with two hydrogens in ethylene oxide, model A.</dt>
+       <dt>'<b>CH2:B</b>' : united sp<sup>3</sup> carbon with two hydrogens in ethylene oxide, model B.</dt>
+       <dt>'<b>O:A</b>' : oxygen in ethylene oxide, model A.</dt>
+       <dt>'<b>O:B</b>' : oxygen in ethylene oxide, model B.</dt>
+      </ul>
+     </ul>
+     <b>Coulombic interactions</b> 
+     <ul>
+      Wielopolski and Smith 1985 uses atom-centered point charges to represent the electrostatic interactions with a charge of -0.32016 on the oxygen
+      and 0.1608 on the two carbons in ethylene oxide.
+      Here I list the bond increments using the bond names listed above.  The value of the bond increment is added to the first atom listed and
+      subtracted from the second atom listed.
+      <ul>
+       <dt><b>CH2:A</b> - <b>O:A</b>: 0.1608</dt>
+       <dt><b>CH2:B</b> - <b>O:B</b>: 0.1608</dt>
+      </ul>
+     </ul>
+     <b>Improper torsions</b> 
+     <ul>
+      There are no improper torsions in this model.
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

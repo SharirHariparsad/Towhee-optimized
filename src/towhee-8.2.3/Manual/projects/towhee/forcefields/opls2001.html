@@ -1,0 +1,186 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: OPLS-2001</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: OPLS-2001</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the OPLS-2001 force field as it is implemented into the towhee_ff_OPLS-2001 file in the ForceFields directory.
+      All of the Towhee atom types for the OPLS-2001 force field are listed, along with a short description of their meanings.
+      For more information about the OPLS force fields see the <a href="http://zarbi.chem.yale.edu/">Jorgensen group home page</a>.
+      Note that OPLS-2001 is a Lennard-Jones (12-6) force field and can only be combined with other Lennard-Jones (12-6) force fields. 
+      The famous OPLS water models are not included here as they are provided in their own force field files.
+      Please see the <a href="tip3p.html">TIP3P</a>, <a href="tip4p.html">TIP4P</a>, and <a href="tip5p.html">TIP5P</a> web pages for more information
+      about those water models.
+      Note that OPLS-2001 was preceeded by a united-atom version of the force field called <a href="oplsua.html">OPLS-ua</a> and an earlier version of
+      the all-atom force field called <a href="oplsaa.html">OPLS-aa</a>.
+      I would like to acknowledge W.L. Jorgensen for kindly providing me with an electronic copy of the OPLS-2001 parameters.
+      Any discrepencies (especially typos) from the published OPLS-2001 force field values are the sole responsibility of Marcus Martin,
+      and I welcome feedback on how this implementation compares with other programs. 
+     </ul>
+     <b>References for OPLS-2001</b> 
+     <ul>
+      OPLS-2001 was implemented acording to an electronic file available from the Jorgensen group, but the 
+      official reference is also listed below.
+      <ul>
+       <li><a href="../references.html#jorgensen_per_com_2001">Jorgensen <i>personal communication</i> 2001</a></li>
+       <li><a href="../references.html#kaminski_et_al_2001">Kaminski <i>et al.</i> 2001</a></li>
+      </ul>
+     </ul>
+     <b>OPLS-2001 in Towhee</b> 
+     <ul>
+      The official force field name for OPLS-2001 in Towhee is 'OPLS-2001'.
+      This list contains all of the OPLS-2001 atom names for use in the towhee_input file, along with a brief description taken from the OPLS-2001 literature.
+      Note that OPLS-2001 uses almost the same naming conventions as the <a href="amber_param96.html">Amber param96</a> force field.
+      This is not a coincedence as these force fields utilize many of the same bonded interaction terms.
+      I have modified some of the atom names from the standard OPLS-2001 in order to create unique type names. 
+      This was needed because OPLS-2001 occasionally uses different bonded interactions for atoms which have the same atom name for nonbonded interactions.
+      I do not always distinguish between the original OPLS-2001 comments, and my modifications as I have created several new atom names.
+      Some of my comments are placed in [square brackets].
+      Please note that the capitalization and spacing pattern is important and must be followed exactly as listed here. 
+      <dt><font color="red">Bromine</font></dt>
+      <ul>
+       <dt>'<b>Br-</b>' : bromine ion (charge -1)[uses the parameters from the LGM force field]</dt>
+      </ul>
+      <dt><font color="red">Carbon</font></dt>
+      <ul>
+       <dt>'<b>C a</b>' : carbon in O-C=O acid</dt>
+       <dt>'<b>C k</b>' : carbon in C=O not bonded to N, and not an acid group 
+       </dt>
+       <dt>'<b>C n</b>' : carbon in N-C=O</dt>
+       <dt>'<b>C*</b>' : aromatic C in 5-membered ring next to two carbons</dt>
+       <dt>'<b>CA~</b>' : neutral aromatic carbon not at the junction of 5-membered and 6-membered rings</dt>
+       <dt>'<b>CA+</b>' : aromatic carbon in guanidinium C+</dt>
+       <dt>'<b>CAj</b>' : neutral aromatic carbon at the juction of 5-membered and 6-membered rings</dt>
+       <dt>'<b>CAxna</b>' : special parameters for nucleotide bases. aromatic C in DAP C2,C3,C4 pyridine; Cytosine C4,C5,C6</dt>
+       <dt>'<b>CBxna</b>' : special parameters for nucleotide bases. Adenine C4,C5,C6; Guanine C2,C4,C5</dt>
+       <dt>'<b>CB</b>' : aromatic C at juntion of 5-membered and 6-membered rings</dt>
+       <dt>'<b>CKxna</b>' : special parameters for nucleotide bases. Adenine C8 Guanine</dt>
+       <dt>'<b>C=</b>' : alkene sp<sup>2</sup> carbon (non-aromatic) interior carbons in a diene.</dt>
+       <dt>'<b>CM</b>' : alkene sp<sup>2</sup> carbon (non-aromatic)</dt>
+       <dt>'<b>CMxna</b>' : special parameters for nucleotide bases. Carbon in Uracil C5,C6</dt>
+       <dt>'<b>CO</b>' : sp<sup>3</sup> anomeric carbon (bonded to ether O and alcohol O). this type shows up in carbohydrates</dt>
+       <dt>'<b>CQ</b>' : sp<sup>2</sup>C in 6-membered ring between deprotonated N's </dt>
+       <dt>'<b>CR</b>' : aromatic C in 5-membered ring next to two nitrogens</dt>
+       <dt>'<b>CS</b>' : aromatic C which does not have 120 degree bond angles with all of its neighbors. Examples are C3 in pyrrole and C3 in furan</dt>
+       <dt>'<b>CT</b>' : aliphatic sp<sup>3</sup> hybrid carbon</dt>
+       <dt>'<b>CTf</b>' : aliphatic sp<sup>3</sup> hybrid carbon bonded to F (monoalkyl fluorides and perfluoroalkanes)</dt>
+       <dt>'<b>CTcf4</b>' : aliphatic sp<sup>3</sup> hybrid carbon bonded to F in CF4</dt>
+       <dt>'<b>CTxna</b>' : special parameters for nucleotide bases. Thymine C-C5, 9-Me A or G C-N9</dt>
+       <dt>'<b>CU</b>' : aromatic C which abuts NB in a heteroatom-heteroatom bond. Examples are C3 in pyrazole and C3 in isoxazole</dt>
+       <dt>'<b>CV</b>' : aromatic C in 5-membered ring next to C and deprotonated N</dt>
+       <dt>'<b>CW</b>' : sp<sup>2</sup> aromatic C in 5-membered ring next to C and NH</dt>
+      </ul>
+      <dt><font color="red">Chlorine</font></dt>
+      <ul>
+       <dt>'<b>Cl</b>' : chlorine bonded to a carbon</dt>
+       <dt>'<b>Cl-</b>' : chlorine ion (charge -1)</dt>
+      </ul>
+      <dt><font color="red">Fluorine</font></dt>
+      <ul>
+       <dt>'<b>F</b>' : fluorine nonionic (monoalkyl fluorides)</dt>
+       <dt>'<b>Fpf</b>' : fluorine nonionic (perfluoroalkanes)</dt>
+       <dt>'<b>F-</b>' : fluorine ion (charge -1)</dt>
+      </ul>
+      <dt><font color="red">Hydrogen</font></dt>
+      <ul>
+       <dt>'<b>H</b>' : H attached to N</dt>
+       <dt>'<b>H2xna</b>' : special parameters for nucleotide bases. DAP H-amine, Cytosine, Adenine</dt>
+       <dt>'<b>HA</b>' : H bonded to an aromatic ring</dt>
+       <dt>'<b>HC~1</b>' : hydrogen attached to an sp<sup>3</sup> carbon in most cases, see special cases of hydrogen below</dt>
+       <dt>'<b>HC~2</b>' : H bonded to a non-aromatic sp<sup>2</sup> carbon which is not bonded to a N, not double bonded to O, and is not bonded to C=O</dt>
+       <dt>'<b>HC~3</b>' : H bonded to a C=O or bonded to a C which is bonded to a C=O</dt>
+       <dt>'<b>HC~4</b>' : H bonded to a CT that is bonded to NT</dt>
+       <dt>'<b>HCxna</b>' : special parameters for nucleotide bases. DAP H3,H4; Uracil H-C5,H-C6; Thymine H-CC5; Cytosine H-C5,H-C6; Adenine H-C2,H-C8; Guanine</dt>
+       <dt>'<b>HO</b>' : H attached to O in alcohol</dt>
+       <dt>'<b>HS</b>' : H attached to S</dt>
+       <dt>'<b>HW</b>' : H on TIP3P, TIP4P or TIP5P water</dt>
+      </ul>
+      <dt><font color="red">Iodine</font></dt>
+      <ul>
+       <dt>'<b>I-</b>' : iodine ion (charge -1)</dt>
+      </ul>
+      <dt><font color="red">Lithium</font></dt>
+      <ul>
+       <dt>'<b>Li+</b>' : lithium ion (charge +1)</dt>
+      </ul>
+      <dt><font color="red">Nitrogen</font></dt>
+      <ul>
+       <dt>'<b>N</b>' : N in an amide</dt>
+       <dt>'<b>N2</b>' : sp<sup>2</sup> N of aromatic amines and guanidinium ions</dt>
+       <dt>'<b>NA</b>' : sp<sup>2</sup> aromatic N with H attached</dt>
+       <dt>'<b>NB</b>' : sp<sup>2</sup> N in 5-membered ring, deprotonated</dt>
+       <dt>'<b>NC</b>' : sp<sup>2</sup> N in 6-membered ring, deprotonated</dt>
+       <dt>'<b>NO</b>' : sp<sup>2</sup> N in a nitro group</dt>
+       <dt>'<b>NT~1</b>' : sp<sup>3</sup> N in ammonia</dt>
+       <dt>'<b>NT+1</b>' : sp<sup>3</sup> N in ammonium ion (charge +1)</dt>
+       <dt>'<b>NT~2</b>' : sp<sup>3</sup> N in primary, secondary, tertiary amine</dt>
+       <dt>'<b>NT+2</b>' : sp<sup>3</sup> N in primary, secondary, tertiary ammonium ion (charge +1)</dt>
+      </ul>
+      <dt><font color="red">Oxygen</font></dt>
+      <ul>
+       <dt>'<b>O</b>' : oxygen in C=O, not an acidic site</dt>
+       <dt>'<b>O2</b>' : oxygen double bonded to carbon in COO- or COOH</dt>
+       <dt>'<b>OHa</b>' : oxygen bonded to H in RCOOH</dt>
+       <dt>'<b>OHm</b>' : oxygen bonded to H in a mono-alcohol</dt>
+       <dt>'<b>OHp</b>' : oxygen bonded to H in polyols or phenol</dt>
+       <dt>'<b>OHd</b>' : oxygen bonded to H in diols</dt>
+       <dt>'<b>OHt</b>' : oxygen bonded to H in triols</dt>
+       <dt>'<b>OS</b>' : sp<sup>3</sup> O in an ether or acetal</dt>
+       <dt>'<b>OWt3p</b>' : water oxygen in the TIP3P model </dt>
+       <dt>'<b>OWt4p</b>' : water oxygen in the TIP4P model</dt>
+       <dt>'<b>OWt5p</b>' : water oxygen in the TIP5P model</dt>
+       <dt>'<b>L4p</b>' : negative charge site on the TIP4P water</dt>
+       <dt>'<b>L5p</b>' : negative charge sites on the TIP5P water</dt>
+      </ul>
+      <dt><font color="red">Sodium</font></dt>
+      <ul>
+       <dt>'<b>Na+</b>' : sodium ion (charge +1)</dt>
+      </ul>
+      <dt><font color="red">Sulfur</font></dt>
+      <ul>
+       <dt>'<b>S</b>' : S in sulfide, disulfide</dt>
+       <dt>'<b>SH</b>' : S in thiols</dt>
+      </ul>
+     </ul>
+     <b>Coulombic interactions</b> 
+     <ul>
+      OPLS-2001 uses atom-centered point charges to represent the electrostatic interactions.
+      I do not know of an automated way to assign these point charges.
+      Instead, you need to consult the <a href="../references.html#force_fields_opls">OPLS-2001 literature</a>, or 
+      ask the Jorgensen group for a copy of the force field file, and then find molecules with similar moieties to the ones on the molecule you wish to simulate.
+     </ul>
+     <b>Improper torsions</b> 
+     <ul>
+      OPLS-2001 uses stereocenter improper torsions to enforce planarity in aromatic rings, around amide nitrogens, and around other sp2 carbons.
+      Automatic assignment of improper torsion types is implemented for this force field.
+     </ul>
+     <b>Proteins</b> 
+     <ul>
+      OPLS-2001 has a complete parameter set for proteins, but I have not yet implemented this into the protein builder.
+      If someone else would like to add it into the builder I would be happy to provide advice about how to perform that task.
+      Note that since the OPLS-aa protein builder is implemented, only minor changes would be needed to implement OPLS 2001 
+      (the primary difference is the amino-acid-specific torsions).
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

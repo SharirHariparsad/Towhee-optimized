@@ -1,0 +1,63 @@
+units			real
+
+extra memory multiply      1.5       1.50      10.0      1.50
+
+dimension		3
+periodicity		0 0 0
+true flag               3
+
+processor grid          1  1  1
+
+newton flag             0
+
+neighbor                3.0 0 1 5 1
+
+nonbond style           lj/cutoff  10.0   0
+
+mixing style arithmetic
+
+bond style  harmonic
+
+angle style harmonic
+
+dihedral style multiharmonic
+
+improper style harmonic
+
+coulomb style none
+
+# -- Don't use these two with a restart -- 
+
+read data		data_lammps_03
+
+create temp      	gaussian 500.0 688
+
+# ----------------------------------------
+
+# -- Don't use this with a read data run  -- 
+
+#read restart		restart_lammps
+
+# ----------------------------------------
+
+special bonds 0.0  0.0  0.0
+
+nonbond coeff  1  1  0.227  3.93 10.0
+nonbond coeff  1  2  0.1453 3.93 10.0
+nonbond coeff  1  3  0.227  3.93 10.0
+nonbond coeff  2  2  0.093  3.93 10.0
+nonbond coeff  2  3  0.1453 3.93 10.0
+nonbond coeff  3  3  0.227  3.93 10.0
+
+thermo flag             1000
+
+dump atoms 		10000 ldump_atoms
+
+restart 		100000  1  restart_lammps
+
+temp control            nose/hoover 480.0 480.0 0.01
+
+timestep                3.0
+
+run 100000
+

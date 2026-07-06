@@ -1,0 +1,192 @@
+<html>
+ <head><title>MCCCS Towhee: input_style 'advanced connectivity map'</title></head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5" face="Arial, Helvetica, sans-serif"><a name="top"><b></a>
+       MCCCS Towhee: input_style 'advanced connectivity map'</b> </font>
+     </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"> 
+    <IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/>
+   </A>
+   <tr> 
+    <td valign="top"> 
+     <p>&nbsp; </p>
+     <p>&nbsp;</p>
+    </td>
+    <td valign="top"> 
+     This section describes the input parameters associated with an <b>input_style</b> setting of 'advanced connectivity map'.
+     This option adds additional flexibility compared to the similar '<a href="inpstyle_2.html">basic connectivity map</a>' and is designed to replace
+     that option.
+     This documentation is only maintained for the current version of the code and was last updated for version 8.0.0.
+     This molecule assembly option is a powerful and relatively easy way to set up the molecular interactions by listing the atom types and providing 
+     their bond partners and rudimentary information about the bond orders.
+     This is designed to work with the force fields and atom names listed in the <a href="../towhee_capabilities.html">Towhee Capabilities</a> section.
+     This option determines all of the vibration types, bending angles, bending types, regular torsion angles, regular torsion types, angle-angle terms, 
+     angle-angle types, and improper torsion types that are implied by the bonding structure of the molecule.  It also provides an option for a rule-based 
+     determination of improper torsions based upon the bonding pattern.
+     <dt><a name="nunit"><b>nunit (integer)</b></a>
+      <ul>
+       The number of atoms (or united-atoms) in this molecule. Must be less than or equal to <a href="../code/code_manual.html#numax">NUMAX</a>.
+      </ul>
+     </dt>
+     <dt><a name="nmaxcbmc"><b>nmaxcbmc (integer)</b></a> 
+      <ul>
+       The maximum number of atoms to regrow during a <a href="../algorithm/cbmc.html">configurational-bias</a> regrowth.  It is safe to set this to
+       the same value as <a href="#nunit"><b>nunit</b></a>, but some molecules are so large that almost none of the moves which regrow large portions are accepted.
+       In those cases setting a lower value of <b>nmaxcbmc</b> focuses on moves that are likely to be accepted.
+      </ul>
+     </dt>
+     <dt><a name="lpdbnames"><b>lpdbnames (logical)</b></a>
+      <ul>
+       <li><code><b>.TRUE.</b></code> enable the input of information about the pdb (protein data bank) atom name, amino acid number, amino acid name. This 
+        information is needed in order to use the cartoon feature of certain pdb viewers (such as <a href="../software.html#rasmol">Rasmol</a>).
+       </li>
+       <li><code><b>.FALSE.</b></code> disable the input of additional pdb information.  This does not disable the output of pdb files, it just means thing like 
+        the <a href="../software.html#rasmol">Rasmol</a> cartoon feature will not work properly.
+       </li>
+      </ul>
+     </dt>
+     <dt><a name="forcefield"><b>forcefield (character*10)</b></a>
+      <ul>
+       The Towhee shorthand name for the forcefield that you want to use to build this molecule.  
+       See <a href="../towhee_capabilities.html">Towhee Capabilities</a> for a complete list of the forcefields included with the Towhee distribution.
+      </ul>
+     </dt>
+     <dt><a name="charge_assignment"><b>charge_assignment (character*30)</b></a>
+      <ul>
+       <li>'bond increment': the bond increment method is used to assign the charges on each atom and the parameter <b>charge</b> is not required.  Note that 
+        this method is not functional for all forcefields.
+       </li>
+       <li>'manual': the charges on each atom are manually specified in the towhee_input file as the parameter <b>charge</b> in the following section.</li>
+       <li>'none': a zero charge is assigned to each atom and the parameter <b>charge</b> is not required.</li>
+      </ul>
+     </dt>
+     <dt><a name="improper_assignment"><b>improper_assignment (character*30)</b></a>
+      <ul>
+       <li>'3-bond: single improper': atoms that are bonded to exactly three neighbors are assigned a single improper torsions automatically.  
+        The three neighbors are automatically assigned in increasing order of their nonbonded integer type number.
+        Originally implemented for use with the <a href="../forcefields/mmff94.html">MMFF94</a> force field.
+        The improper torsion parameters are not required in the subsequent section.
+       </li>
+       <li>'manual': the improper torsions each atom are manually specified in the subsequent section.</li>
+       <li>'none': no improper torsions are assigned for this molecule and the improper torsion parameters are not required in the subsequent section.</li>
+      </ul>
+     </dt>
+     <dt><a name="match_style"><b>match_style (character*30)</b></a>
+      <ul>
+       <li>'standard' : determines matching interactions for a given forcefield by checking for exact type matches first, and then utilizing
+        a procedure that checks for an increasing number of wildcards.  This is the approach recommended for the majority of forcefields and is the
+        default value used by most of the other molecule assembly options.
+       </li>
+       <li>'stereoselective' : very similar to the 'standard' option, but also requires the input of a list of torsions that have a specific stereochemistry.
+        This allows the process to distinguish between cis and trans dihedrals when combined with a forcefield that makes such a distinction.  When using 
+        this option the <a href="#special_torsion_count"><b>special_torsion_count</b></a> parameters are required after the usual input of the connectivity.
+       </li>
+       <li>'MMFF checkdown' : determines matching interactions for a given forcefield using the procedure described in the
+        <a href="../forcefields/mmff94.html">MMFF94</a> forcefield papers.  This uses an internal checkdown procedure based upon atom names that
+        are implemented as a 10 character string that contains 5 2-character substrings.
+       </li>
+      </ul>
+     </dt>
+     <hr></hr>
+     <font color="red"> This section is repeated for each atom in the molecule (determined by <b>nunit</b>)</font>
+     <dt><a name="unit"><b>unit (integer), atomname (character), charge (double precision)</b></a>
+      <ul>
+       Three parameters listed on a single line.
+       First, the number of the atom in order starting from atom number 1.
+       Then the character string that contains the atom type for this atom
+       (see the individual forcefield documentation summarized at <a href="../towhee_capabilities.html">Towhee Capabilities</a>).
+       Finally, charge on this atom (only required if the <a href="#charge_assignment"><b>charge_assignment</b></a> is 'manual').
+      </ul>
+     </dt>
+     <dt><a name="pdbname"><b>pdbname (character), aminonum (integer), aminoshort (character)</b></a>
+      <em>only listed if <a href="#lpdbnames"><b>lpdbnames</b></a> is <code><b>.TRUE.</b></code></em>
+      <ul>
+       Three parameters listed on a single line.
+       First, a four character string that is output in the pdb file. The precise spacing is important if you want most pdb viewers to recognize
+       the atoms as the pdb file is extremely specific.
+       Then, the number of each amino acid starting from the N-terminus (only relevant for polypeptides).
+       Finally, the three letter code for each amino acid, or other group (such as caps on the C or N termini).
+      </ul>
+     </dt>
+     <dt><a name="vibration"><b>vibration</b></a>
+      <ul>
+       <li>The first line under the vibration heading is the number of atoms that are bonded to the current atom. Must be a number between 
+        0 and <a href="../code/code_manual.html#nnbond">NNBOND</a>.
+       </li>
+       <li>For each vibration a subsequent line contains the atom number (integer) of the bond partner and the
+        vibration order (character*10) of the bond.  Commonly used vibration orders are listed here.
+        <ul>
+         <li>'any': matches any bond order listed in the force field file.  This effectively disables the vibration order searching.  This entry is 
+          only valid in the towhee_input file, and not in an ff*.F file.
+         </li>
+         <li>'aromatic': aromatic bond</li>
+         <li>'single': single bond</li>
+         <li>'double': double bond</li>
+         <li>'triple': triple bond</li>
+         <li>'wild': matches with any type of bond, but only if there is not an exact match.  This is only a valid entry in an ff*.F file, and not
+          in the towhee_input file.
+         </li>
+        </ul>
+       </li>
+      </ul>
+     </dt>
+     <dt><b>improper torsion</b> <em>only listed if <a href="#improper_assignment"><b>improper_assignment</b></a> is 'manual'</em>
+      <ul>
+       <li>The first line under the improper heading is the number of improper torsions (any form) that have the central atom located at the current atom.
+        You must list all improper torsions that have the current atom at the central position, but you do not list improper torsions that only contain 
+        the current atom at one of the ends. Must be a number between 0 and <a href="../code/code_manual.html#maximprop">MAXIMPROP</a>.
+       </li>
+       <li>For each improper torsion specified above a line with the following information is required.  A list of the three other atoms in the 
+        improper torsion followed by the appropriate improper type for the force field.  The code currently only allows an improper torsion where the
+        three other atoms are all bonded to the first atom.  If you want to enable the automatic determination of the improper torsion force field
+        parameters then set the improper force field type to 0.
+       </li>
+      </ul>
+     </dt>
+     <dt><font color="red">end of the section that is repeated for each atom</font></dt>
+     <hr></hr>
+     <dt><a name="special_torsion_count"><b>special_torsion_count</b></a> <em>only listed if <a href="#match_style"><b>match_style</b></a> is 'stereoselective'</em>
+      <ul>
+       <li>The first line under the special_torsion_count heading is the number of special torsion assignments that involve a torsion order other than 'wild'.
+        If this value is not 0, then a subsequent line is required for each value of this parameter.
+       </li>
+       <li>For each value of the special_torsion_count specified above, a line with the following information is required.
+        A list of the integer values of the 4 atoms that make up the special torsion, followed by a character string that describes the special
+        torsion.  The character string is checked against the torsion order specified in the various forcefield files in order to determine a match.
+        The torsions only need to be specified in a single order, so if there was a special torsion between atoms 1,2,3, and 4 it is only required to 
+        list the 1 2 3 4 'special flag' direction and not the 4 3 2 1 'special flag' direction.  The special torsion order character string depends
+        upon the force field, but typical values are listed here.
+        <ul>
+         <li>'wild' : default value if none is specified.  This matches up with torsions that do not have a specified torsion order as the default 
+          output for the torsion order is 'wild'.  There is no reason to go through the effort of listing this value since it is the default, but 
+          it would result in a valid match with the default torsions so it is allowed.
+         </li>
+         <li>'cis' : matches up with a torsion that is in the cis conformation only.  Typically occurs for double bonded carbons that are then bonded 
+          to dissimilar atoms.
+         </li>
+         <li>'trans' : matches up with a torsion that is in the trans conformation only.  Typically occurs for double bonded carbons that are then bonded 
+          to dissimilar atoms.
+         </li>
+        </ul>
+       </li>
+      </ul>
+     </dt>
+     <hr></hr>
+     <a href="../index.html">Return to the main towhee web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

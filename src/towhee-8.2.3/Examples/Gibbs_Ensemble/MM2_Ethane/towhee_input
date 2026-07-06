@@ -1,0 +1,188 @@
+ensemble
+'nvt'
+temperature
+256.0d0
+nmolty
+1
+nmolectyp
+240
+numboxes
+2
+stepstyle
+'cycles'
+nstep
+1
+printfreq 
+10   
+blocksize 
+20
+moviefreq
+5
+backupfreq  
+1000
+runoutput
+'updates'
+pdb_output_freq
+5
+pressure_virial_freq
+20
+trmaxdispfreq
+1000
+volmaxdispfreq
+1000
+linit   
+.false.
+initboxtype
+'dimensions'
+initstyle
+'full cbmc'
+'full cbmc'
+initlattice
+'simple cubic'
+'simple cubic'
+initmol
+150
+90
+inix iniy iniz
+6    6    6
+4    5    5
+hmatrix
+22.6d0 0.0d0 0.0d0
+0.0d0 22.6d0 0.0d0
+0.0d0 0.0d0 22.6d0
+120.d0 0.0d0 0.0d0
+0.0d0  120.d0 0.0d0
+0.0d0 0.0d0  120.d0
+pmvol     
+0.02d0   
+          pmvlpr
+          1.0d0
+          rmvol
+          0.1d0
+          tavol
+          0.5d0
+pm2boxcbswap    
+0.40d0     
+          pm2cbswmt
+          1.0d0
+          pm2cbswpr
+          1.0d0
+pmavb1
+0.41d0
+          pmavb1in
+          0.5d0
+          pmavb1mt
+          1.0d0
+          pmavb1ct
+          1.0d0
+          avb1rad
+          8.0d0
+pmcb      
+0.60d0     
+          pmcbmt
+          1.0d0
+          pmall
+          0.0d0 
+pmtracm   
+0.80d0	  
+          pmtcmt
+          1.0d0
+          rmtrac
+          0.5d0 
+          tatrac
+          0.5d0
+pmrotate
+1.0d0
+          pmromt  
+          1.0d0
+          rmrot
+          0.05d0
+          tarot
+          0.5d0
+ffnumber
+1
+ff_filename
+/towheebase/ForceFields/towhee_ff_MM2
+classical_potential
+'Exponential-6'       
+classical_mixrule
+'Explicit'
+lshift
+.false.
+ltailc
+.false.
+rcut  
+10.0d0
+rcutin 
+5.0d0 
+electrostatic_form
+'none'
+#UFF ethane
+input_style
+'basic connectivity map'
+nunit
+8
+nmaxcbmc
+8
+lpdbnames
+F
+forcefield
+'MM2'
+charge_assignment
+'none'
+unit ntype
+1    'Cchhh(sp3)'
+vibration
+4
+2 3 4 5 
+improper
+0
+unit ntype
+2    'Cchhh(sp3)'
+vibration
+4
+1 6 7 8
+improper
+0
+unit ntype
+3    'H'
+vibration
+1
+1
+improper
+0
+unit  ntype
+4     'H'
+vibration
+1
+1 
+improper
+0
+unit  ntype
+5     'H'
+vibration
+1
+1 
+improper
+0
+unit  ntype
+6     'H'
+vibration
+1
+2 
+improper
+0
+unit  ntype
+7     'H'
+vibration
+1
+2
+improper
+0
+unit  ntype
+8     'H'
+vibration
+1
+2
+improper
+0

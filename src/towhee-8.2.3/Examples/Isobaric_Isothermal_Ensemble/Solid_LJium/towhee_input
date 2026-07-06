@@ -1,0 +1,197 @@
+ensemble
+'npt'
+temperature
+0.6d0
+pressure
+100.0d0
+nmolty
+1
+nmolectyp
+216
+numboxes
+1
+stepstyle
+'cycles'
+nstep
+100
+printfreq 
+10   
+blocksize 
+20
+moviefreq
+100000
+backupfreq  
+1000
+runoutput
+'full'
+pdb_output_freq
+10000
+pressure_virial_freq
+20
+trmaxdispfreq
+2
+volmaxdispfreq
+10
+linit   
+.true. 
+initboxtype
+'dimensions'
+initstyle
+'full cbmc'
+initlattice
+'simple cubic'
+initmol
+216
+inix iniy iniz
+6    6    6
+hmatrix
+6.0d0 0.0d0 0.0d0
+0.0d0  6.0d0  0.0d0
+0.0d0 0.0d0  6.0d0   
+pmvol     
+0.0d0   
+          pmvlpr
+          1.0d0
+          rmvol
+          0.1d0
+          tavol
+          0.5d0
+pmcell
+0.005d0
+          pmcellpr
+          1.0d0
+          pmcellpt
+          1.0d0
+          rmcell
+          1.0d0
+          tacell
+          0.5d0
+pm1boxcbswap
+0.0d0
+          pm1cbswmt
+          1.0d0
+pmavb1    
+0.0d0     
+          pmavb1in
+          0.5d0
+          pmavb1mt
+          1.0d0
+          pmavb1ct
+          1.0d0
+          avb1rad
+          1.0d0
+pmavb2
+0.0d0     
+          pmavb2in
+          0.5d0
+          pmavb2mt
+          1.0d0
+          pmavb2ct
+          1.0d0
+          avb2rad
+          1.0d0
+pmavb3
+0.0d0     
+          pmavb3mt
+          1.0d0
+          pmavb3ct
+          1.0d0
+          avb3rad
+          1.0d0
+pmcb
+0.0d0
+          pmcbmt
+          1.0d0 
+          pmall
+          0.0d0 
+pmback
+0.0d0
+          pmbkmt
+          1.0d0
+pmpivot
+0.0d0
+          pmpivmt
+          1.0d0
+pmconrot
+0.0d0
+          pmcrmt
+          1.0d0
+pmcrback
+0.0d0
+          pmcrbmt
+          1.0d0
+pmplane
+0.2d0
+          pmplanebox
+          1.0d0
+          planewidth
+          1.0d0
+pmrow
+0.50d0
+          pmrowbox
+          1.0d0
+          rowwidth
+          1.0d0
+pmtraat
+0.0d0
+          pmtamt          
+          1.0d0      	
+          rmtraa
+          0.5d0 
+          tatraa
+          0.5d0
+pmtracm
+1.0d0
+          pmtcmt          
+          1.0d0      	
+          rmtrac
+          0.5d0 
+          tatrac
+          0.5d0
+pmrotate
+1.0d0
+          pmromt  
+          1.0d0
+          rmrot
+          0.05d0
+          tarot
+          0.5d0
+ffnumber
+1
+ff_filename
+/towheebase/ForceFields/towhee_ff_LJium
+classical_potential
+'Lennard-Jones'       
+classical_mixrule
+'Lorentz-Berthelot'
+lshift
+.true.
+ltailc
+.false.
+rmin  
+0.5d0 
+rcut  
+2.5d0
+rcutin 
+1.0d0 
+electrostatic_form
+'none'
+#lennard-jonesium
+input_style
+'basic connectivity map'
+nunit
+1
+nmaxcbmc
+1
+lpdbnames
+F
+forcefield
+'LJium'
+charge_assignment
+'manual'
+unit ntype qqatom
+1    'lj1.0' 0.0d0
+vibration
+0
+improper torsion
+0

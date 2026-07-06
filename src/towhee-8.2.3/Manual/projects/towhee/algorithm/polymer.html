@@ -1,0 +1,78 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: Polymer Builder</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table width="800" border="0" cellspacing="0" cellpadding="0" height="590">
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif"><a name="top"></a>MCCCS Towhee: Polymer Builder</font></b></font>
+     </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"> 
+    <IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" width="210" height="62" border="0" alt="SourceForge.net Logo" align="right"/>
+   </A>
+   <tr> 
+    <td width="18" height="371" valign="top"> 
+     <p>&nbsp; </p>
+     <p>&nbsp;</p>
+    </td>
+    <td width="700" valign="top">
+     <b>Current Polymer Builder</b>
+     <ul>
+      The polymer builder functionality currently in Towhee (as of version 7.1.0) is focussed on several popular special case polymers.
+      They each have their own specific option for building molecule connectivity maps associated with different values for the <b>input_style</b>
+      variable in <a href="../usersmanual.html#towhee_input">towhee_input</a>.
+      <ul>
+       <li>'<a href="../inpstyle/inpstyle_4.html">nanotube builder</a>': constructs carbon nanotubes</li>
+       <li>'<a href="../inpstyle/inpstyle_1.html">polypeptide builder</a>': constructs polypeptides for proteins</li>
+       <li>'<a href="../inpstyle/inpstyle_3.html">nucleic acid builder</a>': constructs polynucleic acids for RNA and DNA</li>
+      </ul>
+      The nanotube builder in an elegant tool that allows easy construction of both the molecular parameters for a carbon nanotube, and the assignment of initial
+      coordinates of the nanotube.
+      It is an excellent example of a specialized tool that performs a single task, but performs it very well.
+      To simulate a nanotube you just assign the appropriate dimensions and select a force field.
+      <p></p>
+      In contrast, the polypeptide builder and the nucleic acid builder are the front end for a series of subroutines that are each specialized for a
+      single force field and polymer combination.
+      They are designed to construct a specific set of heteropolymers that are commonly seen in biological systems.
+      The specialized subroutines that perform these tasks are named poly*.F, where the * is replaced with the name of a specific force field that contains
+      the mapping required to piece together the relevant heteropolymers.  There has been some effort to reduce duplication
+      by placing general templates into the monomers.F subroutine.
+      Also in contrast with the nanotube builder, users typically have an initial structure (often a pdb file) that they wish to use
+      as the starting structure for the heteropolymer.
+      While it might naively seem a straight-forward task to turn the pdb file coordinates into the initial structure
+      (using the <a href="../utils/pdb2towhee.html">pdb2towhee</a> utility), there is almost always some cleanup and atom reordering required in order to deal
+      with missing atoms in the pdb file.  Even for cases where the pdb file is complete, often the atoms are listed in a slightly different
+      order between the Towhee assembly process and the pdb file, this results in mismatched coordinates for the initial structure and the common indicator
+      of this problem is a warning message about excessivly long bond lengths.
+      Typically, the only way to resolve those issues is to compare the atom names in the <a href="../usersmanual.html#towhee_altinp">towhee_altinp</a> output
+      file with the atom names in the <a href="../usersmanual.html#towhee_coords">towhee_coords</a>
+      or <a href="../usersmanual.html#towhee_partial">towhee_partial</a> file you translated from your pdb file.
+     </ul>
+     <b>Proposed Polymer Builder</b>
+     <ul>
+      While the carbon nanotube builder is fine as a specialized tool, all of the other polypeptide and polynucleic acid builders should be combined into
+      a single utility that assembles monomer files into any heteropolymer.
+      This could be accomplished following the same path as the <a href="../utils/forcefield.html">forcefield</a> utility.  Much like the polymer builder, all of the 
+      various force field assignement subroutine were once built into the main Towhee code.
+      These should be split out from the main code and used to generate formatted text files that contain the momomer
+      information in the same manner as the formatted text files that contain the force field information.
+      Done properly, this would also allow users to create their own monomer text files to either contribute to the code base, or for use to build their own polymers.
+      I expect it would take a month of work to implement and document this properly.  If anyone is interested in either performing
+      this implementation, or has ideas for funding such a project, please feel free to contact me about it.
+     </ul>
+     <a href="algorithm.html">Return to the Towhee algorithm page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->March 28, 2018<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

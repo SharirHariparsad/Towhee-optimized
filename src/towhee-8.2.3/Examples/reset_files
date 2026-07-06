@@ -1,0 +1,2 @@
+#!/bin/bash
+/bin/cp answer_new answer_current

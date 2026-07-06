@@ -1,0 +1,58 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: Gala1994</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee Galassi and Tildesley 1994</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the Galassi and Tildesly 1994 (Gala1994) force field as it is implemented into the towhee_ff_Gala1994 file in the ForceFields directory.
+      This force field was designed to reproduce the vapor-liquid coexistence curves of N<sub>2</sub>, F<sub>2</sub>, and Cl<sub>2</sub>.
+      Note that this is a Lennard-Jones force field that uses Lorentz-Berthelot mixing rules so it is easily combined with other force fields.
+      Any discrepencies (especially typos) from the published values are the sole responsibility of Marcus Martin,
+      and I welcome feedback on how this implementation compares with other programs.
+     </ul>
+     <b>References for Gala1994</b> 
+     <ul>
+      What I term Gala1994 is described in the following paper.
+      <ul>
+       <li><a href="../references.html#galassi_tildesley_1994">Galassi and Tildesley 1994</a></li>
+      </ul>
+     </ul>	
+     <b>Gala1994 in Towhee</b> 
+     <ul>
+      The official force field name for Galassi and Tildesley 1994 in Towhee is 'Gala1994'.
+      This list contains all of the atom names for use in the towhee_input file, along with a brief description.
+      I created these atom names in order to work with the molecule assembler.
+      Please note that the capitalization and spacing pattern is important and must be followed exactly as listed here.
+      <ul>
+       <dt>'<b>Cl</b>' : Chlorine bonded to another Chlorine in Cl<sub>2</sub></dt>
+       <dt>'<b>F</b>' : Fluorine bonded to another Fluorine in F<sub>2</sub></dt>
+       <dt>'<b>N</b>' : Nitrogen bonded to another nitrogen in N<sub>2</sub></dt>
+      </ul>
+     </ul>
+     <b>Coulombic interactions</b> 
+     <ul>
+      This force field does not assign any coulombic interactions to the atoms.
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

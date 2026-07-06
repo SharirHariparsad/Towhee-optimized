@@ -1,0 +1,225 @@
+random_number_generator
+'RANLUX'
+random_luxlevel
+3
+random_seed
+12345
+random_allow_restart
+T
+ensemble
+'nvt'
+temperature
+1.64d0
+nmolty
+1
+nmolectyp
+256
+numboxes
+2
+stepstyle
+'cycles'
+nstep
+10
+printfreq 
+1   
+blocksize 
+2
+moviefreq
+100000
+backupfreq  
+1000
+runoutput
+'full'
+pdb_output_freq
+10000
+pressure_virial_freq
+1
+trmaxdispfreq
+200
+volmaxdispfreq
+200
+linit   
+T 
+initboxtype
+'dimensions'
+initstyle
+'full cbmc'
+'full cbmc'
+initlattice
+'simple cubic'
+'simple cubic'
+initmol
+128
+128
+inix iniy iniz
+4    4    8
+4    4    8
+hmatrix
+12.0d0   0.0d0   0.0d0
+ 0.0d0  12.0d0   0.0d0
+ 0.0d0   0.0d0  12.0d0   
+22.0d0   0.0d0   0.0d0
+ 0.0d0  22.0d0   0.0d0
+ 0.0d0   0.0d0  22.0d0   
+pmvol     
+0.005d0   
+          pmvlpr
+          1.0d0
+          rmvol
+          0.1d0
+          tavol
+          0.45d0
+pm2boxcbswap
+0.35d0
+          pm2cbswmt
+          1.0d0
+          pm2cbswpr
+          1.0d0
+pmcb
+0.0d0
+          pmcbmt
+          1.0d0 
+          pmall
+          0.0d0 
+pmtraat
+0.8d0
+          pmtamt          
+          1.0d0      	
+          rmtraa
+          0.5d0 
+          tatraa
+          0.45d0
+pmtracm
+0.90d0
+          pmtcmt          
+          1.0d0      	
+          rmtrac
+          0.5d0 
+          tatrac
+          0.45d0
+pmrotate
+1.0d0
+          pmromt  
+          1.0d0
+          rmrot
+          0.05d0
+          tarot
+          0.45d0
+cbmc_formulation
+'Martin and Siepmann 1999 + Martin and Thompson 2004'
+cbmc_setting_style
+'explicit'
+cbmc_nb_one_generation
+'uniform'
+'uniform'
+nch_nb_one
+10
+nch_nb
+10 
+cbmc_dihedral_generation
+'ideal'
+#dihedral_peak_weight_style
+#'uniform'
+#dihedral_sdev_multiplier
+#1.0
+nch_tor
+10
+nch_tor_connect
+1
+cbmc_bend_generation
+'ideal'
+#bend_a_sdev_multiplier
+#1.0
+#bend_b_sdev_multiplier
+#1.0d0
+nch_bend_a
+10
+nch_bend_b
+10
+cbmc_bond_generation
+'autofit gaussian'
+bond_sdev_multiplier
+1.0
+nch_vib
+10
+two_bond_fixed_endpoint_bias_style
+'none'
+#'analytic Boltzmann dihedral energy sum'
+three_bond_fixed_endpoint_bias_style
+'none'
+#'analytic using max and min 2-4 distance'
+ffnumber
+1
+ff_filename
+/towheebase/ForceFields/towhee_ff_LJium
+classical_potential
+'Lennard-Jones'       
+classical_mixrule
+'Lorentz-Berthelot'
+lshift
+.true.
+ltailc
+.false.
+rmin  
+0.10d0 
+rcut  
+2.245d0
+rcutin 
+0.10d0 
+electrostatic_form
+'none'
+#lennard-jonesium
+input_style
+'basic connectivity map'
+nunit
+6
+nmaxcbmc
+6
+lpdbnames
+F
+forcefield
+'LJium'
+charge_assignment
+'manual'
+unit ntype qqatom
+1    'lj1.0_FENE' 0.0d0
+vibration
+1
+2
+improper torsion
+0
+unit ntype qqatom
+2    'lj1.0_FENE' 0.0d0
+vibration
+2
+1 3
+improper torsion
+0
+unit ntype qqatom
+3    'lj1.0_FENE' 0.0d0
+vibration
+2
+2 4
+improper torsion
+0
+unit ntype qqatom
+4    'lj1.0_FENE' 0.0d0
+vibration
+2
+3 5
+improper torsion
+0
+unit ntype qqatom
+5    'lj1.0_FENE' 0.0d0
+vibration
+2
+4 6
+improper torsion
+0
+unity ntype qqatom
+6     'lj1.0_FENE' 0.0d0
+vibration
+1
+5
+improper torsion
+0

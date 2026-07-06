@@ -1,0 +1,60 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: Lybrand-Ghosh-McCammon ions</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: Lybrand-Ghosh-McCammon ions</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the Lybrand-Ghosh-McCammon (LGM) ion parameters as they are implemented into 	the towhee_ff_LGM file in the ForceFields directory.
+      All of the Towhee atom types for the LGM ion force field are listed, along with a short description of their meanings.
+      This is not really a comphrehensive stand-alone force field, but is instead a collection of parameters for some negative halide ions.
+      Ion parameters are sometimes hard to come by in the literature so I have included these parameters for use in conjunction with other force fields.
+      Note that these are Lennard-Jones (12-6) parameters and can only be combined with other Lennard-Jones (12-6) force fields.
+      Any discrepencies (especially typos) from the published LGM force field values are the sole responsibility of Marcus Martin,
+      and I welcome feedback on how this implementation compares with other programs.
+     </ul>
+     <b>References for Lybrand-Ghosh-McCammon ions</b> 
+     <ul>
+      <li><a href="../references.html#lybrand_et_al_1985">Lybrand <i>et al.</i> 1985</a></li>
+     </ul>	
+     <b>Lybrand-Ghosh-McCammon in Towhee</b> 
+     <ul>
+      The official force field name for Lybrand-Ghosh-McCammon in Towhee is 'LGM'.
+      This list contains all of the LGM atom names for use in the towhee_input file, along with a brief description.
+      Please note that the capitalization and spacing pattern is important and must be followed exactly as listed here.
+      <ul>
+       <dt>'<b>Br-</b>' : bromine ion with a -1 charge</dt>
+       <dt>'<b>Cl-</b>' : chlorine ion with a -1 charge</dt>
+      </ul>
+     </ul>
+     <b>Coulombic interactions</b> 
+     <ul>
+      Atom centered point charges are used to represent the electrostatic interactions.
+      As this is a force field for ions, the charge assignments are straight forward.
+      <ul>
+       <dt>'<b>Br-</b>' : -1.0</dt>
+       <dt>'<b>Cl-</b>' : -1.0</dt>
+      </ul>
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

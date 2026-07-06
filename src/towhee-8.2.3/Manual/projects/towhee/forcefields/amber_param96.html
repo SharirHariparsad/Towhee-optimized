@@ -1,0 +1,179 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: Amber param96</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: Amber param96</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the Amber param96 force field as it is implemented into the Towhee code.
+      All of the Towhee atom types for the Amber param96 force field are listed, along with a short description of their meanings.
+      Note that Amber param96 is a Lennard-Jones (12-6) force field and can only be combined with other Lennard-Jones (12-6) force fields.
+      I would like to acknowledge Wendy D. Cornell and the late Peter A. Kollman for providing very useful guidance about implementing Amber param96.
+      Any discrepencies (especially typos) from the published Amber param96 force field values are the sole responsibility of Marcus Martin,
+      and I welcome feedback on how this implementation compares with other programs.
+     </ul>
+     <b>References for Amber param96</b> 
+     <ul>
+      The best literature reference for Amber param96 is
+      <ul>
+       <li><a href="../references.html#cornell_et_al_1995">Cornell <i>et al.</i> 1995.</a></li>
+      </ul>
+     </ul>	
+     <b>Amber param96 in Towhee</b> 
+     <ul>
+      The official force field name for Amber param96 in Towhee is 'Amber96' and the file name is towhee_ff_Amber96 in the ForceFields directory.
+      This list contains all of the Amber96 atom names for use in the towhee_input file, along with a brief description taken from the
+      <a href="../references.html#cornell_et_al_1995">Cornell <i>et al.</i> paper</a>.
+      I have added comments where I thought clarification was needed, these are in [square brackets].
+      Please note that the capitalization and spacing pattern is important and must be followed exactly as listed here.
+      <dt><font color="red">Carbon</font></dt>
+      <ul>
+       <dt>'<b>CT</b>' : any sp<sup>3</sup> carbon</dt>
+       <dt>'<b>C</b>' : any carbonyl sp<sup>2</sup> carbon</dt>
+       <dt>'<b>CA</b>' : any aromatic sp<sup>2</sup> carbon and (C<sub>epsilon</sub> of Arg)</dt>
+       <dt>'<b>CM</b>' : any sp<sup>2</sup> carbon, double bonded </dt>
+       <dt>'<b>CC</b>' : sp<sup>2</sup> aromatic in 5-membered ring with one substituent + next to
+	nitrogen (C<sub>gamma</sub> in His)</dt>
+       <dt>'<b>CV</b>' : sp<sup>2</sup> aromatic in 5-membered ring next to carbon and lone pair nitrogen 
+	(e.g. C<sub>delta</sub> in His(delta))</dt>
+       <dt>'<b>CW</b>' : sp<sup>2</sup> aromatic in 5-membered ring next to carbon and NH (e.g. C<sub>delta</sub> in His(epsilon) 
+	and in Trp)</dt>
+       <dt>'<b>CR</b>' : sp<sup>2</sup> aromatic in 5-membered ring next to two nitrogens (C<sub>gamma</sub> and C<sub>epsilon</sub> 
+	in His)</dt>
+       <dt>'<b>CB</b>' : sp<sup>2</sup> aromatic at junction of 5- and 6-membered rings (C<sub>delta</sub> in Trp) and both junction atoms
+	in Ade and Gua</dt>
+       <dt>'<b>C*</b>' : sp<sup>2</sup> aromatic in 5-membered ring next to two carbons (e.g. C<sub>gamma</sub> in Trp)</dt>
+       <dt>'<b>CN</b>' : sp<sup>2</sup> junction between 5- and 6-membered rings and bonded to CH and NH (C<sub>epsilon</sub> in Trp)</dt>
+       <dt>'<b>CK</b>' : sp<sup>2</sup> carbon in 5-membered aromatic between N and N-R (C8 in purines)</dt>
+       <dt>'<b>CQ</b>' : sp<sup>2</sup> carbon in 6-membered ring between lone pair nitrogens (e.g. C2 in purines)</dt>
+      </ul>
+      <dt><font color="red">Chlorine</font></dt>
+      <ul>
+       <dt>'<b>Cl-</b>' : ionic chlorine (-1 charge)</dt>
+      </ul>
+      <dt><font color="red">Hydrogen</font></dt>
+      <ul>
+       <dt>'<b>H</b>' : H attached to N</dt>
+       <dt>'<b>HA</b>' : H attached to aromatic carbon with no electronegative neighbors</dt>
+       <dt>'<b>HC</b>' : H attached to aliphatic carbon with no electron-withdrawing substituents</dt>
+       <dt>'<b>H1</b>' : H attached to aliphatic carbon with one electron-withdrawing substituent</dt>
+       <dt>'<b>H2</b>' : H attached to aliphatic carbon with two electron-withdrawing substituents</dt>
+       <dt>'<b>H3</b>' : H attached to aliphatic carbon with three electron-withdrawing substituents</dt>
+       <dt>'<b>HW</b>' : H in TIP3P water</dt>
+       <dt>'<b>HO</b>' : H in alcohols and acids</dt>
+       <dt>'<b>HS</b>' : H attached to sulfur</dt>
+       <dt>'<b>HP</b>' : H attached to carbon directly bonded to formally positive atoms (e.g C next to NH<sub>3</sub><sup>+</sup> 
+	of lysine)</dt>
+       <dt>'<b>H4</b>' : H attached to aromatic carbon with one electronegative neighbor (e.g hydrogen on C5 of Trp, C6 of Thy)</dt>
+       <dt>'<b>H5</b>' : H attached to aromatic carbon with two electronegative neighbors (e.g H8 of Ade and Gua and H2 of Ade)</dt>
+      </ul>
+      <dt><font color="red">Nitrogen</font></dt>
+      <ul>
+       <dt>'<b>N</b>' : sp<sup>2</sup> nitrogen in amides</dt>
+       <dt>'<b>NA</b>' : sp<sup>2</sup> nitrogen in aromatic rings with hydrogen attached (e.g. protonated His, Gua, Trp)</dt>
+       <dt>'<b>NB</b>' : sp<sup>2</sup> nitrogen in 5-membered ring with lone pair (e.g. N7 in purines)</dt>
+       <dt>'<b>NC</b>' : sp<sup>2</sup> nitrogen in 6-membered ring with lone pair (e.g. N3 in purines)</dt>
+       <dt>'<b>N*</b>' : sp<sup>2</sup> nitrogen in 5-membered ring with carbon substituent (in purine nucleosides)</dt>
+       <dt>'<b>N2</b>' : sp<sup>2</sup> nitrogen of aromatic amines and guanidinium ions</dt>
+       <dt>'<b>N3</b>' : sp<sup>3</sup> nitrogen</dt>
+      </ul>
+      <dt><font color="red">Oxygen</font></dt>
+      <ul>
+       <dt>'<b>OW</b>' : sp<sup>3</sup> oxygen in TIP3P water</dt>
+       <dt>'<b>OH</b>' : sp<sup>3</sup> oxygen in alcohols, tyrosine, and protonated carboxylic acids</dt>
+       <dt>'<b>OS</b>' : sp<sup>3</sup> oxygen in ethers</dt>
+       <dt>'<b>O</b>' : sp<sup>2</sup> oxygen in amides</dt>
+       <dt>'<b>O2</b>' : sp<sup>2</sup> oxygen in anionic acids</dt>
+      </ul>
+      <dt><font color="red">Phosphorous</font></dt>
+      <ul>
+       <dt>'<b>P</b>' : phosphorus in phosphates</dt>
+      </ul>
+      <dt><font color="red">Sulfur</font></dt>
+      <ul>
+       <dt>'<b>S</b>' : sulfur in methionine and cysteine [sulfide form of cysteine]</dt>
+       <dt>'<b>SH</b>' : sulfur in cysteine [thiol form of cysteine]</dt>
+      </ul>
+     </ul>
+     <b>Coulombic Interactions</b> 
+     <ul>
+      Amber 96 uses point charges located at atomic centers to represent the elecrostatic interactions between atoms.  
+      There is no simple, general table of charges for atoms in this force field.
+      Instead, they recommend using the RESP method to fit the charges for each molecule of interest.  
+      See the protein section below for comments on the Amber param96 charges used with the protein builder.
+     </ul>
+     <b>Improper torsions</b> 
+     <ul>
+      Improper torsions are not automatically generated by the Towhee code as the rules for determining where they are applied 
+      are not always straight-forward.  Amber param96 exclusively uses the Stereocenter version of the improper torsions, and they
+      are typically centered on an sp<sup>2</sup> atom in order to enforce planarity with its three neighbors.  Only one 
+      improper torsion allowed to be centered on any atom.  These torsions are listed in the Amber literature as i-j-k-l where the 
+      angle is the dihedral between i-k-l and j-k-l, and the bonding pattern is i, j, and l are all bonded to atom k, and are also not
+      bonded to each other.  In the towhee_input file this stereo improper torsion is listed only for atom k, and the atom order there 
+      is l, i, j.
+      Automatic improper type determination is implemented for this force field.
+     </ul>
+     <b>Proteins</b> 
+     <ul>
+      All of the 20 basic amino acids (including the 3 forms of hystidine and the thiol and disulfide forms of cysteine)
+      are functional for the Amber96 force field. I have implemented the atom types and charges according to the published 
+      Amber param96 values except in the following cases.
+      <ul>
+       <li>N-terminal leucine: the electronic files for Amber param96 list CD1 with a charge of -0.41060 and atom CD2 with a charge
+	of -0.41040.  These atoms are symmetric and indistinguishable in reality so I felt it made no sense to give them different
+	charges just because they have different names.  Therefore I put a charge of -0.41050 on both atoms.
+       </li>
+       <li>N-terminal phenylalanine: the electronic files for Amber param96 list CE1 with a charge of -0.16020 and atom CE2 with a charge
+	of -0.16030.  These atoms are symmetric and indistinguishable in reality so I put a charge of -0.16025 on both atoms.
+       </li>
+      </ul>
+      Here is a complete list of the groups for Amber96.
+      <ul>
+       <dt>'<b>a0</b>' : alanine</dt>
+       <dt>'<b>c0</b>' : cysteine with hydrogen on the sulfur</dt>
+       <dt>'<b>cs</b>' : cysteine in a disulfide bond</dt>
+       <dt>'<b>cp</b>' : cysteine bonded to palmitate (includes the palmitate)</dt>
+       <dt>'<b>d-</b>' : aspartic acid deprotonated</dt>
+       <dt>'<b>e-</b>' : glutamic acid deprotonated</dt>
+       <dt>'<b>f0</b>' : phenylalanine</dt>
+       <dt>'<b>g0</b>' : glycine</dt>
+       <dt>'<b>h+</b>' : histidine both N protonated</dt>
+       <dt>'<b>hd</b>' : histidine neutral with only N<sub>d</sub> protonated</dt>
+       <dt>'<b>he</b>' : histidine neutral with only N<sub>e</sub> protonated</dt>
+       <dt>'<b>i0</b>' : isoleucine</dt>
+       <dt>'<b>k+</b>' : lysine protonated</dt>
+       <dt>'<b>l0</b>' : leucine</dt>
+       <dt>'<b>m0</b>' : methionine</dt>
+       <dt>'<b>n0</b>' : asparagine</dt>
+       <dt>'<b>p0</b>' : proline</dt>
+       <dt>'<b>q0</b>' : glutamine</dt>
+       <dt>'<b>r+</b>' : arginine protonated</dt>
+       <dt>'<b>s0</b>' : serine</dt>
+       <dt>'<b>t0</b>' : threonine</dt>
+       <dt>'<b>v0</b>' : valine</dt>
+       <dt>'<b>w0</b>' : tryptophan</dt>
+       <dt>'<b>y0</b>' : tyrosine</dt>
+      </ul>
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

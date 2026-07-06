@@ -1,0 +1,161 @@
+ensemble
+'nvt'
+temperature
+3000.0d0
+nmolty
+1
+nmolectyp
+300
+numboxes
+2
+stepstyle
+'cycles'
+nstep
+10
+printfreq
+1   
+blocksize
+200
+moviefreq
+100000
+backupfreq
+1000
+runoutput
+'full'
+pdb_output_freq
+10
+pressure_virial_freq
+20
+trmaxdispfreq
+1
+volmaxdispfreq
+1000
+chempotperstep
+10
+linit   
+T
+initboxtype
+'dimensions'
+initstyle
+'full cbmc'
+'full cbmc'
+initlattice
+'simple cubic'
+'simple cubic'
+initmol
+200
+100
+inix iniy iniz
+6    6    6   
+5    5    5   
+hmatrix
+15.0d0 0.0d0 0.0d0
+0.0d0   15.0d0  0.0d0
+0.0d0 0.0d0  15.0d0   
+100.d0 0.0d0 0.0d0
+0.0d0   100.d0 0.0d0
+0.0d0 0.0d0  100.d0
+pmvol     
+0.01d0   
+          pmvlpr
+          1.0d0
+          rmvol
+          0.1d0
+          tavol
+          0.5d0
+pm2boxrbswap
+0.1d0
+          pm2rbswmt 
+          1.0d0
+          pm2rbswpr
+          1.0d0
+pm2boxcbswap
+0.2d0
+          pm2cbswmt
+          1.0d0
+          pm2cbswpr
+          1.0d0
+pm1boxcbswap
+0.3d0
+          pm1cbswmt
+          1.0d0
+pmavb1    
+0.4d0     
+          pmavb1in
+          0.5d0
+          pmavb1mt
+          1.0d0
+          pmavb1ct
+          1.0d0
+          avb1rad
+          5.0d0
+pmavb2
+0.5d0     
+          pmavb2in
+          0.5
+          pmavb2mt
+          1.0d0
+          pmavb2ct
+          1.0d0
+          avb2rad
+          5.0d0
+pmavb3
+0.6d0     
+          pmavb3mt
+          1.0d0
+          pmavb3ct
+          1.0d0
+          avb3rad
+          5.0d0
+pmplane
+0.0d0
+          pmplanebox
+          0.5d0 1.0d0
+          planewidth
+          3.0d0
+pmrow
+0.0d0
+          pmrowbox
+          0.5d0 1.0d0
+          rowwidth
+          3.0d0
+pmtracm
+1.0d0
+          pmtcmt          
+          1.0d0      	
+          rmtrac
+          0.5d0 
+          tatrac
+          0.5d0
+cbmc_setting_style
+'widom ideal'
+ffnumber
+1
+ff_filename
+/towheebase/ForceFields/towhee_ff_Hoyt2003
+classical_potential
+'Embedded Atom Method'       
+interpolatestyle
+'cubicspline'
+rcut
+1.0d0
+electrostatic_form
+'none'
+input_style
+'basic connectivity map'
+nunit 
+1
+nmaxcbmc
+1
+lpdbnames
+F
+forcefield
+'Hoyt2003'
+charge_assignment
+'manual'
+unit ntype qqatom
+1    'Cu'  0.0d0
+vibration
+0
+improper torsion
+0

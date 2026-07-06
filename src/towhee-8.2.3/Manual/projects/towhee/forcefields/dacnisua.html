@@ -1,0 +1,66 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: DACNIS United Atom</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: DACNIS United Atom</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the DACNIS United Atom force field as it is implemented into the towhee_ff_DACNIS-UA file in the ForceFields directory.
+      All of the Towhee atom types for the DACNIS United Atom force field are listed, along with a short description of their meanings.
+      DACNIS-UA is a little force field I created for performing some simulations of methane and ethane adsorption in silicalite using a cut-and-shift potential.
+      This was useful as the main application of the force field was computing the transport of methane through	silicalite using
+      the dual control volume grand canonical molecular dynamics code Ladera.
+      Note that DACNIS United Atom is a Lennard-Jones (12-6) force field and can only be combined with other Lennard-Jones (12-6) force fields.
+      I welcome feedback on how this implementation compares with other programs.
+     </ul>
+     <b>References for DACNIS-UA</b> 
+     <ul>
+      The literature reference for DACNIS-UA is
+      <ul>
+       <li><a href="../references.html#martin_et_al_2001">Martin <i>et al.</i> 2001</a></li>
+      </ul>
+     </ul>	
+     <b>DACNIS-UA in Towhee</b> 
+     <ul>
+      The official force field name for DACNIS United Atom in Towhee is 'DACNIS-UA'.
+      This list contains all of the DACNIS atom names for use in the towhee_input file, along with a brief description.
+      I created these atom names in order to work with the molecule assembler.
+      DACNIS-UA is a united atom force field so it lumps atoms together.  There are only three different groups.
+      Note that the Ozeo group is designed for a fixed conformation of silicalite so it has no bonded interactions.
+      Please note that the capitalization and spacing pattern is important and must be followed exactly as listed here.
+      <ul>
+       <dt>'<b>CH4sp3</b>' : methane</dt>
+       <dt>'<b>CH3sp3</b>' : sp<sup>3</sup> non-aromatic carbon bonded to three hydrogens and one heavy atom</dt>
+       <dt>'<b>Ozeo</b>' : oxygen groups in silicalite.</dt>
+      </ul>
+     </ul>
+     <b>Coulombic interactions</b> 
+     <ul>
+      There are no coulombic interactions in the DACNIS-UA force field.
+     </ul>
+     <b>Improper torsions</b> 
+     <ul>
+      DACNIS-UA does not utilize improper torsions.
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

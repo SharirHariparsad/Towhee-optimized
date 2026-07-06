@@ -1,0 +1,258 @@
+ensemble
+'uvt'
+temperature
+256.0d0
+nmolty
+1
+nmolectyp
+200
+chempot
+#10422.0d0
+14359.426d0
+numboxes
+1
+stepstyle
+'moves'
+nstep
+100
+printfreq
+10   
+blocksize
+20
+moviefreq
+100000
+backupfreq
+1000
+runoutput
+'full'
+pdb_output_freq
+100000
+louthist
+T
+hist_label
+ 1
+hist_suffix
+'d'
+hist_nequil
+ 10
+histcalcfreq
+5
+histdumpfreq
+10
+pressure_virial_freq
+20
+trmaxdispfreq
+1000
+volmaxdispfreq
+1000
+linit   
+T
+initboxtype
+'dimensions'
+initstyle
+'full cbmc'
+initlattice
+'simple cubic' 
+initmol
+1
+inix iniy iniz
+5    5    5   
+hmatrix
+22.0d0 0.0d0 0.0d0
+0.0d0   22.0d0  0.0d0
+0.0d0 0.0d0  22.0d0   
+pmuvtcbswap
+0.25d0
+          pmuvtcbmt
+          1.0d0
+pm1boxcbswap
+0.0d0
+          pm1cbswmt
+          1.0d0
+pmavb1    
+0.0d0     
+          pmavb1in
+          0.5d0
+          pmavb1mt
+          1.0d0
+          pmavb1ct
+          1.0d0
+          avb1rad
+          5.0d0
+pmavb2
+0.0d0     
+          pmavb2in
+          0.5
+          pmavb2mt
+          1.0d0
+          pmavb2ct
+          1.0d0
+          avb2rad
+          5.0d0
+pmavb3
+0.0d0     
+          pmavb3mt
+          1.0d0
+          pmavb3ct
+          1.0d0
+          avb3rad
+          5.0d0
+pmcb
+0.50d0
+          pmcbmt
+          1.0d0 
+          pmall
+          0.0d0 
+pmback
+0.0d0
+          pmbkmt
+          1.0d0
+pmpivot
+0.0d0
+          pmpivmt
+          1.0d0
+pmconrot
+0.0d0
+          pmcrmt
+          1.0d0
+pmcrback
+0.0d0
+          pmcrbmt
+          1.0d0
+pmplane
+0.0d0
+          pmplanebox
+          1.0d0
+          planewidth
+          3.0d0
+pmrow
+0.0d0
+          pmrowbox
+          1.0d0
+          rowwidth
+          3.0d0
+pmtraat
+0.0d0
+          pmtamt          
+          1.0d0      	
+          rmtraa
+          0.5d0 
+          tatraa
+          0.5d0
+pmtracm
+0.75d0
+          pmtcmt          
+          1.0d0      	
+          rmtrac
+          0.5d0 
+          tatrac
+          0.5d0
+pmrotate
+1.0d0
+          pmromt  
+          1.0d0
+          rmrot
+          0.05d0
+          tarot
+          0.5d0
+cbmc_formulation
+'Martin and Siepmann 1999 + Martin and Thompson 2004'
+cbmc_setting_style
+'default ideal'
+ffnumber
+1
+ff_filename
+/towheebase/ForceFields/towhee_ff_Amber96
+classical_potential
+'Lennard-Jones'       
+classical_mixrule
+'Lorentz-Berthelot'
+lshift
+.false.
+ltailc
+.true.
+rmin  
+1.0d0 
+rcut  
+10.0d0
+rcutin 
+10.0d0 
+electrostatic_form
+'coulomb'
+coulombstyle
+'ewald_fixed_kmax'
+kalp 
+5.6d0
+kmax
+5
+dielect
+1.0d0
+#amber96 ethane
+input_style
+'basic connectivity map'
+nunit
+8
+nmaxcbmc
+8
+lpdbnames
+F
+forcefield
+'Amber96'
+charge_assignment
+'manual'
+unit ntype qqatom
+1    'CT'   -0.1926d0
+vibration
+4
+2 3 4 5
+improper
+0
+unit ntype qqatom
+2    'CT'   -0.1926d0
+vibration
+4
+1 6 7 8
+improper
+0
+unit ntype qqatom
+3    'HC'   0.0642d0
+vibration
+1
+1 
+improper
+0
+unit ntype qqatom
+4    'HC'   0.0642d0
+vibration
+1
+1 
+improper
+0
+unit ntype qqatom
+5    'HC'   0.0642d0
+vibration
+1
+1
+improper
+0
+unit ntype qqatom
+6   'HC'   0.0642d0
+vibration
+1
+2
+improper
+0
+unit ntype qqatom
+7   'HC'   0.0642d0
+vibration
+1
+2
+improper
+0
+unit ntype qqatom
+8   'HC'   0.0642d0
+vibration
+1
+2
+improper
+0

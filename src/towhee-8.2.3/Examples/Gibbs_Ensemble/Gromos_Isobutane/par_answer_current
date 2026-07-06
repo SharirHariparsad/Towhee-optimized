@@ -1,0 +1,803 @@
+ MCCCS Towhee - Version 8.2.3   (July 22 2021)      
+ Copyright (C) <2000-2021> Marcus G. Martin
+ Code Contributors for 2021: Marcus G. Martin;
+ Code Contributors for 2020: Marcus G. Martin;
+ Code Contributors for 2019: Marcus G. Martin;
+ Code Contributors for 2018: Marcus G. Martin;
+ Code Contributors for 2017: Marcus G. Martin;
+ Code Contributors for 2016: Marcus G. Martin;
+ Code Contributors for 2015: Marcus G. Martin;
+ Code Contributors for 2014: Marcus G. Martin;
+ Code Contributors for 2013: Wesley Emeneker; Marcus G. Martin;
+ Code Contributors for 2012: Marcus G. Martin;
+ Code Contributors for 2011: Fred James; Marcus G. Martin; Suleiman Oloriegbe;
+ Code Contributors for 2010: Rene Haber; Andrej Lajovic; Marcus G. Martin; Loukas Peristeras;
+ Code Contributors for 2009: Rene Haber; Marcus G. Martin; Loukas Peristeras;
+ Code Contributors for 2008: Rene Haber; Iyad A. Hijazi; Marcus G. Martin; Loukas Peristeras; Craig Tenney;
+ Code Contributors for 2007: Bernhard Eckl; Frank Heilmann; Jianhui Li; Marcus G. Martin; Craig M. Tenney; Ozgur Yazaydin
+ Code Contributors for 2006: Alan A. Chen; Arben Jusufi; Christian D. Lorenz; Marcus G. Martin; Jeffrey J. Potoff; Vincent K. Shen; Matthew A. Wyczalkowski; Ozgur Yazaydin
+ Code Contributors for 2005: Marcus G. Martin; Alan A. Chen; Christian D. Lorenz; Matthew A. Wyczalkowski
+ Code Contributors for 2004: Marcus G. Martin; Christian D. Lorenz; Peter A. Schultz; Aidan P. Thompson; Jeffrey J. Potoff; Steve R. Lustig; Paul S. Crozier; Nicholas du Preez
+ Code Contributors for 2003: Marcus G. Martin; Christian D. Lorenz; David B. Ritch; Michael L. Greenfield; Yogesh Srivastava; Evangelos A Coutsias
+ Code Contributors for 2002: Marcus G. Martin; Christian D. Lorenz; Aidan P. Thompson; Allen G. Sault
+ Code Contributors for 2001: Marcus G. Martin
+ Code Contributors for 2000: Marcus G. Martin
+ Copyright (C) <1999> J. Ilja Siepmann and Marcus G. Martin
+ Code Contributors for 1999: J. Ilja Siepmann; Marcus G. Martin; Bin Chen; Collin D. Wick; John Stubbs
+
+ Direct comments about this code to Marcus G. Martin (marcus_martin@users.sourceforge.net)
+ See the MCCCS Towhee web site for more information and the users manual.
+ http://towhee.sourceforge.net
+
+ We would like to thank the following agencies for providing funding used to develop MCCCS Towhee
+ -Department of Energy Industrial Technologies Program (MGM)
+ -National Science Foundation (JIS)
+ -Department of Energy Computational Science Graduate Fellowship (MGM,CDW)
+
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+ Reading from towhee_input file: towhee_input                                                                                                            
+ in directory: /towheebase/Examples/Gibbs_Ensemble/Gromos_Isobutane/                                                                   
+ ensemble: nvt                           
+ temperature:  304.000    
+ nmolty:            1
+ nmolectyp:          330
+ numboxes:            2
+ stepstyle: cycles  
+ nstep:           10
+ printfreq:            1
+ blocksize:            2
+ moviefreq:       100000
+ backupfreq:            2
+ runoutput: full                
+Full output of updates and block averages
+ pdb_output_freq:           10
+ pressure_virial_freq:           20
+ trmaxdispfreq:         1000
+ volmaxdispfreq:         1000
+ linit:  F
+ initboxtype: dimensions          
+initstyle Box:    1
+ full cbmc           
+initstyle Box:    2
+ full cbmc           
+Box:  1 initlattice: simple cubic        
+Box:  2 initlattice: simple cubic        
+Box:  1 initmol:       290
+Box:  2 initmol:        40
+Box:  1 inix,iniy,iniz:         7          7          7
+Box:  2 inix,iniy,iniz:         4          4          4
+Box idim hmatrix:    1 1   31.00000    0.00000    0.00000
+Box idim hmatrix:    1 2    0.00000   31.00000    0.00000
+Box idim hmatrix:    1 3    0.00000    0.00000   31.00000
+Box idim hmatrix:    2 1  100.00000    0.00000    0.00000
+Box idim hmatrix:    2 2    0.00000  100.00000    0.00000
+Box idim hmatrix:    2 3    0.00000    0.00000  100.00000
+itest:  1 pairbox:  1   2
+ pmvol: 0.200000E-02
+ pmvlpr:  1.00000    
+ rmvol: 0.100000    
+ tavol: 0.500000    
+ pmcell:  0.00000    
+ pmcellpr:  1.00000    
+pairbox: 1  2 pmcellpt: 0.500000
+ rmcell:  1.00000    
+ tacell: 0.500000    
+ pm2boxrbswap:  0.00000    
+ pm2rbswmt:  1.00000    
+ pm2rbswpr:  1.00000    
+ pm2boxcbswap: 0.100000E-01
+ pm2cbswmt:  1.00000    
+ pm2cbswpr:  1.00000    
+ pm1boxcbswap:  0.00000    
+ pm1cbswmt:  1.00000    
+ pmavb1: 0.200000E-01
+ pmavb1in: 0.500000    
+ pmavb1mt:  1.00000    
+moltyp:  1 pmavb1ct: 1.000000
+ avb1rad:  8.00000    
+ pmavb2:  0.00000    
+ pmavb2in: 0.500000    
+ pmavb2mt:  1.00000    
+moltyp:  1 pmavb2ct: 1.000000
+ avb2rad:  8.00000    
+ pmavb3:  0.00000    
+ pmavb3mt:  1.00000    
+moltyp:  1 pmavb3ct: 1.000000
+ avb3rad:  8.00000    
+ pmcb: 0.330000    
+ pmcbmt:  1.00000    
+ pmall:  0.00000    
+ pmback:  0.00000    
+ pmbkmt:  1.00000    
+ pmpivot:  0.00000    
+ pmpivmt:  1.00000    
+ pmconrot:  0.00000    
+ pmcrmt:  1.00000    
+ pmcrback:  0.00000    
+ pmcrbmt:  1.00000    
+ pmplane:  0.00000    
+ pmplanebox: 0.500000      1.00000    
+ planewidth:  3.00000    
+ pmrow:  0.00000    
+ pmrowbox: 0.500000      1.00000    
+ rowwidth:  3.00000    
+ pmtraat:  0.00000    
+ pmtamt:  1.00000    
+ rmtraa: 0.500000    
+ tatraa: 0.500000    
+ pmtracm: 0.670000    
+ pmtcmt:  1.00000    
+ rmtrac: 0.500000    
+ tatrac: 0.500000    
+ pmrotate:  1.00000    
+ pmromt:  1.00000    
+ rmrot: 0.500000E-01
+ tarot: 0.500000    
+cbmc_analysis: normal                        
+cbmc_formulation: Martin and Frischknecht 2006                                
+ Coupled to pre-nonbond formulation from
+ M.G. Martin; A.L. Frischknecht; Mol. Phys. 104 2439-2456 (2006)
+cbmc_setting_style: Martin and Frischknecht       
+default max_bond_length:  3.00
+ ffnumber:            1
+ ff_filename:
+/towheebase/ForceFields/towhee_ff_Gromos43A1                                                                            
+ classical_potential: Lennard-Jones                 
+ READCLASSICAL: pot_num:     1 potential name: Lennard-Jones                 
+ classical_mixrule: Explicit                      
+ lshift:  T
+ ltailc:  F
+ rmin:  1.00000    
+ rcut:  14.0000    
+ rcutin:  10.0000    
+ electrostatic_form: none                                              
+ Setting up force field parameters from files
+ opening forcefield file:    1
+ Explicit declaration of Cross Terms
+ Please check the forcefield file carefully
+ No solvation model used
+ input_style: explicit                                          
+ nunit:            4
+ nmaxcbmc:            4
+bead:          1 beadtype:         14 charge:    0.00000
+bead:          2 beadtype:         12 charge:    0.00000
+bead:          3 beadtype:         14 charge:    0.00000
+bead:          4 beadtype:         14 charge:    0.00000
+ Verifying input structures are consistent
+Determining cyclic subunits for molecule type          1
+Default total charge on molecule   1 is   0.00000
+Total charge in the simulation system:   0.00000
+Bond Types
+Type:     26 Style: Gromos  Length: 1.5300 Constant:    21498.6
+Angle Types
+Type:  14 Style: Harmonic Cosine Angle:    111.000 Constant:    31872.0
+Torsion Types
+   No Torsion Types
+Improper Torsion Types
+Type:   2 Style: Harmonic  Angle:0.6155 k    20136.3
+Energies exclusively from internal potentials
+Nonbonded Force Field
+Lennard-Jones 12-6 potential
+    with a shift to zero at the cut-off
+u(r) = 4*epsilon[(sigma/r)^12 - (sigma/r)^6] - shift
+Num. Atom(i)    Num. Atom(j)         sigma    epsilon      shift     1-4sig     1-4eps
+  12 CH1          12 CH1            3.7998    37.7578    -0.0604     3.2965    68.2225
+  12 CH1          14 CH3            3.8372    57.6661    -0.0978     3.3845    89.3638
+  14 CH3          14 CH3            3.8750    88.0714    -0.1583     3.4748   117.0565
+Determining Arbitrary Trial Distribution Parameters: see towhee_cbmc for full details
+ Canonical Gibbs ensemble
+ 3-dimensional periodic box
+ Additional Center-of-Mass cutoff
+ Dual Cutoff Configurational-bias Monte Carlo
+ Coupled-decoupled Configurational-bias MC
+ No electrostatic interations
+
+Molecular mass for molecule type     1 is    58.1230 g/mol
+ Reading in initial conformation from towhee_inital
+Initial version:    7
+towhee_input random number generator     5 overrides towhee_initial random number generator     0
+Selected random number generator DX-1597-2-7 and single integer seed    1302002
+Testing random number generator using the single integer seed
+    0.812479  0.687663  0.080298  0.200888  0.516914
+10 million RNG sum (approximately 5 million):   4999978.2264809748
+ new maximum displacements read from towhee_initial
+box:     1
+molecule type:     1
+ Max displacement for Atom translate:   0.866411
+ Max displacement for COM translate:   0.863679
+ Max displacement for rotation:   0.879261
+box:     2
+molecule type:     1
+ Max displacement for Atom translate:  28.000000
+ Max displacement for COM translate:  28.000000
+ Max displacement for rotation:   3.141500
+Max displacement for single box isotropic volume moves
+ Box:  1 rmvol(box):   0.2748E-01
+ Box:  2 rmvol(box):   0.1000E+00
+Max displacement for box pairs isotropic volume moves
+ Pair:  1 rmvol(box):   0.2748E-01
+Max disp. for unit cell perturbation
+  Box   1 idim 1 rmcell:   0.1000E+01  0.1000E+01  0.1000E+01
+  Box   1 idim 2 rmcell:   0.1000E+01  0.1000E+01  0.1000E+01
+  Box   1 idim 3 rmcell:   0.1000E+01  0.1000E+01  0.1000E+01
+  Box   2 idim 1 rmcell:   0.1000E+01  0.1000E+01  0.1000E+01
+  Box   2 idim 2 rmcell:   0.1000E+01  0.1000E+01  0.1000E+01
+  Box   2 idim 3 rmcell:   0.1000E+01  0.1000E+01  0.1000E+01
+  Boxes   1 and   2 idim 1 rmcell:   0.1000E+01  0.1000E+01  0.1000E+01
+  Boxes   1 and   2 idim 2 rmcell:   0.1000E+01  0.1000E+01  0.1000E+01
+  Boxes   1 and   2 idim 3 rmcell:   0.1000E+01  0.1000E+01  0.1000E+01
+
+ new box dimensions read from towhee_initial
+ Box  1 hmatrix(1,x):       37.49201       0.00000       0.00000
+ Box  1 hmatrix(2,x):        0.00000      37.49201       0.00000
+ Box  1 hmatrix(3,x):        0.00000       0.00000      37.49201
+ Box  2 hmatrix(1,x):       59.88665       0.00000       0.00000
+ Box  2 hmatrix(2,x):        0.00000      59.88665       0.00000
+ Box  2 hmatrix(3,x):        0.00000       0.00000      59.88665
+
+
+Number of MC cycles:                   10
+Number of molecules:                  330
+Temperature [K]:       304.00000
+
+Initial Energies for Box     1
+Total molecules in this box        299
+Molecules of type   1 :        299
+ Total vibration (atoms ij bonded together)                144501.847 [K]       287.15636 [kcal/mol]
+  bond (ij) regular                                        144501.847 [K]       287.15636 [kcal/mol]
+  bond (ij) van der waals                                       0.000 [K]         0.00000 [kcal/mol]
+  bond (ij) Electric                                            0.000 [K]         0.00000 [kcal/mol]
+  bond-bond (ij-jk)                                             0.000 [K]         0.00000 [kcal/mol]
+ Total angle (atoms ijk bonded in sequence)                119063.864 [K]       236.60560 [kcal/mol]
+  angle (ijk) regular                                      119063.864 [K]       236.60560 [kcal/mol]
+  bond-angle (ij-ijk)                                           0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) van der waals                                      0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) Electric                                           0.000 [K]         0.00000 [kcal/mol]
+  angle-angle (ijk-ijm)                                         0.000 [K]         0.00000 [kcal/mol]
+ Total torsion (ijkl bonded in sequence)                        0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijkl) regular                                        0.000 [K]         0.00000 [kcal/mol]
+  torsion (ij-kl) bond-bond                                     0.000 [K]         0.00000 [kcal/mol]
+  torsion (ij-ijkl) bond-torsion                                0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-ijkl) angle-torsion                              0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-jkl-ijkl) angle-angle-torsion                    0.000 [K]         0.00000 [kcal/mol]
+  torsion (i-l) one-four van der waals                          0.000 [K]         0.00000 [kcal/mol]
+  torsion (i-l) one-four Electric                               0.000 [K]         0.00000 [kcal/mol]
+ Total improper (ijkm, i,k,m bonded to j)                   22781.725 [K]        45.27221 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) vdw              -585991.593 [K]     -1164.49178 [kcal/mol]
+  intramolecular                                                0.000 [K]         0.00000 [kcal/mol]
+  2-body vdw intermolecular                               -585991.593 [K]     -1164.49178 [kcal/mol]
+  3-body vdw intermolecular                                     0.000 [K]         0.00000 [kcal/mol]
+ Total external field                                           0.000 [K]         0.00000 [kcal/mol]
+ Total solvation                                                0.000 [K]         0.00000 [kcal/mol]
+Total classical                                           -299644.156 [K]      -595.45761 [kcal/mol]
+ Aggregate van der waals (bond and nonbond)               -585991.593 [K]     -1164.49178 [kcal/mol]
+ Aggregate Electric (bond and nonbond)                          0.000 [K]         0.00000 [kcal/mol]
+Initial Energies for Box     2
+Total molecules in this box         31
+Molecules of type   1 :         31
+ Total vibration (atoms ij bonded together)                 17400.225 [K]        34.57800 [kcal/mol]
+  bond (ij) regular                                         17400.225 [K]        34.57800 [kcal/mol]
+  bond (ij) van der waals                                       0.000 [K]         0.00000 [kcal/mol]
+  bond (ij) Electric                                            0.000 [K]         0.00000 [kcal/mol]
+  bond-bond (ij-jk)                                             0.000 [K]         0.00000 [kcal/mol]
+ Total angle (atoms ijk bonded in sequence)                 10369.020 [K]        20.60548 [kcal/mol]
+  angle (ijk) regular                                       10369.020 [K]        20.60548 [kcal/mol]
+  bond-angle (ij-ijk)                                           0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) van der waals                                      0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) Electric                                           0.000 [K]         0.00000 [kcal/mol]
+  angle-angle (ijk-ijm)                                         0.000 [K]         0.00000 [kcal/mol]
+ Total torsion (ijkl bonded in sequence)                        0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijkl) regular                                        0.000 [K]         0.00000 [kcal/mol]
+  torsion (ij-kl) bond-bond                                     0.000 [K]         0.00000 [kcal/mol]
+  torsion (ij-ijkl) bond-torsion                                0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-ijkl) angle-torsion                              0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-jkl-ijkl) angle-angle-torsion                    0.000 [K]         0.00000 [kcal/mol]
+  torsion (i-l) one-four van der waals                          0.000 [K]         0.00000 [kcal/mol]
+  torsion (i-l) one-four Electric                               0.000 [K]         0.00000 [kcal/mol]
+ Total improper (ijkm, i,k,m bonded to j)                    2676.242 [K]         5.31827 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) vdw                -2807.578 [K]        -5.57926 [kcal/mol]
+  intramolecular                                                0.000 [K]         0.00000 [kcal/mol]
+  2-body vdw intermolecular                                 -2807.578 [K]        -5.57926 [kcal/mol]
+  3-body vdw intermolecular                                     0.000 [K]         0.00000 [kcal/mol]
+ Total external field                                           0.000 [K]         0.00000 [kcal/mol]
+ Total solvation                                                0.000 [K]         0.00000 [kcal/mol]
+Total classical                                             27637.908 [K]        54.92249 [kcal/mol]
+ Aggregate van der waals (bond and nonbond)                 -2807.578 [K]        -5.57926 [kcal/mol]
+ Aggregate Electric (bond and nonbond)                          0.000 [K]         0.00000 [kcal/mol]
+ initial virial pressure in box  1 =       -4739.17
+ initial virial pressure in box  2 =         643.08
+
+ +++++ start of markov chain +++++
+
+Cycle      Box   Energy [K]  Volume [A^3] Press. [kPa] Molecules
+         1 B: 1 -0.2975E+06  0.5270E+05      -4739.2   299
+           B: 2  0.2924E+05  0.2148E+06        643.1    31
+         2 B: 1 -0.2981E+06  0.5237E+05      -4739.2   299
+           B: 2  0.2576E+05  0.2151E+06        643.1    31
+Block Averages (BA) for block     1
+BA Box: 1 Volume [A^3] 0.52677364E+05
+BA Box: 1 V^2 [A^6] 0.27749119E+10
+BA Box: 1 Specific density [g/ml] 0.54783821E+00
+BA Box: 1 Virial Pressure      [kPa] 0.00000000E+00
+BA Box: 1 Total Classical -.30014522E+06
+BA Box: 1 Inter vdw       -.58717537E+06
+BA Box: 1 Angle           0.11925662E+06
+BA Box: 1 Torsion         0.23496488E+05
+BA Box: 1 Intra vdw       0.00000000E+00
+BA Box: 1 External Field  0.00000000E+00
+BA Box: 1 Vibration       0.14427704E+06
+BA Box: 1 Coulomb         0.00000000E+00
+BA Box: 1 Tail vdw        0.00000000E+00
+BA Box: 1 Solvation       0.00000000E+00
+BA Box: 1 u (Gibbs Total) [K] Type   1 0.61889392E+04
+BA Box: 1 Number density [nm-3] Type   1 0.56760772E+01
+BA Box: 1 Mol Fraction Type   1 0.10000000E+01
+BA Box: 1 Stress Tensor Virial S_xx          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_yy          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_zz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_xy          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_xz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_yz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial P_tail        [kPa] 0.00000000E+00
+BA Box: 1 Radius of Gyration Type:  1        1.29279
+BA Box: 2 Volume [A^3] 0.21480148E+06
+BA Box: 2 V^2 [A^6] 0.46139685E+11
+BA Box: 2 Specific density [g/ml] 0.13929275E-01
+BA Box: 2 Virial Pressure      [kPa] 0.00000000E+00
+BA Box: 2 Total Classical 0.28295595E+05
+BA Box: 2 Inter vdw       -.22863748E+04
+BA Box: 2 Angle           0.12235497E+05
+BA Box: 2 Torsion         0.30970281E+04
+BA Box: 2 Intra vdw       0.00000000E+00
+BA Box: 2 External Field  0.00000000E+00
+BA Box: 2 Vibration       0.15249444E+05
+BA Box: 2 Coulomb         0.00000000E+00
+BA Box: 2 Tail vdw        0.00000000E+00
+BA Box: 2 Solvation       0.00000000E+00
+BA Box: 2 u (Gibbs Total) [K] Type   1 0.15024277E+04
+BA Box: 2 Number density [nm-3] Type   1 0.14431932E+00
+BA Box: 2 Mol Fraction Type   1 0.10000000E+01
+BA Box: 2 Stress Tensor Virial S_xx          [kPa] 0.00000000E+00
+BA Box: 2 Stress Tensor Virial S_yy          [kPa] 0.00000000E+00
+BA Box: 2 Stress Tensor Virial S_zz          [kPa] 0.00000000E+00
+BA Box: 2 Stress Tensor Virial S_xy          [kPa] 0.00000000E+00
+BA Box: 2 Stress Tensor Virial S_xz          [kPa] 0.00000000E+00
+BA Box: 2 Stress Tensor Virial S_yz          [kPa] 0.00000000E+00
+BA Box: 2 Stress Tensor Virial P_tail        [kPa] 0.00000000E+00
+BA Box: 2 Radius of Gyration Type:  1        1.29665
+         3 B: 1 -0.3025E+06  0.5295E+05      -4739.2   299
+           B: 2  0.2636E+05  0.2145E+06        643.1    31
+         4 B: 1 -0.3022E+06  0.5295E+05      -4739.2   299
+           B: 2  0.2629E+05  0.2145E+06        643.1    31
+Block Averages (BA) for block     2
+BA Box: 1 Volume [A^3] 0.52917179E+05
+BA Box: 1 V^2 [A^6] 0.28002497E+10
+BA Box: 1 Specific density [g/ml] 0.54535834E+00
+BA Box: 1 Virial Pressure      [kPa] 0.00000000E+00
+BA Box: 1 Total Classical -.30197045E+06
+BA Box: 1 Inter vdw       -.58601455E+06
+BA Box: 1 Angle           0.11690628E+06
+BA Box: 1 Torsion         0.24583100E+05
+BA Box: 1 Intra vdw       0.00000000E+00
+BA Box: 1 External Field  0.00000000E+00
+BA Box: 1 Vibration       0.14255472E+06
+BA Box: 1 Coulomb         0.00000000E+00
+BA Box: 1 Tail vdw        0.00000000E+00
+BA Box: 1 Solvation       0.00000000E+00
+BA Box: 1 u (Gibbs Total) [K] Type   1 0.00000000E+00
+BA Box: 1 Number density [nm-3] Type   1 0.56503836E+01
+BA Box: 1 Mol Fraction Type   1 0.10000000E+01
+BA Box: 1 Stress Tensor Virial S_xx          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_yy          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_zz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_xy          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_xz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_yz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial P_tail        [kPa] 0.00000000E+00
+BA Box: 1 Radius of Gyration Type:  1        1.29356
+BA Box: 2 Volume [A^3] 0.21456167E+06
+BA Box: 2 V^2 [A^6] 0.46036732E+11
+BA Box: 2 Specific density [g/ml] 0.13944848E-01
+BA Box: 2 Virial Pressure      [kPa] 0.00000000E+00
+BA Box: 2 Total Classical 0.26512053E+05
+BA Box: 2 Inter vdw       -.20191502E+04
+BA Box: 2 Angle           0.11691377E+05
+BA Box: 2 Torsion         0.28648186E+04
+BA Box: 2 Intra vdw       0.00000000E+00
+BA Box: 2 External Field  0.00000000E+00
+BA Box: 2 Vibration       0.13975008E+05
+BA Box: 2 Coulomb         0.00000000E+00
+BA Box: 2 Tail vdw        0.00000000E+00
+BA Box: 2 Solvation       0.00000000E+00
+BA Box: 2 u (Gibbs Total) [K] Type   1 0.15057890E+04
+BA Box: 2 Number density [nm-3] Type   1 0.14448067E+00
+BA Box: 2 Mol Fraction Type   1 0.10000000E+01
+BA Box: 2 Stress Tensor Virial S_xx          [kPa] 0.00000000E+00
+BA Box: 2 Stress Tensor Virial S_yy          [kPa] 0.00000000E+00
+BA Box: 2 Stress Tensor Virial S_zz          [kPa] 0.00000000E+00
+BA Box: 2 Stress Tensor Virial S_xy          [kPa] 0.00000000E+00
+BA Box: 2 Stress Tensor Virial S_xz          [kPa] 0.00000000E+00
+BA Box: 2 Stress Tensor Virial S_yz          [kPa] 0.00000000E+00
+BA Box: 2 Stress Tensor Virial P_tail        [kPa] 0.00000000E+00
+BA Box: 2 Radius of Gyration Type:  1        1.29536
+         5 B: 1 -0.2949E+06  0.5227E+05      -4739.2   299
+           B: 2  0.2938E+05  0.2152E+06        643.1    31
+         6 B: 1 -0.2908E+06  0.5308E+05      -4739.2   299
+           B: 2  0.2821E+05  0.2144E+06        643.1    31
+Block Averages (BA) for block     3
+BA Box: 1 Volume [A^3] 0.52922476E+05
+BA Box: 1 V^2 [A^6] 0.28009747E+10
+BA Box: 1 Specific density [g/ml] 0.54533591E+00
+BA Box: 1 Virial Pressure      [kPa] 0.00000000E+00
+BA Box: 1 Total Classical -.29476653E+06
+BA Box: 1 Inter vdw       -.58257463E+06
+BA Box: 1 Angle           0.11848944E+06
+BA Box: 1 Torsion         0.27892637E+05
+BA Box: 1 Intra vdw       0.00000000E+00
+BA Box: 1 External Field  0.00000000E+00
+BA Box: 1 Vibration       0.14142602E+06
+BA Box: 1 Coulomb         0.00000000E+00
+BA Box: 1 Tail vdw        0.00000000E+00
+BA Box: 1 Solvation       0.00000000E+00
+BA Box: 1 u (Gibbs Total) [K] Type   1 0.00000000E+00
+BA Box: 1 Number density [nm-3] Type   1 0.56501512E+01
+BA Box: 1 Mol Fraction Type   1 0.10000000E+01
+BA Box: 1 Stress Tensor Virial S_xx          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_yy          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_zz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_xy          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_xz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_yz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial P_tail        [kPa] 0.00000000E+00
+BA Box: 1 Radius of Gyration Type:  1        1.29483
+BA Box: 2 Volume [A^3] 0.21455637E+06
+BA Box: 2 V^2 [A^6] 0.46034623E+11
+BA Box: 2 Specific density [g/ml] 0.13945242E-01
+BA Box: 2 Virial Pressure      [kPa] 0.00000000E+00
+BA Box: 2 Total Classical 0.27825373E+05
+BA Box: 2 Inter vdw       -.17789407E+04
+BA Box: 2 Angle           0.12823978E+05
+BA Box: 2 Torsion         0.24928831E+04
+BA Box: 2 Intra vdw       0.00000000E+00
+BA Box: 2 External Field  0.00000000E+00
+BA Box: 2 Vibration       0.14287452E+05
+BA Box: 2 Coulomb         0.00000000E+00
+BA Box: 2 Tail vdw        0.00000000E+00
+BA Box: 2 Solvation       0.00000000E+00
+BA Box: 2 u (Gibbs Total) [K] Type   1 0.15147245E+04
+BA Box: 2 Number density [nm-3] Type   1 0.14448476E+00
+BA Box: 2 Mol Fraction Type   1 0.10000000E+01
+BA Box: 2 Stress Tensor Virial S_xx          [kPa] 0.00000000E+00
+BA Box: 2 Stress Tensor Virial S_yy          [kPa] 0.00000000E+00
+BA Box: 2 Stress Tensor Virial S_zz          [kPa] 0.00000000E+00
+BA Box: 2 Stress Tensor Virial S_xy          [kPa] 0.00000000E+00
+BA Box: 2 Stress Tensor Virial S_xz          [kPa] 0.00000000E+00
+BA Box: 2 Stress Tensor Virial S_yz          [kPa] 0.00000000E+00
+BA Box: 2 Stress Tensor Virial P_tail        [kPa] 0.00000000E+00
+BA Box: 2 Radius of Gyration Type:  1        1.29402
+         7 B: 1 -0.2890E+06  0.5308E+05      -4739.2   299
+           B: 2  0.2998E+05  0.2144E+06        643.1    31
+         8 B: 1 -0.2867E+06  0.5308E+05      -4739.2   299
+           B: 2  0.2967E+05  0.2144E+06        643.1    31
+Block Averages (BA) for block     4
+BA Box: 1 Volume [A^3] 0.53076135E+05
+BA Box: 1 V^2 [A^6] 0.28170762E+10
+BA Box: 1 Specific density [g/ml] 0.54372077E+00
+BA Box: 1 Virial Pressure      [kPa] 0.00000000E+00
+BA Box: 1 Total Classical -.28938554E+06
+BA Box: 1 Inter vdw       -.57982729E+06
+BA Box: 1 Angle           0.11968396E+06
+BA Box: 1 Torsion         0.29084759E+05
+BA Box: 1 Intra vdw       0.00000000E+00
+BA Box: 1 External Field  0.00000000E+00
+BA Box: 1 Vibration       0.14167303E+06
+BA Box: 1 Coulomb         0.00000000E+00
+BA Box: 1 Tail vdw        0.00000000E+00
+BA Box: 1 Solvation       0.00000000E+00
+BA Box: 1 u (Gibbs Total) [K] Type   1 0.77921487E+04
+BA Box: 1 Number density [nm-3] Type   1 0.56334169E+01
+BA Box: 1 Mol Fraction Type   1 0.10000000E+01
+BA Box: 1 Stress Tensor Virial S_xx          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_yy          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_zz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_xy          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_xz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_yz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial P_tail        [kPa] 0.00000000E+00
+BA Box: 1 Radius of Gyration Type:  1        1.29459
+BA Box: 2 Volume [A^3] 0.21440271E+06
+BA Box: 2 V^2 [A^6] 0.45968523E+11
+BA Box: 2 Specific density [g/ml] 0.13955180E-01
+BA Box: 2 Virial Pressure      [kPa] 0.00000000E+00
+BA Box: 2 Total Classical 0.29395651E+05
+BA Box: 2 Inter vdw       -.13062137E+04
+BA Box: 2 Angle           0.13579942E+05
+BA Box: 2 Torsion         0.22990942E+04
+BA Box: 2 Intra vdw       0.00000000E+00
+BA Box: 2 External Field  0.00000000E+00
+BA Box: 2 Vibration       0.14822828E+05
+BA Box: 2 Coulomb         0.00000000E+00
+BA Box: 2 Tail vdw        0.00000000E+00
+BA Box: 2 Solvation       0.00000000E+00
+BA Box: 2 u (Gibbs Total) [K] Type   1 0.15199858E+04
+BA Box: 2 Number density [nm-3] Type   1 0.14458772E+00
+BA Box: 2 Mol Fraction Type   1 0.10000000E+01
+BA Box: 2 Stress Tensor Virial S_xx          [kPa] 0.00000000E+00
+BA Box: 2 Stress Tensor Virial S_yy          [kPa] 0.00000000E+00
+BA Box: 2 Stress Tensor Virial S_zz          [kPa] 0.00000000E+00
+BA Box: 2 Stress Tensor Virial S_xy          [kPa] 0.00000000E+00
+BA Box: 2 Stress Tensor Virial S_xz          [kPa] 0.00000000E+00
+BA Box: 2 Stress Tensor Virial S_yz          [kPa] 0.00000000E+00
+BA Box: 2 Stress Tensor Virial P_tail        [kPa] 0.00000000E+00
+BA Box: 2 Radius of Gyration Type:  1        1.29137
+         9 B: 1 -0.2949E+06  0.5225E+05      -4739.2   299
+           B: 2  0.3022E+05  0.2152E+06        643.1    31
+        10 B: 1 -0.2942E+06  0.5257E+05      -4739.2   299
+           B: 2  0.2941E+05  0.2149E+06        643.1    31
+Block Averages (BA) for block     5
+BA Box: 1 Volume [A^3] 0.52444198E+05
+BA Box: 1 V^2 [A^6] 0.27505032E+10
+BA Box: 1 Specific density [g/ml] 0.55029414E+00
+BA Box: 1 Virial Pressure      [kPa] 0.00000000E+00
+BA Box: 1 Total Classical -.29324282E+06
+BA Box: 1 Inter vdw       -.58464345E+06
+BA Box: 1 Angle           0.12085120E+06
+BA Box: 1 Torsion         0.29268702E+05
+BA Box: 1 Intra vdw       0.00000000E+00
+BA Box: 1 External Field  0.00000000E+00
+BA Box: 1 Vibration       0.14128073E+06
+BA Box: 1 Coulomb         0.00000000E+00
+BA Box: 1 Tail vdw        0.00000000E+00
+BA Box: 1 Solvation       0.00000000E+00
+BA Box: 1 u (Gibbs Total) [K] Type   1 0.79583153E+04
+BA Box: 1 Number density [nm-3] Type   1 0.57015228E+01
+BA Box: 1 Mol Fraction Type   1 0.10000000E+01
+BA Box: 1 Stress Tensor Virial S_xx          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_yy          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_zz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_xy          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_xz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_yz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial P_tail        [kPa] 0.00000000E+00
+BA Box: 1 Radius of Gyration Type:  1        1.29482
+BA Box: 2 Volume [A^3] 0.21503465E+06
+BA Box: 2 V^2 [A^6] 0.46240010E+11
+BA Box: 2 Specific density [g/ml] 0.13914202E-01
+BA Box: 2 Virial Pressure      [kPa] 0.00000000E+00
+BA Box: 2 Total Classical 0.29612218E+05
+BA Box: 2 Inter vdw       -.10944085E+04
+BA Box: 2 Angle           0.12199478E+05
+BA Box: 2 Torsion         0.27133617E+04
+BA Box: 2 Intra vdw       0.00000000E+00
+BA Box: 2 External Field  0.00000000E+00
+BA Box: 2 Vibration       0.15793787E+05
+BA Box: 2 Coulomb         0.00000000E+00
+BA Box: 2 Tail vdw        0.00000000E+00
+BA Box: 2 Solvation       0.00000000E+00
+BA Box: 2 u (Gibbs Total) [K] Type   1 0.14544189E+04
+BA Box: 2 Number density [nm-3] Type   1 0.14416315E+00
+BA Box: 2 Mol Fraction Type   1 0.10000000E+01
+BA Box: 2 Stress Tensor Virial S_xx          [kPa] 0.00000000E+00
+BA Box: 2 Stress Tensor Virial S_yy          [kPa] 0.00000000E+00
+BA Box: 2 Stress Tensor Virial S_zz          [kPa] 0.00000000E+00
+BA Box: 2 Stress Tensor Virial S_xy          [kPa] 0.00000000E+00
+BA Box: 2 Stress Tensor Virial S_xz          [kPa] 0.00000000E+00
+BA Box: 2 Stress Tensor Virial S_yz          [kPa] 0.00000000E+00
+BA Box: 2 Stress Tensor Virial P_tail        [kPa] 0.00000000E+00
+BA Box: 2 Radius of Gyration Type:  1        1.29181
+
+ +++++ end of markov chain +++++
+
+ Final hmatrix (general box dimensions) 
+Box:     1
+  hmatrix(1,x)      37.46007       0.00000       0.00000
+  hmatrix(2,x)       0.00000      37.46007       0.00000
+  hmatrix(3,x)       0.00000       0.00000      37.46007
+Box:     2
+  hmatrix(1,x)      59.89916       0.00000       0.00000
+  hmatrix(2,x)       0.00000      59.89916       0.00000
+  hmatrix(3,x)       0.00000       0.00000      59.89916
+
+* 3D Volume Change Moves *
+ Box  1 and  2 Tries:       10 Accepted:        8 Acp. Ratio:  0.800 Max Disp.: 0.275E-01
+
+* Configurational-Bias SWAP Moves *
+Molecule type:     1
+  From box  2 to box  1 Attempted:      18 Grown:      18 Accepted:       0
+  From box  1 to box  2 Attempted:      13 Grown:      13 Accepted:       0
+
+* Aggregation-Volume-Bias-1 Moves *
+ Box Moved Around From To  Attempted  Accepted  Percent
+   1     1      1   in out         1         0     0.00
+   1     1      1  out  in         7         0     0.00
+   1     1      1  out out         8         0     0.00
+ Box Moved Around From To  Attempted  Accepted  Percent
+   2     1      1  out  in         7         0     0.00
+   2     1      1  out out        10        10   100.00
+
+* Configurational-Bias REGROWTH Moves *
+ Molecule type:    1 Box:    1
+     Length  Attempts  Regrown  Accepted  %Regrown   %Accep.
+        2       235       235       148    100.00     62.98
+        3       671       671       171    100.00     25.48
+ Molecule type:    1 Box:    2
+     Length  Attempts  Regrown  Accepted  %Regrown   %Accep.
+        2        18        18        18    100.00    100.00
+        3        67        67        63    100.00     94.03
+
+* COM Translation Moves *
+Molecule:  1 Box: 1 Attempts:           1040. Accepted:            515. Accepted:  49.519 %
+Molecule:  1 Box: 2 Attempts:             94. Accepted:             70. Accepted:  74.468 %
+
+* Rotation Moves *
+Molecule:  1 Box: 1 Attempts:            979. Accepted:            249. Accepted:  25.434 %
+Molecule:  1 Box: 2 Attempts:            122. Accepted:            115. Accepted:  94.262 %
+
+Final Energies for Box     1
+Total molecules in this box        299
+Molecules of type   1 :        299
+ Total vibration (atoms ij bonded together)                140006.631 [K]       278.22340 [kcal/mol]
+  bond (ij) regular                                        140006.631 [K]       278.22340 [kcal/mol]
+  bond (ij) van der waals                                       0.000 [K]         0.00000 [kcal/mol]
+  bond (ij) Electric                                            0.000 [K]         0.00000 [kcal/mol]
+  bond-bond (ij-jk)                                             0.000 [K]         0.00000 [kcal/mol]
+ Total angle (atoms ijk bonded in sequence)                121473.129 [K]       241.39333 [kcal/mol]
+  angle (ijk) regular                                      121473.129 [K]       241.39333 [kcal/mol]
+  bond-angle (ij-ijk)                                           0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) van der waals                                      0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) Electric                                           0.000 [K]         0.00000 [kcal/mol]
+  angle-angle (ijk-ijm)                                         0.000 [K]         0.00000 [kcal/mol]
+ Total torsion (ijkl bonded in sequence)                        0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijkl) regular                                        0.000 [K]         0.00000 [kcal/mol]
+  torsion (ij-kl) bond-bond                                     0.000 [K]         0.00000 [kcal/mol]
+  torsion (ij-ijkl) bond-torsion                                0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-ijkl) angle-torsion                              0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-jkl-ijkl) angle-angle-torsion                    0.000 [K]         0.00000 [kcal/mol]
+  torsion (i-l) one-four van der waals                          0.000 [K]         0.00000 [kcal/mol]
+  torsion (i-l) one-four Electric                               0.000 [K]         0.00000 [kcal/mol]
+ Total improper (ijkm, i,k,m bonded to j)                   27734.061 [K]        55.11357 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) vdw              -583459.191 [K]     -1159.45935 [kcal/mol]
+  intramolecular                                                0.000 [K]         0.00000 [kcal/mol]
+  2-body vdw intermolecular                               -583459.191 [K]     -1159.45935 [kcal/mol]
+  3-body vdw intermolecular                                     0.000 [K]         0.00000 [kcal/mol]
+ Total external field                                           0.000 [K]         0.00000 [kcal/mol]
+ Total solvation                                                0.000 [K]         0.00000 [kcal/mol]
+Total classical                                           -294245.370 [K]      -584.72906 [kcal/mol]
+ Aggregate van der waals (bond and nonbond)               -583459.191 [K]     -1159.45935 [kcal/mol]
+ Aggregate Electric (bond and nonbond)                          0.000 [K]         0.00000 [kcal/mol]
+Final Energies for Box     2
+Total molecules in this box         31
+Molecules of type   1 :         31
+ Total vibration (atoms ij bonded together)                 17640.658 [K]        35.05579 [kcal/mol]
+  bond (ij) regular                                         17640.658 [K]        35.05579 [kcal/mol]
+  bond (ij) van der waals                                       0.000 [K]         0.00000 [kcal/mol]
+  bond (ij) Electric                                            0.000 [K]         0.00000 [kcal/mol]
+  bond-bond (ij-jk)                                             0.000 [K]         0.00000 [kcal/mol]
+ Total angle (atoms ijk bonded in sequence)                  9590.634 [K]        19.05866 [kcal/mol]
+  angle (ijk) regular                                        9590.634 [K]        19.05866 [kcal/mol]
+  bond-angle (ij-ijk)                                           0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) van der waals                                      0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) Electric                                           0.000 [K]         0.00000 [kcal/mol]
+  angle-angle (ijk-ijm)                                         0.000 [K]         0.00000 [kcal/mol]
+ Total torsion (ijkl bonded in sequence)                        0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijkl) regular                                        0.000 [K]         0.00000 [kcal/mol]
+  torsion (ij-kl) bond-bond                                     0.000 [K]         0.00000 [kcal/mol]
+  torsion (ij-ijkl) bond-torsion                                0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-ijkl) angle-torsion                              0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-jkl-ijkl) angle-angle-torsion                    0.000 [K]         0.00000 [kcal/mol]
+  torsion (i-l) one-four van der waals                          0.000 [K]         0.00000 [kcal/mol]
+  torsion (i-l) one-four Electric                               0.000 [K]         0.00000 [kcal/mol]
+ Total improper (ijkm, i,k,m bonded to j)                    3132.828 [K]         6.22561 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) vdw                 -950.401 [K]        -1.88865 [kcal/mol]
+  intramolecular                                                0.000 [K]         0.00000 [kcal/mol]
+  2-body vdw intermolecular                                  -950.401 [K]        -1.88865 [kcal/mol]
+  3-body vdw intermolecular                                     0.000 [K]         0.00000 [kcal/mol]
+ Total external field                                           0.000 [K]         0.00000 [kcal/mol]
+ Total solvation                                                0.000 [K]         0.00000 [kcal/mol]
+Total classical                                             29413.719 [K]        58.45141 [kcal/mol]
+ Aggregate van der waals (bond and nonbond)                  -950.401 [K]        -1.88865 [kcal/mol]
+ Aggregate Electric (bond and nonbond)                          0.000 [K]         0.00000 [kcal/mol]
+Averages               Units Type       Box  1      Box  2
+ Volume                 nm^3       0.52807E+02 0.21467E+03
+ Volume^2               nm^6       0.27887E+04 0.46084E+05
+ Molecule Number                1      299.000      31.000
+ Molar Volume         ml/mol       0.10635E+03 0.41702E+04
+ Specific Density       g/ml        0.54650947  0.01393775
+ Number Density         nm-3    1      5.66231     0.14441
+ Mole Fraction                  1    1.0000000   1.0000000
+ Radius of Gyration        A    1    1.2941166   1.2938427
+ Ideal Pressure          kPa       0.23773E+05 0.60628E+03
+ Ideal p_i <N/V>kT       kPa    1  0.23773E+05 0.60628E+03
+ -<dU/dV>                kPa       -.30152E+05 0.81334E+01
+ Thermodynamic Pressure  kPa       -.63787E+04 0.61442E+03
+ Thermo p_i <x_1><p_t>   kPa    1  -.63787E+04 0.61442E+03
+ Total Classical           K       -0.2959E+06  0.2833E+05
+ Inter vdw                 K       -0.5840E+06 -0.1697E+04
+ Angle                     K        0.1190E+06  0.1251E+05
+ Torsion                   K        0.2687E+05  0.2693E+04
+ Intra vdw                 K        0.0000E+00  0.0000E+00
+ External Field            K        0.0000E+00  0.0000E+00
+ Vibration                 K        0.1422E+06  0.1483E+05
+ Coulomb                   K        0.0000E+00  0.0000E+00
+ Tail vdw                  K        0.0000E+00  0.0000E+00
+ Solvation                 K        0.0000E+00  0.0000E+00
+ u (Density)               K    1    -3424.242   -4539.591
+ u (NVT Insertion)         K    1    10478.183    6037.681
+ u (NpT Insertion)         K    1    10478.783    6037.786
+ u (Den. + NVT Insert)     K    1     7053.941    1498.090
+ u (Den. + NpT Insert)     K    1     7054.541    1498.195
+ u (Gibbs Total)           K    1     7055.556    1507.846
+ G: Sum{<u_i><N_i>}   kJ/mol        0.1754E+05  0.3886E+03
+ U                    kJ/mol       -0.2460E+04  0.2355E+03
+ H_vap (pV/n=RT)      kJ/mol        0.1835E+02
+ H_vap (thermo p)     kJ/mol        0.1832E+02
+
+Block Averages (  5 blocks) Units Type Box Average      Standard Deviation
+ Specific Density            g/ml        1  0.54651E+00  0.23051E-02
+ Specific Density            g/ml        2  0.13938E-01  0.14399E-04
+ Thermodynamic Pressure       kPa        1 -0.56535E+04  0.89155E+04
+ Thermodynamic Pressure       kPa        2  0.65448E+03  0.17048E+03
+ Total Classical                K        1 -0.29590E+06  0.45969E+04
+ Inter vdw                      K        1 -0.58405E+06  0.26072E+04
+ Angle                          K        1  0.11904E+06  0.13113E+04
+ Torsion                        K        1  0.26865E+05  0.23797E+04
+ Intra vdw                      K        1  0.00000E+00  0.00000E+00
+ External Field                 K        1  0.00000E+00  0.00000E+00
+ Vibration                      K        1  0.14224E+06  0.11093E+04
+ Coulomb                        K        1  0.00000E+00  0.00000E+00
+ Tail vdw                       K        1  0.00000E+00  0.00000E+00
+ Solvation                      K        1  0.00000E+00  0.00000E+00
+ Total Classical                K        2  0.28328E+05  0.11261E+04
+ Inter vdw                      K        2 -0.16970E+04  0.44129E+03
+ Angle                          K        2  0.12506E+05  0.64579E+03
+ Torsion                        K        2  0.26934E+04  0.27871E+03
+ Intra vdw                      K        2  0.00000E+00  0.00000E+00
+ External Field                 K        2  0.00000E+00  0.00000E+00
+ Vibration                      K        2  0.14826E+05  0.65271E+03
+ Coulomb                        K        2  0.00000E+00  0.00000E+00
+ Tail vdw                       K        2  0.00000E+00  0.00000E+00
+ Solvation                      K        2  0.00000E+00  0.00000E+00
+ u (Gibbs Total)                K    1   1     4387.881     3635.598
+ u (Gibbs Total)                K    1   2     1499.469       23.375
+ u (NpT Insertion)              K    1   1     6441.556     5295.699
+ u (NpT Insertion)              K    1   2     6029.409       23.085
+ u (NVT Insertion)              K    1   1     6441.360     5295.507
+ u (NVT Insertion)              K    1   2     6029.431       22.967
+ Number Density              nm-3    1   1  0.56623E+01  0.23883E-01
+ Number Density              nm-3    1   2  0.14441E+00  0.14919E-03
+ Mole Fraction                       1   1    1.0000000    0.0000000
+ Mole Fraction                       1   2    1.0000000    0.0000000
+ Molarity                       M    1   1  0.94058E+01  0.39673E-01
+ Molarity                       M    1   2  0.23988E+00  0.24782E-03
+ Radius of Gyration             A    1   1      1.29412      0.00081
+ Radius of Gyration             A    1   2      1.29384      0.00202
+ H_vap (pV/n=RT)           kJ/mol            0.1835E+02   0.2122E+00
+
+ -----block averages ------
+Box:    1
+Block Energy         Density        Virial Press.  Mol fracs
+    1 -.30014522E+06 0.54783821E+00 0.00000000E+00 1.00000000
+    2 -.30197045E+06 0.54535834E+00 0.00000000E+00 1.00000000
+    3 -.29476653E+06 0.54533591E+00 0.00000000E+00 1.00000000
+    4 -.28938554E+06 0.54372077E+00 0.00000000E+00 1.00000000
+    5 -.29324282E+06 0.55029414E+00 0.00000000E+00 1.00000000
+Box:    2
+Block Energy         Density        Virial Press.  Mol fracs
+    1 0.28295595E+05 0.13929275E-01 0.00000000E+00 1.00000000
+    2 0.26512053E+05 0.13944848E-01 0.00000000E+00 1.00000000
+    3 0.27825373E+05 0.13945242E-01 0.00000000E+00 1.00000000
+    4 0.29395651E+05 0.13955180E-01 0.00000000E+00 1.00000000
+    5 0.29612218E+05 0.13914202E-01 0.00000000E+00 1.00000000
+Please see towhee_citations for a list of suggested citations for this simulation

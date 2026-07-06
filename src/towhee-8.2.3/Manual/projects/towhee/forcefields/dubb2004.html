@@ -1,0 +1,92 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: Dubb2004</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: Dubbeldam <i>et al.</i> 2004</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the Dubbeldam <i>et al.</i> (Dubb2004) force field as it is implemented into the towhee_ff_Dubb2004 file in the ForceFields directory.
+      This force field is for adsorption simulations of alkanes in various Zeolites.
+      Note that this is a Lennard-Jones force field that uses explicit mixing rules so it is not easily combined with other force fields.
+      Any discrepencies (especially typos) from the published values are the sole responsibility of Marcus Martin,
+      and I welcome feedback on how this implementation compares with other programs.
+     </ul>
+     <b>References for Dubb2004</b> 
+     <ul>
+      What I term Dubb2004 is described in several papers.
+      <ul>
+       <li><a href="../references.html#dubbeldam_et_al_2004_prl">Dubbeldam <i>et al.</i> 2004 PRL</a></li>
+       <li><a href="../references.html#dubbeldam_et_al_2004_jpcb">Dubbeldam <i>et al.</i> 2004 JPCB</a></li>
+       <li><a href="../references.html#calero_et_al_2004">Calero <i>et al.</i> 2004</a></li>
+      </ul>
+      In addition, some of their torsional interactions are overly complicated.  The torsions 
+      involving the <b>CH</b> group are specified in terms of where the hydrogen would be if it was explicitly 
+      included in the simulation.  Thijs Vlugt suggested replacing the torsions involving the <b>CH</b> group 
+      with those from the TraPPE-UA forcefield and I have followed that suggestion for this implementation.
+     </ul>	
+     <b>Dubb2004 in Towhee</b> 
+     <ul>
+      The official force field name for Dubbeldam <i>et al.</i> United Atom in Towhee is 'Dubb2004'.
+      This list contains all of the atom names for use in the towhee_input file, along with a brief description.  I created these
+      atom names in order to work with the molecule assembler.  Dubb2004 is a united-atom force field which lumps
+      hydrogens onto their neighboring carbons.  It is also designed for work with Silaceous and aluminum substituted 
+      zeolites.  The general pattern of the names is a list of the atoms that 
+      make up the group, followed by the hybridization of the central atom, and ending in a character string that 
+      distinguishes similar atoms.
+      Please note that the capitalization and spacing pattern is important and must be followed exactly as listed here.
+      <dt><font color="red">sp<sup>3</sup> hybridized Carbons</font></dt>
+      <ul>
+       <dt>'<b>CH4</b>' : sp<sup>3</sup> carbon plus the 4 hydrogens bonded to it (united-atom) in methane.</dt>
+       <dt>'<b>CH3</b>' : sp<sup>3</sup> carbon plus the 3 hydrogens bonded to it (united-atom) in ethane.</dt>
+       <dt>'<b>CH2</b>' : sp<sup>3</sup> carbon plus the 2 hydrogens bonded to it (united-atom).</dt>
+       <dt>'<b>CH</b>' : sp<sup>3</sup> carbon plus the 1 hydrogen bonded to it (united-atom).</dt>
+       <dt>'<b>C</b>' : sp<sup>3</sup> carbon that is not bonded to any hydrogens.</dt>
+      </ul>
+      <dt><font color="red">Zeolite Framework Atoms</font></dt>
+      <ul>
+       <dt>'<b>O</b>' : oxygen bonded to silicon and/or aluminum in the zeolite framework.</dt>
+       <dt>'<b>Si</b>' : silicon bonded to four oxygens in the zeolite framework.</dt>
+       <dt>'<b>Al</b>' : aluminum bonded to four oxygens in the zeolite framework.</dt>
+      </ul>
+      <dt><font color="red">Zeolite Counter Ions</font></dt>
+      <ul>
+       <dt>'<b>Na</b>' : sodium ion.</dt>
+      </ul>
+     </ul>
+     <b>Coulombic interactions</b> 
+     <ul>
+      There are specific charge assignents for the atoms in the zeolite framework and these assignments are enforced 
+      by the angle potential for the zeolite.  There are no charges on the alkane united-atoms.  The 'bond increment'
+      method of <b>charge_assignment</b> is implemented for this forcefield.
+      Here is a	list of the charges that are assigned by the 'bond increment' method.
+      <ul>
+       <dt>'<b>Si</b>' : 2.05</dt>
+       <dt>'<b>Al</b>' : 1.75</dt>
+       <dt>'<b>O</b>' bonded to two silicons: -1.025</dt>
+       <dt>'<b>O</b>' bonded to one silicon and one aluminum: -1.20</dt>
+       <dt>'<b>Na</b>' : 1.0</dt>
+       <dt>'<b>C</b>' : all alkane carbons have a 0.0 charge.</dt>
+      </ul>
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

@@ -1,0 +1,1216 @@
+ MCCCS Towhee - Version 8.2.3   (July 22 2021)      
+ Copyright (C) <2000-2021> Marcus G. Martin
+ Code Contributors for 2021: Marcus G. Martin;
+ Code Contributors for 2020: Marcus G. Martin;
+ Code Contributors for 2019: Marcus G. Martin;
+ Code Contributors for 2018: Marcus G. Martin;
+ Code Contributors for 2017: Marcus G. Martin;
+ Code Contributors for 2016: Marcus G. Martin;
+ Code Contributors for 2015: Marcus G. Martin;
+ Code Contributors for 2014: Marcus G. Martin;
+ Code Contributors for 2013: Wesley Emeneker; Marcus G. Martin;
+ Code Contributors for 2012: Marcus G. Martin;
+ Code Contributors for 2011: Fred James; Marcus G. Martin; Suleiman Oloriegbe;
+ Code Contributors for 2010: Rene Haber; Andrej Lajovic; Marcus G. Martin; Loukas Peristeras;
+ Code Contributors for 2009: Rene Haber; Marcus G. Martin; Loukas Peristeras;
+ Code Contributors for 2008: Rene Haber; Iyad A. Hijazi; Marcus G. Martin; Loukas Peristeras; Craig Tenney;
+ Code Contributors for 2007: Bernhard Eckl; Frank Heilmann; Jianhui Li; Marcus G. Martin; Craig M. Tenney; Ozgur Yazaydin
+ Code Contributors for 2006: Alan A. Chen; Arben Jusufi; Christian D. Lorenz; Marcus G. Martin; Jeffrey J. Potoff; Vincent K. Shen; Matthew A. Wyczalkowski; Ozgur Yazaydin
+ Code Contributors for 2005: Marcus G. Martin; Alan A. Chen; Christian D. Lorenz; Matthew A. Wyczalkowski
+ Code Contributors for 2004: Marcus G. Martin; Christian D. Lorenz; Peter A. Schultz; Aidan P. Thompson; Jeffrey J. Potoff; Steve R. Lustig; Paul S. Crozier; Nicholas du Preez
+ Code Contributors for 2003: Marcus G. Martin; Christian D. Lorenz; David B. Ritch; Michael L. Greenfield; Yogesh Srivastava; Evangelos A Coutsias
+ Code Contributors for 2002: Marcus G. Martin; Christian D. Lorenz; Aidan P. Thompson; Allen G. Sault
+ Code Contributors for 2001: Marcus G. Martin
+ Code Contributors for 2000: Marcus G. Martin
+ Copyright (C) <1999> J. Ilja Siepmann and Marcus G. Martin
+ Code Contributors for 1999: J. Ilja Siepmann; Marcus G. Martin; Bin Chen; Collin D. Wick; John Stubbs
+
+ Direct comments about this code to Marcus G. Martin (marcus_martin@users.sourceforge.net)
+ See the MCCCS Towhee web site for more information and the users manual.
+ http://towhee.sourceforge.net
+
+ We would like to thank the following agencies for providing funding used to develop MCCCS Towhee
+ -Department of Energy Industrial Technologies Program (MGM)
+ -National Science Foundation (JIS)
+ -Department of Energy Computational Science Graduate Fellowship (MGM,CDW)
+
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+ Reading from towhee_input file: towhee_input                                                                                                            
+ in directory: /towheebase/Examples/Gibbs_Ensemble/Catlow_Zeolite_4a/                                                                  
+ ensemble: npt                           
+ temperature:  300.000    
+ pressure:  95.0000    
+ nmolty:            3
+ nmolectyp:            1           96          200
+ numboxes:            2
+ stepstyle: cycles  
+ nstep:            1
+ printfreq:            1
+ blocksize:         2000
+ moviefreq:       100000
+ backupfreq:         1000
+ runoutput: full                
+Full output of updates and block averages
+ pdb_output_freq:            1
+ pressure_virial_freq:           20
+ trmaxdispfreq:         1000
+ volmaxdispfreq:         1000
+ linit:  F
+ initboxtype: dimensions          
+initstyle Box:    1
+ coords               coords               none                
+initstyle Box:    2
+ none                 none                 full cbmc           
+Box:  1 initlattice: none                 none                 simple cubic        
+Box:  2 initlattice: none                 none                 simple cubic        
+Box:  1 initmol:         1         96          0
+Box:  2 initmol:         0          0        200
+Box:  1 inix,iniy,iniz:        10         10          1
+Box:  2 inix,iniy,iniz:         6          6          6
+Box idim hmatrix:    1 1   24.55500    0.00000    0.00000
+Box idim hmatrix:    1 2    0.00000   24.55500    0.00000
+Box idim hmatrix:    1 3    0.00000    0.00000   24.55500
+Box idim hmatrix:    2 1   70.00000    0.00000    0.00000
+Box idim hmatrix:    2 2    0.00000   70.00000    0.00000
+Box idim hmatrix:    2 3    0.00000    0.00000   70.00000
+itest:  1 pairbox:  1   2
+ pmvol: 0.500000E-02
+ pmvlpr:  0.00000      1.00000    
+ rmvol: 0.100000    
+ tavol: 0.500000    
+ pm2boxcbswap: 0.500000E-01
+ pm2cbswmt:  0.00000      0.00000      1.00000    
+ pm2cbswpr:  1.00000    
+ pm1boxcbswap: 0.100000    
+ pm1cbswmt:  0.00000      0.00000      1.00000    
+ pmcb: 0.330000    
+ pmcbmt:  0.00000      0.00000      1.00000    
+ pmall:  0.00000      0.00000      0.00000    
+ pmtraat: 0.335000    
+ pmtamt:  1.00000      0.00000      0.00000    
+ rmtraa: 0.500000    
+ tatraa: 0.500000    
+ pmtracm: 0.670000    
+ pmtcmt:  0.00000      0.00000      1.00000    
+ rmtrac: 0.500000    
+ tatrac: 0.500000    
+ pmrotate:  1.00000    
+ pmromt:  0.00000      0.00000      1.00000    
+ rmrot: 0.500000E-01
+ tarot: 0.500000    
+cbmc_analysis: normal                        
+cbmc_formulation: Martin and Siepmann 1999 + Martin and Thompson 2004         
+ Original Coupled-Decoupled formulation from
+ M.G. Martin; J.I. Siepmann; J. Phys. Chem. B103 2977-2980 (1999)
+ with a decoupled bond length selection from
+ M.G. Martin; A.P. Thompson; Fluid Phase Equilib. 217 105-110 (2004)
+cbmc_setting_style: explicit                      
+ cbmc_nb_one_generation                            : uniform                       uniform                       uniform                       
+ uniform                        uniform                        uniform                       
+ nch_nb_one                                        :            1            1           10
+ nch_nb                                            :            1            1           10
+cbmc_dihedral_generation: ideal                         
+ Use true distributions to generate torsions in config-bias
+ nch_tor                                           :            1            1          100
+ nch_tor_connect                                   :            1            1          100
+cbmc_bend_generation: ideal                         
+ Use ideal distributions to generate angles in configurational-bias
+ nch_bend_a                                        :            1            1         1000
+ nch_bend_b                                        :            1            1         1000
+default max_bond_length:  3.00
+cbmc_bond_generation: r^2 with bounds               
+ Use a bounded r^2 distribution to generate vibrations in config-bias
+vibrang:   0.85000    1.15000
+ nch_vib                                           :            1            1         1000
+two_bond_fixed_endpoint_bias_style: analytic Boltzmann dihedral energy sum            
+three_bond_fixed_endpoint_bias_style: analytic using max and min 2-4 distance           
+ ffnumber:            1
+ ff_filename:
+/towheebase/ForceFields/towhee_ff_CatlowFaux                                                                            
+ classical_potential: Exponential-12-6              
+ READCLASSICAL: pot_num:    12 potential name: Exponential-12-6              
+ classical_mixrule: Explicit                      
+ lshift:  T
+ ltailc:  F
+ rmin: 0.500000    
+ rcut:  12.0000    
+ rcutin:  6.00000    
+ electrostatic_form: coulomb                                           
+ coulombstyle: ewald_fixed_kmax    
+ kalp:  5.60000    
+ kmax:            5
+ dielect:  1.00000    
+ Setting up force field parameters from files
+ opening forcefield file:    1
+ Explicit declaration of Cross Terms
+ Please check the forcefield file carefully
+ No solvation model used
+ input_style: basic connectivity map                            
+ nunit:          576
+ nmaxcbmc:          576
+ lpdbnames:  F
+   using the CatlowFaux force field
+ charge_assignment: manual                        
+   Building the input file for molecule type:     1
+unit:    1 name:OZ         charge:  -1.86875
+unit:    2 name:OZ         charge:  -1.86875
+unit:    3 name:OZ         charge:  -1.86875
+unit:    4 name:OZ         charge:  -1.86875
+unit:    5 name:OZ         charge:  -1.86875
+unit:    6 name:OZ         charge:  -1.86875
+unit:    7 name:OZ         charge:  -1.86875
+unit:    8 name:OZ         charge:  -1.86875
+unit:    9 name:OZ         charge:  -1.86875
+unit:   10 name:OZ         charge:  -1.86875
+unit:   11 name:OZ         charge:  -1.86875
+unit:   12 name:OZ         charge:  -1.86875
+unit:   13 name:OZ         charge:  -1.86875
+unit:   14 name:OZ         charge:  -1.86875
+unit:   15 name:OZ         charge:  -1.86875
+unit:   16 name:OZ         charge:  -1.86875
+unit:   17 name:OZ         charge:  -1.86875
+unit:   18 name:OZ         charge:  -1.86875
+unit:   19 name:OZ         charge:  -1.86875
+unit:   20 name:OZ         charge:  -1.86875
+unit:   21 name:OZ         charge:  -1.86875
+unit:   22 name:OZ         charge:  -1.86875
+unit:   23 name:OZ         charge:  -1.86875
+unit:   24 name:OZ         charge:  -1.86875
+unit:   25 name:OZ         charge:  -1.86875
+unit:   26 name:OZ         charge:  -1.86875
+unit:   27 name:OZ         charge:  -1.86875
+unit:   28 name:OZ         charge:  -1.86875
+unit:   29 name:OZ         charge:  -1.86875
+unit:   30 name:OZ         charge:  -1.86875
+unit:   31 name:OZ         charge:  -1.86875
+unit:   32 name:OZ         charge:  -1.86875
+unit:   33 name:OZ         charge:  -1.86875
+unit:   34 name:OZ         charge:  -1.86875
+unit:   35 name:OZ         charge:  -1.86875
+unit:   36 name:OZ         charge:  -1.86875
+unit:   37 name:OZ         charge:  -1.86875
+unit:   38 name:OZ         charge:  -1.86875
+unit:   39 name:OZ         charge:  -1.86875
+unit:   40 name:OZ         charge:  -1.86875
+unit:   41 name:OZ         charge:  -1.86875
+unit:   42 name:OZ         charge:  -1.86875
+unit:   43 name:OZ         charge:  -1.86875
+unit:   44 name:OZ         charge:  -1.86875
+unit:   45 name:OZ         charge:  -1.86875
+unit:   46 name:OZ         charge:  -1.86875
+unit:   47 name:OZ         charge:  -1.86875
+unit:   48 name:OZ         charge:  -1.86875
+unit:   49 name:OZ         charge:  -1.86875
+unit:   50 name:OZ         charge:  -1.86875
+unit:   51 name:OZ         charge:  -1.86875
+unit:   52 name:OZ         charge:  -1.86875
+unit:   53 name:OZ         charge:  -1.86875
+unit:   54 name:OZ         charge:  -1.86875
+unit:   55 name:OZ         charge:  -1.86875
+unit:   56 name:OZ         charge:  -1.86875
+unit:   57 name:OZ         charge:  -1.86875
+unit:   58 name:OZ         charge:  -1.86875
+unit:   59 name:OZ         charge:  -1.86875
+unit:   60 name:OZ         charge:  -1.86875
+unit:   61 name:OZ         charge:  -1.86875
+unit:   62 name:OZ         charge:  -1.86875
+unit:   63 name:OZ         charge:  -1.86875
+unit:   64 name:OZ         charge:  -1.86875
+unit:   65 name:OZ         charge:  -1.86875
+unit:   66 name:OZ         charge:  -1.86875
+unit:   67 name:OZ         charge:  -1.86875
+unit:   68 name:OZ         charge:  -1.86875
+unit:   69 name:OZ         charge:  -1.86875
+unit:   70 name:OZ         charge:  -1.86875
+unit:   71 name:OZ         charge:  -1.86875
+unit:   72 name:OZ         charge:  -1.86875
+unit:   73 name:OZ         charge:  -1.86875
+unit:   74 name:OZ         charge:  -1.86875
+unit:   75 name:OZ         charge:  -1.86875
+unit:   76 name:OZ         charge:  -1.86875
+unit:   77 name:OZ         charge:  -1.86875
+unit:   78 name:OZ         charge:  -1.86875
+unit:   79 name:OZ         charge:  -1.86875
+unit:   80 name:OZ         charge:  -1.86875
+unit:   81 name:OZ         charge:  -1.86875
+unit:   82 name:OZ         charge:  -1.86875
+unit:   83 name:OZ         charge:  -1.86875
+unit:   84 name:OZ         charge:  -1.86875
+unit:   85 name:OZ         charge:  -1.86875
+unit:   86 name:OZ         charge:  -1.86875
+unit:   87 name:OZ         charge:  -1.86875
+unit:   88 name:OZ         charge:  -1.86875
+unit:   89 name:OZ         charge:  -1.86875
+unit:   90 name:OZ         charge:  -1.86875
+unit:   91 name:OZ         charge:  -1.86875
+unit:   92 name:OZ         charge:  -1.86875
+unit:   93 name:OZ         charge:  -1.86875
+unit:   94 name:OZ         charge:  -1.86875
+unit:   95 name:OZ         charge:  -1.86875
+unit:   96 name:OZ         charge:  -1.86875
+unit:   97 name:OZ         charge:  -1.86875
+unit:   98 name:OZ         charge:  -1.86875
+unit:   99 name:OZ         charge:  -1.86875
+unit:  100 name:OZ         charge:  -1.86875
+unit:  101 name:OZ         charge:  -1.86875
+unit:  102 name:OZ         charge:  -1.86875
+unit:  103 name:OZ         charge:  -1.86875
+unit:  104 name:OZ         charge:  -1.86875
+unit:  105 name:OZ         charge:  -1.86875
+unit:  106 name:OZ         charge:  -1.86875
+unit:  107 name:OZ         charge:  -1.86875
+unit:  108 name:OZ         charge:  -1.86875
+unit:  109 name:OZ         charge:  -1.86875
+unit:  110 name:OZ         charge:  -1.86875
+unit:  111 name:OZ         charge:  -1.86875
+unit:  112 name:OZ         charge:  -1.86875
+unit:  113 name:OZ         charge:  -1.86875
+unit:  114 name:OZ         charge:  -1.86875
+unit:  115 name:OZ         charge:  -1.86875
+unit:  116 name:OZ         charge:  -1.86875
+unit:  117 name:OZ         charge:  -1.86875
+unit:  118 name:OZ         charge:  -1.86875
+unit:  119 name:OZ         charge:  -1.86875
+unit:  120 name:OZ         charge:  -1.86875
+unit:  121 name:OZ         charge:  -1.86875
+unit:  122 name:OZ         charge:  -1.86875
+unit:  123 name:OZ         charge:  -1.86875
+unit:  124 name:OZ         charge:  -1.86875
+unit:  125 name:OZ         charge:  -1.86875
+unit:  126 name:OZ         charge:  -1.86875
+unit:  127 name:OZ         charge:  -1.86875
+unit:  128 name:OZ         charge:  -1.86875
+unit:  129 name:OZ         charge:  -1.86875
+unit:  130 name:OZ         charge:  -1.86875
+unit:  131 name:OZ         charge:  -1.86875
+unit:  132 name:OZ         charge:  -1.86875
+unit:  133 name:OZ         charge:  -1.86875
+unit:  134 name:OZ         charge:  -1.86875
+unit:  135 name:OZ         charge:  -1.86875
+unit:  136 name:OZ         charge:  -1.86875
+unit:  137 name:OZ         charge:  -1.86875
+unit:  138 name:OZ         charge:  -1.86875
+unit:  139 name:OZ         charge:  -1.86875
+unit:  140 name:OZ         charge:  -1.86875
+unit:  141 name:OZ         charge:  -1.86875
+unit:  142 name:OZ         charge:  -1.86875
+unit:  143 name:OZ         charge:  -1.86875
+unit:  144 name:OZ         charge:  -1.86875
+unit:  145 name:OZ         charge:  -1.86875
+unit:  146 name:OZ         charge:  -1.86875
+unit:  147 name:OZ         charge:  -1.86875
+unit:  148 name:OZ         charge:  -1.86875
+unit:  149 name:OZ         charge:  -1.86875
+unit:  150 name:OZ         charge:  -1.86875
+unit:  151 name:OZ         charge:  -1.86875
+unit:  152 name:OZ         charge:  -1.86875
+unit:  153 name:OZ         charge:  -1.86875
+unit:  154 name:OZ         charge:  -1.86875
+unit:  155 name:OZ         charge:  -1.86875
+unit:  156 name:OZ         charge:  -1.86875
+unit:  157 name:OZ         charge:  -1.86875
+unit:  158 name:OZ         charge:  -1.86875
+unit:  159 name:OZ         charge:  -1.86875
+unit:  160 name:OZ         charge:  -1.86875
+unit:  161 name:OZ         charge:  -1.86875
+unit:  162 name:OZ         charge:  -1.86875
+unit:  163 name:OZ         charge:  -1.86875
+unit:  164 name:OZ         charge:  -1.86875
+unit:  165 name:OZ         charge:  -1.86875
+unit:  166 name:OZ         charge:  -1.86875
+unit:  167 name:OZ         charge:  -1.86875
+unit:  168 name:OZ         charge:  -1.86875
+unit:  169 name:OZ         charge:  -1.86875
+unit:  170 name:OZ         charge:  -1.86875
+unit:  171 name:OZ         charge:  -1.86875
+unit:  172 name:OZ         charge:  -1.86875
+unit:  173 name:OZ         charge:  -1.86875
+unit:  174 name:OZ         charge:  -1.86875
+unit:  175 name:OZ         charge:  -1.86875
+unit:  176 name:OZ         charge:  -1.86875
+unit:  177 name:OZ         charge:  -1.86875
+unit:  178 name:OZ         charge:  -1.86875
+unit:  179 name:OZ         charge:  -1.86875
+unit:  180 name:OZ         charge:  -1.86875
+unit:  181 name:OZ         charge:  -1.86875
+unit:  182 name:OZ         charge:  -1.86875
+unit:  183 name:OZ         charge:  -1.86875
+unit:  184 name:OZ         charge:  -1.86875
+unit:  185 name:OZ         charge:  -1.86875
+unit:  186 name:OZ         charge:  -1.86875
+unit:  187 name:OZ         charge:  -1.86875
+unit:  188 name:OZ         charge:  -1.86875
+unit:  189 name:OZ         charge:  -1.86875
+unit:  190 name:OZ         charge:  -1.86875
+unit:  191 name:OZ         charge:  -1.86875
+unit:  192 name:OZ         charge:  -1.86875
+unit:  193 name:OZ         charge:  -1.86875
+unit:  194 name:OZ         charge:  -1.86875
+unit:  195 name:OZ         charge:  -1.86875
+unit:  196 name:OZ         charge:  -1.86875
+unit:  197 name:OZ         charge:  -1.86875
+unit:  198 name:OZ         charge:  -1.86875
+unit:  199 name:OZ         charge:  -1.86875
+unit:  200 name:OZ         charge:  -1.86875
+unit:  201 name:OZ         charge:  -1.86875
+unit:  202 name:OZ         charge:  -1.86875
+unit:  203 name:OZ         charge:  -1.86875
+unit:  204 name:OZ         charge:  -1.86875
+unit:  205 name:OZ         charge:  -1.86875
+unit:  206 name:OZ         charge:  -1.86875
+unit:  207 name:OZ         charge:  -1.86875
+unit:  208 name:OZ         charge:  -1.86875
+unit:  209 name:OZ         charge:  -1.86875
+unit:  210 name:OZ         charge:  -1.86875
+unit:  211 name:OZ         charge:  -1.86875
+unit:  212 name:OZ         charge:  -1.86875
+unit:  213 name:OZ         charge:  -1.86875
+unit:  214 name:OZ         charge:  -1.86875
+unit:  215 name:OZ         charge:  -1.86875
+unit:  216 name:OZ         charge:  -1.86875
+unit:  217 name:OZ         charge:  -1.86875
+unit:  218 name:OZ         charge:  -1.86875
+unit:  219 name:OZ         charge:  -1.86875
+unit:  220 name:OZ         charge:  -1.86875
+unit:  221 name:OZ         charge:  -1.86875
+unit:  222 name:OZ         charge:  -1.86875
+unit:  223 name:OZ         charge:  -1.86875
+unit:  224 name:OZ         charge:  -1.86875
+unit:  225 name:OZ         charge:  -1.86875
+unit:  226 name:OZ         charge:  -1.86875
+unit:  227 name:OZ         charge:  -1.86875
+unit:  228 name:OZ         charge:  -1.86875
+unit:  229 name:OZ         charge:  -1.86875
+unit:  230 name:OZ         charge:  -1.86875
+unit:  231 name:OZ         charge:  -1.86875
+unit:  232 name:OZ         charge:  -1.86875
+unit:  233 name:OZ         charge:  -1.86875
+unit:  234 name:OZ         charge:  -1.86875
+unit:  235 name:OZ         charge:  -1.86875
+unit:  236 name:OZ         charge:  -1.86875
+unit:  237 name:OZ         charge:  -1.86875
+unit:  238 name:OZ         charge:  -1.86875
+unit:  239 name:OZ         charge:  -1.86875
+unit:  240 name:OZ         charge:  -1.86875
+unit:  241 name:OZ         charge:  -1.86875
+unit:  242 name:OZ         charge:  -1.86875
+unit:  243 name:OZ         charge:  -1.86875
+unit:  244 name:OZ         charge:  -1.86875
+unit:  245 name:OZ         charge:  -1.86875
+unit:  246 name:OZ         charge:  -1.86875
+unit:  247 name:OZ         charge:  -1.86875
+unit:  248 name:OZ         charge:  -1.86875
+unit:  249 name:OZ         charge:  -1.86875
+unit:  250 name:OZ         charge:  -1.86875
+unit:  251 name:OZ         charge:  -1.86875
+unit:  252 name:OZ         charge:  -1.86875
+unit:  253 name:OZ         charge:  -1.86875
+unit:  254 name:OZ         charge:  -1.86875
+unit:  255 name:OZ         charge:  -1.86875
+unit:  256 name:OZ         charge:  -1.86875
+unit:  257 name:OZ         charge:  -1.86875
+unit:  258 name:OZ         charge:  -1.86875
+unit:  259 name:OZ         charge:  -1.86875
+unit:  260 name:OZ         charge:  -1.86875
+unit:  261 name:OZ         charge:  -1.86875
+unit:  262 name:OZ         charge:  -1.86875
+unit:  263 name:OZ         charge:  -1.86875
+unit:  264 name:OZ         charge:  -1.86875
+unit:  265 name:OZ         charge:  -1.86875
+unit:  266 name:OZ         charge:  -1.86875
+unit:  267 name:OZ         charge:  -1.86875
+unit:  268 name:OZ         charge:  -1.86875
+unit:  269 name:OZ         charge:  -1.86875
+unit:  270 name:OZ         charge:  -1.86875
+unit:  271 name:OZ         charge:  -1.86875
+unit:  272 name:OZ         charge:  -1.86875
+unit:  273 name:OZ         charge:  -1.86875
+unit:  274 name:OZ         charge:  -1.86875
+unit:  275 name:OZ         charge:  -1.86875
+unit:  276 name:OZ         charge:  -1.86875
+unit:  277 name:OZ         charge:  -1.86875
+unit:  278 name:OZ         charge:  -1.86875
+unit:  279 name:OZ         charge:  -1.86875
+unit:  280 name:OZ         charge:  -1.86875
+unit:  281 name:OZ         charge:  -1.86875
+unit:  282 name:OZ         charge:  -1.86875
+unit:  283 name:OZ         charge:  -1.86875
+unit:  284 name:OZ         charge:  -1.86875
+unit:  285 name:OZ         charge:  -1.86875
+unit:  286 name:OZ         charge:  -1.86875
+unit:  287 name:OZ         charge:  -1.86875
+unit:  288 name:OZ         charge:  -1.86875
+unit:  289 name:OZ         charge:  -1.86875
+unit:  290 name:OZ         charge:  -1.86875
+unit:  291 name:OZ         charge:  -1.86875
+unit:  292 name:OZ         charge:  -1.86875
+unit:  293 name:OZ         charge:  -1.86875
+unit:  294 name:OZ         charge:  -1.86875
+unit:  295 name:OZ         charge:  -1.86875
+unit:  296 name:OZ         charge:  -1.86875
+unit:  297 name:OZ         charge:  -1.86875
+unit:  298 name:OZ         charge:  -1.86875
+unit:  299 name:OZ         charge:  -1.86875
+unit:  300 name:OZ         charge:  -1.86875
+unit:  301 name:OZ         charge:  -1.86875
+unit:  302 name:OZ         charge:  -1.86875
+unit:  303 name:OZ         charge:  -1.86875
+unit:  304 name:OZ         charge:  -1.86875
+unit:  305 name:OZ         charge:  -1.86875
+unit:  306 name:OZ         charge:  -1.86875
+unit:  307 name:OZ         charge:  -1.86875
+unit:  308 name:OZ         charge:  -1.86875
+unit:  309 name:OZ         charge:  -1.86875
+unit:  310 name:OZ         charge:  -1.86875
+unit:  311 name:OZ         charge:  -1.86875
+unit:  312 name:OZ         charge:  -1.86875
+unit:  313 name:OZ         charge:  -1.86875
+unit:  314 name:OZ         charge:  -1.86875
+unit:  315 name:OZ         charge:  -1.86875
+unit:  316 name:OZ         charge:  -1.86875
+unit:  317 name:OZ         charge:  -1.86875
+unit:  318 name:OZ         charge:  -1.86875
+unit:  319 name:OZ         charge:  -1.86875
+unit:  320 name:OZ         charge:  -1.86875
+unit:  321 name:OZ         charge:  -1.86875
+unit:  322 name:OZ         charge:  -1.86875
+unit:  323 name:OZ         charge:  -1.86875
+unit:  324 name:OZ         charge:  -1.86875
+unit:  325 name:OZ         charge:  -1.86875
+unit:  326 name:OZ         charge:  -1.86875
+unit:  327 name:OZ         charge:  -1.86875
+unit:  328 name:OZ         charge:  -1.86875
+unit:  329 name:OZ         charge:  -1.86875
+unit:  330 name:OZ         charge:  -1.86875
+unit:  331 name:OZ         charge:  -1.86875
+unit:  332 name:OZ         charge:  -1.86875
+unit:  333 name:OZ         charge:  -1.86875
+unit:  334 name:OZ         charge:  -1.86875
+unit:  335 name:OZ         charge:  -1.86875
+unit:  336 name:OZ         charge:  -1.86875
+unit:  337 name:OZ         charge:  -1.86875
+unit:  338 name:OZ         charge:  -1.86875
+unit:  339 name:OZ         charge:  -1.86875
+unit:  340 name:OZ         charge:  -1.86875
+unit:  341 name:OZ         charge:  -1.86875
+unit:  342 name:OZ         charge:  -1.86875
+unit:  343 name:OZ         charge:  -1.86875
+unit:  344 name:OZ         charge:  -1.86875
+unit:  345 name:OZ         charge:  -1.86875
+unit:  346 name:OZ         charge:  -1.86875
+unit:  347 name:OZ         charge:  -1.86875
+unit:  348 name:OZ         charge:  -1.86875
+unit:  349 name:OZ         charge:  -1.86875
+unit:  350 name:OZ         charge:  -1.86875
+unit:  351 name:OZ         charge:  -1.86875
+unit:  352 name:OZ         charge:  -1.86875
+unit:  353 name:OZ         charge:  -1.86875
+unit:  354 name:OZ         charge:  -1.86875
+unit:  355 name:OZ         charge:  -1.86875
+unit:  356 name:OZ         charge:  -1.86875
+unit:  357 name:OZ         charge:  -1.86875
+unit:  358 name:OZ         charge:  -1.86875
+unit:  359 name:OZ         charge:  -1.86875
+unit:  360 name:OZ         charge:  -1.86875
+unit:  361 name:OZ         charge:  -1.86875
+unit:  362 name:OZ         charge:  -1.86875
+unit:  363 name:OZ         charge:  -1.86875
+unit:  364 name:OZ         charge:  -1.86875
+unit:  365 name:OZ         charge:  -1.86875
+unit:  366 name:OZ         charge:  -1.86875
+unit:  367 name:OZ         charge:  -1.86875
+unit:  368 name:OZ         charge:  -1.86875
+unit:  369 name:OZ         charge:  -1.86875
+unit:  370 name:OZ         charge:  -1.86875
+unit:  371 name:OZ         charge:  -1.86875
+unit:  372 name:OZ         charge:  -1.86875
+unit:  373 name:OZ         charge:  -1.86875
+unit:  374 name:OZ         charge:  -1.86875
+unit:  375 name:OZ         charge:  -1.86875
+unit:  376 name:OZ         charge:  -1.86875
+unit:  377 name:OZ         charge:  -1.86875
+unit:  378 name:OZ         charge:  -1.86875
+unit:  379 name:OZ         charge:  -1.86875
+unit:  380 name:OZ         charge:  -1.86875
+unit:  381 name:OZ         charge:  -1.86875
+unit:  382 name:OZ         charge:  -1.86875
+unit:  383 name:OZ         charge:  -1.86875
+unit:  384 name:OZ         charge:  -1.86875
+unit:  385 name:Si         charge:   3.70000
+unit:  386 name:Si         charge:   3.70000
+unit:  387 name:Si         charge:   3.70000
+unit:  388 name:Si         charge:   3.70000
+unit:  389 name:Si         charge:   3.70000
+unit:  390 name:Si         charge:   3.70000
+unit:  391 name:Si         charge:   3.70000
+unit:  392 name:Si         charge:   3.70000
+unit:  393 name:Si         charge:   3.70000
+unit:  394 name:Si         charge:   3.70000
+unit:  395 name:Si         charge:   3.70000
+unit:  396 name:Si         charge:   3.70000
+unit:  397 name:Si         charge:   3.70000
+unit:  398 name:Si         charge:   3.70000
+unit:  399 name:Si         charge:   3.70000
+unit:  400 name:Si         charge:   3.70000
+unit:  401 name:Si         charge:   3.70000
+unit:  402 name:Si         charge:   3.70000
+unit:  403 name:Si         charge:   3.70000
+unit:  404 name:Si         charge:   3.70000
+unit:  405 name:Si         charge:   3.70000
+unit:  406 name:Si         charge:   3.70000
+unit:  407 name:Si         charge:   3.70000
+unit:  408 name:Si         charge:   3.70000
+unit:  409 name:Si         charge:   3.70000
+unit:  410 name:Si         charge:   3.70000
+unit:  411 name:Si         charge:   3.70000
+unit:  412 name:Si         charge:   3.70000
+unit:  413 name:Si         charge:   3.70000
+unit:  414 name:Si         charge:   3.70000
+unit:  415 name:Si         charge:   3.70000
+unit:  416 name:Si         charge:   3.70000
+unit:  417 name:Si         charge:   3.70000
+unit:  418 name:Si         charge:   3.70000
+unit:  419 name:Si         charge:   3.70000
+unit:  420 name:Si         charge:   3.70000
+unit:  421 name:Si         charge:   3.70000
+unit:  422 name:Si         charge:   3.70000
+unit:  423 name:Si         charge:   3.70000
+unit:  424 name:Si         charge:   3.70000
+unit:  425 name:Si         charge:   3.70000
+unit:  426 name:Si         charge:   3.70000
+unit:  427 name:Si         charge:   3.70000
+unit:  428 name:Si         charge:   3.70000
+unit:  429 name:Si         charge:   3.70000
+unit:  430 name:Si         charge:   3.70000
+unit:  431 name:Si         charge:   3.70000
+unit:  432 name:Si         charge:   3.70000
+unit:  433 name:Si         charge:   3.70000
+unit:  434 name:Si         charge:   3.70000
+unit:  435 name:Si         charge:   3.70000
+unit:  436 name:Si         charge:   3.70000
+unit:  437 name:Si         charge:   3.70000
+unit:  438 name:Si         charge:   3.70000
+unit:  439 name:Si         charge:   3.70000
+unit:  440 name:Si         charge:   3.70000
+unit:  441 name:Si         charge:   3.70000
+unit:  442 name:Si         charge:   3.70000
+unit:  443 name:Si         charge:   3.70000
+unit:  444 name:Si         charge:   3.70000
+unit:  445 name:Si         charge:   3.70000
+unit:  446 name:Si         charge:   3.70000
+unit:  447 name:Si         charge:   3.70000
+unit:  448 name:Si         charge:   3.70000
+unit:  449 name:Si         charge:   3.70000
+unit:  450 name:Si         charge:   3.70000
+unit:  451 name:Si         charge:   3.70000
+unit:  452 name:Si         charge:   3.70000
+unit:  453 name:Si         charge:   3.70000
+unit:  454 name:Si         charge:   3.70000
+unit:  455 name:Si         charge:   3.70000
+unit:  456 name:Si         charge:   3.70000
+unit:  457 name:Si         charge:   3.70000
+unit:  458 name:Si         charge:   3.70000
+unit:  459 name:Si         charge:   3.70000
+unit:  460 name:Si         charge:   3.70000
+unit:  461 name:Si         charge:   3.70000
+unit:  462 name:Si         charge:   3.70000
+unit:  463 name:Si         charge:   3.70000
+unit:  464 name:Si         charge:   3.70000
+unit:  465 name:Si         charge:   3.70000
+unit:  466 name:Si         charge:   3.70000
+unit:  467 name:Si         charge:   3.70000
+unit:  468 name:Si         charge:   3.70000
+unit:  469 name:Si         charge:   3.70000
+unit:  470 name:Si         charge:   3.70000
+unit:  471 name:Si         charge:   3.70000
+unit:  472 name:Si         charge:   3.70000
+unit:  473 name:Si         charge:   3.70000
+unit:  474 name:Si         charge:   3.70000
+unit:  475 name:Si         charge:   3.70000
+unit:  476 name:Si         charge:   3.70000
+unit:  477 name:Si         charge:   3.70000
+unit:  478 name:Si         charge:   3.70000
+unit:  479 name:Si         charge:   3.70000
+unit:  480 name:Si         charge:   3.70000
+unit:  481 name:Al         charge:   2.77500
+unit:  482 name:Al         charge:   2.77500
+unit:  483 name:Al         charge:   2.77500
+unit:  484 name:Al         charge:   2.77500
+unit:  485 name:Al         charge:   2.77500
+unit:  486 name:Al         charge:   2.77500
+unit:  487 name:Al         charge:   2.77500
+unit:  488 name:Al         charge:   2.77500
+unit:  489 name:Al         charge:   2.77500
+unit:  490 name:Al         charge:   2.77500
+unit:  491 name:Al         charge:   2.77500
+unit:  492 name:Al         charge:   2.77500
+unit:  493 name:Al         charge:   2.77500
+unit:  494 name:Al         charge:   2.77500
+unit:  495 name:Al         charge:   2.77500
+unit:  496 name:Al         charge:   2.77500
+unit:  497 name:Al         charge:   2.77500
+unit:  498 name:Al         charge:   2.77500
+unit:  499 name:Al         charge:   2.77500
+unit:  500 name:Al         charge:   2.77500
+unit:  501 name:Al         charge:   2.77500
+unit:  502 name:Al         charge:   2.77500
+unit:  503 name:Al         charge:   2.77500
+unit:  504 name:Al         charge:   2.77500
+unit:  505 name:Al         charge:   2.77500
+unit:  506 name:Al         charge:   2.77500
+unit:  507 name:Al         charge:   2.77500
+unit:  508 name:Al         charge:   2.77500
+unit:  509 name:Al         charge:   2.77500
+unit:  510 name:Al         charge:   2.77500
+unit:  511 name:Al         charge:   2.77500
+unit:  512 name:Al         charge:   2.77500
+unit:  513 name:Al         charge:   2.77500
+unit:  514 name:Al         charge:   2.77500
+unit:  515 name:Al         charge:   2.77500
+unit:  516 name:Al         charge:   2.77500
+unit:  517 name:Al         charge:   2.77500
+unit:  518 name:Al         charge:   2.77500
+unit:  519 name:Al         charge:   2.77500
+unit:  520 name:Al         charge:   2.77500
+unit:  521 name:Al         charge:   2.77500
+unit:  522 name:Al         charge:   2.77500
+unit:  523 name:Al         charge:   2.77500
+unit:  524 name:Al         charge:   2.77500
+unit:  525 name:Al         charge:   2.77500
+unit:  526 name:Al         charge:   2.77500
+unit:  527 name:Al         charge:   2.77500
+unit:  528 name:Al         charge:   2.77500
+unit:  529 name:Al         charge:   2.77500
+unit:  530 name:Al         charge:   2.77500
+unit:  531 name:Al         charge:   2.77500
+unit:  532 name:Al         charge:   2.77500
+unit:  533 name:Al         charge:   2.77500
+unit:  534 name:Al         charge:   2.77500
+unit:  535 name:Al         charge:   2.77500
+unit:  536 name:Al         charge:   2.77500
+unit:  537 name:Al         charge:   2.77500
+unit:  538 name:Al         charge:   2.77500
+unit:  539 name:Al         charge:   2.77500
+unit:  540 name:Al         charge:   2.77500
+unit:  541 name:Al         charge:   2.77500
+unit:  542 name:Al         charge:   2.77500
+unit:  543 name:Al         charge:   2.77500
+unit:  544 name:Al         charge:   2.77500
+unit:  545 name:Al         charge:   2.77500
+unit:  546 name:Al         charge:   2.77500
+unit:  547 name:Al         charge:   2.77500
+unit:  548 name:Al         charge:   2.77500
+unit:  549 name:Al         charge:   2.77500
+unit:  550 name:Al         charge:   2.77500
+unit:  551 name:Al         charge:   2.77500
+unit:  552 name:Al         charge:   2.77500
+unit:  553 name:Al         charge:   2.77500
+unit:  554 name:Al         charge:   2.77500
+unit:  555 name:Al         charge:   2.77500
+unit:  556 name:Al         charge:   2.77500
+unit:  557 name:Al         charge:   2.77500
+unit:  558 name:Al         charge:   2.77500
+unit:  559 name:Al         charge:   2.77500
+unit:  560 name:Al         charge:   2.77500
+unit:  561 name:Al         charge:   2.77500
+unit:  562 name:Al         charge:   2.77500
+unit:  563 name:Al         charge:   2.77500
+unit:  564 name:Al         charge:   2.77500
+unit:  565 name:Al         charge:   2.77500
+unit:  566 name:Al         charge:   2.77500
+unit:  567 name:Al         charge:   2.77500
+unit:  568 name:Al         charge:   2.77500
+unit:  569 name:Al         charge:   2.77500
+unit:  570 name:Al         charge:   2.77500
+unit:  571 name:Al         charge:   2.77500
+unit:  572 name:Al         charge:   2.77500
+unit:  573 name:Al         charge:   2.77500
+unit:  574 name:Al         charge:   2.77500
+unit:  575 name:Al         charge:   2.77500
+unit:  576 name:Al         charge:   2.77500
+ input_style: basic connectivity map                            
+ nunit:            1
+ nmaxcbmc:            1
+ lpdbnames:  F
+   using the CatlowFaux force field
+ charge_assignment: manual                        
+   Building the input file for molecule type:     2
+unit:    1 name:Na         charge:   1.00000
+ input_style: basic connectivity map                            
+ nunit:            5
+ nmaxcbmc:            5
+ lpdbnames:  F
+   using the CatlowFaux force field
+ charge_assignment: manual                        
+   Building the input file for molecule type:     3
+unit:    1 name:Cc         charge:  -0.40000
+unit:    2 name:Hc         charge:   0.10000
+unit:    3 name:Hc         charge:   0.10000
+unit:    4 name:Hc         charge:   0.10000
+unit:    5 name:Hc         charge:   0.10000
+ Verifying input structures are consistent
+Determining cyclic subunits for molecule type          1
+Determining cyclic subunits for molecule type          2
+Determining cyclic subunits for molecule type          3
+Default total charge on molecule   1 is -96.00000
+Default total charge on molecule   2 is   1.00000
+Default total charge on molecule   3 is   0.00000
+Total charge in the simulation system:   0.00000
+Bond Types
+Type:      2 Style: Nonbonded Interactions
+Type:      4 Style: Standard Harmonic Length: 1.0540 Constant:   179869.0
+Angle Types
+Type:   1 Style: Nonbonded Interaction
+Type:   2 Style: Harmonic plus Nonbonded Interaction
+          Angle:    109.470Constant:    26582.9
+Type:   3 Style: Standard Harmonic  Angle:    109.470 Constant:    19669.5
+Torsion Types
+Type:   2 Style: CatlowFaux Nonbonded terms only
+          with 1-4 vdw and scaled (1.000) 1-4 coulomb
+Improper Torsion Types
+   No Improper Types
+Energies exclusively from internal potentials
+Nonbonded Force Field
+Exponential + LJ 12 + LJ 6 potential
+    with a shift to zero at the cut-off
+u(r) = A/r^6 + B exp(C r) + D/r^12 - S 
+Num. Atom(i)    Num. Atom(j)               A            B        C            D        S
+   1 OZ            1 OZ            -246594.5  264163677.0 -6.71141          0.0 -0.08258
+   1 OZ            2 Si            -580222.4          0.0  1.00000   13345116.3 -0.19431
+   1 OZ            3 Al                  0.0          0.0  1.00000   15085783.7  0.00000
+   1 OZ            4 Na                  0.0   67733312.1 -4.18936          0.0  0.00000
+   1 OZ            7 Cc            -204864.9          0.0  1.00000  127648939.0 -0.06859
+   1 OZ            8 Hc             -64656.5          0.0  1.00000   18061164.4 -0.02165
+   2 Si            2 Si                  0.0          0.0  1.00000          0.0  0.00000
+   2 Si            3 Al                  0.0          0.0  1.00000          0.0  0.00000
+   2 Si            4 Na                  0.0          0.0  1.00000          0.0  0.00000
+   2 Si            7 Cc                  0.0          0.0  1.00000          0.0  0.00000
+   2 Si            8 Hc                  0.0          0.0  1.00000          0.0  0.00000
+   3 Al            3 Al                  0.0          0.0  1.00000          0.0  0.00000
+   3 Al            4 Na                  0.0          0.0  1.00000          0.0  0.00000
+   3 Al            7 Cc                  0.0          0.0  1.00000          0.0  0.00000
+   3 Al            8 Hc                  0.0          0.0  1.00000          0.0  0.00000
+   4 Na            4 Na                  0.0          0.0  1.00000          0.0  0.00000
+   4 Na            7 Cc             -39919.3          0.0  1.00000   24320390.7 -0.01337
+   4 Na            8 Hc             -14134.2          0.0  1.00000    3360532.4 -0.00473
+   7 Cc            7 Cc            -209962.8          0.0  1.00000  228514809.7 -0.07029
+   7 Cc            8 Hc             -67787.4          0.0  1.00000   32492457.2 -0.02270
+   8 Hc            8 Hc             -23054.6          0.0  1.00000    4465856.2 -0.00772
+Determining Arbitrary Trial Distribution Parameters: see towhee_cbmc for full details
+ Isobaric-isothermal Gibbs ensemble
+ 3-dimensional periodic box
+ Additional Center-of-Mass cutoff
+ Dual Cutoff Configurational-bias Monte Carlo
+ Coupled-decoupled Configurational-bias MC
+ Coulombic inter- and intra-molecular interactions
+     Ewald Sum with fixed kmax:  5 kalp:  5.600
+     including the real-space terms up to half the shortest box length
+     dielectric constant:   1.0000
+
+Molecular mass for molecule type     1 is 11430.1440 g/mol
+Molecular mass for molecule type     2 is    22.9900 g/mol
+Molecular mass for molecule type     3 is    16.0426 g/mol
+ Reading in initial conformation from towhee_inital
+Initial version:    1
+Selected random number generator DX-1597-2-7 and single integer seed    1302002
+Testing random number generator using the single integer seed
+    0.812479  0.687663  0.080298  0.200888  0.516914
+10 million RNG sum (approximately 5 million):   4999978.2264809748
+ new maximum displacements read from towhee_initial
+box:     1
+molecule type:     1
+ Max displacement for Atom translate:   0.046556
+ Max displacement for COM translate:   0.500000
+ Max displacement for rotation:   0.050000
+molecule type:     2
+ Max displacement for Atom translate:   0.100000
+ Max displacement for COM translate:   0.500000
+ Max displacement for rotation:   0.050000
+molecule type:     3
+ Max displacement for Atom translate:   0.100000
+ Max displacement for COM translate:   0.182784
+ Max displacement for rotation:   1.117453
+box:     2
+molecule type:     1
+ Max displacement for Atom translate:   0.100000
+ Max displacement for COM translate:   0.500000
+ Max displacement for rotation:   0.050000
+molecule type:     2
+ Max displacement for Atom translate:   0.100000
+ Max displacement for COM translate:   0.500000
+ Max displacement for rotation:   0.050000
+molecule type:     3
+ Max displacement for Atom translate:   0.100000
+ Max displacement for COM translate:  24.000000
+ Max displacement for rotation:   3.141500
+Max displacement for single box isotropic volume moves
+ Box:  1 rmvol(box):   0.1000E+01
+ Box:  2 rmvol(box):   0.5013E+04
+Max displacement for box pairs isotropic volume moves
+ Pair:  1 rmvol(box):   0.1000E+01
+Max disp. for unit cell perturbation
+  Box   1 idim 1 rmcell:   0.1000E+01  0.1000E+01  0.1000E+01
+  Box   1 idim 2 rmcell:   0.1000E+01  0.1000E+01  0.1000E+01
+  Box   1 idim 3 rmcell:   0.1000E+01  0.1000E+01  0.1000E+01
+  Box   2 idim 1 rmcell:   0.1000E+01  0.1000E+01  0.1000E+01
+  Box   2 idim 2 rmcell:   0.1000E+01  0.1000E+01  0.1000E+01
+  Box   2 idim 3 rmcell:   0.1000E+01  0.1000E+01  0.1000E+01
+  Boxes   1 and   2 idim 1 rmcell:   0.1000E+01  0.1000E+01  0.1000E+01
+  Boxes   1 and   2 idim 2 rmcell:   0.1000E+01  0.1000E+01  0.1000E+01
+  Boxes   1 and   2 idim 3 rmcell:   0.1000E+01  0.1000E+01  0.1000E+01
+
+ new box dimensions read from towhee_initial
+ Box  1 hmatrix(1,x):       24.55500       0.00000       0.00000
+ Box  1 hmatrix(2,x):        0.00000      24.55500       0.00000
+ Box  1 hmatrix(3,x):        0.00000       0.00000      24.55500
+ Box  2 hmatrix(1,x):      104.86713       0.00000       0.00000
+ Box  2 hmatrix(2,x):        0.00000     104.86713       0.00000
+ Box  2 hmatrix(3,x):        0.00000       0.00000     104.86713
+
+Box:     1 Initial calp:    0.22806
+Box:     1 Initial kmax:     5
+Box:     2 Initial calp:    0.05340
+Box:     2 Initial kmax:     5
+ initial readtowhee
+ PUTARBINBOX: A-dim required multiple shifts           3
+ initial readtowhee
+ ibox,testchain,nunit            1          214            5
+ xold,yold,zold  88.1426      44.7478      19.9741    
+ dx,dy,dz -73.6650     -24.5550      0.00000    
+ initial readtowhee
+ ibox,testchain,nunit            2          131            5
+ xold,yold,zold  45.0333      17.9419      106.433    
+ dx,dy,dz  0.00000      0.00000     -104.867    
+ initial readtowhee
+ ibox,testchain,nunit            2          132            5
+ xold,yold,zold  105.625      74.9303      52.8688    
+ dx,dy,dz -104.867      0.00000      0.00000    
+ initial readtowhee
+ ibox,testchain,nunit            2          134            5
+ xold,yold,zold  105.272      37.2739      80.6712    
+ dx,dy,dz -104.867      0.00000      0.00000    
+ initial readtowhee
+ ibox,testchain,nunit            2          151            5
+ xold,yold,zold  16.2823      105.140      97.4055    
+ dx,dy,dz  0.00000     -104.867      0.00000    
+ initial readtowhee
+ ibox,testchain,nunit            2          185            5
+ xold,yold,zold  106.304      75.0324      36.7375    
+ dx,dy,dz -104.867      0.00000      0.00000    
+ initial readtowhee
+ ibox,testchain,nunit            2          190            5
+ xold,yold,zold  79.8339      105.758      49.9521    
+ dx,dy,dz  0.00000     -104.867      0.00000    
+ initial readtowhee
+ ibox,testchain,nunit            2          209            5
+ xold,yold,zold  41.6494      105.089      44.0723    
+ dx,dy,dz  0.00000     -104.867      0.00000    
+ initial readtowhee
+ ibox,testchain,nunit            2          226            5
+ xold,yold,zold  16.5044      106.583      92.5695    
+ dx,dy,dz  0.00000     -104.867      0.00000    
+ initial readtowhee
+ ibox,testchain,nunit            2          248            5
+ xold,yold,zold  14.8915      106.650      9.84321    
+ dx,dy,dz  0.00000     -104.867      0.00000    
+ initial readtowhee
+ ibox,testchain,nunit            2          265            5
+ xold,yold,zold  105.294      33.7432      91.7851    
+ dx,dy,dz -104.867      0.00000      0.00000    
+ initial readtowhee
+ ibox,testchain,nunit            2          269            5
+ xold,yold,zold  103.853      107.033      91.8308    
+ dx,dy,dz  0.00000     -104.867      0.00000    
+ initial readtowhee
+ ibox,testchain,nunit            2          277            5
+ xold,yold,zold  105.784      86.8791      53.0401    
+ dx,dy,dz -104.867      0.00000      0.00000    
+ initial readtowhee
+ ibox,testchain,nunit            2          280            5
+ xold,yold,zold  33.3171      87.0550      106.222    
+ dx,dy,dz  0.00000      0.00000     -104.867    
+ initial readtowhee
+ ibox,testchain,nunit            2          291            5
+ xold,yold,zold  51.5190      103.059      105.659    
+ dx,dy,dz  0.00000      0.00000     -104.867    
+
+Number of MC cycles:                    1
+Number of molecules:                  297
+Temperature [K]:       300.00000
+External pressure [kPa]:        95.00000
+
+Initial Energies for Box     1
+Total molecules in this box        117
+Molecules of type   1 :          1
+Molecules of type   2 :         96
+Molecules of type   3 :         20
+ Total vibration (atoms ij bonded together)            -458252592.969 [K]   -910646.81286 [kcal/mol]
+  bond (ij) regular                                         13915.077 [K]        27.65226 [kcal/mol]
+  bond (ij) van der waals                                15318134.035 [K]     30440.43864 [kcal/mol]
+  bond (ij) Electric                                   -473584642.082 [K]   -941114.90376 [kcal/mol]
+  bond-bond (ij-jk)                                             0.000 [K]         0.00000 [kcal/mol]
+ Total angle (atoms ijk bonded in sequence)             454881191.756 [K]    903947.11096 [kcal/mol]
+  angle (ijk) regular                                      134116.013 [K]       266.51747 [kcal/mol]
+  bond-angle (ij-ijk)                                           0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) van der waals                                -769248.563 [K]     -1528.66293 [kcal/mol]
+  angle (ik) Electric                                   455516324.306 [K]    905209.25642 [kcal/mol]
+  angle-angle (ijk-ijm)                                         0.000 [K]         0.00000 [kcal/mol]
+ Total torsion (ijkl bonded in sequence)               -577526956.750 [K]  -1147670.71823 [kcal/mol]
+  torsion (ijkl) regular                                        0.000 [K]         0.00000 [kcal/mol]
+  torsion (ij-kl) bond-bond                                     0.000 [K]         0.00000 [kcal/mol]
+  torsion (ij-ijkl) bond-torsion                                0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-ijkl) angle-torsion                              0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-jkl-ijkl) angle-angle-torsion                    0.000 [K]         0.00000 [kcal/mol]
+  torsion (i-l) one-four van der waals                    -151013.311 [K]      -300.09604 [kcal/mol]
+  torsion (i-l) one-four Electric                      -577375943.439 [K]  -1147370.62219 [kcal/mol]
+ Total improper (ijkm, i,k,m bonded to j)                       0.000 [K]         0.00000 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) vdw            118860394.198 [K]    236201.25846 [kcal/mol]
+  intramolecular                                          -137153.648 [K]      -272.55390 [kcal/mol]
+  2-body vdw intermolecular                             118997547.846 [K]    236473.81236 [kcal/mol]
+  3-body vdw intermolecular                                     0.000 [K]         0.00000 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) Electric       329965013.208 [K]    655711.70190 [kcal/mol]
+  total real space Electric                              46177906.904 [K]     91765.46820 [kcal/mol]
+   intramolecular Electric                               53979605.134 [K]    107269.12652 [kcal/mol]
+   intermolecular Electric                               -7801698.230 [K]    -15503.65833 [kcal/mol]
+  self                                                  -75133962.227 [K]   -149307.40009 [kcal/mol]
+  correction                                            358900015.279 [K]    713211.79643 [kcal/mol]
+  reciprocal sum                                            21053.253 [K]        41.83736 [kcal/mol]
+ Total external field                                           0.000 [K]         0.00000 [kcal/mol]
+ Total solvation                                                0.000 [K]         0.00000 [kcal/mol]
+Total classical                                        -132072950.557 [K]   -262457.45978 [kcal/mol]
+ Aggregate van der waals (bond and nonbond)             133258266.359 [K]    264812.93813 [kcal/mol]
+ Aggregate Electric (bond and nonbond)                 -265479248.006 [K]   -527564.56764 [kcal/mol]
+Initial Energies for Box     2
+Total molecules in this box        180
+Molecules of type   1 :          0
+Molecules of type   2 :          0
+Molecules of type   3 :        180
+ Total vibration (atoms ij bonded together)                108139.082 [K]       214.89570 [kcal/mol]
+  bond (ij) regular                                        108139.082 [K]       214.89570 [kcal/mol]
+  bond (ij) van der waals                                       0.000 [K]         0.00000 [kcal/mol]
+  bond (ij) Electric                                            0.000 [K]         0.00000 [kcal/mol]
+  bond-bond (ij-jk)                                             0.000 [K]         0.00000 [kcal/mol]
+ Total angle (atoms ijk bonded in sequence)                136467.399 [K]       271.19018 [kcal/mol]
+  angle (ijk) regular                                      136467.399 [K]       271.19018 [kcal/mol]
+  bond-angle (ij-ijk)                                           0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) van der waals                                      0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) Electric                                           0.000 [K]         0.00000 [kcal/mol]
+  angle-angle (ijk-ijm)                                         0.000 [K]         0.00000 [kcal/mol]
+ Total torsion (ijkl bonded in sequence)                        0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijkl) regular                                        0.000 [K]         0.00000 [kcal/mol]
+  torsion (ij-kl) bond-bond                                     0.000 [K]         0.00000 [kcal/mol]
+  torsion (ij-ijkl) bond-torsion                                0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-ijkl) angle-torsion                              0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-jkl-ijkl) angle-angle-torsion                    0.000 [K]         0.00000 [kcal/mol]
+  torsion (i-l) one-four van der waals                          0.000 [K]         0.00000 [kcal/mol]
+  torsion (i-l) one-four Electric                               0.000 [K]         0.00000 [kcal/mol]
+ Total improper (ijkm, i,k,m bonded to j)                       0.000 [K]         0.00000 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) vdw                -2258.056 [K]        -4.48724 [kcal/mol]
+  intramolecular                                                0.000 [K]         0.00000 [kcal/mol]
+  2-body vdw intermolecular                                 -2258.056 [K]        -4.48724 [kcal/mol]
+  3-body vdw intermolecular                                     0.000 [K]         0.00000 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) Electric               5.528 [K]         0.01099 [kcal/mol]
+  total real space Electric                                     5.666 [K]         0.01126 [kcal/mol]
+   intramolecular Electric                                      0.000 [K]         0.00000 [kcal/mol]
+   intermolecular Electric                                      5.666 [K]         0.01126 [kcal/mol]
+  self                                                    -181239.329 [K]      -360.16167 [kcal/mol]
+  correction                                               181238.221 [K]       360.15946 [kcal/mol]
+  reciprocal sum                                                0.969 [K]         0.00193 [kcal/mol]
+ Total external field                                           0.000 [K]         0.00000 [kcal/mol]
+ Total solvation                                                0.000 [K]         0.00000 [kcal/mol]
+Total classical                                            242353.953 [K]       481.60962 [kcal/mol]
+ Aggregate van der waals (bond and nonbond)                 -2258.056 [K]        -4.48724 [kcal/mol]
+ Aggregate Electric (bond and nonbond)                          5.528 [K]         0.01099 [kcal/mol]
+ initial virial pressure in box  1 =           0.00
+ initial virial pressure in box  2 =         607.73
+
+ +++++ start of markov chain +++++
+
+Cycle      Box   Energy [K]  Volume [A^3] Press. [kPa] Molecules
+         1 B: 1 -0.2428E+09  0.1481E+05          0.0     1   96   20
+           B: 2  0.2402E+06  0.1151E+07        607.7     0    0  180
+
+ +++++ end of markov chain +++++
+
+ Final hmatrix (general box dimensions) 
+Box:     1
+  hmatrix(1,x)      24.55500       0.00000       0.00000
+  hmatrix(2,x)       0.00000      24.55500       0.00000
+  hmatrix(3,x)       0.00000       0.00000      24.55500
+Box:     2
+  hmatrix(1,x)     104.78699       0.00000       0.00000
+  hmatrix(2,x)       0.00000     104.78699       0.00000
+  hmatrix(3,x)       0.00000       0.00000     104.78699
+
+* 3D Volume Change Moves *
+ Box  2 Tries:        1 Acp. Ratio:  1.000 Max Disp.: 0.501E+04
+
+* Configurational-Bias SWAP Moves *
+Molecule type:     1
+Molecule type:     2
+Molecule type:     3
+  From box  1 to box  1 Attempted:       7 Grown:       7 Accepted:       0
+  From box  2 to box  1 Attempted:      13 Grown:      13 Accepted:       1
+  From box  1 to box  2 Attempted:       6 Grown:       6 Accepted:       1
+  From box  2 to box  2 Attempted:       6 Grown:       6 Accepted:       2
+
+* Configurational-Bias REGROWTH Moves *
+ Molecule type:    3 Box:    1
+     Length  Attempts  Regrown  Accepted  %Regrown   %Accep.
+        3         2         2         0    100.00      0.00
+        4         7         7         1    100.00     14.29
+ Molecule type:    3 Box:    2
+     Length  Attempts  Regrown  Accepted  %Regrown   %Accep.
+        3         9         9         4    100.00     44.44
+        4        53        53        30    100.00     56.60
+
+* Atom Translation Moves *
+Molecule:  1 Box: 1 Attempts:              3. Accepted:              0. Accepted:   0.000 %
+
+* COM Translation Moves *
+Molecule:  3 Box: 1 Attempts:              7. Accepted:              7. Accepted: 100.000 %
+Molecule:  3 Box: 2 Attempts:             82. Accepted:             76. Accepted:  92.683 %
+
+* Rotation Moves *
+Molecule:  3 Box: 1 Attempts:             11. Accepted:              4. Accepted:  36.364 %
+Molecule:  3 Box: 2 Attempts:             90. Accepted:             89. Accepted:  98.889 %
+
+Final Energies for Box     1
+Total molecules in this box        117
+Molecules of type   1 :          1
+Molecules of type   2 :         96
+Molecules of type   3 :         20
+ Total vibration (atoms ij bonded together)            -458251210.383 [K]   -910644.06536 [kcal/mol]
+  bond (ij) regular                                         15297.664 [K]        30.39976 [kcal/mol]
+  bond (ij) van der waals                                15318134.035 [K]     30440.43864 [kcal/mol]
+  bond (ij) Electric                                   -473584642.082 [K]   -941114.90376 [kcal/mol]
+  bond-bond (ij-jk)                                             0.000 [K]         0.00000 [kcal/mol]
+ Total angle (atoms ijk bonded in sequence)             454880973.684 [K]    903946.67760 [kcal/mol]
+  angle (ijk) regular                                      133897.940 [K]       266.08411 [kcal/mol]
+  bond-angle (ij-ijk)                                           0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) van der waals                                -769248.563 [K]     -1528.66293 [kcal/mol]
+  angle (ik) Electric                                   455516324.306 [K]    905209.25642 [kcal/mol]
+  angle-angle (ijk-ijm)                                         0.000 [K]         0.00000 [kcal/mol]
+ Total torsion (ijkl bonded in sequence)               -577526956.750 [K]  -1147670.71823 [kcal/mol]
+  torsion (ijkl) regular                                        0.000 [K]         0.00000 [kcal/mol]
+  torsion (ij-kl) bond-bond                                     0.000 [K]         0.00000 [kcal/mol]
+  torsion (ij-ijkl) bond-torsion                                0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-ijkl) angle-torsion                              0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-jkl-ijkl) angle-angle-torsion                    0.000 [K]         0.00000 [kcal/mol]
+  torsion (i-l) one-four van der waals                    -151013.311 [K]      -300.09604 [kcal/mol]
+  torsion (i-l) one-four Electric                      -577375943.439 [K]  -1147370.62219 [kcal/mol]
+ Total improper (ijkm, i,k,m bonded to j)                       0.000 [K]         0.00000 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) vdw              8099131.320 [K]     16094.72207 [kcal/mol]
+  intramolecular                                          -137153.648 [K]      -272.55390 [kcal/mol]
+  2-body vdw intermolecular                               8236284.969 [K]     16367.27598 [kcal/mol]
+  3-body vdw intermolecular                                     0.000 [K]         0.00000 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) Electric       329959540.588 [K]    655700.82662 [kcal/mol]
+  total real space Electric                              46172458.088 [K]     91754.64022 [kcal/mol]
+   intramolecular Electric                               53979605.134 [K]    107269.12652 [kcal/mol]
+   intermolecular Electric                               -7807147.046 [K]    -15514.48630 [kcal/mol]
+  self                                                  -75133962.227 [K]   -149307.40009 [kcal/mol]
+  correction                                            358900015.714 [K]    713211.79729 [kcal/mol]
+  reciprocal sum                                            21029.013 [K]        41.78919 [kcal/mol]
+ Total external field                                           0.000 [K]         0.00000 [kcal/mol]
+ Total solvation                                                0.000 [K]         0.00000 [kcal/mol]
+Total classical                                        -242838521.541 [K]   -482572.55731 [kcal/mol]
+ Aggregate van der waals (bond and nonbond)              22497003.482 [K]     44706.40174 [kcal/mol]
+ Aggregate Electric (bond and nonbond)                 -265484720.626 [K]   -527575.44291 [kcal/mol]
+Final Energies for Box     2
+Total molecules in this box        180
+Molecules of type   1 :          0
+Molecules of type   2 :          0
+Molecules of type   3 :        180
+ Total vibration (atoms ij bonded together)                110670.526 [K]       219.92622 [kcal/mol]
+  bond (ij) regular                                        110670.526 [K]       219.92622 [kcal/mol]
+  bond (ij) van der waals                                       0.000 [K]         0.00000 [kcal/mol]
+  bond (ij) Electric                                            0.000 [K]         0.00000 [kcal/mol]
+  bond-bond (ij-jk)                                             0.000 [K]         0.00000 [kcal/mol]
+ Total angle (atoms ijk bonded in sequence)                132420.854 [K]       263.14882 [kcal/mol]
+  angle (ijk) regular                                      132420.854 [K]       263.14882 [kcal/mol]
+  bond-angle (ij-ijk)                                           0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) van der waals                                      0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) Electric                                           0.000 [K]         0.00000 [kcal/mol]
+  angle-angle (ijk-ijm)                                         0.000 [K]         0.00000 [kcal/mol]
+ Total torsion (ijkl bonded in sequence)                        0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijkl) regular                                        0.000 [K]         0.00000 [kcal/mol]
+  torsion (ij-kl) bond-bond                                     0.000 [K]         0.00000 [kcal/mol]
+  torsion (ij-ijkl) bond-torsion                                0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-ijkl) angle-torsion                              0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-jkl-ijkl) angle-angle-torsion                    0.000 [K]         0.00000 [kcal/mol]
+  torsion (i-l) one-four van der waals                          0.000 [K]         0.00000 [kcal/mol]
+  torsion (i-l) one-four Electric                               0.000 [K]         0.00000 [kcal/mol]
+ Total improper (ijkm, i,k,m bonded to j)                       0.000 [K]         0.00000 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) vdw                -2944.456 [K]        -5.85127 [kcal/mol]
+  intramolecular                                                0.000 [K]         0.00000 [kcal/mol]
+  2-body vdw intermolecular                                 -2944.456 [K]        -5.85127 [kcal/mol]
+  3-body vdw intermolecular                                     0.000 [K]         0.00000 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) Electric               5.478 [K]         0.01089 [kcal/mol]
+  total real space Electric                                     5.253 [K]         0.01044 [kcal/mol]
+   intramolecular Electric                                      0.000 [K]         0.00000 [kcal/mol]
+   intermolecular Electric                                      5.253 [K]         0.01044 [kcal/mol]
+  self                                                    -181377.944 [K]      -360.43712 [kcal/mol]
+  correction                                               181376.838 [K]       360.43493 [kcal/mol]
+  reciprocal sum                                                1.331 [K]         0.00264 [kcal/mol]
+ Total external field                                           0.000 [K]         0.00000 [kcal/mol]
+ Total solvation                                                0.000 [K]         0.00000 [kcal/mol]
+Total classical                                            240152.401 [K]       477.23466 [kcal/mol]
+ Aggregate van der waals (bond and nonbond)                 -2944.456 [K]        -5.85127 [kcal/mol]
+ Aggregate Electric (bond and nonbond)                          5.478 [K]         0.01089 [kcal/mol]
+Averages               Units Type       Box  1      Box  2
+ Volume                 nm^3       0.14805E+02 0.11509E+04
+ Volume^2               nm^6       0.21920E+03 0.13247E+07
+ Molecule Number                1        1.000       0.000
+ Molecule Number                2       96.000       0.000
+ Molecule Number                3       20.532     179.468
+ Molar Volume         ml/mol       0.75859E+02 0.38620E+04
+ Specific Density       g/ml        1.56648400  0.00415395
+ Number Density         nm-3    1      0.06754     0.00000
+ Number Density         nm-3    2      6.48413     0.00000
+ Number Density         nm-3    3      1.38679     0.15593
+ Mole Fraction                  1    0.0085085   0.0000000
+ Mole Fraction                  2    0.8168137   0.0000000
+ Mole Fraction                  3    0.1746779   1.0000000
+ Radius of Gyration        A    1    0.0000000   0.0000000
+ Radius of Gyration        A    2    0.0000000   0.0000000
+ Radius of Gyration        A    3    0.5288422   0.5296584
+ Ideal Pressure          kPa       0.32891E+05 0.64605E+03
+ Ideal p_i <N/V>kT       kPa    1  0.27984E+03 0.00000E+00
+ Ideal p_i <N/V>kT       kPa    2  0.26865E+05 0.00000E+00
+ Ideal p_i <N/V>kT       kPa    3  0.57457E+04 0.64605E+03
+ -<dU/dV>                kPa       -.00000E+00 -.44180E+02
+ Thermodynamic Pressure  kPa       0.32891E+05 0.60187E+03
+ Thermo p_i <x_1><p_t>   kPa    1  0.27985E+03 0.00000E+00
+ Thermo p_i <x_1><p_t>   kPa    2  0.26865E+05 0.00000E+00
+ Thermo p_i <x_1><p_t>   kPa    3  0.57453E+04 0.60187E+03
+ Total Classical           K       -0.2357E+09  0.2401E+06
+ Inter vdw                 K        0.1536E+08 -0.2471E+04
+ Angle                     K        0.4549E+09  0.1337E+06
+ Torsion                   K       -0.5775E+09  0.0000E+00
+ Intra vdw                 K       -0.1372E+06  0.0000E+00
+ External Field            K        0.0000E+00  0.0000E+00
+ Vibration                 K       -0.4583E+09  0.1088E+06
+ Coulomb                   K        0.3300E+09  0.1277E+02
+ Tail vdw                  K        0.0000E+00  0.0000E+00
+ Solvation                 K        0.0000E+00  0.0000E+00
+ u (Density)               K    3    -3215.974   -3871.576
+ u (NVT Insertion)         K    3     9946.749    9603.740
+ u (NpT Insertion)         K    3     9946.749    9603.833
+ u (Den. + NVT Insert)     K    3     6730.775    5732.165
+ u (Den. + NpT Insert)     K    3     6730.775    5732.257
+ u (Gibbs Total)           K    3     6742.672    5733.289
+ G: Sum{<u_i><N_i>}   kJ/mol        0.1151E+04  0.8555E+04
+ U                    kJ/mol       -0.1960E+07  0.1996E+04
+Please see towhee_citations for a list of suggested citations for this simulation

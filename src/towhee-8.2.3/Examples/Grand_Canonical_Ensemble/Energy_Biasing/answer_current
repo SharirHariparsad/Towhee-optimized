@@ -1,0 +1,1139 @@
+ MCCCS Towhee - Version 8.2.3   (July 22 2021)      
+ Copyright (C) <2000-2021> Marcus G. Martin
+ Code Contributors for 2021: Marcus G. Martin;
+ Code Contributors for 2020: Marcus G. Martin;
+ Code Contributors for 2019: Marcus G. Martin;
+ Code Contributors for 2018: Marcus G. Martin;
+ Code Contributors for 2017: Marcus G. Martin;
+ Code Contributors for 2016: Marcus G. Martin;
+ Code Contributors for 2015: Marcus G. Martin;
+ Code Contributors for 2014: Marcus G. Martin;
+ Code Contributors for 2013: Wesley Emeneker; Marcus G. Martin;
+ Code Contributors for 2012: Marcus G. Martin;
+ Code Contributors for 2011: Fred James; Marcus G. Martin; Suleiman Oloriegbe;
+ Code Contributors for 2010: Rene Haber; Andrej Lajovic; Marcus G. Martin; Loukas Peristeras;
+ Code Contributors for 2009: Rene Haber; Marcus G. Martin; Loukas Peristeras;
+ Code Contributors for 2008: Rene Haber; Iyad A. Hijazi; Marcus G. Martin; Loukas Peristeras; Craig Tenney;
+ Code Contributors for 2007: Bernhard Eckl; Frank Heilmann; Jianhui Li; Marcus G. Martin; Craig M. Tenney; Ozgur Yazaydin
+ Code Contributors for 2006: Alan A. Chen; Arben Jusufi; Christian D. Lorenz; Marcus G. Martin; Jeffrey J. Potoff; Vincent K. Shen; Matthew A. Wyczalkowski; Ozgur Yazaydin
+ Code Contributors for 2005: Marcus G. Martin; Alan A. Chen; Christian D. Lorenz; Matthew A. Wyczalkowski
+ Code Contributors for 2004: Marcus G. Martin; Christian D. Lorenz; Peter A. Schultz; Aidan P. Thompson; Jeffrey J. Potoff; Steve R. Lustig; Paul S. Crozier; Nicholas du Preez
+ Code Contributors for 2003: Marcus G. Martin; Christian D. Lorenz; David B. Ritch; Michael L. Greenfield; Yogesh Srivastava; Evangelos A Coutsias
+ Code Contributors for 2002: Marcus G. Martin; Christian D. Lorenz; Aidan P. Thompson; Allen G. Sault
+ Code Contributors for 2001: Marcus G. Martin
+ Code Contributors for 2000: Marcus G. Martin
+ Copyright (C) <1999> J. Ilja Siepmann and Marcus G. Martin
+ Code Contributors for 1999: J. Ilja Siepmann; Marcus G. Martin; Bin Chen; Collin D. Wick; John Stubbs
+
+ Direct comments about this code to Marcus G. Martin (marcus_martin@users.sourceforge.net)
+ See the MCCCS Towhee web site for more information and the users manual.
+ http://towhee.sourceforge.net
+
+ We would like to thank the following agencies for providing funding used to develop MCCCS Towhee
+ -Department of Energy Industrial Technologies Program (MGM)
+ -National Science Foundation (JIS)
+ -Department of Energy Computational Science Graduate Fellowship (MGM,CDW)
+
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+ Reading from towhee_input file: towhee_input                                                                                                            
+ in directory: current directory
+ random_number_generator: RANLUX                        
+ random_luxlevel:            3
+ random_allow_restart:  T
+ ensemble: uvt                           
+ temperature:  298.150    
+ nmolty:            2
+ nmolectyp:            1           50
+ chempot:  0.00000     -500.000    
+ numboxes:            1
+ stepstyle: moves   
+ nstep:         1000
+ printfreq:          100
+ blocksize:          200
+ moviefreq:     10000000
+ backupfreq:       100000
+ runoutput: blocks              
+Output running block averages
+ pdb_output_freq:      1000000
+ trmaxdispfreq:            1
+ volmaxdispfreq:     10000000
+ linit:  T
+ initboxtype: dimensions          
+initstyle Box:    1
+ coords               full cbmc           
+Box:  1 initlattice: none                 center              
+Box:  1 initmol:         1          0
+Box:  1 inix,iniy,iniz:         1          1          1
+Box idim hmatrix:    1 1   20.05110    0.00000    0.00000
+Box idim hmatrix:    1 2    0.00000   19.87570    0.00000
+Box idim hmatrix:    1 3    0.00000    0.00000   26.73640
+ pmuvtcbswap:  1.00000    
+ pmuvtcbmt:  0.00000      1.00000    
+ pm1boxcbswap:  0.00000    
+ pm1cbswmt:  0.00000      1.00000    
+ pmavb1:  0.00000    
+ pmavb1in: 0.500000    
+ pmavb1mt: 0.200000      1.00000    
+moltyp:  1 pmavb1ct: 0.330000  1.000000
+moltyp:  2 pmavb1ct: 0.330000  1.000000
+ avb1rad:  5.00000    
+ pmavb2:  0.00000    
+ pmavb2in: 0.500000    
+ pmavb2mt: 0.200000      1.00000    
+moltyp:  1 pmavb2ct: 0.330000  1.000000
+moltyp:  2 pmavb2ct: 0.330000  1.000000
+ avb2rad:  5.00000    
+ pmavb3:  0.00000    
+ pmavb3mt: 0.200000      1.00000    
+moltyp:  1 pmavb3ct: 0.330000  1.000000
+moltyp:  2 pmavb3ct: 0.330000  1.000000
+ avb3rad:  5.00000    
+ pmcb: 0.350000    
+ pmcbmt:  0.00000      1.00000    
+ pmall:  0.00000     0.500000    
+ pmback:  0.00000    
+ pmbkmt:  0.00000      1.00000    
+ pmpivot:  0.00000    
+ pmpivmt:  0.00000      1.00000    
+ pmconrot:  0.00000    
+ pmcrmt:  0.00000      1.00000    
+ pmcrback:  0.00000    
+ pmcrbmt:  0.00000      1.00000    
+ pmplane:  0.00000    
+ pmplanebox:  1.00000    
+ planewidth:  3.00000    
+ pmrow:  0.00000    
+ pmrowbox:  1.00000    
+ rowwidth:  3.00000    
+ pmtraat:  0.00000    
+ pmtamt:  0.00000      1.00000    
+ rmtraa: 0.500000    
+ tatraa: 0.500000    
+ pmtracm:  0.00000    
+ pmtcmt:  0.00000      1.00000    
+ rmtrac: 0.500000    
+ tatrac: 0.500000    
+ pmrotate:  1.00000    
+ pmromt:  0.00000      1.00000    
+ rmrot: 0.500000E-01
+ tarot: 0.500000    
+cbmc_analysis: normal                        
+cbmc_formulation: Martin and Siepmann 1999 + Martin and Thompson 2004         
+ Original Coupled-Decoupled formulation from
+ M.G. Martin; J.I. Siepmann; J. Phys. Chem. B103 2977-2980 (1999)
+ with a decoupled bond length selection from
+ M.G. Martin; A.P. Thompson; Fluid Phase Equilib. 217 105-110 (2004)
+cbmc_setting_style: explicit                      
+ cbmc_nb_one_generation                            : uniform                       energy bias                   
+ energy biasing requested
+ mapmolty:            2
+ lcreatemap:  T
+ cubex,cubey,cubez:        10         10         10
+ nch_nb_one                                        :            1            1
+ nch_nb                                            :            1            1
+cbmc_dihedral_generation: ideal                         
+ Use true distributions to generate torsions in config-bias
+ nch_tor                                           :            1          360
+ nch_tor_connect                                   :            1          360
+cbmc_bend_generation: ideal                         
+ Use ideal distributions to generate angles in configurational-bias
+ nch_bend_a                                        :            1         1000
+ nch_bend_b                                        :            1         1000
+default max_bond_length:  3.00
+cbmc_bond_generation: r^2 with bounds               
+ Use a bounded r^2 distribution to generate vibrations in config-bias
+vibrang:   0.85000    1.15000
+ nch_vib                                           :            1            1
+two_bond_fixed_endpoint_bias_style: none                                              
+three_bond_fixed_endpoint_bias_style: none                                              
+ ffnumber:            1
+ ff_filename:
+/towheebase/ForceFields/towhee_ff_Dubb2004                                                                              
+ classical_potential: Lennard-Jones                 
+ READCLASSICAL: pot_num:     1 potential name: Lennard-Jones                 
+ classical_mixrule: Explicit                      
+ lshift:  F
+ ltailc:  T
+ rmin:  1.00000    
+ rcut:  9.50000    
+ rcutin:  9.50000    
+ electrostatic_form: none                                              
+ Setting up force field parameters from files
+ opening forcefield file:    1
+ Explicit declaration of Cross Terms
+ Please check the forcefield file carefully
+ No solvation model used
+ input_style: basic connectivity map                            
+ nunit:          576
+ nmaxcbmc:          576
+ lpdbnames:  F
+   using the Dubb2004   force field
+ charge_assignment: none                          
+   Building the input file for molecule type:     1
+unit:    1 name:Si        
+unit:    2 name:Si        
+unit:    3 name:Si        
+unit:    4 name:Si        
+unit:    5 name:Si        
+unit:    6 name:Si        
+unit:    7 name:Si        
+unit:    8 name:Si        
+unit:    9 name:Si        
+unit:   10 name:Si        
+unit:   11 name:Si        
+unit:   12 name:Si        
+unit:   13 name:Si        
+unit:   14 name:Si        
+unit:   15 name:Si        
+unit:   16 name:Si        
+unit:   17 name:Si        
+unit:   18 name:Si        
+unit:   19 name:Si        
+unit:   20 name:Si        
+unit:   21 name:Si        
+unit:   22 name:Si        
+unit:   23 name:Si        
+unit:   24 name:Si        
+unit:   25 name:Si        
+unit:   26 name:Si        
+unit:   27 name:Si        
+unit:   28 name:Si        
+unit:   29 name:Si        
+unit:   30 name:Si        
+unit:   31 name:Si        
+unit:   32 name:Si        
+unit:   33 name:Si        
+unit:   34 name:Si        
+unit:   35 name:Si        
+unit:   36 name:Si        
+unit:   37 name:Si        
+unit:   38 name:Si        
+unit:   39 name:Si        
+unit:   40 name:Si        
+unit:   41 name:Si        
+unit:   42 name:Si        
+unit:   43 name:Si        
+unit:   44 name:Si        
+unit:   45 name:Si        
+unit:   46 name:Si        
+unit:   47 name:Si        
+unit:   48 name:Si        
+unit:   49 name:Si        
+unit:   50 name:Si        
+unit:   51 name:Si        
+unit:   52 name:Si        
+unit:   53 name:Si        
+unit:   54 name:Si        
+unit:   55 name:Si        
+unit:   56 name:Si        
+unit:   57 name:Si        
+unit:   58 name:Si        
+unit:   59 name:Si        
+unit:   60 name:Si        
+unit:   61 name:Si        
+unit:   62 name:Si        
+unit:   63 name:Si        
+unit:   64 name:Si        
+unit:   65 name:Si        
+unit:   66 name:Si        
+unit:   67 name:Si        
+unit:   68 name:Si        
+unit:   69 name:Si        
+unit:   70 name:Si        
+unit:   71 name:Si        
+unit:   72 name:Si        
+unit:   73 name:Si        
+unit:   74 name:Si        
+unit:   75 name:Si        
+unit:   76 name:Si        
+unit:   77 name:Si        
+unit:   78 name:Si        
+unit:   79 name:Si        
+unit:   80 name:Si        
+unit:   81 name:Si        
+unit:   82 name:Si        
+unit:   83 name:Si        
+unit:   84 name:Si        
+unit:   85 name:Si        
+unit:   86 name:Si        
+unit:   87 name:Si        
+unit:   88 name:Si        
+unit:   89 name:Si        
+unit:   90 name:Si        
+unit:   91 name:Si        
+unit:   92 name:Si        
+unit:   93 name:Si        
+unit:   94 name:Si        
+unit:   95 name:Si        
+unit:   96 name:Si        
+unit:   97 name:O         
+unit:   98 name:O         
+unit:   99 name:O         
+unit:  100 name:O         
+unit:  101 name:O         
+unit:  102 name:O         
+unit:  103 name:O         
+unit:  104 name:O         
+unit:  105 name:O         
+unit:  106 name:O         
+unit:  107 name:O         
+unit:  108 name:O         
+unit:  109 name:O         
+unit:  110 name:O         
+unit:  111 name:O         
+unit:  112 name:O         
+unit:  113 name:O         
+unit:  114 name:O         
+unit:  115 name:O         
+unit:  116 name:O         
+unit:  117 name:O         
+unit:  118 name:O         
+unit:  119 name:O         
+unit:  120 name:O         
+unit:  121 name:O         
+unit:  122 name:O         
+unit:  123 name:O         
+unit:  124 name:O         
+unit:  125 name:O         
+unit:  126 name:O         
+unit:  127 name:O         
+unit:  128 name:O         
+unit:  129 name:O         
+unit:  130 name:O         
+unit:  131 name:O         
+unit:  132 name:O         
+unit:  133 name:O         
+unit:  134 name:O         
+unit:  135 name:O         
+unit:  136 name:O         
+unit:  137 name:O         
+unit:  138 name:O         
+unit:  139 name:O         
+unit:  140 name:O         
+unit:  141 name:O         
+unit:  142 name:O         
+unit:  143 name:O         
+unit:  144 name:O         
+unit:  145 name:O         
+unit:  146 name:O         
+unit:  147 name:O         
+unit:  148 name:O         
+unit:  149 name:O         
+unit:  150 name:O         
+unit:  151 name:O         
+unit:  152 name:O         
+unit:  153 name:O         
+unit:  154 name:O         
+unit:  155 name:O         
+unit:  156 name:O         
+unit:  157 name:O         
+unit:  158 name:O         
+unit:  159 name:O         
+unit:  160 name:O         
+unit:  161 name:O         
+unit:  162 name:O         
+unit:  163 name:O         
+unit:  164 name:O         
+unit:  165 name:O         
+unit:  166 name:O         
+unit:  167 name:O         
+unit:  168 name:O         
+unit:  169 name:O         
+unit:  170 name:O         
+unit:  171 name:O         
+unit:  172 name:O         
+unit:  173 name:O         
+unit:  174 name:O         
+unit:  175 name:O         
+unit:  176 name:O         
+unit:  177 name:O         
+unit:  178 name:O         
+unit:  179 name:O         
+unit:  180 name:O         
+unit:  181 name:O         
+unit:  182 name:O         
+unit:  183 name:O         
+unit:  184 name:O         
+unit:  185 name:O         
+unit:  186 name:O         
+unit:  187 name:O         
+unit:  188 name:O         
+unit:  189 name:O         
+unit:  190 name:O         
+unit:  191 name:O         
+unit:  192 name:O         
+unit:  193 name:O         
+unit:  194 name:O         
+unit:  195 name:O         
+unit:  196 name:O         
+unit:  197 name:O         
+unit:  198 name:O         
+unit:  199 name:O         
+unit:  200 name:O         
+unit:  201 name:O         
+unit:  202 name:O         
+unit:  203 name:O         
+unit:  204 name:O         
+unit:  205 name:O         
+unit:  206 name:O         
+unit:  207 name:O         
+unit:  208 name:O         
+unit:  209 name:O         
+unit:  210 name:O         
+unit:  211 name:O         
+unit:  212 name:O         
+unit:  213 name:O         
+unit:  214 name:O         
+unit:  215 name:O         
+unit:  216 name:O         
+unit:  217 name:O         
+unit:  218 name:O         
+unit:  219 name:O         
+unit:  220 name:O         
+unit:  221 name:O         
+unit:  222 name:O         
+unit:  223 name:O         
+unit:  224 name:O         
+unit:  225 name:O         
+unit:  226 name:O         
+unit:  227 name:O         
+unit:  228 name:O         
+unit:  229 name:O         
+unit:  230 name:O         
+unit:  231 name:O         
+unit:  232 name:O         
+unit:  233 name:O         
+unit:  234 name:O         
+unit:  235 name:O         
+unit:  236 name:O         
+unit:  237 name:O         
+unit:  238 name:O         
+unit:  239 name:O         
+unit:  240 name:O         
+unit:  241 name:O         
+unit:  242 name:O         
+unit:  243 name:O         
+unit:  244 name:O         
+unit:  245 name:O         
+unit:  246 name:O         
+unit:  247 name:O         
+unit:  248 name:O         
+unit:  249 name:O         
+unit:  250 name:O         
+unit:  251 name:O         
+unit:  252 name:O         
+unit:  253 name:O         
+unit:  254 name:O         
+unit:  255 name:O         
+unit:  256 name:O         
+unit:  257 name:O         
+unit:  258 name:O         
+unit:  259 name:O         
+unit:  260 name:O         
+unit:  261 name:O         
+unit:  262 name:O         
+unit:  263 name:O         
+unit:  264 name:O         
+unit:  265 name:O         
+unit:  266 name:O         
+unit:  267 name:O         
+unit:  268 name:O         
+unit:  269 name:O         
+unit:  270 name:O         
+unit:  271 name:O         
+unit:  272 name:O         
+unit:  273 name:O         
+unit:  274 name:O         
+unit:  275 name:O         
+unit:  276 name:O         
+unit:  277 name:O         
+unit:  278 name:O         
+unit:  279 name:O         
+unit:  280 name:O         
+unit:  281 name:O         
+unit:  282 name:O         
+unit:  283 name:O         
+unit:  284 name:O         
+unit:  285 name:O         
+unit:  286 name:O         
+unit:  287 name:O         
+unit:  288 name:O         
+unit:  289 name:Si        
+unit:  290 name:Si        
+unit:  291 name:Si        
+unit:  292 name:Si        
+unit:  293 name:Si        
+unit:  294 name:Si        
+unit:  295 name:Si        
+unit:  296 name:Si        
+unit:  297 name:Si        
+unit:  298 name:Si        
+unit:  299 name:Si        
+unit:  300 name:Si        
+unit:  301 name:Si        
+unit:  302 name:Si        
+unit:  303 name:Si        
+unit:  304 name:Si        
+unit:  305 name:Si        
+unit:  306 name:Si        
+unit:  307 name:Si        
+unit:  308 name:Si        
+unit:  309 name:Si        
+unit:  310 name:Si        
+unit:  311 name:Si        
+unit:  312 name:Si        
+unit:  313 name:Si        
+unit:  314 name:Si        
+unit:  315 name:Si        
+unit:  316 name:Si        
+unit:  317 name:Si        
+unit:  318 name:Si        
+unit:  319 name:Si        
+unit:  320 name:Si        
+unit:  321 name:Si        
+unit:  322 name:Si        
+unit:  323 name:Si        
+unit:  324 name:Si        
+unit:  325 name:Si        
+unit:  326 name:Si        
+unit:  327 name:Si        
+unit:  328 name:Si        
+unit:  329 name:Si        
+unit:  330 name:Si        
+unit:  331 name:Si        
+unit:  332 name:Si        
+unit:  333 name:Si        
+unit:  334 name:Si        
+unit:  335 name:Si        
+unit:  336 name:Si        
+unit:  337 name:Si        
+unit:  338 name:Si        
+unit:  339 name:Si        
+unit:  340 name:Si        
+unit:  341 name:Si        
+unit:  342 name:Si        
+unit:  343 name:Si        
+unit:  344 name:Si        
+unit:  345 name:Si        
+unit:  346 name:Si        
+unit:  347 name:Si        
+unit:  348 name:Si        
+unit:  349 name:Si        
+unit:  350 name:Si        
+unit:  351 name:Si        
+unit:  352 name:Si        
+unit:  353 name:Si        
+unit:  354 name:Si        
+unit:  355 name:Si        
+unit:  356 name:Si        
+unit:  357 name:Si        
+unit:  358 name:Si        
+unit:  359 name:Si        
+unit:  360 name:Si        
+unit:  361 name:Si        
+unit:  362 name:Si        
+unit:  363 name:Si        
+unit:  364 name:Si        
+unit:  365 name:Si        
+unit:  366 name:Si        
+unit:  367 name:Si        
+unit:  368 name:Si        
+unit:  369 name:Si        
+unit:  370 name:Si        
+unit:  371 name:Si        
+unit:  372 name:Si        
+unit:  373 name:Si        
+unit:  374 name:Si        
+unit:  375 name:Si        
+unit:  376 name:Si        
+unit:  377 name:Si        
+unit:  378 name:Si        
+unit:  379 name:Si        
+unit:  380 name:Si        
+unit:  381 name:Si        
+unit:  382 name:Si        
+unit:  383 name:Si        
+unit:  384 name:Si        
+unit:  385 name:O         
+unit:  386 name:O         
+unit:  387 name:O         
+unit:  388 name:O         
+unit:  389 name:O         
+unit:  390 name:O         
+unit:  391 name:O         
+unit:  392 name:O         
+unit:  393 name:O         
+unit:  394 name:O         
+unit:  395 name:O         
+unit:  396 name:O         
+unit:  397 name:O         
+unit:  398 name:O         
+unit:  399 name:O         
+unit:  400 name:O         
+unit:  401 name:O         
+unit:  402 name:O         
+unit:  403 name:O         
+unit:  404 name:O         
+unit:  405 name:O         
+unit:  406 name:O         
+unit:  407 name:O         
+unit:  408 name:O         
+unit:  409 name:O         
+unit:  410 name:O         
+unit:  411 name:O         
+unit:  412 name:O         
+unit:  413 name:O         
+unit:  414 name:O         
+unit:  415 name:O         
+unit:  416 name:O         
+unit:  417 name:O         
+unit:  418 name:O         
+unit:  419 name:O         
+unit:  420 name:O         
+unit:  421 name:O         
+unit:  422 name:O         
+unit:  423 name:O         
+unit:  424 name:O         
+unit:  425 name:O         
+unit:  426 name:O         
+unit:  427 name:O         
+unit:  428 name:O         
+unit:  429 name:O         
+unit:  430 name:O         
+unit:  431 name:O         
+unit:  432 name:O         
+unit:  433 name:O         
+unit:  434 name:O         
+unit:  435 name:O         
+unit:  436 name:O         
+unit:  437 name:O         
+unit:  438 name:O         
+unit:  439 name:O         
+unit:  440 name:O         
+unit:  441 name:O         
+unit:  442 name:O         
+unit:  443 name:O         
+unit:  444 name:O         
+unit:  445 name:O         
+unit:  446 name:O         
+unit:  447 name:O         
+unit:  448 name:O         
+unit:  449 name:O         
+unit:  450 name:O         
+unit:  451 name:O         
+unit:  452 name:O         
+unit:  453 name:O         
+unit:  454 name:O         
+unit:  455 name:O         
+unit:  456 name:O         
+unit:  457 name:O         
+unit:  458 name:O         
+unit:  459 name:O         
+unit:  460 name:O         
+unit:  461 name:O         
+unit:  462 name:O         
+unit:  463 name:O         
+unit:  464 name:O         
+unit:  465 name:O         
+unit:  466 name:O         
+unit:  467 name:O         
+unit:  468 name:O         
+unit:  469 name:O         
+unit:  470 name:O         
+unit:  471 name:O         
+unit:  472 name:O         
+unit:  473 name:O         
+unit:  474 name:O         
+unit:  475 name:O         
+unit:  476 name:O         
+unit:  477 name:O         
+unit:  478 name:O         
+unit:  479 name:O         
+unit:  480 name:O         
+unit:  481 name:O         
+unit:  482 name:O         
+unit:  483 name:O         
+unit:  484 name:O         
+unit:  485 name:O         
+unit:  486 name:O         
+unit:  487 name:O         
+unit:  488 name:O         
+unit:  489 name:O         
+unit:  490 name:O         
+unit:  491 name:O         
+unit:  492 name:O         
+unit:  493 name:O         
+unit:  494 name:O         
+unit:  495 name:O         
+unit:  496 name:O         
+unit:  497 name:O         
+unit:  498 name:O         
+unit:  499 name:O         
+unit:  500 name:O         
+unit:  501 name:O         
+unit:  502 name:O         
+unit:  503 name:O         
+unit:  504 name:O         
+unit:  505 name:O         
+unit:  506 name:O         
+unit:  507 name:O         
+unit:  508 name:O         
+unit:  509 name:O         
+unit:  510 name:O         
+unit:  511 name:O         
+unit:  512 name:O         
+unit:  513 name:O         
+unit:  514 name:O         
+unit:  515 name:O         
+unit:  516 name:O         
+unit:  517 name:O         
+unit:  518 name:O         
+unit:  519 name:O         
+unit:  520 name:O         
+unit:  521 name:O         
+unit:  522 name:O         
+unit:  523 name:O         
+unit:  524 name:O         
+unit:  525 name:O         
+unit:  526 name:O         
+unit:  527 name:O         
+unit:  528 name:O         
+unit:  529 name:O         
+unit:  530 name:O         
+unit:  531 name:O         
+unit:  532 name:O         
+unit:  533 name:O         
+unit:  534 name:O         
+unit:  535 name:O         
+unit:  536 name:O         
+unit:  537 name:O         
+unit:  538 name:O         
+unit:  539 name:O         
+unit:  540 name:O         
+unit:  541 name:O         
+unit:  542 name:O         
+unit:  543 name:O         
+unit:  544 name:O         
+unit:  545 name:O         
+unit:  546 name:O         
+unit:  547 name:O         
+unit:  548 name:O         
+unit:  549 name:O         
+unit:  550 name:O         
+unit:  551 name:O         
+unit:  552 name:O         
+unit:  553 name:O         
+unit:  554 name:O         
+unit:  555 name:O         
+unit:  556 name:O         
+unit:  557 name:O         
+unit:  558 name:O         
+unit:  559 name:O         
+unit:  560 name:O         
+unit:  561 name:O         
+unit:  562 name:O         
+unit:  563 name:O         
+unit:  564 name:O         
+unit:  565 name:O         
+unit:  566 name:O         
+unit:  567 name:O         
+unit:  568 name:O         
+unit:  569 name:O         
+unit:  570 name:O         
+unit:  571 name:O         
+unit:  572 name:O         
+unit:  573 name:O         
+unit:  574 name:O         
+unit:  575 name:O         
+unit:  576 name:O         
+ input_style: basic connectivity map                            
+ nunit:            1
+ nmaxcbmc:            1
+ lpdbnames:  F
+   using the Dubb2004   force field
+ charge_assignment: none                          
+   Building the input file for molecule type:     2
+unit:    1 name:CH4       
+ Verifying input structures are consistent
+Molecule type    1 unit      2  not connected via bonding graph to atom 1
+  therefore Monte Carlo moves will not be allowed to alter atom positions for this molecule type
+Determining cyclic subunits for molecule type          1
+Determining cyclic subunits for molecule type          2
+Default total charge on molecule   1 is   0.00000
+Default total charge on molecule   2 is   0.00000
+Total charge in the simulation system:   0.00000
+Bond Types
+   No Bond Types
+Angle Types
+   No Angle Types
+Torsion Types
+   No Torsion Types
+Improper Torsion Types
+   No Improper Types
+Energies exclusively from internal potentials
+Nonbonded Force Field
+Lennard-Jones 12-6 potential
+    with tail corrections
+u(r) = 4*epsilon[(sigma/r)^12 - (sigma/r)^6] - shift
+Num. Atom(i)    Num. Atom(j)         sigma    epsilon      shift     1-4sig     1-4eps
+   1 O             1 O              0.0000     0.0000     0.0000     0.0000     0.0000
+   1 O             2 CH4            3.4700   115.0000     0.0000     0.0000     0.0000
+   1 O             9 Si             0.0000     0.0000     0.0000     0.0000     0.0000
+   2 CH4           2 CH4            3.7200   158.5000     0.0000     0.0000     0.0000
+   2 CH4           9 Si             0.0000     0.0000     0.0000     0.0000     0.0000
+   9 Si            9 Si             0.0000     0.0000     0.0000     0.0000     0.0000
+Determining Arbitrary Trial Distribution Parameters: see towhee_cbmc for full details
+ Grand Canonical ensemble
+ 3-dimensional periodic box
+ Additional Center-of-Mass cutoff
+ Dual Cutoff Configurational-bias Monte Carlo
+ Coupled-decoupled Configurational-bias MC
+ No electrostatic interations
+
+Molecular mass for molecule type     1 is 11536.1280 g/mol
+Molecular mass for molecule type     2 is    16.0326 g/mol
+ Calling initconf
+Selected random number generator RANLUX with luxury level 3 and single integer seed    1302552
+ RANLUX LUXURY LEVEL SET BY RLUXGO : 3     P= 223
+ RANLUX INITIALIZED BY RLUXGO FROM SEEDS     1302552           0           0
+Testing random number generator using the single integer seed
+    0.596409  0.135293  0.744093  0.054625  0.377648
+10 million RNG sum (approximately 5 million):   4999261.5783861261
+Box idim hinverse:    1 1    0.04987    0.00000    0.00000
+Box idim hinverse:    1 2    0.00000    0.05031    0.00000
+Box idim hinverse:    1 3    0.00000    0.00000    0.03740
+MAPCONF: creating the energy biasing map
+MAPCONF: cweighttotal: 1.0000000000
+MAPCONF: new towhee_map file created
+
+Number of MC moves:                 1000
+Number of molecules:                   51
+Temperature [K]:       298.15000
+
+Initial Energies for Box     1
+Total molecules in this box          1
+Molecules of type   1 :          1
+Molecules of type   2 :          0
+ Total vibration (atoms ij bonded together)                     0.000 [K]         0.00000 [kcal/mol]
+  bond (ij) regular                                             0.000 [K]         0.00000 [kcal/mol]
+  bond (ij) van der waals                                       0.000 [K]         0.00000 [kcal/mol]
+  bond (ij) Electric                                            0.000 [K]         0.00000 [kcal/mol]
+  bond-bond (ij-jk)                                             0.000 [K]         0.00000 [kcal/mol]
+ Total angle (atoms ijk bonded in sequence)                     0.000 [K]         0.00000 [kcal/mol]
+  angle (ijk) regular                                           0.000 [K]         0.00000 [kcal/mol]
+  bond-angle (ij-ijk)                                           0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) van der waals                                      0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) Electric                                           0.000 [K]         0.00000 [kcal/mol]
+  angle-angle (ijk-ijm)                                         0.000 [K]         0.00000 [kcal/mol]
+ Total torsion (ijkl bonded in sequence)                        0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijkl) regular                                        0.000 [K]         0.00000 [kcal/mol]
+  torsion (ij-kl) bond-bond                                     0.000 [K]         0.00000 [kcal/mol]
+  torsion (ij-ijkl) bond-torsion                                0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-ijkl) angle-torsion                              0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-jkl-ijkl) angle-angle-torsion                    0.000 [K]         0.00000 [kcal/mol]
+  torsion (i-l) one-four van der waals                          0.000 [K]         0.00000 [kcal/mol]
+  torsion (i-l) one-four Electric                               0.000 [K]         0.00000 [kcal/mol]
+ Total improper (ijkm, i,k,m bonded to j)                       0.000 [K]         0.00000 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) vdw                    0.000 [K]         0.00000 [kcal/mol]
+  intramolecular                                                0.000 [K]         0.00000 [kcal/mol]
+  2-body vdw intermolecular                                     0.000 [K]         0.00000 [kcal/mol]
+  3-body vdw intermolecular                                     0.000 [K]         0.00000 [kcal/mol]
+  tail correction                                               0.000 [K]         0.00000 [kcal/mol]
+ Total external field                                           0.000 [K]         0.00000 [kcal/mol]
+ Total solvation                                                0.000 [K]         0.00000 [kcal/mol]
+Total classical                                                 0.000 [K]         0.00000 [kcal/mol]
+ Aggregate van der waals (bond and nonbond)                     0.000 [K]         0.00000 [kcal/mol]
+ Aggregate Electric (bond and nonbond)                          0.000 [K]         0.00000 [kcal/mol]
+
+ +++++ start of markov chain +++++
+
+Move       Box   Energy [K]  Volume [A^3] Press. [kPa] Molecules
+       100 B: 1 -0.2629E+05  0.1066E+05          0.0     1   16
+       200 B: 1 -0.3567E+05  0.1066E+05          0.0     1   19
+Block Averages (BA) for block     1
+BA Box: 1 Volume [A^3] 0.10655248E+05
+BA Box: 1 V^2 [A^6] 0.11353431E+09
+BA Box: 1 Specific density [g/ml] 0.18317770E+01
+BA Box: 1 Virial Pressure      [kPa] 0.00000000E+00
+BA Box: 1 Total Classical -.22560312E+05
+BA Box: 1 Inter vdw       -.22560312E+05
+BA Box: 1 Angle           0.00000000E+00
+BA Box: 1 Torsion         0.00000000E+00
+BA Box: 1 Intra vdw       0.00000000E+00
+BA Box: 1 External Field  0.00000000E+00
+BA Box: 1 Vibration       0.00000000E+00
+BA Box: 1 Coulomb         0.00000000E+00
+BA Box: 1 Tail vdw        -.19982350E+04
+BA Box: 1 Solvation       0.00000000E+00
+BA Box: 1 u (Gibbs Total) [K] Type   1 0.00000000E+00
+BA Box: 1 u (Gibbs Total) [K] Type   2 -.44906656E+04
+BA Box: 1 Number density [nm-3] Type   1 0.93850466E-01
+BA Box: 1 Number density [nm-3] Type   2 0.12744893E+01
+BA Box: 1 Mol Fraction Type   1 0.95110685E-01
+BA Box: 1 Mol Fraction Type   2 0.90488932E+00
+BA Box: 1 Stress Tensor Virial S_xx          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_yy          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_zz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_xy          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_xz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_yz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial P_tail        [kPa] 0.00000000E+00
+BA Box: 1 Radius of Gyration Type:  1       11.26903
+BA Box: 1 Radius of Gyration Type:  2        0.00000
+       300 B: 1 -0.4411E+05  0.1066E+05          0.0     1   23
+       400 B: 1 -0.4777E+05  0.1066E+05          0.0     1   25
+Block Averages (BA) for block     2
+BA Box: 1 Volume [A^3] 0.10655248E+05
+BA Box: 1 V^2 [A^6] 0.11353431E+09
+BA Box: 1 Specific density [g/ml] 0.18562758E+01
+BA Box: 1 Virial Pressure      [kPa] 0.00000000E+00
+BA Box: 1 Total Classical -.44671742E+05
+BA Box: 1 Inter vdw       -.44671742E+05
+BA Box: 1 Angle           0.00000000E+00
+BA Box: 1 Torsion         0.00000000E+00
+BA Box: 1 Intra vdw       0.00000000E+00
+BA Box: 1 External Field  0.00000000E+00
+BA Box: 1 Vibration       0.00000000E+00
+BA Box: 1 Coulomb         0.00000000E+00
+BA Box: 1 Tail vdw        -.35154640E+04
+BA Box: 1 Solvation       0.00000000E+00
+BA Box: 1 u (Gibbs Total) [K] Type   1 0.00000000E+00
+BA Box: 1 u (Gibbs Total) [K] Type   2 -.40024554E+04
+BA Box: 1 Number density [nm-3] Type   1 0.93850466E-01
+BA Box: 1 Number density [nm-3] Type   2 0.21946932E+01
+BA Box: 1 Mol Fraction Type   1 0.41256036E-01
+BA Box: 1 Mol Fraction Type   2 0.95874396E+00
+BA Box: 1 Stress Tensor Virial S_xx          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_yy          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_zz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_xy          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_xz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_yz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial P_tail        [kPa] 0.00000000E+00
+BA Box: 1 Radius of Gyration Type:  1       11.26903
+BA Box: 1 Radius of Gyration Type:  2        0.00000
+       500 B: 1 -0.4721E+05  0.1066E+05          0.0     1   26
+       600 B: 1 -0.4721E+05  0.1066E+05          0.0     1   26
+Block Averages (BA) for block     3
+BA Box: 1 Volume [A^3] 0.10655248E+05
+BA Box: 1 V^2 [A^6] 0.11353431E+09
+BA Box: 1 Specific density [g/ml] 0.18623973E+01
+BA Box: 1 Virial Pressure      [kPa] 0.00000000E+00
+BA Box: 1 Total Classical -.47300627E+05
+BA Box: 1 Inter vdw       -.47300627E+05
+BA Box: 1 Angle           0.00000000E+00
+BA Box: 1 Torsion         0.00000000E+00
+BA Box: 1 Intra vdw       0.00000000E+00
+BA Box: 1 External Field  0.00000000E+00
+BA Box: 1 Vibration       0.00000000E+00
+BA Box: 1 Coulomb         0.00000000E+00
+BA Box: 1 Tail vdw        -.39067669E+04
+BA Box: 1 Solvation       0.00000000E+00
+BA Box: 1 u (Gibbs Total) [K] Type   1 0.00000000E+00
+BA Box: 1 u (Gibbs Total) [K] Type   2 -.14433672E+03
+BA Box: 1 Number density [nm-3] Type   1 0.93850466E-01
+BA Box: 1 Number density [nm-3] Type   2 0.24246268E+01
+BA Box: 1 Mol Fraction Type   1 0.37272080E-01
+BA Box: 1 Mol Fraction Type   2 0.96272792E+00
+BA Box: 1 Stress Tensor Virial S_xx          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_yy          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_zz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_xy          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_xz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_yz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial P_tail        [kPa] 0.00000000E+00
+BA Box: 1 Radius of Gyration Type:  1       11.26903
+BA Box: 1 Radius of Gyration Type:  2        0.00000
+       700 B: 1 -0.4721E+05  0.1066E+05          0.0     1   26
+       800 B: 1 -0.4721E+05  0.1066E+05          0.0     1   26
+Block Averages (BA) for block     4
+BA Box: 1 Volume [A^3] 0.10655248E+05
+BA Box: 1 V^2 [A^6] 0.11353431E+09
+BA Box: 1 Specific density [g/ml] 0.18628096E+01
+BA Box: 1 Virial Pressure      [kPa] 0.00000000E+00
+BA Box: 1 Total Classical -.47207505E+05
+BA Box: 1 Inter vdw       -.47207505E+05
+BA Box: 1 Angle           0.00000000E+00
+BA Box: 1 Torsion         0.00000000E+00
+BA Box: 1 Intra vdw       0.00000000E+00
+BA Box: 1 External Field  0.00000000E+00
+BA Box: 1 Vibration       0.00000000E+00
+BA Box: 1 Coulomb         0.00000000E+00
+BA Box: 1 Tail vdw        -.39333153E+04
+BA Box: 1 Solvation       0.00000000E+00
+BA Box: 1 u (Gibbs Total) [K] Type   1 0.00000000E+00
+BA Box: 1 u (Gibbs Total) [K] Type   2 0.25427768E+04
+BA Box: 1 Number density [nm-3] Type   1 0.93850466E-01
+BA Box: 1 Number density [nm-3] Type   2 0.24401121E+01
+BA Box: 1 Mol Fraction Type   1 0.37037037E-01
+BA Box: 1 Mol Fraction Type   2 0.96296296E+00
+BA Box: 1 Stress Tensor Virial S_xx          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_yy          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_zz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_xy          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_xz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_yz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial P_tail        [kPa] 0.00000000E+00
+BA Box: 1 Radius of Gyration Type:  1       11.26903
+BA Box: 1 Radius of Gyration Type:  2        0.00000
+       900 B: 1 -0.4721E+05  0.1066E+05          0.0     1   26
+      1000 B: 1 -0.4902E+05  0.1066E+05          0.0     1   26
+Block Averages (BA) for block     5
+BA Box: 1 Volume [A^3] 0.10655248E+05
+BA Box: 1 V^2 [A^6] 0.11353431E+09
+BA Box: 1 Specific density [g/ml] 0.18631594E+01
+BA Box: 1 Virial Pressure      [kPa] 0.00000000E+00
+BA Box: 1 Total Classical -.47973199E+05
+BA Box: 1 Inter vdw       -.47973199E+05
+BA Box: 1 Angle           0.00000000E+00
+BA Box: 1 Torsion         0.00000000E+00
+BA Box: 1 Intra vdw       0.00000000E+00
+BA Box: 1 External Field  0.00000000E+00
+BA Box: 1 Vibration       0.00000000E+00
+BA Box: 1 Coulomb         0.00000000E+00
+BA Box: 1 Tail vdw        -.39559489E+04
+BA Box: 1 Solvation       0.00000000E+00
+BA Box: 1 u (Gibbs Total) [K] Type   1 0.00000000E+00
+BA Box: 1 u (Gibbs Total) [K] Type   2 -.22397293E+04
+BA Box: 1 Number density [nm-3] Type   1 0.93850466E-01
+BA Box: 1 Number density [nm-3] Type   2 0.24532512E+01
+BA Box: 1 Mol Fraction Type   1 0.36851852E-01
+BA Box: 1 Mol Fraction Type   2 0.96314815E+00
+BA Box: 1 Stress Tensor Virial S_xx          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_yy          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_zz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_xy          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_xz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial S_yz          [kPa] 0.00000000E+00
+BA Box: 1 Stress Tensor Virial P_tail        [kPa] 0.00000000E+00
+BA Box: 1 Radius of Gyration Type:  1       11.26903
+BA Box: 1 Radius of Gyration Type:  2        0.00000
+
+ +++++ end of markov chain +++++
+
+ Final hmatrix (general box dimensions) 
+Box:     1
+  hmatrix(1,x)      20.05110       0.00000       0.00000
+  hmatrix(2,x)       0.00000      19.87570       0.00000
+  hmatrix(3,x)       0.00000       0.00000      26.73640
+
+* Grand Canonical Ensemble SWAP Moves *
+Molecule type:     1
+Molecule type:     2
+  From box  1 to box  0 Attempted:     502 Grown:     500 Accepted:       4
+  From box  0 to box  1 Attempted:     498 Grown:     417 Accepted:      30
+
+Final Energies for Box     1
+Total molecules in this box         27
+Molecules of type   1 :          1
+Molecules of type   2 :         26
+ Total vibration (atoms ij bonded together)                     0.000 [K]         0.00000 [kcal/mol]
+  bond (ij) regular                                             0.000 [K]         0.00000 [kcal/mol]
+  bond (ij) van der waals                                       0.000 [K]         0.00000 [kcal/mol]
+  bond (ij) Electric                                            0.000 [K]         0.00000 [kcal/mol]
+  bond-bond (ij-jk)                                             0.000 [K]         0.00000 [kcal/mol]
+ Total angle (atoms ijk bonded in sequence)                     0.000 [K]         0.00000 [kcal/mol]
+  angle (ijk) regular                                           0.000 [K]         0.00000 [kcal/mol]
+  bond-angle (ij-ijk)                                           0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) van der waals                                      0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) Electric                                           0.000 [K]         0.00000 [kcal/mol]
+  angle-angle (ijk-ijm)                                         0.000 [K]         0.00000 [kcal/mol]
+ Total torsion (ijkl bonded in sequence)                        0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijkl) regular                                        0.000 [K]         0.00000 [kcal/mol]
+  torsion (ij-kl) bond-bond                                     0.000 [K]         0.00000 [kcal/mol]
+  torsion (ij-ijkl) bond-torsion                                0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-ijkl) angle-torsion                              0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-jkl-ijkl) angle-angle-torsion                    0.000 [K]         0.00000 [kcal/mol]
+  torsion (i-l) one-four van der waals                          0.000 [K]         0.00000 [kcal/mol]
+  torsion (i-l) one-four Electric                               0.000 [K]         0.00000 [kcal/mol]
+ Total improper (ijkm, i,k,m bonded to j)                       0.000 [K]         0.00000 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) vdw               -49018.251 [K]       -97.40985 [kcal/mol]
+  intramolecular                                                0.000 [K]         0.00000 [kcal/mol]
+  2-body vdw intermolecular                                -45084.936 [K]       -89.59350 [kcal/mol]
+  3-body vdw intermolecular                                     0.000 [K]         0.00000 [kcal/mol]
+  tail correction                                           -3933.315 [K]        -7.81635 [kcal/mol]
+ Total external field                                           0.000 [K]         0.00000 [kcal/mol]
+ Total solvation                                                0.000 [K]         0.00000 [kcal/mol]
+Total classical                                            -49018.251 [K]       -97.40985 [kcal/mol]
+ Aggregate van der waals (bond and nonbond)                -49018.251 [K]       -97.40985 [kcal/mol]
+ Aggregate Electric (bond and nonbond)                          0.000 [K]         0.00000 [kcal/mol]
+Averages               Units Type       Box  1
+ Volume                 nm^3       0.10655E+02
+ Volume^2               nm^6       0.11353E+03
+ Molecule Number                1        1.000
+ Molecule Number                2       22.988
+ Molar Volume         ml/mol       0.26749E+03
+ Specific Density       g/ml        1.85528384
+ Number Density         nm-3    1      0.09385
+ Number Density         nm-3    2      2.15743
+ Mole Fraction                  1    0.0495055
+ Mole Fraction                  2    0.9504945
+ Radius of Gyration        A    1   11.2690269
+ Radius of Gyration        A    2    0.0000000
+ Ideal Pressure          kPa       0.92700E+04
+ Ideal p_i <N/V>kT       kPa    1  0.38644E+03
+ Ideal p_i <N/V>kT       kPa    2  0.88835E+04
+ Total Classical           K       -0.4194E+05
+ Inter vdw                 K       -0.4194E+05
+ Angle                     K        0.0000E+00
+ Torsion                   K        0.0000E+00
+ Intra vdw                 K        0.0000E+00
+ External Field            K        0.0000E+00
+ Vibration                 K        0.0000E+00
+ Coulomb                   K        0.0000E+00
+ Tail vdw                  K       -0.3462E+04
+ Solvation                 K        0.0000E+00
+ u (Density)               K    2    -3061.336
+ u (NVT Insertion)         K    2     -791.242
+ u (NpT Insertion)         K    2     -791.242
+ u (Den. + NVT Insert)     K    2    -3852.579
+ u (Den. + NpT Insert)     K    2    -3852.579
+ u (Gibbs Total)           K    2    -4070.004
+ G: Sum{<u_i><N_i>}   kJ/mol       -0.7779E+03
+ U                    kJ/mol       -0.3487E+03
+
+Block Averages (  5 blocks) Units Type Box Average      Standard Deviation
+ Specific Density            g/ml        1  0.18553E+01  0.12023E-01
+ Total Classical                K        1 -0.41943E+05  0.97562E+04
+ Inter vdw                      K        1 -0.41943E+05  0.97562E+04
+ Angle                          K        1  0.00000E+00  0.00000E+00
+ Torsion                        K        1  0.00000E+00  0.00000E+00
+ Intra vdw                      K        1  0.00000E+00  0.00000E+00
+ External Field                 K        1  0.00000E+00  0.00000E+00
+ Vibration                      K        1  0.00000E+00  0.00000E+00
+ Coulomb                        K        1  0.00000E+00  0.00000E+00
+ Tail vdw                       K        1 -0.34619E+04  0.74959E+03
+ Solvation                      K        1  0.00000E+00  0.00000E+00
+ u (Gibbs Total)                K    2   1    -1666.882     2599.853
+ u (NpT Insertion)              K    2   1     1427.829     2519.588
+ u (NVT Insertion)              K    2   1     1427.829     2519.588
+ Number Density              nm-3    1   1  0.93850E-01  0.00000E+00
+ Number Density              nm-3    2   1  0.21574E+01  0.45162E+00
+ Mole Fraction                       1   1    0.0495055    0.0228610
+ Mole Fraction                       2   1    0.9504945    0.0228610
+ Molarity                       M    1   1  0.15590E+00  0.00000E+00
+ Molarity                       M    2   1  0.35838E+01  0.75019E+00
+ Radius of Gyration             A    1   1     11.26903      0.00000
+ Radius of Gyration             A    2   1      0.00000      0.00000
+
+ -----block averages ------
+Box:    1
+Block Energy         Density        Virial Press.  Mol fracs
+    1 -.22560312E+05 0.18317770E+01 0.00000000E+00 0.09511068 0.90488932
+    2 -.44671742E+05 0.18562758E+01 0.00000000E+00 0.04125604 0.95874396
+    3 -.47300627E+05 0.18623973E+01 0.00000000E+00 0.03727208 0.96272792
+    4 -.47207505E+05 0.18628096E+01 0.00000000E+00 0.03703704 0.96296296
+    5 -.47973199E+05 0.18631594E+01 0.00000000E+00 0.03685185 0.96314815
+Please see towhee_citations for a list of suggested citations for this simulation

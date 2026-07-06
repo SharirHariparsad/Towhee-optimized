@@ -1,0 +1,78 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: Walt2001</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: Walther <i>et al.</i> 2001</font></b></font></div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the Walther <i>et al.</i> (Walt2001) force field as it is implemented into the towhee_ff_Walt2001 file in the ForceFields directory.
+      This force field was originally designed for fluid simulations of water and carbon nanotubes.
+      Note that this is a Lennard-Jones force field that uses explicit mixing rules so it is not easily combined with other force fields.
+      Any discrepencies (especially typos) from the published values are the sole responsibility of Marcus Martin,
+      and I welcome feedback on how this implementation compares with other programs.
+     </ul>
+     <b>References for Walt2001</b> 
+     <ul>
+      The Walt2001 forcefield is described in the following paper.
+      <ul>
+       <li><a href="../references.html#walther_et_al_2001">Walther <i>et al.</i> 2001</a></li>
+      </ul>
+     </ul>	
+     <b>Typos and comments for Walt2001</b> 
+     <ul>
+      This section contains a list of places where the Towhee implementation of Walt2001 differs from the text of the Walt2001 paper.
+      <ul>
+       <li>Table 1 of <a href="../references.html#walther_et_al_2001">Walther <i>et al.</i> 2001</a> lists no values for the angle force constant
+	and two for the torsional force constant.  
+	The Towhee implementation assumes that the second of these values (25.12 kJ mol<sup>-1</sup>) is the torsional force constant,
+	while the first value (562.2 kJ mol<sup>-1</sup>) is the angle force constant.
+       </li>
+       <li>Table 2 of <a href="../references.html#walther_et_al_2001">Walther <i>et al.</i> 2001</a> lists a charge of -0.41 e for the hydrogen atom in water.
+	This implementation assumes they meant a charge of +0.41 e for the hydrogen atom in water.
+       </li>
+      </ul>
+     </ul>
+     <b>Walt2001 in Towhee</b> 
+     <ul>
+      The official force field name for Walther <i>et al.</i> 2001 in Towhee is 'Walt2001'.  Here all of the atom names are listed, along with a brief description.
+      Please note that the capitalization and spacing pattern is important and must be followed exactly as listed here.
+      <ul>
+       <dt>'<b>C</b>' : Carbon in a carbon nanotube.</dt>
+       <dt>'<b>O</b>' : Oxygen in water.</dt>
+       <dt>'<b>H</b>' : Hydrogen in water.</dt>
+      </ul>
+     </ul>
+     <b>Coulombic interactions</b> 
+     <ul>
+      This force field assigns coulombic interactions to the water molecules.
+      In the original paper they also used quadrupole moments on the carbon atoms, but they found these had no significant 
+      effect on the results and therefore the quadrupole moment is not included in this implementation.
+      The 'bond increment' method of <b>charge_assignment</b> is implemented for this forcefield.
+      This is the complete list of charge transfered between atom pairs when utilizing the 'bond increment' method.
+      <ul>
+       <dt><b>O</b> - <b>H</b>: -0.41</dt>
+       <dt><b>C</b> - <b>C</b>: 0.0</dt>
+      </ul>
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

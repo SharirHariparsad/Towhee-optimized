@@ -1,0 +1,28 @@
+\documentclass[12pt]{article}
+\pagestyle{empty}
+\begin{document}
+\begin{displaymath}
+P_{\rm accept} = {\rm Min}\left[1,
+{
+{\prod_{n=1}^{n_{\rm step}} 
+W_{\rm nb}^{\rm new}(n)
+W_{\rm bend}^{\rm B, new}(n)
+W_{\rm bend}^{\rm A, new}(n)
+W_{\rm bond}^{\rm new}(n)
+w_{\rm bias}^{\rm fe, old}(n)
+\exp\left(-\beta\left[\Delta u_{\rm nb}^{\rm new}(n)\right]\right)
+}
+\over
+{\prod_{n=1}^{n_{\rm step}}
+W_{\rm nb}^{\rm old}(n)
+W_{\rm bend}^{\rm B, old}(n)
+W_{\rm bend}^{\rm A, old}(n)
+W_{\rm bond}^{\rm old}(n)
+w_{\rm bias}^{\rm fe, new}(n)
+\exp\left(-\beta\left[\Delta u_{\rm nb}^{\rm old}(n)\right]\right)
+}
+}
+\right]
+\end{displaymath}
+\end{document}
+

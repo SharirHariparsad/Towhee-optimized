@@ -1,0 +1,271 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: Gromos 43A1</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: Gromos 43A1</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the Gromos 43A1 force field as it is implemented into the towhee_ff_Gromos43A1 file in the ForceFields directory.
+      All of the Towhee atom, bond angle, and dihedral potential numbers for the Gromos 43A1 force field are listed,
+      along with a short description of their meanings.
+      Unlike almost all of the other force fields implemented into Towhee, Gromos 43A1 cannot be used with the molecule assembler
+      as they have not presented their parameters in a way that facilitates such an assembler, and I have not yet figured out how to create a set of 
+      atom types that would work with the assembler.
+      One of the main barriers to such an assembler is that Gromos 43A1 does not apply the same torsional potential to all dihedrals that are connected
+      by the same atom types.  Instead Gromos 43A1 applies the torsional potential to only one of the torsions
+      across the same two central atoms of a dihedral, and the rest interact only via 1-4 van der Waals and coulombic terms.
+      For more information about the Gromos force field see the <a href="http://www.gromos.net">Gromos web site</a>.
+      Note that Gromos 43A1 is a Lennard-Jones (12-6) force field, but it has a rather complex algorithm for 
+      computing the cross interactions and so its parameters are listed explicitly (starting with Towhee 
+      Version 4.4.0) and so you cannot mix it with any of the other force fields in Towhee.
+      I would like to acknowledge Lukas D. Schuler for providing very useful guidance about implementing Gromos 43A1,
+      and a copy of the relevent pages of the Gromos manual.  
+      Any discrepencies (especially typos) from the published Gromos 43A1 force field values are the sole responsibility
+      of Marcus Martin, and I welcome feedback on how this implementation compares with other programs.
+     </ul>
+     <b>References for Gromos 43A1</b> 
+     <ul>
+      The literature reference for Gromos 43A1 is
+      <ul>
+       <li><a href="../references.html#scott_et_al_1999">Scott <i>et al.</i> 1999</a></li>
+      </ul>
+      Unfortunately this reference does not actually contain the Gromos 43A1 parameters.  In order to get the parameters
+      you need a copy of the Gromos users manual.  It appears that the only way to get the users manual is to purchase the 
+      Gromos code, but here is the reference for the users manual in case you want to give it a try.
+      <ul>
+       <li><a href="../references.html#van_gunsteren_et_al_1996">van Gunsteren <i>et al.</i> 1996</a></li>
+      </ul>
+      A copy of the portions of the users manual related to the force field was generously provided to me by Lukas D. Schuler.
+     </ul>
+     <b>Gromos 43A1 Towhee</b> 
+     <ul>
+      The official force field name for Gromos 43A1 in Towhee is 'Gromos43A1', although that will not get you very far
+      as the molecule assembler does not yet work for Gromos43A1.  In order to make the use of Gromos 43A1 as convienent 
+      as possible without the use of the molecule builder, I have numbered the atoms, vibrations, bending angles, dihedral angles,
+      and improper torsions using (almost) the same numbering conventions as Gromos 43A1.
+      This means the 'explicit' option for <b>input_style</b> is required for thie force field,
+      but hopefully these lists will make the task possible for those who really wish to use Gromos 43A1.  The descriptions below
+      include the comments from the Gromos users manual, with any additional comments I felt useful in [square brackets].
+      <dt><font color="red">Atom numbers</font> : <b>Gromos atom name</b> : description of the atom</dt>
+      <ul>
+       <dt><font color="red">1</font> : <b>O</b> : carbonyl oxygen (C=0)</dt>
+       <dt><font color="red">2</font> : <b>OM</b> : carboxyl oxygen (CO)</dt>
+       <dt><font color="red">3</font> : <b>OA</b> : hydroxyl, sugar or ester oxygen</dt>
+       <dt><font color="red">4</font> : <b>OW</b> : water oxygen</dt>
+       <dt><font color="red">5</font> : <b>N</b> : peptide nitrogen (NH)</dt>
+       <dt><font color="red">6</font> : <b>NT</b> : terminal nitrogen (NH<sub>2</sub>)</dt>
+       <dt><font color="red">7</font> : <b>NL</b> : terminal nitrogen (NH<sub>3</sub>)</dt>
+       <dt><font color="red">8</font> : <b>NR</b> : aromatic nitrogen</dt>
+       <dt><font color="red">9</font> : <b>NZ</b> : Arg NH (NH<sub>2</sub>)</dt>
+       <dt><font color="red">10</font> : <b>NE</b> : Arg NE (NH)</dt>
+       <dt><font color="red">11</font> : <b>C</b> : bare carbon</dt>
+       <dt><font color="red">12</font> : <b>CH1</b> : aliphatic or sugar CH group</dt>
+       <dt><font color="red">13</font> : <b>CH2</b> : aliphatic or sugar CH<sub>2</sub> group</dt>
+       <dt><font color="red">14</font> : <b>CH3</b> : aliphatic CH<sub>3</sub> group</dt>
+       <dt><font color="red">15</font> : <b>CH4</b> : methane</dt>
+       <dt><font color="red">16</font> : <b>CR1</b> : aromatic CH group</dt>
+       <dt><font color="red">17</font> : <b>HC</b> : hydrogen bond to carbon [where the carbon is not aliphatic or you would use the
+	appropriate united-atom CHx group]</dt>
+       <dt><font color="red">18</font> : <b>H</b> : hydrogen not bound to carbon</dt>
+       <dt><font color="red">19</font> : <b>DUM</b> : dummy atom [not sure what this is for, but implemented it anyway]</dt>
+       <dt><font color="red">20</font> : <b>S</b> : sulfur</dt>
+       <dt><font color="red">21</font> : <b>CU1+</b> : copper (charge 1+)</dt>
+       <dt><font color="red">22</font> : <b>CU2+</b> : copper (charge 2+)</dt>
+       <dt><font color="red">23</font> : <b>FE</b> : iron (heme)</dt>
+       <dt><font color="red">24</font> : <b>ZN2+</b> : zinc (charge 2+)</dt>
+       <dt><font color="red">25</font> : <b>MG2+</b> : magnesium (charge 2+)</dt>
+       <dt><font color="red">26</font> : <b>CA2+</b> : calcium (charge 2+)</dt>
+       <dt><font color="red">27</font> : <b>P</b> : phosphorous</dt>
+       <dt><font color="red">28</font> : <b>AR</b> : argon</dt>
+       <dt><font color="red">29</font> : <b>F</b> : fluorine (non-ionic)</dt>
+       <dt><font color="red">30</font> : <b>CL</b> : chlorine (non-ionic)</dt>
+       <dt><font color="red">31</font> : <b>BR</b> : bromine (non-ionic)</dt>
+       <dt><font color="red">32</font> : <b>CMet</b> : CH<sub>3</sub> group in methanol</dt>
+       <dt><font color="red">33</font> : <b>OMet</b> : oxygen in methanol</dt>
+       <dt><font color="red">34</font> : <b>NA+</b> : sodium (charge 1+)</dt>
+       <dt><font color="red">35</font> : <b>CL-</b> : chlorine (charge 1-)</dt>
+       <dt><font color="red">36</font> : <b>CChl</b> : carbon in chloroform</dt>
+       <dt><font color="red">37</font> : <b>CLChl</b> : chlorine in chloroform</dt>
+       <dt><font color="red">38</font> : <b>HChl</b> : hydrogen in chloroform</dt>
+       <dt><font color="red">39</font> : <b>SDmso</b> : sulfur in DMSO</dt>
+       <dt><font color="red">40</font> : <b>CDmso</b> : CH<sub>3</sub> group in DMSO</dt>
+       <dt><font color="red">41</font> : <b>ODmso</b> : oxygen in DMSO</dt>
+       <dt><font color="red">42</font> : <b>CCl4</b> : carbon in carbontetrachloride</dt>
+       <dt><font color="red">43</font> : <b>CLCl4</b> : chlorine in carbontetrachloride</dt>
+       <dt><font color="red">44</font> : <b>SI</b> : silicon</dt>
+      </ul>
+      <dt><font color="red">Bond Vibration numbers</font> : Gromos examples of the vibration</dt>
+      <ul>
+       <dt><font color="red">1</font> : H-OA</dt>
+       <dt><font color="red">2</font> : H-N (all)</dt>
+       <dt><font color="red">3</font> : HC-C</dt>
+       <dt><font color="red">4</font> : C-O</dt>
+       <dt><font color="red">5</font> : C-OM</dt>
+       <dt><font color="red">6</font> : CR1-NR (6-ring)</dt>
+       <dt><font color="red">7</font> : H-S</dt>
+       <dt><font color="red">8</font> : C-NT,NL</dt>
+       <dt><font color="red">9</font> : C,CR1-N,NR,CR1,C (peptide, 5-ring)</dt>
+       <dt><font color="red">10</font> : C-N,NA,NE</dt>
+       <dt><font color="red">11</font> : C-NR (no H)(6-ring)</dt>
+       <dt><font color="red">12</font> : C-OA</dt>
+       <dt><font color="red">13</font> : C-NR (heme)</dt>
+       <dt><font color="red">14</font> : CH2-C,CR1 (6-ring)</dt>
+       <dt><font color="red">15</font> : C,CR1-CH2,C,CR1 (6-ring)</dt>
+       <dt><font color="red">16</font> : C,CR1,CH2-NR (6-ring)</dt>
+       <dt><font color="red">17</font> : CHn-OA</dt>
+       <dt><font color="red">18</font> : CHn-OM</dt>
+       <dt><font color="red">19</font> : CHn-OA (sugar)</dt>
+       <dt><font color="red">20</font> : CHn-N,NT,NL,NZ,NE</dt>
+       <dt><font color="red">21</font> : CHn-NR (5-ring)</dt>
+       <dt><font color="red">22</font> : CHn-NR (6-ring)</dt>
+       <dt><font color="red">23</font> : O,OM-P</dt>
+       <dt><font color="red">24</font> : O-S</dt>
+       <dt><font color="red">25</font> : CHn-CHn (sugar)</dt>
+       <dt><font color="red">26</font> : C,CHn-C,CHn</dt>
+       <dt><font color="red">27</font> : OA-P</dt>
+       <dt><font color="red">28</font> : OA-SI</dt>
+       <dt><font color="red">29</font> : CH3-S</dt>
+       <dt><font color="red">30</font> : CH2-S</dt>
+       <dt><font color="red">31</font> : CH1-SI</dt>
+       <dt><font color="red">32</font> : NR-FE</dt>
+       <dt><font color="red">33</font> : S-S</dt>
+       <dt><font color="red">34</font> : NR(heme)-FE</dt>
+       <dt><font color="red">35</font> : HWat-OWat</dt>
+       <dt><font color="red">36</font> : HChl-CChl</dt>
+       <dt><font color="red">37</font> : CChl-CLChl</dt>
+       <dt><font color="red">38</font> : ODmso-SDmso</dt>
+       <dt><font color="red">39</font> : SDmso-CDmso</dt>
+       <dt><font color="red">40</font> : CCl4-CLCl4</dt>
+       <dt><font color="red">41</font> : HWat-HWat [I believe this is for use with shake]</dt>
+       <dt><font color="red">42</font> : HChl-CLChl</dt>
+       <dt><font color="red">43</font> : CLChl-CLChl</dt>
+       <dt><font color="red">44</font> : ODmso-CDmso</dt>
+       <dt><font color="red">45</font> : CDmso-CDmso</dt>
+       <dt><font color="red">46</font> : HMet-CMet</dt>
+       <dt><font color="red">47</font> : CLCl4-CLCl4</dt>
+      </ul>
+      <dt><font color="red">Bending Angle numbers</font> : Gromos examples of the bending angle</dt>
+      <ul>
+       <dt><font color="red">1</font> : NR(heme)-FE-NR(heme)</dt>
+       <dt><font color="red">2</font> : H-S-CH2</dt>
+       <dt><font color="red">3</font> : CH2-S-CH3</dt>
+       <dt><font color="red">4</font> : OA-P-OA</dt>
+       <dt><font color="red">5</font> : CH2-S-S</dt>
+       <dt><font color="red">6</font> : NR-C-CR1 (5-ring)</dt>
+       <dt><font color="red">7</font> : CHn-CHn-CHn,NR(6-ring)(sugar)</dt>
+       <dt><font color="red">8</font> : CHn,OA-CHn-OA,NR(ring)(sugar)</dt>
+       <dt><font color="red">9</font> : H-NL,NT-H ; CHn-OA-CHn(sugar)</dt>
+       <dt><font color="red">10</font> : H-NL-C,CHn ; H-NT-CHn</dt>
+       <dt><font color="red">11</font> : X-OA,SI-X</dt>
+       <dt><font color="red">12</font> : CHn,C-CHn-C,CHn,OA,OM,N,NE</dt>
+       <dt><font color="red">13</font> : OM-P-OA</dt>
+       <dt><font color="red">14</font> : CHn-CHn-C,CHn,OA,NR,NT,NL</dt>
+       <dt><font color="red">15</font> : CHn-CH2-S</dt>
+       <dt><font color="red">16</font> : NR(heme)-FE-NR</dt>
+       <dt><font color="red">17</font> : H-N-CHn</dt>
+       <dt><font color="red">18</font> : CHn,C-C-OA,N,NT,NL</dt>
+       <dt><font color="red">19</font> : H-NE-CH2</dt>
+       <dt><font color="red">20</font> : CH2-N-CH1</dt>
+       <dt><font color="red">21</font> : CH3-N-C ; CHn-C-OM</dt>
+       <dt><font color="red">22</font> : H-NT,NZ,NE-C</dt>
+       <dt><font color="red">23</font> : H-NT,NZ-H</dt>
+       <dt><font color="red">24</font> : H-N-CH3,H,HC (6-ring) ; H-NT-CHn</dt>
+       <dt><font color="red">25</font> : P,SI-OA-CHn,P</dt>
+       <dt><font color="red">26</font> : N-C-CR1 (6-ring, no H)</dt>
+       <dt><font color="red">27</font> : NZ-C-NZ,NE</dt>
+       <dt><font color="red">28</font> : OM-P-OM</dt>
+       <dt><font color="red">29</font> : O-C-CHn,C ; CH3-N-CHn</dt>
+       <dt><font color="red">30</font> : CH1,CH2-N-C</dt>
+       <dt><font color="red">31</font> : H-N-C</dt>
+       <dt><font color="red">32</font> : O-C-OA,N,NT,NL ; C-NE-CH2</dt>
+       <dt><font color="red">33</font> : FE-NR-CR1(5-ring)</dt>
+       <dt><font color="red">34</font> : - [no description is listed about this bending angle in Gromos]</dt>
+       <dt><font color="red">35</font> : H,HC-5-ring [H atoms bonded to an atom which is part of a 5-ring]</dt>
+       <dt><font color="red">36</font> : X(noH)-5-ring [non-H atoms bonded to an atom which is part of a 5-ring]</dt>
+       <dt><font color="red">37</font> : OM-C-OM</dt>
+       <dt><font color="red">38</font> : 5,6 ring connection</dt>
+       <dt><font color="red">39</font> : SI-OA-SI</dt>
+       <dt><font color="red">40</font> : HWat-OWat-HWat</dt>
+       <dt><font color="red">41</font> : HChl-CChl-CLChl</dt>
+       <dt><font color="red">42</font> : CLChl-CChl-CLChl</dt>
+       <dt><font color="red">43</font> : CDmso-SDmso-CDmso</dt>
+       <dt><font color="red">44</font> : CDmso-SDmso-ODmso</dt>
+       <dt><font color="red">45</font> : HMet-OMet-CMet</dt>
+       <dt><font color="red">46</font> : CLCl4-CCl4-CLCl4</dt>
+      </ul>
+      <dt><font color="red">Regular Torsion numbers</font> : Gromos examples of the regular torsion</dt>
+      <ul>
+       Note: Gromos 43A1 only applies one torsion involving the cosine series to each pair of central atoms.  The remainder of
+       the torsions only interact via van der Waals and coulombic terms.  In Towhee this means you need to set all of the other 
+       torsions to the Null torsion type of 6.  I have put an X for any atom.
+       <dt><font color="red">1</font> : X-C-C-X </dt>
+       <dt><font color="red">2</font> : X-C-OA-X (at ring)</dt>
+       <dt><font color="red">3</font> : X-C-OA-X (carboxyl)</dt>
+       <dt><font color="red">4</font> : X-C-N,NT,NE,NZ,NR-X</dt>
+       <dt><font color="red">5</font> : X-C-CR1-X (6-ring)</dt>
+       <dt><font color="red">6</font> : X-CH1(sugar)-NR(base)-X Also used as the NULL torsion.</dt>
+       <dt><font color="red">7</font> : O-CH1-CHn-not O</dt>
+       <dt><font color="red">8</font> : O-CH1-CHn-O</dt>
+       <dt><font color="red">9</font> : X-OA-P-X</dt>
+       <dt><font color="red">10</font> : X-S-S-X</dt>
+       <dt><font color="red">11</font> : X-OA-P-X</dt>
+       <dt><font color="red">12</font> : X-CHn-OA(not sugar)-X</dt>
+       <dt><font color="red">13</font> : X-CH2-S-X</dt>
+       <dt><font color="red">14</font> : X-C,CHn,SI-NT,NL,OA(sugar)-X</dt>
+       <dt><font color="red">15</font> : HC-C-S-X</dt>
+       <dt><font color="red">16</font> : HC-C-C-X</dt>
+       <dt><font color="red">17</font> : X-CHn,SI-CHn-X</dt>
+       <dt><font color="red">18</font> : X-NR-FE-X</dt>
+       <dt><font color="red">19</font> : X-CHn-N,NE-X</dt>
+       <dt><font color="red">20</font> : X-CHn-C,NR(ring),CR1-X</dt>
+       <dt><font color="red">21</font> : X-CHn-NT-X</dt>
+      </ul>
+     </ul>
+     <b>Coulombic interactions</b> 
+     <ul>
+      Gromos 43A1 uses point charges to represent the molecular electrostatic interactions.  There is no automated system for 
+      assigning these charges.  Instead, you need to look through the Gromos manual ( 
+      <a href="../references.html#van_gunsteren_et_al_1996">van Gunsteren <i>et al.</i> 1996</a>)
+      and find molecules which are similar to the one you wish to study.  
+     </ul>
+     <b>Improper torsions</b> 
+     <ul>
+      Gromos 43A1 exclusively uses the out-of-plane version of the improper torsions.
+      There are only three types of Gromos 43A1 improper torsions, one for enforcing tetrahedral conformations, one for enforcing planarity,
+      and a special one for heme.  
+      In the towhee_input file this improper torsion is specified starting from the central atom, and then three atoms bonded to that atom are listed.
+      Starting with version 2.4.5, Towhee uses the same numbering convention as Gromos 43A1.  You will need to specify one of the types listed below.
+      <dt><font color="red">Towhee Improper Torsion number</font> : description</dt>
+      <ul>
+       <dt><font color="red">1</font> : planar groups </dt>
+       <dt><font color="red">2</font> : tetrahedral centers </dt>
+       <dt><font color="red">3</font> : heme iron </dt>
+      </ul>
+     </ul>
+     <b>Proteins</b> 
+     <ul>
+      Gromos 43A1 is designed for proteins, but it is not currently implemented into the protein builder.
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+     <p>&nbsp;</p>
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

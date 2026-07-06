@@ -1,0 +1,147 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: Weiner et al. 1984</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" height="590">
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: Weiner <i>et al.</i> 1984</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers an early force field in the Amber family called the Weiner <i>et al.</i> 1984 force field
+      as it is implemented into the Towhee code.  All of the Towhee atom types for the Weiner <i>et al.</i> 1984 force 
+      field are listed, along with a short description of their meanings.
+      Weiner <i>et al.</i> 1984 is a united-atom force field that was later expanded, and slightly modified, 
+      to allow some all atom types along side of the united atom types.  See <a href="weiner1986.html">Weiner <i>et al.</i> 1986</a>
+      for more information about this extension.
+      Note that Weiner <i>et al.</i> 1984 is a 12-6 plus 12-10 H-bond force field and can only be combined with
+      other '12-6 plus 12-10 H-bond' force fields.
+      Any discrepencies (especially typos) from the published force field values are the sole responsibility
+      of Marcus Martin, and I welcome feedback on how this implementation compares	with other programs.
+     </ul>
+     <b>References for Weiner <i>et al.</i> 1984</b> 
+     <ul>
+      <ul>
+       <li><a href="../references.html#weiner_et_al_1984">Weiner <i>et al.</i> 1984.</a></li>
+      </ul>
+     </ul>	
+     <b>Weiner <i>et al.</i> 1984 in Towhee</b> 
+     <ul>
+      The official force field name for Weiner <i>et al.</i> in Towhee is 'Weiner1984' and the file name is 
+      towhee_ff_Weiner1984 in the ForceFields directory.  Here I list all of 
+      the atom names for use in the towhee_input file, along with a brief description taken
+      from the <a href="../references.html#weiner_et_al_1984">Weiner <i>et al.</i> 1984</a> paper.  
+      Please note that the capitalization and spacing pattern is important 
+      and must be followed exactly as listed here.
+      <dt><font color="red">Carbon</font> (united or atomic)</dt>
+      <ul>
+       <dt>'<b>C2</b>' : united sp<sup>3</sup> carbon with two hydrogens</dt>
+       <dt>'<b>C3</b>' : united sp<sup>3</sup> carbon with three hydrogens</dt>
+       <dt>'<b>CD</b>' : united sp<sup>2</sup> aromatic carbon in six-membered ring with one hydrogen</dt>
+       <dt>'<b>CE</b>' : united sp<sup>2</sup> aromatic carbon in five-membered ring between two nitrogens with 
+	one hydrogen (in purines)</dt>
+       <dt>'<b>CF</b>' : united sp<sup>2</sup> aromatic carbon in five-membered ring next to a nitrogen without a 
+	hydrogen (e.g., C<sub>delta</sub>-N<sub>epsilon</sub>=C<sub>epsilon</sub> in histidine)</dt>
+       <dt>'<b>CG</b>' : united sp<sup>2</sup> aromatic carbon in five membered ring next to a N-H 
+	(e.g., C<sub>delta</sub>-N<sub>epsilon</sub>=C<sub>epsilon</sub> in histidine)</dt>
+       <dt>'<b>CH</b>' : united sp<sup>3</sup> carbon with one hydrogen</dt>
+       <dt>'<b>CI</b>' : united sp<sup>2</sup> carbon in six-membered ring of purines between two "NC" nitrogens</dt>
+       <dt>'<b>CJ</b>' : united sp<sup>2</sup> carbon in pyrimidines at positions 5 and 6 (more pure double bond 
+	than aromatic) with one hydrogen</dt>
+       <dt>'<b>CP</b>' : united sp<sup>2</sup> aromatic carbon in five-membered ring between two nitrogens with one hydrogen (in His)</dt>
+       <dt>'<b>C</b>' : atomic sp<sup>2</sup> carbonyl carbon and aromatic carbon with hydroxyl substituent in tyrosine</dt>
+       <dt>'<b>C*</b>' : atomic sp<sup>2</sup> aromatic carbon in five-membered ring with one substituent 
+	(e.g., CE<sub>gamma</sub> in Trp)</dt>
+       <dt>'<b>CA</b>' : atomic sp<sup>2</sup> aromatic carbon in six-membered ring with one substituent</dt>
+       <dt>'<b>CB</b>' : atomic sp<sup>2</sup> aromatic carbon at junction between five- and six-membered rings (e.g., CE<sub>delta</sub>
+	in Trp, C4 and C5 in purines)</dt>
+       <dt>'<b>CC</b>' : atomic sp<sup>2</sup> aromatic carbon in five-membered ring with one substituent and next to a nitrogen group
+	(e.g., C<sub>gamma</sub> in His)</dt>
+       <dt>'<b>CM</b>' : atomic sp<sup>2</sup> same as CJ but one substituent</dt>
+       <dt>'<b>CN</b>' : atomic sp<sup>2</sup> aromatic junction carbon in between five- and six-membered rings (e.g., C<sub>epsilon</sub>
+	in Trp)</dt>
+       <dt>'<b>CT</b>' : atomic sp<sup>3</sup> carbon with four explicit substituents</dt>
+      </ul>
+      <dt><font color="red">Hydrogen</font> (all atomic)</dt>
+      <ul>
+       <dt>'<b>H3</b>' : hydrogens of lysine and arginine (positively charged)</dt>
+       <dt>'<b>H2</b>' : amino hydrogens from NH<sub>2</sub> in purines and pyrimidines</dt>
+       <dt>'<b>HC</b>' : explicit hydrogen attached to carbon</dt>
+       <dt>'<b>H</b>' : amide and imino hydrogens</dt>
+       <dt>'<b>HO</b>' : hydrogen on hydroxyl or water oxygen</dt>
+       <dt>'<b>HS</b>' : hydrogen attached to sulfur</dt>
+      </ul>
+      <dt><font color="red">Nitrogen</font> (all atomic)</dt>
+      <ul>
+       <dt>'<b>NC</b>' : sp<sup>2</sup> nitrogen in six-membered ring with lone pairs (e.g., N3 in adenine)</dt>
+       <dt>'<b>NA</b>' : sp<sup>2</sup> nitrogen in five-membered ring with hydrogen attached (e.g., protonated His)</dt>
+       <dt>'<b>NB</b>' : sp<sup>2</sup> nitrogen in five-membered ring with lone pairs (e.g., N7 in purines)</dt>
+       <dt>'<b>N*</b>' : sp<sup>2</sup> nitrogen in purines and pyrimidines with alkyl group attached 
+	(N9 in purines. N1 in pyrimidines)</dt>
+       <dt>'<b>N</b>' : sp<sup>2</sup> nitrogen in amide groups</dt>
+       <dt>'<b>N2</b>' : sp<sup>2</sup> nitrogen in base NH<sub>2</sub> groups and arginines NH<sub>2</sub></dt>
+       <dt>'<b>N3</b>' : sp<sup>3</sup> nitrogen with four substituents (e.g., Lys N<sub>zeta</sub></dt>
+       <dt>'<b>NT</b>' : sp<sup>3</sup> nitrogen with three substituents (e.g., unprotonated amines)</dt>
+      </ul>
+      <dt><font color="red">Oxygen</font> (all atomic)</dt>
+      <ul>
+       <dt>'<b>O</b>' : carbonyl oxygen</dt>
+       <dt>'<b>O2</b>' : corboxyl and phosphate nonbonded oxygens</dt>
+       <dt>'<b>OS</b>' : ether and ester oxygens</dt>
+       <dt>'<b>OH</b>' : alcohol oxygens</dt>
+      </ul>
+      <dt><font color="red">Phosphorus</font> (all atomic)</dt>
+      <ul>
+       <dt>'<b>P</b>' : phosphorus in phosphate groups</dt>
+      </ul>
+      <dt><font color="red">Sulfur</font> (all atomic)</dt>
+      <ul>
+       <dt>'<b>S</b>' : sulfurs in disulfide linkages and mentioning</dt>
+       <dt>'<b>SH</b>' : sulfur in cycstine</dt>
+       <dt>'<b>LP</b>' : lone pairs attached to sulfur</dt>
+      </ul>
+     </ul>
+     <b>Coulombic Interactions</b> 
+     <ul>
+      Weiner <i>et al.</i> 1984 uses point charges located at atomic centers to represent the elecrostatic interactions between atoms.  
+      There is no simple, general table of charges for atoms in this force field.  Instead, they recommend using the RESP 
+      method to fit the charges for each molecule of interest.  
+     </ul>
+     <b>Improper torsions</b> 
+     <ul>
+      Improper torsions are not automatically generated by the Towhee code as the rules for determining where they are applied 
+      are not always straight-forward.  Weiner <i>et al.</i> exclusively uses the Stereocenter version of the improper torsions, and they
+      are typically centered on an sp<sup>2</sup> atom in order to enforce planarity with its three neighbors.  However, they are 
+      also centered on some united-atoms in order to enforce stereochemistry.  Only one 
+      improper torsion allowed to be centered on any atom.  These torsions are listed in the Amber literature as i-j-k-l where the 
+      angle is the dihedral between i-k-l and j-k-l, and the bonding pattern is i, j, and l are all bonded to atom k, and are also not
+      bonded to each other.  In the towhee_input file this stereo improper torsion is listed only for atom k, and the atom order there 
+      is l, i, j.
+      Please see the <a href="../references.html#weiner_et_al_1984">Weiner <i>et al.</i> 1984</a> paper for more 
+      information about assigning improper torsions for this force field.
+     </ul>
+     <b>Proteins</b> 
+     <ul>
+      This force field contains parameters for all of the amino acids, but these have not yet been implemented into the 
+      polymer builder in Towhee.  If anyone is interested in implementing this functionality for this force field please 
+      contact the Towhee developers.
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

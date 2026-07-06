@@ -1,0 +1,707 @@
+ MCCCS Towhee - Version 8.2.3   (July 22 2021)      
+ Copyright (C) <2000-2021> Marcus G. Martin
+ Code Contributors for 2021: Marcus G. Martin;
+ Code Contributors for 2020: Marcus G. Martin;
+ Code Contributors for 2019: Marcus G. Martin;
+ Code Contributors for 2018: Marcus G. Martin;
+ Code Contributors for 2017: Marcus G. Martin;
+ Code Contributors for 2016: Marcus G. Martin;
+ Code Contributors for 2015: Marcus G. Martin;
+ Code Contributors for 2014: Marcus G. Martin;
+ Code Contributors for 2013: Wesley Emeneker; Marcus G. Martin;
+ Code Contributors for 2012: Marcus G. Martin;
+ Code Contributors for 2011: Fred James; Marcus G. Martin; Suleiman Oloriegbe;
+ Code Contributors for 2010: Rene Haber; Andrej Lajovic; Marcus G. Martin; Loukas Peristeras;
+ Code Contributors for 2009: Rene Haber; Marcus G. Martin; Loukas Peristeras;
+ Code Contributors for 2008: Rene Haber; Iyad A. Hijazi; Marcus G. Martin; Loukas Peristeras; Craig Tenney;
+ Code Contributors for 2007: Bernhard Eckl; Frank Heilmann; Jianhui Li; Marcus G. Martin; Craig M. Tenney; Ozgur Yazaydin
+ Code Contributors for 2006: Alan A. Chen; Arben Jusufi; Christian D. Lorenz; Marcus G. Martin; Jeffrey J. Potoff; Vincent K. Shen; Matthew A. Wyczalkowski; Ozgur Yazaydin
+ Code Contributors for 2005: Marcus G. Martin; Alan A. Chen; Christian D. Lorenz; Matthew A. Wyczalkowski
+ Code Contributors for 2004: Marcus G. Martin; Christian D. Lorenz; Peter A. Schultz; Aidan P. Thompson; Jeffrey J. Potoff; Steve R. Lustig; Paul S. Crozier; Nicholas du Preez
+ Code Contributors for 2003: Marcus G. Martin; Christian D. Lorenz; David B. Ritch; Michael L. Greenfield; Yogesh Srivastava; Evangelos A Coutsias
+ Code Contributors for 2002: Marcus G. Martin; Christian D. Lorenz; Aidan P. Thompson; Allen G. Sault
+ Code Contributors for 2001: Marcus G. Martin
+ Code Contributors for 2000: Marcus G. Martin
+ Copyright (C) <1999> J. Ilja Siepmann and Marcus G. Martin
+ Code Contributors for 1999: J. Ilja Siepmann; Marcus G. Martin; Bin Chen; Collin D. Wick; John Stubbs
+
+ Direct comments about this code to Marcus G. Martin (marcus_martin@users.sourceforge.net)
+ See the MCCCS Towhee web site for more information and the users manual.
+ http://towhee.sourceforge.net
+
+ We would like to thank the following agencies for providing funding used to develop MCCCS Towhee
+ -Department of Energy Industrial Technologies Program (MGM)
+ -National Science Foundation (JIS)
+ -Department of Energy Computational Science Graduate Fellowship (MGM,CDW)
+
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+ Reading from towhee_input file: towhee_input                                                                                                            
+ in directory: current directory
+ inputformat: Towhee         
+ random_number_generator: DX-1597-2-7                   
+ random_allow_restart:  T
+ ensemble: nvt                           
+ temperature:  300.000    
+ nmolty:            1
+ nmolectyp:            1
+ numboxes:            1
+ stepstyle: cycles  
+ nstep:            0
+ controlstyle: manual              
+ printfreq:            0
+ blocksize:            0
+ moviefreq:            0
+ backupfreq:            0
+ restartfreq:            0
+ runoutput: full                
+Full output of updates and block averages
+ pdb_output_freq:            0
+ loutdft:  F
+ loutlammps:  T
+ loutdlpoly:  F
+ pressure_virial_freq:            0
+ pressure_thermo_freq:            0
+ pressure_thermo_style: range               
+ pressure_thermo_range: -.100000E-01 0.100000E-01
+ trmaxdispfreq:            0
+ volmaxdispfreq:            0
+ chempotperstep:            0
+ loutchempotdata:  F
+ linit:  T
+ initboxtype: dimensions          
+initstyle Box:    1
+ coords              
+Box:  1 initlattice: none                
+Box:  1 initmol:         1
+Box:  1 inix,iniy,iniz:         1          1          1
+Box idim hmatrix:    1 1   27.00000    0.00000    0.00000
+Box idim hmatrix:    1 2    0.00000   11.50000    0.00000
+Box idim hmatrix:    1 3    0.00000    0.00000   16.50000
+ pm1boxcbswap:  0.00000    
+ pm1cbswmt:  1.00000    
+ pmavb1:  0.00000    
+ pmavb1in: 0.500000    
+ pmavb1mt:  1.00000    
+moltyp:  1 pmavb1ct: 1.000000
+ avb1rad: 0.100000    
+ pmavb2:  0.00000    
+ pmavb2in: 0.500000    
+ pmavb2mt:  1.00000    
+moltyp:  1 pmavb2ct: 1.000000
+ avb2rad: 0.100000    
+ pmavb3:  0.00000    
+ pmavb3mt:  1.00000    
+moltyp:  1 pmavb3ct: 1.000000
+ avb3rad: 0.100000    
+ pmcb:  0.00000    
+ pmcbmt:  1.00000    
+ pmall:  0.00000    
+ pmback:  0.00000    
+ pmbkmt:  1.00000    
+ pmcbside:  0.00000    
+ pmcbsidemt:  1.00000    
+ pmpivot:  0.00000    
+ pmpivmt:  1.00000    
+ pmconrot:  0.00000    
+ pmcrmt:  1.00000    
+ pmcrback:  0.00000    
+ pmcrbmt:  1.00000    
+ pmplane:  0.00000    
+ pmplanebox:  1.00000    
+ planewidth:  1.00000    
+ pmrow:  0.00000    
+ pmrowbox:  1.00000    
+ rowwidth:  1.00000    
+ pmtraat:  0.00000    
+ pmtamt:  1.00000    
+ rmtraa: 0.500000    
+ tatraa: 0.500000    
+ pmcomposite:  0.00000    
+ pmcomt:  1.00000    
+ rmcomtra: 0.500000    
+ rmcomrot: 0.500000    
+ pmtracm:  0.00000    
+ pmtcmt:  1.00000    
+ rmtrac: 0.500000    
+ tatrac: 0.500000    
+ pmrotate:  1.00000    
+ pmromt:  1.00000    
+ rmrot: 0.500000    
+ tarot: 0.500000    
+cbmc_analysis: normal                        
+cbmc_formulation: Martin and Frischknecht 2006                                
+ Coupled to pre-nonbond formulation from
+ M.G. Martin; A.L. Frischknecht; Mol. Phys. 104 2439-2456 (2006)
+cbmc_setting_style: Martin and Frischknecht       
+cbmc_fit_strategy: equilibrium                   
+ cbmc_nb_one_generation                            : uniform                       
+ nch_nb_one                                        :           10
+ nch_nb                                            :           10
+ nch_pre_nb                                        :            1
+cbmc_dihedral_generation: ideal                         
+ Use true distributions to generate torsions in config-bias
+ nch_tor                                           :          360
+ nch_tor_connect                                   :          360
+cbmc_bend_generation: ideal                         
+ Use ideal distributions to generate angles in configurational-bias
+ nch_bend_a                                        :          100
+ nch_bend_b                                        :          100
+ max_bond_length                                   :  3.00000    
+cbmc_bond_generation: ideal                         
+ Use the ideal r^2 distribution to generate vibrations in config-bias
+ nch_vib                                           :         1000
+two_bond_fixed_endpoint_bias_style: none                                              
+three_bond_fixed_endpoint_bias_style: none                                              
+ ffnumber:            1
+ ff_filename:
+towhee_ff                                                                                                               
+ classical_potential: Lennard-Jones                 
+ READCLASSICAL: pot_num:     1 potential name: Lennard-Jones                 
+ classical_mixrule: Lorentz-Berthelot             
+ lshift:  F
+ ltailc:  F
+ rmin:  0.00000    
+ rcut:  5.00000    
+ rcutin:  5.00000    
+ electrostatic_form: coulomb                                           
+ coulombstyle: ewald_fixed_kmax    
+ kalp:  5.60000    
+ kmax:            5
+ dielect:  1.00000    
+ lcompute_madelung                                 :  F
+ Setting up force field parameters from files
+ opening forcefield file:    1
+ Lorentz-Berthelot Mixing rules
+ Arithmetic mean of sigma terms
+ Geometric mean of epsilon term
+ nfield:            0
+ solvation_style: none                
+ No solvation model used
+ input_style: explicit                                          
+ nunit:          250
+ nmaxcbmc:          250
+bead:          1 beadtype:          1 charge:    0.30100
+bead:          2 beadtype:          2 charge:   -0.24800
+bead:          3 beadtype:          2 charge:   -0.24800
+bead:          4 beadtype:          3 charge:   -0.09800
+bead:          5 beadtype:          3 charge:   -0.09800
+bead:          6 beadtype:          1 charge:    0.30100
+bead:          7 beadtype:          1 charge:    0.30100
+bead:          8 beadtype:          4 charge:    0.03700
+bead:          9 beadtype:          4 charge:    0.03700
+bead:         10 beadtype:          3 charge:    0.09200
+bead:         11 beadtype:          4 charge:    0.03700
+bead:         12 beadtype:          4 charge:    0.03700
+bead:         13 beadtype:          4 charge:    0.03700
+bead:         14 beadtype:          2 charge:   -0.24800
+bead:         15 beadtype:          3 charge:   -0.09800
+bead:         16 beadtype:          3 charge:   -0.09800
+bead:         17 beadtype:          2 charge:   -0.24800
+bead:         18 beadtype:          3 charge:   -0.09800
+bead:         19 beadtype:          3 charge:   -0.09800
+bead:         20 beadtype:          3 charge:    0.09200
+bead:         21 beadtype:          4 charge:    0.03700
+bead:         22 beadtype:          4 charge:    0.03700
+bead:         23 beadtype:          1 charge:    0.30100
+bead:         24 beadtype:          4 charge:    0.03700
+bead:         25 beadtype:          4 charge:    0.03700
+bead:         26 beadtype:          3 charge:    0.09200
+bead:         27 beadtype:          4 charge:    0.03700
+bead:         28 beadtype:          4 charge:    0.03700
+bead:         29 beadtype:          4 charge:    0.03700
+bead:         30 beadtype:          1 charge:    0.30100
+bead:         31 beadtype:          4 charge:    0.03700
+bead:         32 beadtype:          4 charge:    0.03700
+bead:         33 beadtype:          3 charge:    0.09200
+bead:         34 beadtype:          4 charge:    0.03700
+bead:         35 beadtype:          4 charge:    0.03700
+bead:         36 beadtype:          4 charge:    0.03700
+bead:         37 beadtype:         10 charge:   -0.36900
+bead:         38 beadtype:          4 charge:    0.03700
+bead:         39 beadtype:          4 charge:    0.03700
+bead:         40 beadtype:          2 charge:   -0.24800
+bead:         41 beadtype:          3 charge:   -0.09800
+bead:         42 beadtype:          3 charge:   -0.09800
+bead:         43 beadtype:          3 charge:    0.09200
+bead:         44 beadtype:          4 charge:    0.03700
+bead:         45 beadtype:          4 charge:    0.03700
+bead:         46 beadtype:          3 charge:   -0.09800
+bead:         47 beadtype:          3 charge:   -0.09800
+bead:         48 beadtype:          3 charge:    0.09200
+bead:         49 beadtype:          4 charge:    0.03700
+bead:         50 beadtype:          4 charge:    0.03700
+bead:         51 beadtype:          5 charge:    0.18200
+bead:         52 beadtype:          4 charge:    0.03700
+bead:         53 beadtype:          4 charge:    0.03700
+bead:         54 beadtype:          4 charge:    0.03700
+bead:         55 beadtype:          4 charge:    0.03700
+bead:         56 beadtype:          4 charge:    0.03700
+bead:         57 beadtype:          3 charge:    0.09200
+bead:         58 beadtype:         10 charge:   -0.36900
+bead:         59 beadtype:          4 charge:    0.03700
+bead:         60 beadtype:          4 charge:    0.03700
+bead:         61 beadtype:          4 charge:    0.03700
+bead:         62 beadtype:          4 charge:    0.03700
+bead:         63 beadtype:          4 charge:    0.03700
+bead:         64 beadtype:          4 charge:    0.03700
+bead:         65 beadtype:          4 charge:    0.03700
+bead:         66 beadtype:          3 charge:    0.09200
+bead:         67 beadtype:         10 charge:   -0.36900
+bead:         68 beadtype:          4 charge:    0.03700
+bead:         69 beadtype:          4 charge:    0.03700
+bead:         70 beadtype:          5 charge:   -0.12800
+bead:         71 beadtype:          5 charge:   -0.12800
+bead:         72 beadtype:          3 charge:    0.09200
+bead:         73 beadtype:          4 charge:    0.03700
+bead:         74 beadtype:          4 charge:    0.03700
+bead:         75 beadtype:          5 charge:    0.18200
+bead:         76 beadtype:          3 charge:    0.09200
+bead:         77 beadtype:          4 charge:    0.03700
+bead:         78 beadtype:          4 charge:    0.03700
+bead:         79 beadtype:          5 charge:    0.18200
+bead:         80 beadtype:          5 charge:   -0.12800
+bead:         81 beadtype:          4 charge:    0.13200
+bead:         82 beadtype:          5 charge:   -0.12800
+bead:         83 beadtype:          4 charge:    0.13200
+bead:         84 beadtype:         10 charge:   -0.36900
+bead:         85 beadtype:          4 charge:    0.03700
+bead:         86 beadtype:          4 charge:    0.03700
+bead:         87 beadtype:          5 charge:   -0.12800
+bead:         88 beadtype:          5 charge:   -0.12800
+bead:         89 beadtype:         10 charge:   -0.36900
+bead:         90 beadtype:          4 charge:    0.03700
+bead:         91 beadtype:          4 charge:    0.03700
+bead:         92 beadtype:          5 charge:   -0.12800
+bead:         93 beadtype:          5 charge:   -0.12800
+bead:         94 beadtype:          5 charge:    0.00200
+bead:         95 beadtype:          4 charge:    0.13200
+bead:         96 beadtype:          4 charge:    0.13200
+bead:         97 beadtype:          5 charge:    0.18200
+bead:         98 beadtype:          5 charge:   -0.12800
+bead:         99 beadtype:          4 charge:    0.13200
+bead:        100 beadtype:          5 charge:   -0.12800
+bead:        101 beadtype:          4 charge:    0.13200
+bead:        102 beadtype:          5 charge:    0.18200
+bead:        103 beadtype:          5 charge:   -0.12800
+bead:        104 beadtype:          4 charge:    0.13200
+bead:        105 beadtype:          5 charge:   -0.12800
+bead:        106 beadtype:          4 charge:    0.13200
+bead:        107 beadtype:          8 charge:    0.70100
+bead:        108 beadtype:          5 charge:   -0.12800
+bead:        109 beadtype:          5 charge:   -0.12800
+bead:        110 beadtype:          5 charge:    0.00200
+bead:        111 beadtype:          4 charge:    0.13200
+bead:        112 beadtype:          4 charge:    0.13200
+bead:        113 beadtype:          5 charge:   -0.12800
+bead:        114 beadtype:          5 charge:   -0.12800
+bead:        115 beadtype:          5 charge:    0.00200
+bead:        116 beadtype:          4 charge:    0.13200
+bead:        117 beadtype:          4 charge:    0.13200
+bead:        118 beadtype:          7 charge:   -0.64900
+bead:        119 beadtype:          9 charge:   -0.54900
+bead:        120 beadtype:          5 charge:   -0.12800
+bead:        121 beadtype:          4 charge:    0.13200
+bead:        122 beadtype:          5 charge:   -0.12800
+bead:        123 beadtype:          4 charge:    0.13200
+bead:        124 beadtype:          8 charge:    0.70100
+bead:        125 beadtype:          5 charge:   -0.12800
+bead:        126 beadtype:          4 charge:    0.13200
+bead:        127 beadtype:          5 charge:   -0.12800
+bead:        128 beadtype:          4 charge:    0.13200
+bead:        129 beadtype:          8 charge:    0.70100
+bead:        130 beadtype:          5 charge:    0.25200
+bead:        131 beadtype:          5 charge:    0.00200
+bead:        132 beadtype:          4 charge:    0.13200
+bead:        133 beadtype:          4 charge:    0.13200
+bead:        134 beadtype:          7 charge:   -0.64900
+bead:        135 beadtype:          9 charge:   -0.54900
+bead:        136 beadtype:          5 charge:    0.00200
+bead:        137 beadtype:          4 charge:    0.13200
+bead:        138 beadtype:          4 charge:    0.13200
+bead:        139 beadtype:          7 charge:   -0.64900
+bead:        140 beadtype:          9 charge:   -0.54900
+bead:        141 beadtype:          5 charge:   -0.12800
+bead:        142 beadtype:          5 charge:   -0.12800
+bead:        143 beadtype:          8 charge:    0.70100
+bead:        144 beadtype:          5 charge:    0.25200
+bead:        145 beadtype:          8 charge:    0.70100
+bead:        146 beadtype:          5 charge:    0.25200
+bead:        147 beadtype:          5 charge:   -0.12800
+bead:        148 beadtype:          4 charge:    0.13200
+bead:        149 beadtype:          5 charge:   -0.12800
+bead:        150 beadtype:          4 charge:    0.13200
+bead:        151 beadtype:          7 charge:   -0.64900
+bead:        152 beadtype:          9 charge:   -0.54900
+bead:        153 beadtype:          5 charge:   -0.12800
+bead:        154 beadtype:          5 charge:   -0.12800
+bead:        155 beadtype:          7 charge:   -0.64900
+bead:        156 beadtype:          9 charge:   -0.54900
+bead:        157 beadtype:          5 charge:   -0.12800
+bead:        158 beadtype:          5 charge:   -0.12800
+bead:        159 beadtype:          6 charge:    0.00200
+bead:        160 beadtype:          4 charge:    0.13200
+bead:        161 beadtype:          4 charge:    0.13200
+bead:        162 beadtype:          5 charge:    0.25200
+bead:        163 beadtype:          5 charge:   -0.12800
+bead:        164 beadtype:          4 charge:    0.13200
+bead:        165 beadtype:          5 charge:   -0.12800
+bead:        166 beadtype:          4 charge:    0.13200
+bead:        167 beadtype:          5 charge:    0.25200
+bead:        168 beadtype:          5 charge:   -0.12800
+bead:        169 beadtype:          4 charge:    0.13200
+bead:        170 beadtype:          5 charge:   -0.12800
+bead:        171 beadtype:          4 charge:    0.13200
+bead:        172 beadtype:          6 charge:    0.00200
+bead:        173 beadtype:          5 charge:   -0.12800
+bead:        174 beadtype:          5 charge:   -0.12800
+bead:        175 beadtype:          6 charge:    0.00200
+bead:        176 beadtype:          4 charge:    0.13200
+bead:        177 beadtype:          4 charge:    0.13200
+bead:        178 beadtype:          5 charge:   -0.12800
+bead:        179 beadtype:          5 charge:   -0.12800
+bead:        180 beadtype:          6 charge:    0.00200
+bead:        181 beadtype:          4 charge:    0.13200
+bead:        182 beadtype:          4 charge:    0.13200
+bead:        183 beadtype:          5 charge:   -0.12800
+bead:        184 beadtype:          5 charge:   -0.12800
+bead:        185 beadtype:          5 charge:   -0.12800
+bead:        186 beadtype:          4 charge:    0.13200
+bead:        187 beadtype:          5 charge:   -0.12800
+bead:        188 beadtype:          4 charge:    0.13200
+bead:        189 beadtype:          6 charge:    0.00200
+bead:        190 beadtype:          5 charge:   -0.12800
+bead:        191 beadtype:          4 charge:    0.13200
+bead:        192 beadtype:          5 charge:   -0.12800
+bead:        193 beadtype:          4 charge:    0.13200
+bead:        194 beadtype:          6 charge:    0.00200
+bead:        195 beadtype:          5 charge:   -0.12800
+bead:        196 beadtype:          4 charge:    0.13200
+bead:        197 beadtype:          5 charge:   -0.12800
+bead:        198 beadtype:          4 charge:    0.13200
+bead:        199 beadtype:          6 charge:    0.00200
+bead:        200 beadtype:          4 charge:    0.13200
+bead:        201 beadtype:          4 charge:    0.13200
+bead:        202 beadtype:          5 charge:   -0.12800
+bead:        203 beadtype:          5 charge:   -0.12800
+bead:        204 beadtype:          6 charge:    0.00200
+bead:        205 beadtype:          4 charge:    0.13200
+bead:        206 beadtype:          4 charge:    0.13200
+bead:        207 beadtype:          5 charge:   -0.12800
+bead:        208 beadtype:          5 charge:   -0.12800
+bead:        209 beadtype:          5 charge:   -0.12800
+bead:        210 beadtype:          4 charge:    0.13200
+bead:        211 beadtype:          4 charge:    0.13200
+bead:        212 beadtype:          6 charge:    0.00200
+bead:        213 beadtype:          5 charge:   -0.12800
+bead:        214 beadtype:          4 charge:    0.13200
+bead:        215 beadtype:          5 charge:   -0.12800
+bead:        216 beadtype:          4 charge:    0.13200
+bead:        217 beadtype:          6 charge:    0.00200
+bead:        218 beadtype:          5 charge:   -0.12800
+bead:        219 beadtype:          4 charge:    0.13200
+bead:        220 beadtype:          5 charge:   -0.12800
+bead:        221 beadtype:          4 charge:    0.13200
+bead:        222 beadtype:          4 charge:    0.13200
+bead:        223 beadtype:          5 charge:   -0.12800
+bead:        224 beadtype:          5 charge:   -0.12800
+bead:        225 beadtype:          5 charge:   -0.12800
+bead:        226 beadtype:          4 charge:    0.13200
+bead:        227 beadtype:          4 charge:    0.13200
+bead:        228 beadtype:          5 charge:   -0.12800
+bead:        229 beadtype:          5 charge:   -0.12800
+bead:        230 beadtype:          5 charge:   -0.12800
+bead:        231 beadtype:          4 charge:    0.13200
+bead:        232 beadtype:          4 charge:    0.13200
+bead:        233 beadtype:          5 charge:   -0.12800
+bead:        234 beadtype:          4 charge:    0.13200
+bead:        235 beadtype:          5 charge:   -0.12800
+bead:        236 beadtype:          4 charge:    0.13200
+bead:        237 beadtype:          4 charge:    0.13200
+bead:        238 beadtype:          5 charge:   -0.12800
+bead:        239 beadtype:          4 charge:    0.13200
+bead:        240 beadtype:          5 charge:   -0.12800
+bead:        241 beadtype:          4 charge:    0.13200
+bead:        242 beadtype:          4 charge:    0.13200
+bead:        243 beadtype:          5 charge:   -0.12800
+bead:        244 beadtype:          4 charge:    0.13200
+bead:        245 beadtype:          4 charge:    0.13200
+bead:        246 beadtype:          5 charge:   -0.12800
+bead:        247 beadtype:          4 charge:    0.13200
+bead:        248 beadtype:          4 charge:    0.13200
+bead:        249 beadtype:          4 charge:    0.13200
+bead:        250 beadtype:          4 charge:    0.13200
+ Verifying input structures are consistent
+Determining cyclic subunits for molecule type          1
+Default total charge on molecule   1 is   0.00000
+Total charge in the simulation system:   0.00000
+Bond Types
+Type:      1 Style: Standard Harmonic Length: 1.6300 Constant:   246576.1
+Type:      2 Style: Standard Harmonic Length: 1.8780 Constant:   116746.3
+Type:      3 Style: Standard Harmonic Length: 1.0900 Constant:   171093.6
+Type:      4 Style: Standard Harmonic Length: 1.5290 Constant:   134862.0
+Type:      5 Style: Standard Harmonic Length: 1.3700 Constant:   226447.5
+Type:      6 Style: Standard Harmonic Length: 1.3830 Constant:   221415.3
+Type:      7 Style: Standard Harmonic Length: 1.0800 Constant:   186190.1
+Type:      8 Style: Standard Harmonic Length: 1.4850 Constant:   231479.6
+Type:      9 Style: Standard Harmonic Length: 1.4000 Constant:   183674.1
+Type:     10 Style: Standard Harmonic Length: 1.3190 Constant:   176125.8
+Type:     11 Style: Standard Harmonic Length: 1.1930 Constant:   322058.6
+Type:     12 Style: Standard Harmonic Length: 1.4600 Constant:   194241.6
+Type:     13 Style: Standard Harmonic Length: 1.3800 Constant:   183674.1
+Type:     14 Style: Standard Harmonic Length: 1.4070 Constant:   196254.5
+Angle Types
+Type:   1 Style: Standard Harmonic  Angle:    109.470 Constant:    63908.5
+Type:   2 Style: Standard Harmonic  Angle:    120.000 Constant:    15599.7
+Type:   3 Style: Standard Harmonic  Angle:    107.800 Constant:    16606.1
+Type:   4 Style: Standard Harmonic  Angle:    110.700 Constant:    18870.6
+Type:   5 Style: Standard Harmonic  Angle:    109.470 Constant:    22644.7
+Type:   6 Style: Standard Harmonic  Angle:    109.470 Constant:    25160.8
+Type:   7 Style: Standard Harmonic  Angle:    120.000 Constant:    27676.9
+Type:   8 Style: Standard Harmonic  Angle:    109.470 Constant:    27928.5
+Type:   9 Style: Standard Harmonic  Angle:    110.000 Constant:    28683.3
+Type:  10 Style: Standard Harmonic  Angle:    112.700 Constant:    29362.7
+Type:  11 Style: Standard Harmonic  Angle:    110.000 Constant:    30193.0
+Type:  12 Style: Standard Harmonic  Angle:    108.000 Constant:    30696.2
+Type:  13 Style: Standard Harmonic  Angle:    149.000 Constant:     3774.1
+Type:  14 Style: Standard Harmonic  Angle:    117.000 Constant:    35225.2
+Type:  15 Style: Standard Harmonic  Angle:    118.000 Constant:    35225.2
+Type:  16 Style: Standard Harmonic  Angle:    120.000 Constant:    35225.2
+Type:  17 Style: Standard Harmonic  Angle:    121.000 Constant:    35225.2
+Type:  18 Style: Standard Harmonic  Angle:    113.000 Constant:    39754.1
+Type:  19 Style: Standard Harmonic  Angle:    116.000 Constant:    40257.3
+Type:  20 Style: Standard Harmonic  Angle:    122.500 Constant:    40760.5
+Type:  21 Style: Standard Harmonic  Angle:    105.470 Constant:    42773.4
+Type:  22 Style: Standard Harmonic  Angle:    121.100 Constant:    43276.6
+Torsion Types
+Type:   1 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:      45.3 m:3.0 d: 0.0000000
+Type:   2 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:      75.5 m:3.0 d: 0.0000000
+Type:   3 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:     135.9 m:3.0 d:-3.1415927
+Type:   4 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:     135.9 m:3.0 d: 0.0000000
+Type:   5 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:     251.6 m:2.0 d:-3.1415927
+Type:   6 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:     276.8 m:1.0 d: 0.0000000
+Type:   7 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:     402.6 m:2.0 d:-3.1415927
+Type:   8 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:     704.5 m:2.0 d:-3.1415927
+Type:   9 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:    1258.0 m:2.0 d:-3.1415927
+Type:  11 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:    1509.6 m:2.0 d:-3.1415927
+Type:  12 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:    1560.0 m:2.0 d:-3.1415927
+Type:  13 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:    1409.0 m:2.0 d:-3.1415927
+With additional Harmonic   Angle:  0.0000 k     7548.2
+Type:  14 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:    1560.0 m:2.0 d:-3.1415927
+With additional Harmonic   Angle:  0.0000 k     7548.2
+Type:  15 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:    1560.0 m:2.0 d:-3.1415927
+With additional Harmonic   Angle:  0.0000 k    70450.3
+Improper Torsion Types
+Type:   1 Style: Harmonic  Angle:0.0000 k    50321.7
+Type:   2 Style: Harmonic  Angle:0.0000 k    65418.2
+Type:   5 Style: Harmonic  Angle:0.0000 k    75482.5
+Type:   6 Style: Harmonic  Angle:0.0000 k    37741.2
+Type:   7 Style: Harmonic  Angle:0.0000 k    45289.5
+Energies exclusively from internal potentials
+Nonbonded Force Field
+Lennard-Jones 12-6 potential
+u(r) = 4*epsilon[(sigma/r)^12 - (sigma/r)^6] - shift
+Num. Atom(i)    Num. Atom(j)         sigma    epsilon      shift     1-4sig     1-4eps
+   1 no name       1 no name        4.4545   155.9971     0.0000     4.4545   155.9971
+   1 no name       2 no name        3.8576   111.7560     0.0000     3.8576   111.7560
+   1 no name       3 no name        3.8309    84.1937     0.0000     3.8309    84.1937
+   1 no name       4 no name        3.4121    57.4196     0.0000     3.4121    57.4196
+   1 no name       5 no name        4.0447    62.6499     0.0000     4.0447    62.6499
+   1 no name       6 no name        4.0447    62.6499     0.0000     4.0447    62.6499
+   1 no name       7 no name        3.6527   111.7561     0.0000     3.6527   111.7561
+   1 no name       8 no name        3.8932   105.2070     0.0000     3.8932   105.2070
+   1 no name       9 no name        3.5814   111.7561     0.0000     3.5814   111.7561
+   1 no name      10 no name        3.6527   111.7561     0.0000     3.6527   111.7561
+   2 no name       2 no name        3.2607    80.0617     0.0000     3.2607    80.0617
+   2 no name       3 no name        3.2340    60.3162     0.0000     3.2340    60.3162
+   2 no name       4 no name        2.8152    41.1353     0.0000     2.8152    41.1353
+   2 no name       5 no name        3.4478    44.8822     0.0000     3.4478    44.8822
+   2 no name       6 no name        3.4478    44.8822     0.0000     3.4478    44.8822
+   2 no name       7 no name        3.0558    80.0618     0.0000     3.0558    80.0618
+   2 no name       8 no name        3.2963    75.3700     0.0000     3.2963    75.3700
+   2 no name       9 no name        2.9845    80.0618     0.0000     2.9845    80.0618
+   2 no name      10 no name        3.0558    80.0618     0.0000     3.0558    80.0618
+   3 no name       3 no name        3.2072    45.4405     0.0000     3.2072    45.4405
+   3 no name       4 no name        2.7885    30.9901     0.0000     2.7885    30.9901
+   3 no name       5 no name        3.4211    33.8130     0.0000     3.4211    33.8130
+   3 no name       6 no name        3.4211    33.8130     0.0000     3.4211    33.8130
+   3 no name       7 no name        3.0291    60.3162     0.0000     3.0291    60.3162
+   3 no name       8 no name        3.2696    56.7816     0.0000     3.2696    56.7816
+   3 no name       9 no name        2.9578    60.3162     0.0000     2.9578    60.3162
+   3 no name      10 no name        3.0291    60.3162     0.0000     3.0291    60.3162
+   4 no name       4 no name        2.3698    21.1351     0.0000     2.3698    21.1351
+   4 no name       5 no name        3.0023    23.0602     0.0000     3.0023    23.0602
+   4 no name       6 no name        3.0023    23.0602     0.0000     3.0023    23.0602
+   4 no name       7 no name        2.6103    41.1353     0.0000     2.6103    41.1353
+   4 no name       8 no name        2.8509    38.7247     0.0000     2.8509    38.7247
+   4 no name       9 no name        2.5391    41.1353     0.0000     2.5391    41.1353
+   4 no name      10 no name        2.6103    41.1353     0.0000     2.6103    41.1353
+   5 no name       5 no name        3.6349    25.1608     0.0000     3.6349    25.1608
+   5 no name       6 no name        3.6349    25.1608     0.0000     3.6349    25.1608
+   5 no name       7 no name        3.2429    44.8823     0.0000     3.2429    44.8823
+   5 no name       8 no name        3.4834    42.2521     0.0000     3.4834    42.2521
+   5 no name       9 no name        3.1716    44.8823     0.0000     3.1716    44.8823
+   5 no name      10 no name        3.2429    44.8823     0.0000     3.2429    44.8823
+   6 no name       6 no name        3.6349    25.1608     0.0000     3.6349    25.1608
+   6 no name       7 no name        3.2429    44.8823     0.0000     3.2429    44.8823
+   6 no name       8 no name        3.4834    42.2521     0.0000     3.4834    42.2521
+   6 no name       9 no name        3.1716    44.8823     0.0000     3.1716    44.8823
+   6 no name      10 no name        3.2429    44.8823     0.0000     3.2429    44.8823
+   7 no name       7 no name        2.8509    80.0618     0.0000     2.8509    80.0618
+   7 no name       8 no name        3.0914    75.3701     0.0000     3.0914    75.3701
+   7 no name       9 no name        2.7796    80.0619     0.0000     2.7796    80.0619
+   7 no name      10 no name        2.8509    80.0618     0.0000     2.8509    80.0618
+   8 no name       8 no name        3.3320    70.9533     0.0000     3.3320    70.9533
+   8 no name       9 no name        3.0201    75.3701     0.0000     3.0201    75.3701
+   8 no name      10 no name        3.0914    75.3701     0.0000     3.0914    75.3701
+   9 no name       9 no name        2.7083    80.0619     0.0000     2.7083    80.0619
+   9 no name      10 no name        2.7796    80.0619     0.0000     2.7796    80.0619
+  10 no name      10 no name        2.8509    80.0618     0.0000     2.8509    80.0618
+Determining Arbitrary Trial Distribution Parameters: see towhee_cbmc for full details
+ Canonical ensemble
+ 3-dimensional periodic box
+ Additional Center-of-Mass cutoff
+ Dual Cutoff Configurational-bias Monte Carlo
+ Coupled-decoupled Configurational-bias MC
+ Coulombic inter- and intra-molecular interactions
+     Ewald Sum with fixed kmax:  5 kalp:  5.600
+     including the real-space terms up to half the shortest box length
+     dielectric constant:   1.0000
+
+Molecular mass for molecule type     1 is  1952.5605 g/mol
+ Calling initconf
+Selected random number generator DX-1597-2-7 and single integer seed    1302002
+Testing random number generator using the single integer seed
+    0.812479  0.687663  0.080298  0.200888  0.516914
+10 million RNG sum (approximately 5 million):   4999978.2264809748
+Box idim hinverse:    1 1    0.03704    0.00000    0.00000
+Box idim hinverse:    1 2    0.00000    0.08696    0.00000
+Box idim hinverse:    1 3    0.00000    0.00000    0.06061
+Box:     1 Initial calp:    0.48696
+Box:     1 Initial kmax:     5
+ initial readtowhee
+ ibox,testchain,nunit            1            1          250
+ xold,yold,zold  1.09023     0.345957     -.330657    
+ dx,dy,dz  0.00000      0.00000      16.5000    
+
+Number of MC cycles:                    0
+Number of molecules:                    1
+Temperature [K]:       300.00000
+
+Initial Energies for Box     1
+Total molecules in this box          1
+Molecules of type   1 :          1
+ Total vibration (atoms ij bonded together)                 27660.786 [K]        54.96795 [kcal/mol]
+  bond (ij) regular                                         27660.786 [K]        54.96795 [kcal/mol]
+  bond (ij) van der waals                                       0.000 [K]         0.00000 [kcal/mol]
+  bond (ij) Electric                                            0.000 [K]         0.00000 [kcal/mol]
+  bond-bond (ij-jk)                                             0.000 [K]         0.00000 [kcal/mol]
+ Total angle (atoms ijk bonded in sequence)                 22524.771 [K]        44.76158 [kcal/mol]
+  angle (ijk) regular                                       22524.771 [K]        44.76158 [kcal/mol]
+  bond-angle (ij-ijk)                                           0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) van der waals                                      0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) Electric                                           0.000 [K]         0.00000 [kcal/mol]
+  angle-angle (ijk-ijm)                                         0.000 [K]         0.00000 [kcal/mol]
+ Total torsion (ijkl bonded in sequence)                    16184.182 [K]        32.16146 [kcal/mol]
+  torsion (ijkl) regular                                    16184.182 [K]        32.16146 [kcal/mol]
+  torsion (ij-kl) bond-bond                                     0.000 [K]         0.00000 [kcal/mol]
+  torsion (ij-ijkl) bond-torsion                                0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-ijkl) angle-torsion                              0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-jkl-ijkl) angle-angle-torsion                    0.000 [K]         0.00000 [kcal/mol]
+  torsion (i-l) one-four van der waals                          0.000 [K]         0.00000 [kcal/mol]
+  torsion (i-l) one-four Electric                               0.000 [K]         0.00000 [kcal/mol]
+ Total improper (ijkm, i,k,m bonded to j)                      48.573 [K]         0.09652 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) vdw               -23518.094 [K]       -46.73553 [kcal/mol]
+  intramolecular                                           -23518.094 [K]       -46.73553 [kcal/mol]
+  2-body vdw intermolecular                                     0.000 [K]         0.00000 [kcal/mol]
+  3-body vdw intermolecular                                     0.000 [K]         0.00000 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) Electric          -19537.196 [K]       -38.82463 [kcal/mol]
+  total real space Electric                                 -3908.103 [K]        -7.76624 [kcal/mol]
+   intramolecular Electric                                  -3908.103 [K]        -7.76624 [kcal/mol]
+   intermolecular Electric                                      0.000 [K]         0.00000 [kcal/mol]
+  self                                                    -479023.568 [K]      -951.92322 [kcal/mol]
+  correction                                               412726.976 [K]       820.17759 [kcal/mol]
+  reciprocal sum                                            50667.499 [K]       100.68726 [kcal/mol]
+ Total external field                                           0.000 [K]         0.00000 [kcal/mol]
+ Total solvation                                                0.000 [K]         0.00000 [kcal/mol]
+Total classical                                             23363.021 [K]        46.42737 [kcal/mol]
+ Aggregate van der waals (bond and nonbond)                -23518.094 [K]       -46.73553 [kcal/mol]
+ Aggregate Electric (bond and nonbond)                     -19537.196 [K]       -38.82463 [kcal/mol]
+
+ +++++ start of markov chain +++++
+
+Cycle      Box   Energy [K]  Volume [A^3] Press. [kPa] Molecules
+
+ +++++ end of markov chain +++++
+
+ Final hmatrix (general box dimensions) 
+Box:     1
+  hmatrix(1,x)      27.00000       0.00000       0.00000
+  hmatrix(2,x)       0.00000      11.50000       0.00000
+  hmatrix(3,x)       0.00000       0.00000      16.50000
+
+Final Energies for Box     1
+Total molecules in this box          1
+Molecules of type   1 :          1
+ Total vibration (atoms ij bonded together)                 27660.786 [K]        54.96795 [kcal/mol]
+  bond (ij) regular                                         27660.786 [K]        54.96795 [kcal/mol]
+  bond (ij) van der waals                                       0.000 [K]         0.00000 [kcal/mol]
+  bond (ij) Electric                                            0.000 [K]         0.00000 [kcal/mol]
+  bond-bond (ij-jk)                                             0.000 [K]         0.00000 [kcal/mol]
+ Total angle (atoms ijk bonded in sequence)                 22524.771 [K]        44.76158 [kcal/mol]
+  angle (ijk) regular                                       22524.771 [K]        44.76158 [kcal/mol]
+  bond-angle (ij-ijk)                                           0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) van der waals                                      0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) Electric                                           0.000 [K]         0.00000 [kcal/mol]
+  angle-angle (ijk-ijm)                                         0.000 [K]         0.00000 [kcal/mol]
+ Total torsion (ijkl bonded in sequence)                    16184.182 [K]        32.16146 [kcal/mol]
+  torsion (ijkl) regular                                    16184.182 [K]        32.16146 [kcal/mol]
+  torsion (ij-kl) bond-bond                                     0.000 [K]         0.00000 [kcal/mol]
+  torsion (ij-ijkl) bond-torsion                                0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-ijkl) angle-torsion                              0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-jkl-ijkl) angle-angle-torsion                    0.000 [K]         0.00000 [kcal/mol]
+  torsion (i-l) one-four van der waals                          0.000 [K]         0.00000 [kcal/mol]
+  torsion (i-l) one-four Electric                               0.000 [K]         0.00000 [kcal/mol]
+ Total improper (ijkm, i,k,m bonded to j)                      48.573 [K]         0.09652 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) vdw               -23518.094 [K]       -46.73553 [kcal/mol]
+  intramolecular                                           -23518.094 [K]       -46.73553 [kcal/mol]
+  2-body vdw intermolecular                                     0.000 [K]         0.00000 [kcal/mol]
+  3-body vdw intermolecular                                     0.000 [K]         0.00000 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) Electric          -19537.196 [K]       -38.82463 [kcal/mol]
+  total real space Electric                                 -3908.103 [K]        -7.76624 [kcal/mol]
+   intramolecular Electric                                  -3908.103 [K]        -7.76624 [kcal/mol]
+   intermolecular Electric                                      0.000 [K]         0.00000 [kcal/mol]
+  self                                                    -479023.568 [K]      -951.92322 [kcal/mol]
+  correction                                               412726.976 [K]       820.17759 [kcal/mol]
+  reciprocal sum                                            50667.499 [K]       100.68726 [kcal/mol]
+ Total external field                                           0.000 [K]         0.00000 [kcal/mol]
+ Total solvation                                                0.000 [K]         0.00000 [kcal/mol]
+Total classical                                             23363.021 [K]        46.42737 [kcal/mol]
+ Aggregate van der waals (bond and nonbond)                -23518.094 [K]       -46.73553 [kcal/mol]
+ Aggregate Electric (bond and nonbond)                     -19537.196 [K]       -38.82463 [kcal/mol]
+Please see towhee_citations for a list of suggested citations for this simulation

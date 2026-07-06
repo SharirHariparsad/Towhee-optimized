@@ -1,0 +1,65 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: KBFF acetone</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0">
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: KBFF acetone</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the Kirkwood-Buff derived force field (KBFF) acetone model parameters as they are implemented into 
+      the towhee_ff_KBFF in the ForceFields directory.
+      All of the Towhee atom types for this force field are listed, along with a short description of their meanings.
+      This was paraterized to be used with the <a href="spce.html">SPC-E</a> water model.
+      This is a Lennard-Jones (12-6) force field and can only be combined with other Lennard-Jones (12-6) force fields.
+      Any discrepencies (especially typos) from the published force field values are the sole responsibility of Marcus Martin,
+      and I welcome feedback on how this implementation compares with other programs.
+     </ul>
+     <b>References for KBFF water</b> 
+     <ul>
+      <li><a href="../references.html#weerasinghe_smith_2003">Weerasinghe and Smith 2003</a></li>
+     </ul>	
+     <b>KBFF in Towhee</b> 
+     <ul>
+      The official force field name for this Kirkwood-Buff derived force field in Towhee is 'KBFF'.
+      This list contains all of the atom names for use in the towhee_input file, along with a brief description.
+      Please note that the capitalization and spacing pattern is important and must be followed exactly as listed here.
+      <ul>
+       <dt>'<b>CH3</b>' : methyl group in acetone</dt>
+       <dt>'<b>C</b>' : carbonyl carbon in acetone</dt>
+       <dt>'<b>O</b>' : carbonyl oxygen in acetone</dt>
+      </ul>
+     </ul>
+     <b>Coulombic interactions</b> 
+     <ul>
+      Atom centered point charges are used to represent the electrostatic interactions. 
+      <ul>
+       <dt>'<b>CH3</b>' : 0.0</dt>
+       <dt>'<b>C</b>' : 0.565</dt>
+       <dt>'<b>O</b>' : -0.565</dt>
+      </ul>
+     </ul>
+     <b>Improper torsions</b> 
+     <ul>
+      This force field has improper torsion parameters for acetone to enforce planarity.
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

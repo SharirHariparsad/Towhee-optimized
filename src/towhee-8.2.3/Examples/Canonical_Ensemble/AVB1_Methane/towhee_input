@@ -1,0 +1,111 @@
+inputformat
+'Towhee'
+ensemble
+'nvt'
+temperature
+100.0
+nmolty
+1
+nmolectyp
+500
+numboxes
+1
+stepstyle
+'cycles'
+nstep
+10
+printfreq
+1   
+blocksize
+2
+moviefreq
+100
+backupfreq
+1000
+runoutput
+'full'
+pdb_output_freq
+5
+pressure_virial_freq
+2
+trmaxdispfreq
+1000
+volmaxdispfreq
+1000
+linit   
+.false. 
+initboxtype
+'dimensions'
+initstyle
+'full cbmc'
+initlattice
+'simple cubic'
+initmol
+500
+inix iniy iniz
+8    8    8
+hmatrix
+270.0d0 0.0d0 0.0d0
+0.0d0 270.0d0 0.0d0
+0.0d0 0.0d0 270.0d0 
+pm1boxcbswap    
+0.0d0     
+  pm1cbswmt
+  1.0d0
+pmavb1
+1.0d0
+  pmavb1in
+  0.5d0
+  pmavb1mt
+  1.0d0
+  pmavb1ct
+  1.0d0
+  avb1rad
+  20.0d0
+pmtracm   
+1.0d0	  
+  pmtcmt
+  1.0d0
+  rmtrac
+  0.5d0 
+  tatrac 
+  0.5d0
+ffnumber
+1
+ff_filename
+/towheebase/ForceFields/towhee_ff_TraPPE-UA
+classical_potential
+'Lennard-Jones'       
+classical_mixrule
+'Lorentz-Berthelot'
+lshift
+.false.
+ltailc
+.true.
+rmin  
+1.0d0 
+rcut  
+20.0d0
+rcutin 
+5.0d0 
+electrostatic_form
+'none'
+#trappe-ua methane
+input_style
+'basic connectivity map'
+nunit
+1
+nmaxcbmc
+1
+lpdbnames
+F
+forcefield
+'TraPPE-UA'
+charge_assignment
+'manual'
+unit ntype qqatom
+1    'CH4'   0.0d0
+vibration
+0
+improper
+0

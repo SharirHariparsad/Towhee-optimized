@@ -1,0 +1,106 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: Chemical Potential</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table width="800" border="0" cellspacing="0" cellpadding="0" height="590">
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif"><a name="top"></a>MCCCS Towhee: Chemical Potential</font></b></font>
+     </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"> 
+    <IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" width="210" height="62" border="0" alt="SourceForge.net Logo" align="right"/>
+   </A>
+   <tr> 
+    <td width="18" height="371" valign="top"> 
+     <p>&nbsp; </p>
+     <p>&nbsp;</p>
+    </td>
+    <td width="700" valign="top">
+     <ul>
+      <li><b>WARNING</b> The treatment of normalization constants for rigid bonds and rigid angles changed again in version 6.2.10.  Recomputing the
+       chemical potential for such molecules is required when comparing between versions.
+      </li>
+      <li><b>WARNING</b> Prior to the 6.0.4 release the treatment of some normalization constants for rigid bond and angles was different.  Chemical
+       potentials for molecules with rigid bonds or angles computed in earlier versions are going to give a different result in newer versions.  This is
+       usually just a constant shift so a quick recalculation of the chemical potential is advised before using old values in a new Grand Canonical 
+       simulation.
+      </li>
+      <li><b>WARNING</b> Prior to the 4.5.2 release all chemical potentials (except the Gibbs total chemical potential) were defined differently than
+       documented here.
+     </ul>
+     <b>Chemical Potential Definitions</b>
+     <ul>
+      There are several different types of chemical potential output by the Towhee program.
+      The various chemical potentials reported by the code are listed and defined in this essay.
+      Consider the following equation as a starting point.
+      <ul>&mu;<sub>total</sub>(i) = &mu;<sub>residual</sub>(i) + &mu;<sub>density</sub>(i) 
+       + &mu;<sub>isolation</sub>(i)
+      </ul>
+      &mu;<sub>total</sub>(i) is the total chemical potential of molecule <b>i</b> and is the appropriate value to 
+      consider when looking for total free energies of a system.  This total chemical potential is then commonly broken 
+      down into several subcomponents either for computational convenience, or because the subcomponents relate to 
+      certain thermodynamic quantities.  Towhee defines, and calculates, these subcomponents as follows.
+      <li>
+       The total Gibbs chemical potential is computed using the insertion Rosenbluth weight (containing all interactions - intermolecular and intramolecular)
+       and is computed each time a multi-box swap move is attempted, and also <b>chempotperstep</b> times at the end of every Monte Carlo cycle.
+       <ul>&mu;<sub>total</sub>(i) = - k<sub>B</sub> T ln[ < W * V / ( [N(i)+1] * &Lambda;<sup>3</sup>(i) ) > ]</ul>
+       where <b>k<sub>B</sub></b> is Boltzmann's constant, <b>T</b> is the temperature, <b>V</b> is the volume of the simulation box, 
+       <b>N(i)</b> is the number of molecules of type <b>i</b> in the simulation box, and <b>&Lambda;(i)</b> is the 
+       thermal de Broglie wavelength for molecule type <b>i</b>.  The < > brackets indicate an ensemble average of the quantity inside the brackets.
+      </li>
+      <li>
+       The ideal density dependent portion of the chemical potential is
+       <ul>&mu;<sub>density</sub>(i) = - k<sub>B</sub> T ln[ < V / N(i) > / &Lambda;<sup>3</sup>(i)) ]</ul>
+      </li>
+      <li>
+       The isolated molecule portion of the chemical potential is the non-density dependent chemical potential of an isolated molecule in an ideal gas
+       (which means it does not interact with any other molecule, but does interact with itself).  This quantity is not normally computed by Towhee.  
+       However, this is computed in the special case where the total number of molecules of one of the species is set 
+       to zero.  In that case, the isolated molecule chemical potential is computed <b>chempotperstep</b> times per cycle.  It uses the full Rosenbluth
+       weight (<b>W</b>) computed for growing the molecule in an extremely large box that has the Ewald sum and the van der Waals tail corrections disabled.
+       This uses the standard formula for computing the chemical potential via configurational-bias.
+       <ul>&mu;<sub>isolation</sub>(i) = -k<sub>B</sub> T ln[ < W<sub>isolation</sub> > ].</ul>
+      </li>
+      <li>
+       The NVT insertion chemical potential is computed in a very similar manner as the Gibbs total chemical potential.  The only difference is the lack of
+       any number density terms in the average.  This chemical potential calculation is only formally correct for a single box canonical ensemble.  However,
+       experience has shown that this chemical potential is often better when the average number of molecules of the type of interest drops below 1.  It turns
+       out that systematic errors in the number density term from using the Gibbs total chemical potential (essentially the use of N+1) are significant in
+       this case.  This is discussed further in <a href="../references.html#martin_siepmann_1998_tca">Martin and Siepmann 1998 (TCA)</a>.
+       <ul>&mu;<sub>NVT Insertion</sub>(i) = - k<sub>B</sub> T ln[ < W > ]</ul>
+      </li>
+      <li>
+       The NpT insertion chemical potential is computed in a very similar manner as the NVT insertion chemical potential.  The only difference is the
+       inclusion of a volume term in the average, that is then removed later by dividing out the average volume.  This chemical potential calculation is
+       only formally correct for a single box isobaric-isothermal ensemble.  However, experience has shown that this chemical potential is often better when
+       the average number of molecules of the type of interest drops below 1.  It turns out that systematic errors in the number density term from using the
+       Gibbs total chemical potential (essentially the use of N+1) are significant in this case.  This is discussed further in 
+       <a href="../references.html#martin_siepmann_1998_tca">Martin and Siepmann 1998 (TCA)</a>.
+       <ul>&mu;<sub>NpT Insertion</sub>(i) = - k<sub>B</sub> T ln[ < V W > / < V > ]</ul>
+      </li>
+      <li>
+       The residual chemical potential is not computed directly in Towhee.  Instead it is inferred by computing the full insertion chemical potential and
+       then substracting the isolated molecule chemical potential.  This chemical potential is only computed in the special case when we are interested in
+       Henry's Law coefficients and the number of molecules of a given type is set to 0 for at least one of the components.  The residual chemical potential is 
+       computed in two slightly different ways depening on the ensemble.  In the canonical ensemble the residual chemical potential is
+       <ul>&mu;<sub>residual</sub>(i) = &mu;<sub>NVT Insertion</sub>(i) - &mu;<sub>Isolation</sub>(i)</ul>
+       and in the isobaric-isothermal ensemble (the typical ensemble for computing Henry's law) the residual chemical potential is
+       <ul>&mu;<sub>residual</sub>(i) = &mu;<sub>NpT Insertion</sub>(i) - &mu;<sub>Isolation</sub>(i).</ul>
+      </li>
+     </ul>
+     <a href="algorithm.html">Return to the Towhee algorithm page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->March 28, 2018<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

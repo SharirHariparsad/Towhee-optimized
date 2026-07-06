@@ -1,0 +1,1286 @@
+ MCCCS Towhee - Version 8.2.3   (July 22 2021)      
+ Copyright (C) <2000-2021> Marcus G. Martin
+ Code Contributors for 2021: Marcus G. Martin;
+ Code Contributors for 2020: Marcus G. Martin;
+ Code Contributors for 2019: Marcus G. Martin;
+ Code Contributors for 2018: Marcus G. Martin;
+ Code Contributors for 2017: Marcus G. Martin;
+ Code Contributors for 2016: Marcus G. Martin;
+ Code Contributors for 2015: Marcus G. Martin;
+ Code Contributors for 2014: Marcus G. Martin;
+ Code Contributors for 2013: Wesley Emeneker; Marcus G. Martin;
+ Code Contributors for 2012: Marcus G. Martin;
+ Code Contributors for 2011: Fred James; Marcus G. Martin; Suleiman Oloriegbe;
+ Code Contributors for 2010: Rene Haber; Andrej Lajovic; Marcus G. Martin; Loukas Peristeras;
+ Code Contributors for 2009: Rene Haber; Marcus G. Martin; Loukas Peristeras;
+ Code Contributors for 2008: Rene Haber; Iyad A. Hijazi; Marcus G. Martin; Loukas Peristeras; Craig Tenney;
+ Code Contributors for 2007: Bernhard Eckl; Frank Heilmann; Jianhui Li; Marcus G. Martin; Craig M. Tenney; Ozgur Yazaydin
+ Code Contributors for 2006: Alan A. Chen; Arben Jusufi; Christian D. Lorenz; Marcus G. Martin; Jeffrey J. Potoff; Vincent K. Shen; Matthew A. Wyczalkowski; Ozgur Yazaydin
+ Code Contributors for 2005: Marcus G. Martin; Alan A. Chen; Christian D. Lorenz; Matthew A. Wyczalkowski
+ Code Contributors for 2004: Marcus G. Martin; Christian D. Lorenz; Peter A. Schultz; Aidan P. Thompson; Jeffrey J. Potoff; Steve R. Lustig; Paul S. Crozier; Nicholas du Preez
+ Code Contributors for 2003: Marcus G. Martin; Christian D. Lorenz; David B. Ritch; Michael L. Greenfield; Yogesh Srivastava; Evangelos A Coutsias
+ Code Contributors for 2002: Marcus G. Martin; Christian D. Lorenz; Aidan P. Thompson; Allen G. Sault
+ Code Contributors for 2001: Marcus G. Martin
+ Code Contributors for 2000: Marcus G. Martin
+ Copyright (C) <1999> J. Ilja Siepmann and Marcus G. Martin
+ Code Contributors for 1999: J. Ilja Siepmann; Marcus G. Martin; Bin Chen; Collin D. Wick; John Stubbs
+
+ Direct comments about this code to Marcus G. Martin (marcus_martin@users.sourceforge.net)
+ See the MCCCS Towhee web site for more information and the users manual.
+ http://towhee.sourceforge.net
+
+ We would like to thank the following agencies for providing funding used to develop MCCCS Towhee
+ -Department of Energy Industrial Technologies Program (MGM)
+ -National Science Foundation (JIS)
+ -Department of Energy Computational Science Graduate Fellowship (MGM,CDW)
+
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+ Reading from towhee_input file: towhee_input                                                                                                            
+ in directory: /towheebase/Examples/Canonical_Ensemble/Small_Peptide/                                                                  
+ random_number_generator: RANLUX                        
+ random_luxlevel:            3
+ random_allow_restart:  T
+ ensemble: nvt                           
+ temperature:  298.150    
+ nmolty:            1
+ nmolectyp:            1
+ numboxes:            1
+ stepstyle: cycles  
+ nstep:          500
+ printfreq:            1
+ blocksize:         5000
+ moviefreq:          100
+ backupfreq:         1000
+ runoutput: full                
+Full output of updates and block averages
+ pdb_output_freq:          100
+ pressure_virial_freq:         2000
+ trmaxdispfreq:           10
+ volmaxdispfreq:         5000
+ linit:  F
+ initboxtype: dimensions          
+initstyle Box:    1
+ full cbmc           
+Box:  1 initlattice: simple cubic        
+Box:  1 initmol:         1
+Box:  1 inix,iniy,iniz:         1          1          1
+Box idim hmatrix:    1 1  100.00000    0.00000    0.00000
+Box idim hmatrix:    1 2    0.00000  100.00000    0.00000
+Box idim hmatrix:    1 3    0.00000    0.00000  100.00000
+ pm1boxcbswap: 0.100000E-01
+ pm1cbswmt:  1.00000    
+ pmavb1:  0.00000    
+ pmavb1in: 0.500000    
+ pmavb1mt:  1.00000    
+moltyp:  1 pmavb1ct: 1.000000
+ avb1rad:  8.00000    
+ pmavb2:  0.00000    
+ pmavb2in: 0.500000    
+ pmavb2mt:  1.00000    
+moltyp:  1 pmavb2ct: 1.000000
+ avb2rad:  8.00000    
+ pmavb3:  0.00000    
+ pmavb3mt:  1.00000    
+moltyp:  1 pmavb3ct: 1.000000
+ avb3rad:  8.00000    
+ pmcb:  0.00000    
+ pmcbmt:  1.00000    
+ pmall:  0.00000    
+ pmback:  0.00000    
+ pmbkmt:  1.00000    
+ pmpivot: 0.300000    
+ pmpivmt:  1.00000    
+ pmconrot:  0.00000    
+ pmcrmt:  1.00000    
+ pmcrback: 0.700000    
+ pmcrbmt:  1.00000    
+ pmplane:  0.00000    
+ pmplanebox:  1.00000    
+ planewidth:  3.00000    
+ pmrow:  0.00000    
+ pmrowbox:  1.00000    
+ rowwidth:  3.00000    
+ pmtraat:  1.00000    
+ pmtamt:  1.00000    
+ rmtraa: 0.500000    
+ tatraa: 0.500000    
+ pmtracm:  0.00000    
+ pmtcmt:  1.00000    
+ rmtrac: 0.500000    
+ tatrac: 0.500000    
+ pmrotate:  0.00000    
+ pmromt:  1.00000    
+ rmrot: 0.500000E-01
+ tarot: 0.500000    
+cbmc_analysis: normal                        
+cbmc_formulation: Martin and Siepmann 1999 + Martin and Thompson 2004         
+ Original Coupled-Decoupled formulation from
+ M.G. Martin; J.I. Siepmann; J. Phys. Chem. B103 2977-2980 (1999)
+ with a decoupled bond length selection from
+ M.G. Martin; A.P. Thompson; Fluid Phase Equilib. 217 105-110 (2004)
+cbmc_setting_style: explicit                      
+ cbmc_nb_one_generation                            : uniform                       
+ nch_nb_one                                        :           10
+ nch_nb                                            :           10
+cbmc_dihedral_generation: global gaussian               
+ Use a global gaussian distribution to generate torsions in config-bias
+ and correct this in the rosenbluth weights
+sdevtor:  20.00000
+ nch_tor                                           :            1
+ nch_tor_connect                                   :            1
+cbmc_bend_generation: global gaussian               
+ Use a globally defined gaussian distribution in configurational-bias
+ and correct this in the rosenbluth weights
+ Bend style A mean = equilibrium angle
+ Bend style A standard deviation = sdev_bend_a
+ Bend style B has multiple regions
+ Bend style B mean = function of central atom bondpatt
+ Bend style B standard deviation = sdev_bend_b
+sdevbena:  10.00000
+sdevbenb:  20.00000
+ nch_bend_a                                        :            1
+ nch_bend_b                                        :            1
+default max_bond_length:  3.00
+cbmc_bond_generation: global gaussian               
+ Use gaussian distribution to generate vibrations in config-bias
+    and correct this in the rosenbluth weights
+ mean = equilibrium bond length
+ standard deviation = sdevvib
+sdevvib:   0.10000
+ nch_vib                                           :            1
+two_bond_fixed_endpoint_bias_style: analytic Boltzmann dihedral energy sum            
+three_bond_fixed_endpoint_bias_style: analytic using max and min 2-4 distance           
+ ffnumber:            1
+ ff_filename:
+/towheebase/ForceFields/towhee_ff_C19eef1                                                                               
+ classical_potential: 12-6 plus solvation           
+ READCLASSICAL: pot_num:     2 potential name: 12-6 plus solvation           
+ classical_mixrule: Explicit                      
+ lshift:  F
+ ltailc:  F
+ rmin: 0.100000    
+ rcut:  9.00000    
+ rcutin:  9.00000    
+ electrostatic_form: coulomb                                           
+ coulombstyle: minimum image       
+ dielect:  1.00000    
+ Setting up force field parameters from files
+ opening forcefield file:    1
+ Explicit declaration of Cross Terms
+ Please check the forcefield file carefully
+ solvation_style: internal            
+ solvation_type: EEF1                
+ Effective energy function (EEF1) implicit water applied
+ input_style: polypeptide builder                               
+ nunit:            9
+ nmaxcbmc:           90
+ Building the protein input file
+    using the Charmm19E forcefield
+    for a single zwitterionic polypeptide
+    or for multiple disulfide bonded zwitterionic polypeptides
+peptide:    1 name:r+ stereochem:l bondpartner:    0 terminus:N
+peptide:    2 name:a0 stereochem:l bondpartner:    0 terminus:-
+peptide:    3 name:d- stereochem:l bondpartner:    0 terminus:-
+peptide:    4 name:g0 stereochem:r bondpartner:    0 terminus:-
+peptide:    5 name:a0 stereochem:l bondpartner:    0 terminus:-
+peptide:    6 name:r+ stereochem:l bondpartner:    0 terminus:-
+peptide:    7 name:i0 stereochem:l bondpartner:    0 terminus:-
+peptide:    8 name:d- stereochem:l bondpartner:    0 terminus:-
+peptide:    9 name:i0 stereochem:l bondpartner:    0 terminus:C
+ arginine protonated                     
+ alanine                                 
+ aspartic acid deprotonated              
+ glycine                                 
+ alanine                                 
+ arginine protonated                     
+ isoleucine                              
+ aspartic acid deprotonated              
+ isoleucine                              
+ Verifying input structures are consistent
+Determining cyclic subunits for molecule type          1
+Default total charge on molecule   1 is   0.00000
+Total charge in the simulation system:   0.00000
+Bond Types
+Type:      1 Style: Standard Harmonic Length: 1.5200 Constant:   203802.7
+Type:      4 Style: Standard Harmonic Length: 1.3300 Constant:   237015.0
+Type:      5 Style: Standard Harmonic Length: 1.3300 Constant:   201286.6
+Type:      6 Style: Standard Harmonic Length: 1.2300 Constant:   291865.6
+Type:      8 Style: Standard Harmonic Length: 1.5300 Constant:   113223.7
+Type:      9 Style: Standard Harmonic Length: 1.5200 Constant:   113223.7
+Type:     10 Style: Standard Harmonic Length: 1.4500 Constant:   212357.4
+Type:     12 Style: Standard Harmonic Length: 1.5400 Constant:   113223.7
+Type:     28 Style: Standard Harmonic Length: 0.9800 Constant:   203802.7
+Type:     29 Style: Standard Harmonic Length: 1.0400 Constant:   203802.7
+Type:     30 Style: Standard Harmonic Length: 1.0000 Constant:   203802.7
+Angle Types
+Type:   1 Style: Standard Harmonic  Angle:    106.500 Constant:    35225.2
+Type:   8 Style: Standard Harmonic  Angle:    110.000 Constant:    35225.2
+Type:   9 Style: Standard Harmonic  Angle:    109.500 Constant:    35225.2
+Type:  10 Style: Standard Harmonic  Angle:    111.600 Constant:    22644.7
+Type:  11 Style: Standard Harmonic  Angle:    112.500 Constant:    35225.2
+Type:  13 Style: Standard Harmonic  Angle:    111.600 Constant:    35225.2
+Type:  20 Style: Standard Harmonic  Angle:    120.000 Constant:    38999.3
+Type:  22 Style: Standard Harmonic  Angle:    120.000 Constant:    15096.5
+Type:  23 Style: Standard Harmonic  Angle:    120.000 Constant:    17612.6
+Type:  26 Style: Standard Harmonic  Angle:    117.500 Constant:    10064.3
+Type:  27 Style: Standard Harmonic  Angle:    121.500 Constant:    42773.4
+Type:  28 Style: Standard Harmonic  Angle:    117.500 Constant:    42773.4
+Type:  30 Style: Standard Harmonic  Angle:    112.500 Constant:    22644.7
+Type:  31 Style: Standard Harmonic  Angle:    111.000 Constant:    22644.7
+Type:  32 Style: Standard Harmonic  Angle:    110.000 Constant:    25160.8
+Type:  36 Style: Standard Harmonic  Angle:    113.000 Constant:    22644.7
+Type:  40 Style: Standard Harmonic  Angle:    109.500 Constant:    17612.6
+Type:  43 Style: Standard Harmonic  Angle:    121.600 Constant:    42773.4
+Type:  44 Style: Standard Harmonic  Angle:    118.500 Constant:    42773.4
+Type:  45 Style: Standard Harmonic  Angle:    111.500 Constant:    25160.8
+Type:  47 Style: Standard Harmonic  Angle:    110.000 Constant:    32709.1
+Type:  48 Style: Standard Harmonic  Angle:    110.000 Constant:    22644.7
+Type:  50 Style: Standard Harmonic  Angle:    111.000 Constant:    32709.1
+Type:  57 Style: Standard Harmonic  Angle:    108.500 Constant:    32709.1
+Type:  63 Style: Standard Harmonic  Angle:    120.000 Constant:    20128.7
+Type:  64 Style: Standard Harmonic  Angle:    109.500 Constant:    20128.7
+Type:  67 Style: Standard Harmonic  Angle:    120.000 Constant:    35225.2
+Type:  69 Style: Standard Harmonic  Angle:    121.000 Constant:    32709.1
+Type:  71 Style: Standard Harmonic  Angle:    122.500 Constant:    42773.4
+Torsion Types
+Type:   4 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:       0.0 m:3.0 d: 0.0000000
+          with 1-4 vdw and scaled (0.400) 1-4 coulomb
+Type:   5 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:    4126.4 m:2.0 d: 3.1415927
+          with 1-4 vdw and scaled (0.400) 1-4 coulomb
+Type:   7 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:     805.1 m:3.0 d: 0.0000000
+          with 1-4 vdw and scaled (0.400) 1-4 coulomb
+Type:   8 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:     151.0 m:3.0 d: 0.0000000
+          with 1-4 vdw and scaled (0.400) 1-4 coulomb
+Type:  10 Style: Amber/Charmm/Gromos Cosine Series n:   1
+          Index  1    k:     301.9 m:3.0 d: 0.0000000
+          with 1-4 vdw and scaled (0.400) 1-4 coulomb
+Improper Torsion Types
+Type:   4 Style: Harmonic  Angle:0.0000 k    22644.7
+Type:   5 Style: Harmonic  Angle:0.0000 k    50321.7
+Type:   8 Style: Harmonic  Angle:0.6155 k    27676.9
+Energies exclusively from internal potentials
+Nonbonded Force Field
+Lennard-Jones 12-6 potential for EEF1 implicit solvent
+u(r) = 4*epsilon[(sigma/r)^12 - (sigma/r)^6] - shift
+Num. Atom(i)    Num. Atom(j)         sigma    epsilon      shift     1-4sig     1-4eps
+   1 C             1 C              3.7418    60.3860     0.0000     3.3854    50.3217
+   1 C             2 CR             3.7997    74.1831     0.0000     3.3854    50.3217
+   1 C             3 CH1E           3.9779    38.4294     0.0000     3.3854    50.3217
+   1 C             4 CH2E           3.8620    58.9086     0.0000     3.3854    50.3217
+   1 C             5 CH3E           3.7997    74.1831     0.0000     3.3854    50.3217
+   1 C             7 NH1            3.2963    85.1136     0.0000     3.1181    77.6977
+   1 C            10 NH3            3.2963    85.1136     0.0000     3.1181    77.6977
+   1 C            11 NC2            3.2963    85.1136     0.0000     3.1181    77.6977
+   1 C            14 O              3.2963    69.5314     0.0000     3.1181    63.4731
+   1 C            15 OC             3.2963   140.2052     0.0000     3.1181   127.9893
+   1 C            20 H              2.5836    38.9010     0.0000     2.4054    35.5116
+   1 C            21 HC             2.4054    38.9010     0.0000     2.2272    35.5116
+   2 CR            2 CR             3.8576    91.1325     0.0000     3.3854    50.3217
+   2 CR            3 CH1E           4.0358    47.2098     0.0000     3.3854    50.3217
+   2 CR            4 CH2E           3.9200    72.3681     0.0000     3.3854    50.3217
+   2 CR            5 CH3E           3.8576    91.1325     0.0000     3.3854    50.3217
+   2 CR            7 NH1            3.3542   104.5604     0.0000     3.1181    77.6977
+   2 CR           10 NH3            3.3542   104.5604     0.0000     3.1181    77.6977
+   2 CR           11 NC2            3.3542   104.5604     0.0000     3.1181    77.6977
+   2 CR           14 O              3.3542    85.4180     0.0000     3.1181    63.4731
+   2 CR           15 OC             3.3542   172.2395     0.0000     3.1181   127.9893
+   2 CR           20 H              2.6415    47.7891     0.0000     2.4054    35.5116
+   2 CR           21 HC             2.4633    47.7891     0.0000     2.2272    35.5116
+   3 CH1E          3 CH1E           4.2140    24.4563     0.0000     3.3854    50.3217
+   3 CH1E          4 CH2E           4.0981    37.4892     0.0000     3.3854    50.3217
+   3 CH1E          5 CH3E           4.0358    47.2098     0.0000     3.3854    50.3217
+   3 CH1E          7 NH1            3.5324    54.1659     0.0000     3.1181    77.6977
+   3 CH1E         10 NH3            3.5324    54.1659     0.0000     3.1181    77.6977
+   3 CH1E         11 NC2            3.5324    54.1659     0.0000     3.1181    77.6977
+   3 CH1E         14 O              3.5324    44.2495     0.0000     3.1181    63.4731
+   3 CH1E         15 OC             3.5324    89.2261     0.0000     3.1181   127.9893
+   3 CH1E         20 H              2.8197    24.7564     0.0000     2.4054    35.5116
+   3 CH1E         21 HC             2.6415    24.7564     0.0000     2.2272    35.5116
+   4 CH2E          4 CH2E           3.9823    57.4673     0.0000     3.3854    50.3217
+   4 CH2E          5 CH3E           3.9200    72.3681     0.0000     3.3854    50.3217
+   4 CH2E          7 NH1            3.4166    83.0312     0.0000     3.1181    77.6977
+   4 CH2E         10 NH3            3.4166    83.0312     0.0000     3.1181    77.6977
+   4 CH2E         11 NC2            3.4166    83.0312     0.0000     3.1181    77.6977
+   4 CH2E         14 O              3.4166    67.8302     0.0000     3.1181    63.4731
+   4 CH2E         15 OC             3.4166   136.7750     0.0000     3.1181   127.9893
+   4 CH2E         20 H              2.7039    37.9492     0.0000     2.4054    35.5116
+   4 CH2E         21 HC             2.5257    37.9492     0.0000     2.2272    35.5116
+   5 CH3E          5 CH3E           3.8576    91.1325     0.0000     3.3854    50.3217
+   5 CH3E          7 NH1            3.3542   104.5604     0.0000     3.1181    77.6977
+   5 CH3E         10 NH3            3.3542   104.5604     0.0000     3.1181    77.6977
+   5 CH3E         11 NC2            3.3542   104.5604     0.0000     3.1181    77.6977
+   5 CH3E         14 O              3.3542    85.4180     0.0000     3.1181    63.4731
+   5 CH3E         15 OC             3.3542   172.2395     0.0000     3.1181   127.9893
+   5 CH3E         20 H              2.6415    47.7891     0.0000     2.4054    35.5116
+   5 CH3E         21 HC             2.4633    47.7891     0.0000     2.2272    35.5116
+   7 NH1           7 NH1            2.8509   119.9668     0.0000     2.8509   119.9668
+   7 NH1          10 NH3            2.8509   119.9668     0.0000     2.8509   119.9668
+   7 NH1          11 NC2            2.8509   119.9668     0.0000     2.8509   119.9668
+   7 NH1          14 O              2.8509    98.0039     0.0000     2.8509    98.0039
+   7 NH1          15 OC             2.8509   197.6181     0.0000     2.8509   197.6181
+   7 NH1          20 H              2.1382    54.8306     0.0000     2.1382    54.8306
+   7 NH1          21 HC             1.9600    54.8306     0.0000     1.9600    54.8306
+  10 NH3          10 NH3            2.8509   119.9668     0.0000     2.8509   119.9668
+  10 NH3          11 NC2            2.8509   119.9668     0.0000     2.8509   119.9668
+  10 NH3          14 O              2.8509    98.0039     0.0000     2.8509    98.0039
+  10 NH3          15 OC             2.8509   197.6181     0.0000     2.8509   197.6181
+  10 NH3          20 H              2.1382    54.8306     0.0000     2.1382    54.8306
+  10 NH3          21 HC             1.9600    54.8306     0.0000     1.9600    54.8306
+  11 NC2          11 NC2            2.8509   119.9668     0.0000     2.8509   119.9668
+  11 NC2          14 O              2.8509    98.0039     0.0000     2.8509    98.0039
+  11 NC2          15 OC             2.8509   197.6181     0.0000     2.8509   197.6181
+  11 NC2          20 H              2.1382    54.8306     0.0000     2.1382    54.8306
+  11 NC2          21 HC             1.9600    54.8306     0.0000     1.9600    54.8306
+  14 O            14 O              2.8509    80.0618     0.0000     2.8509    80.0618
+  14 O            15 OC             2.8509   161.4391     0.0000     2.8509   161.4391
+  14 O            20 H              2.1382    44.7924     0.0000     2.1382    44.7924
+  14 O            21 HC             1.9600    44.7924     0.0000     1.9600    44.7924
+  15 OC           15 OC             2.8509   325.5308     0.0000     2.8509   325.5308
+  15 OC           20 H              2.1382    90.3209     0.0000     2.1382    90.3209
+  15 OC           21 HC             1.9600    90.3209     0.0000     1.9600    90.3209
+  20 H            20 H              1.4254    25.0602     0.0000     1.4254    25.0602
+  20 H            21 HC             1.2473    25.0602     0.0000     1.2473    25.0602
+  21 HC           21 HC             1.0691    25.0602     0.0000     1.0691    25.0602
+Determining Arbitrary Trial Distribution Parameters: see towhee_cbmc for full details
+ Canonical ensemble
+ 3-dimensional periodic box
+ Additional Center-of-Mass cutoff
+ Dual Cutoff Configurational-bias Monte Carlo
+ Coupled-decoupled Configurational-bias MC
+ Coulombic inter- and intra-molecular interactions
+     including the real-space terms up to half the shortest box length
+     dielectric constant:   1.0000
+
+Molecular mass for molecule type     1 is   935.6990 g/mol
+ Reading in initial conformation from towhee_inital
+Initial version:   -6
+Restarting random number generator RANLUX with luxury level 3 from integer seed array
+Full initialization of RANLUX with 25 Integers:
+          6535959     7667023     1958671     9642238     1308275
+          4802535     4164711     1057446     2021722    15716927
+          5883828     2185884     8756848     4984717    11541200
+          2976604     6134467    16213893     9225199     3545549
+          2242499     6953651    10836039    -3050519    -3050519
+ RANLUX luxury level set by RLUXIN to:  3
+ new maximum displacements read from towhee_initial
+box:     1
+molecule type:     1
+ Max displacement for Atom translate:   0.094150
+ Max displacement for COM translate:   0.500000
+ Max displacement for rotation:   0.050000
+Max displacement for single box isotropic volume moves
+ Box:  1 rmvol(box):   0.1000E+00
+Max displacement for box pairs isotropic volume moves
+Max disp. for unit cell perturbation
+  Box   1 idim 1 rmcell:   0.1000E+01  0.0000E+00  0.0000E+00
+  Box   1 idim 2 rmcell:   0.0000E+00  0.0000E+00  0.0000E+00
+  Box   1 idim 3 rmcell:   0.0000E+00  0.0000E+00  0.0000E+00
+
+ new box dimensions read from towhee_initial
+ Box  1 hmatrix(1,x):      100.00000       0.00000       0.00000
+ Box  1 hmatrix(2,x):        0.00000     100.00000       0.00000
+ Box  1 hmatrix(3,x):        0.00000       0.00000     100.00000
+
+
+Number of MC cycles:                  500
+Number of molecules:                    1
+Temperature [K]:       298.15000
+
+Initial Energies for Box     1
+Total molecules in this box          1
+Molecules of type   1 :          1
+ Total vibration (atoms ij bonded together)                 13115.295 [K]        26.06292 [kcal/mol]
+  bond (ij) regular                                         13115.295 [K]        26.06292 [kcal/mol]
+  bond (ij) van der waals                                       0.000 [K]         0.00000 [kcal/mol]
+  bond (ij) Electric                                            0.000 [K]         0.00000 [kcal/mol]
+  bond-bond (ij-jk)                                             0.000 [K]         0.00000 [kcal/mol]
+ Total angle (atoms ijk bonded in sequence)                 25168.708 [K]        50.01566 [kcal/mol]
+  angle (ijk) regular                                       25168.708 [K]        50.01566 [kcal/mol]
+  bond-angle (ij-ijk)                                           0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) van der waals                                      0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) Electric                                           0.000 [K]         0.00000 [kcal/mol]
+  angle-angle (ijk-ijm)                                         0.000 [K]         0.00000 [kcal/mol]
+ Total torsion (ijkl bonded in sequence)                    23443.986 [K]        46.58826 [kcal/mol]
+  torsion (ijkl) regular                                    10487.231 [K]        20.84039 [kcal/mol]
+  torsion (ij-kl) bond-bond                                     0.000 [K]         0.00000 [kcal/mol]
+  torsion (ij-ijkl) bond-torsion                                0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-ijkl) angle-torsion                              0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-jkl-ijkl) angle-angle-torsion                    0.000 [K]         0.00000 [kcal/mol]
+  torsion (i-l) one-four van der waals                       4853.367 [K]         9.64469 [kcal/mol]
+  torsion (i-l) one-four Electric                            8103.388 [K]        16.10318 [kcal/mol]
+ Total improper (ijkm, i,k,m bonded to j)                    5130.740 [K]        10.19589 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) vdw               -15474.507 [K]       -30.75119 [kcal/mol]
+  intramolecular                                           -15474.507 [K]       -30.75119 [kcal/mol]
+  2-body vdw intermolecular                                     0.000 [K]         0.00000 [kcal/mol]
+  3-body vdw intermolecular                                     0.000 [K]         0.00000 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) Electric          -59369.751 [K]      -117.98051 [kcal/mol]
+  total real space Electric                                -59369.751 [K]      -117.98051 [kcal/mol]
+   intramolecular Electric                                 -59369.751 [K]      -117.98051 [kcal/mol]
+   intermolecular Electric                                      0.000 [K]         0.00000 [kcal/mol]
+ Total external field                                           0.000 [K]         0.00000 [kcal/mol]
+ Total solvation                                           -82250.435 [K]      -163.44937 [kcal/mol]
+Total classical                                            -90235.964 [K]      -179.31834 [kcal/mol]
+ Aggregate van der waals (bond and nonbond)                -10621.140 [K]       -21.10650 [kcal/mol]
+ Aggregate Electric (bond and nonbond)                     -51266.363 [K]      -101.87733 [kcal/mol]
+ initial virial pressure in box  1 =           4.12
+
+ +++++ start of markov chain +++++
+
+Cycle      Box   Energy [K]  Volume [A^3] Press. [kPa] Molecules
+         1 B: 1 -0.9024E+05  0.1000E+07          4.1     1
+         2 B: 1 -0.9024E+05  0.1000E+07          4.1     1
+         3 B: 1 -0.9024E+05  0.1000E+07          4.1     1
+         4 B: 1 -0.9024E+05  0.1000E+07          4.1     1
+         5 B: 1 -0.9099E+05  0.1000E+07          4.1     1
+         6 B: 1 -0.9099E+05  0.1000E+07          4.1     1
+         7 B: 1 -0.9057E+05  0.1000E+07          4.1     1
+         8 B: 1 -0.9057E+05  0.1000E+07          4.1     1
+         9 B: 1 -0.9074E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             3.         1.   0.062767
+        10 B: 1 -0.9074E+05  0.1000E+07          4.1     1
+        11 B: 1 -0.9074E+05  0.1000E+07          4.1     1
+        12 B: 1 -0.9074E+05  0.1000E+07          4.1     1
+        13 B: 1 -0.9074E+05  0.1000E+07          4.1     1
+        14 B: 1 -0.9001E+05  0.1000E+07          4.1     1
+        15 B: 1 -0.9001E+05  0.1000E+07          4.1     1
+        16 B: 1 -0.9001E+05  0.1000E+07          4.1     1
+        17 B: 1 -0.9001E+05  0.1000E+07          4.1     1
+        18 B: 1 -0.9001E+05  0.1000E+07          4.1     1
+        19 B: 1 -0.9008E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             3.         2.   0.083689
+        20 B: 1 -0.9008E+05  0.1000E+07          4.1     1
+        21 B: 1 -0.9008E+05  0.1000E+07          4.1     1
+        22 B: 1 -0.9008E+05  0.1000E+07          4.1     1
+        23 B: 1 -0.9008E+05  0.1000E+07          4.1     1
+        24 B: 1 -0.9008E+05  0.1000E+07          4.1     1
+        25 B: 1 -0.9008E+05  0.1000E+07          4.1     1
+        26 B: 1 -0.9008E+05  0.1000E+07          4.1     1
+        27 B: 1 -0.9008E+05  0.1000E+07          4.1     1
+        28 B: 1 -0.9008E+05  0.1000E+07          4.1     1
+        29 B: 1 -0.9008E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             2.         1.   0.083689
+        30 B: 1 -0.9008E+05  0.1000E+07          4.1     1
+        31 B: 1 -0.9008E+05  0.1000E+07          4.1     1
+        32 B: 1 -0.9008E+05  0.1000E+07          4.1     1
+        33 B: 1 -0.9008E+05  0.1000E+07          4.1     1
+        34 B: 1 -0.8908E+05  0.1000E+07          4.1     1
+        35 B: 1 -0.8908E+05  0.1000E+07          4.1     1
+        36 B: 1 -0.8895E+05  0.1000E+07          4.1     1
+        37 B: 1 -0.8895E+05  0.1000E+07          4.1     1
+        38 B: 1 -0.8895E+05  0.1000E+07          4.1     1
+        39 B: 1 -0.8895E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             3.         0.   0.008369
+        40 B: 1 -0.8895E+05  0.1000E+07          4.1     1
+        41 B: 1 -0.8895E+05  0.1000E+07          4.1     1
+        42 B: 1 -0.8895E+05  0.1000E+07          4.1     1
+        43 B: 1 -0.8895E+05  0.1000E+07          4.1     1
+        44 B: 1 -0.8895E+05  0.1000E+07          4.1     1
+        45 B: 1 -0.8895E+05  0.1000E+07          4.1     1
+        46 B: 1 -0.8895E+05  0.1000E+07          4.1     1
+        47 B: 1 -0.8895E+05  0.1000E+07          4.1     1
+        48 B: 1 -0.8895E+05  0.1000E+07          4.1     1
+        49 B: 1 -0.8898E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             4.         4.   0.016738
+        50 B: 1 -0.8898E+05  0.1000E+07          4.1     1
+        51 B: 1 -0.8898E+05  0.1000E+07          4.1     1
+        52 B: 1 -0.8895E+05  0.1000E+07          4.1     1
+        53 B: 1 -0.8895E+05  0.1000E+07          4.1     1
+        54 B: 1 -0.8895E+05  0.1000E+07          4.1     1
+        55 B: 1 -0.8894E+05  0.1000E+07          4.1     1
+        56 B: 1 -0.8894E+05  0.1000E+07          4.1     1
+        57 B: 1 -0.8894E+05  0.1000E+07          4.1     1
+        58 B: 1 -0.8904E+05  0.1000E+07          4.1     1
+        59 B: 1 -0.8904E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             4.         4.   0.033476
+        60 B: 1 -0.8904E+05  0.1000E+07          4.1     1
+        61 B: 1 -0.8952E+05  0.1000E+07          4.1     1
+        62 B: 1 -0.8952E+05  0.1000E+07          4.1     1
+        63 B: 1 -0.8979E+05  0.1000E+07          4.1     1
+        64 B: 1 -0.8979E+05  0.1000E+07          4.1     1
+        65 B: 1 -0.8979E+05  0.1000E+07          4.1     1
+        66 B: 1 -0.8979E+05  0.1000E+07          4.1     1
+        67 B: 1 -0.8979E+05  0.1000E+07          4.1     1
+        68 B: 1 -0.8979E+05  0.1000E+07          4.1     1
+        69 B: 1 -0.8979E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             1.         1.   0.066951
+        70 B: 1 -0.8990E+05  0.1000E+07          4.1     1
+        71 B: 1 -0.8990E+05  0.1000E+07          4.1     1
+        72 B: 1 -0.8990E+05  0.1000E+07          4.1     1
+        73 B: 1 -0.8990E+05  0.1000E+07          4.1     1
+        74 B: 1 -0.8990E+05  0.1000E+07          4.1     1
+        75 B: 1 -0.8990E+05  0.1000E+07          4.1     1
+        76 B: 1 -0.8990E+05  0.1000E+07          4.1     1
+        77 B: 1 -0.8990E+05  0.1000E+07          4.1     1
+        78 B: 1 -0.8961E+05  0.1000E+07          4.1     1
+        79 B: 1 -0.8961E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+        80 B: 1 -0.8961E+05  0.1000E+07          4.1     1
+        81 B: 1 -0.8961E+05  0.1000E+07          4.1     1
+        82 B: 1 -0.8938E+05  0.1000E+07          4.1     1
+        83 B: 1 -0.8938E+05  0.1000E+07          4.1     1
+        84 B: 1 -0.8938E+05  0.1000E+07          4.1     1
+        85 B: 1 -0.8938E+05  0.1000E+07          4.1     1
+        86 B: 1 -0.8938E+05  0.1000E+07          4.1     1
+        87 B: 1 -0.8938E+05  0.1000E+07          4.1     1
+        88 B: 1 -0.8938E+05  0.1000E+07          4.1     1
+        89 B: 1 -0.8937E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             5.         2.   0.053561
+        90 B: 1 -0.8905E+05  0.1000E+07          4.1     1
+        91 B: 1 -0.8902E+05  0.1000E+07          4.1     1
+        92 B: 1 -0.8902E+05  0.1000E+07          4.1     1
+        93 B: 1 -0.8902E+05  0.1000E+07          4.1     1
+        94 B: 1 -0.8902E+05  0.1000E+07          4.1     1
+        95 B: 1 -0.8914E+05  0.1000E+07          4.1     1
+        96 B: 1 -0.8908E+05  0.1000E+07          4.1     1
+        97 B: 1 -0.8908E+05  0.1000E+07          4.1     1
+        98 B: 1 -0.8891E+05  0.1000E+07          4.1     1
+        99 B: 1 -0.8891E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             4.         2.   0.053561
+       100 B: 1 -0.8891E+05  0.1000E+07          4.1     1
+       101 B: 1 -0.8891E+05  0.1000E+07          4.1     1
+       102 B: 1 -0.8872E+05  0.1000E+07          4.1     1
+       103 B: 1 -0.8902E+05  0.1000E+07          4.1     1
+       104 B: 1 -0.8902E+05  0.1000E+07          4.1     1
+       105 B: 1 -0.8902E+05  0.1000E+07          4.1     1
+       106 B: 1 -0.8902E+05  0.1000E+07          4.1     1
+       107 B: 1 -0.8902E+05  0.1000E+07          4.1     1
+       108 B: 1 -0.8902E+05  0.1000E+07          4.1     1
+       109 B: 1 -0.8902E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             2.         1.   0.053561
+       110 B: 1 -0.8902E+05  0.1000E+07          4.1     1
+       111 B: 1 -0.8902E+05  0.1000E+07          4.1     1
+       112 B: 1 -0.8902E+05  0.1000E+07          4.1     1
+       113 B: 1 -0.8902E+05  0.1000E+07          4.1     1
+       114 B: 1 -0.8902E+05  0.1000E+07          4.1     1
+       115 B: 1 -0.8902E+05  0.1000E+07          4.1     1
+       116 B: 1 -0.8902E+05  0.1000E+07          4.1     1
+       117 B: 1 -0.8903E+05  0.1000E+07          4.1     1
+       118 B: 1 -0.9039E+05  0.1000E+07          4.1     1
+       119 B: 1 -0.9014E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             4.         3.   0.080342
+       120 B: 1 -0.9053E+05  0.1000E+07          4.1     1
+       121 B: 1 -0.9053E+05  0.1000E+07          4.1     1
+       122 B: 1 -0.9053E+05  0.1000E+07          4.1     1
+       123 B: 1 -0.9053E+05  0.1000E+07          4.1     1
+       124 B: 1 -0.9053E+05  0.1000E+07          4.1     1
+       125 B: 1 -0.9053E+05  0.1000E+07          4.1     1
+       126 B: 1 -0.9053E+05  0.1000E+07          4.1     1
+       127 B: 1 -0.9053E+05  0.1000E+07          4.1     1
+       128 B: 1 -0.9053E+05  0.1000E+07          4.1     1
+       129 B: 1 -0.9053E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             2.         0.   0.008034
+       130 B: 1 -0.9053E+05  0.1000E+07          4.1     1
+       131 B: 1 -0.9053E+05  0.1000E+07          4.1     1
+       132 B: 1 -0.9053E+05  0.1000E+07          4.1     1
+       133 B: 1 -0.9053E+05  0.1000E+07          4.1     1
+       134 B: 1 -0.9053E+05  0.1000E+07          4.1     1
+       135 B: 1 -0.9053E+05  0.1000E+07          4.1     1
+       136 B: 1 -0.9053E+05  0.1000E+07          4.1     1
+       137 B: 1 -0.9053E+05  0.1000E+07          4.1     1
+       138 B: 1 -0.9053E+05  0.1000E+07          4.1     1
+       139 B: 1 -0.9053E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+       140 B: 1 -0.9053E+05  0.1000E+07          4.1     1
+       141 B: 1 -0.9053E+05  0.1000E+07          4.1     1
+       142 B: 1 -0.9053E+05  0.1000E+07          4.1     1
+       143 B: 1 -0.9059E+05  0.1000E+07          4.1     1
+       144 B: 1 -0.9059E+05  0.1000E+07          4.1     1
+       145 B: 1 -0.9059E+05  0.1000E+07          4.1     1
+       146 B: 1 -0.9058E+05  0.1000E+07          4.1     1
+       147 B: 1 -0.9058E+05  0.1000E+07          4.1     1
+       148 B: 1 -0.9058E+05  0.1000E+07          4.1     1
+       149 B: 1 -0.9057E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             3.         3.   0.016068
+       150 B: 1 -0.9057E+05  0.1000E+07          4.1     1
+       151 B: 1 -0.9057E+05  0.1000E+07          4.1     1
+       152 B: 1 -0.9057E+05  0.1000E+07          4.1     1
+       153 B: 1 -0.9055E+05  0.1000E+07          4.1     1
+       154 B: 1 -0.9053E+05  0.1000E+07          4.1     1
+       155 B: 1 -0.9053E+05  0.1000E+07          4.1     1
+       156 B: 1 -0.9053E+05  0.1000E+07          4.1     1
+       157 B: 1 -0.9053E+05  0.1000E+07          4.1     1
+       158 B: 1 -0.9047E+05  0.1000E+07          4.1     1
+       159 B: 1 -0.9047E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             3.         3.   0.032137
+       160 B: 1 -0.9044E+05  0.1000E+07          4.1     1
+       161 B: 1 -0.9044E+05  0.1000E+07          4.1     1
+       162 B: 1 -0.9044E+05  0.1000E+07          4.1     1
+       163 B: 1 -0.9047E+05  0.1000E+07          4.1     1
+       164 B: 1 -0.9047E+05  0.1000E+07          4.1     1
+       165 B: 1 -0.9047E+05  0.1000E+07          4.1     1
+       166 B: 1 -0.9047E+05  0.1000E+07          4.1     1
+       167 B: 1 -0.9047E+05  0.1000E+07          4.1     1
+       168 B: 1 -0.9047E+05  0.1000E+07          4.1     1
+       169 B: 1 -0.9047E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             1.         0.   0.003214
+       170 B: 1 -0.9047E+05  0.1000E+07          4.1     1
+       171 B: 1 -0.9047E+05  0.1000E+07          4.1     1
+       172 B: 1 -0.9047E+05  0.1000E+07          4.1     1
+       173 B: 1 -0.9046E+05  0.1000E+07          4.1     1
+       174 B: 1 -0.9046E+05  0.1000E+07          4.1     1
+       175 B: 1 -0.9046E+05  0.1000E+07          4.1     1
+       176 B: 1 -0.9046E+05  0.1000E+07          4.1     1
+       177 B: 1 -0.9046E+05  0.1000E+07          4.1     1
+       178 B: 1 -0.9046E+05  0.1000E+07          4.1     1
+       179 B: 1 -0.9046E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             1.         1.   0.006427
+       180 B: 1 -0.9046E+05  0.1000E+07          4.1     1
+       181 B: 1 -0.9046E+05  0.1000E+07          4.1     1
+       182 B: 1 -0.9046E+05  0.1000E+07          4.1     1
+       183 B: 1 -0.9046E+05  0.1000E+07          4.1     1
+       184 B: 1 -0.9048E+05  0.1000E+07          4.1     1
+       185 B: 1 -0.9048E+05  0.1000E+07          4.1     1
+       186 B: 1 -0.9048E+05  0.1000E+07          4.1     1
+       187 B: 1 -0.9049E+05  0.1000E+07          4.1     1
+       188 B: 1 -0.9049E+05  0.1000E+07          4.1     1
+       189 B: 1 -0.9049E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             3.         3.   0.012855
+       190 B: 1 -0.9049E+05  0.1000E+07          4.1     1
+       191 B: 1 -0.9049E+05  0.1000E+07          4.1     1
+       192 B: 1 -0.9049E+05  0.1000E+07          4.1     1
+       193 B: 1 -0.9049E+05  0.1000E+07          4.1     1
+       194 B: 1 -0.9063E+05  0.1000E+07          4.1     1
+       195 B: 1 -0.9043E+05  0.1000E+07          4.1     1
+       196 B: 1 -0.9043E+05  0.1000E+07          4.1     1
+       197 B: 1 -0.9043E+05  0.1000E+07          4.1     1
+       198 B: 1 -0.9043E+05  0.1000E+07          4.1     1
+       199 B: 1 -0.9043E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             3.         3.   0.025709
+       200 B: 1 -0.9043E+05  0.1000E+07          4.1     1
+       201 B: 1 -0.9048E+05  0.1000E+07          4.1     1
+       202 B: 1 -0.9048E+05  0.1000E+07          4.1     1
+       203 B: 1 -0.9048E+05  0.1000E+07          4.1     1
+       204 B: 1 -0.9048E+05  0.1000E+07          4.1     1
+       205 B: 1 -0.9048E+05  0.1000E+07          4.1     1
+       206 B: 1 -0.9048E+05  0.1000E+07          4.1     1
+       207 B: 1 -0.9052E+05  0.1000E+07          4.1     1
+       208 B: 1 -0.9052E+05  0.1000E+07          4.1     1
+       209 B: 1 -0.9320E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             3.         3.   0.051419
+       210 B: 1 -0.9318E+05  0.1000E+07          4.1     1
+       211 B: 1 -0.9318E+05  0.1000E+07          4.1     1
+       212 B: 1 -0.9318E+05  0.1000E+07          4.1     1
+       213 B: 1 -0.9318E+05  0.1000E+07          4.1     1
+       214 B: 1 -0.9320E+05  0.1000E+07          4.1     1
+       215 B: 1 -0.9320E+05  0.1000E+07          4.1     1
+       216 B: 1 -0.9313E+05  0.1000E+07          4.1     1
+       217 B: 1 -0.9313E+05  0.1000E+07          4.1     1
+       218 B: 1 -0.9313E+05  0.1000E+07          4.1     1
+       219 B: 1 -0.9316E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             5.         4.   0.082270
+       220 B: 1 -0.9274E+05  0.1000E+07          4.1     1
+       221 B: 1 -0.9274E+05  0.1000E+07          4.1     1
+       222 B: 1 -0.9274E+05  0.1000E+07          4.1     1
+       223 B: 1 -0.9274E+05  0.1000E+07          4.1     1
+       224 B: 1 -0.9274E+05  0.1000E+07          4.1     1
+       225 B: 1 -0.9274E+05  0.1000E+07          4.1     1
+       226 B: 1 -0.9230E+05  0.1000E+07          4.1     1
+       227 B: 1 -0.9230E+05  0.1000E+07          4.1     1
+       228 B: 1 -0.9203E+05  0.1000E+07          4.1     1
+       229 B: 1 -0.9203E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             3.         1.   0.054847
+       230 B: 1 -0.9203E+05  0.1000E+07          4.1     1
+       231 B: 1 -0.9203E+05  0.1000E+07          4.1     1
+       232 B: 1 -0.9203E+05  0.1000E+07          4.1     1
+       233 B: 1 -0.9203E+05  0.1000E+07          4.1     1
+       234 B: 1 -0.9203E+05  0.1000E+07          4.1     1
+       235 B: 1 -0.9203E+05  0.1000E+07          4.1     1
+       236 B: 1 -0.9203E+05  0.1000E+07          4.1     1
+       237 B: 1 -0.9203E+05  0.1000E+07          4.1     1
+       238 B: 1 -0.9203E+05  0.1000E+07          4.1     1
+       239 B: 1 -0.9203E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             2.         0.   0.005485
+       240 B: 1 -0.9203E+05  0.1000E+07          4.1     1
+       241 B: 1 -0.9203E+05  0.1000E+07          4.1     1
+       242 B: 1 -0.9202E+05  0.1000E+07          4.1     1
+       243 B: 1 -0.9202E+05  0.1000E+07          4.1     1
+       244 B: 1 -0.9202E+05  0.1000E+07          4.1     1
+       245 B: 1 -0.9202E+05  0.1000E+07          4.1     1
+       246 B: 1 -0.9202E+05  0.1000E+07          4.1     1
+       247 B: 1 -0.9202E+05  0.1000E+07          4.1     1
+       248 B: 1 -0.9202E+05  0.1000E+07          4.1     1
+       249 B: 1 -0.9202E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             4.         4.   0.010969
+       250 B: 1 -0.9203E+05  0.1000E+07          4.1     1
+       251 B: 1 -0.9203E+05  0.1000E+07          4.1     1
+       252 B: 1 -0.9203E+05  0.1000E+07          4.1     1
+       253 B: 1 -0.9203E+05  0.1000E+07          4.1     1
+       254 B: 1 -0.9203E+05  0.1000E+07          4.1     1
+       255 B: 1 -0.9216E+05  0.1000E+07          4.1     1
+       256 B: 1 -0.9216E+05  0.1000E+07          4.1     1
+       257 B: 1 -0.9216E+05  0.1000E+07          4.1     1
+       258 B: 1 -0.9223E+05  0.1000E+07          4.1     1
+       259 B: 1 -0.9223E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             2.         2.   0.021939
+       260 B: 1 -0.9223E+05  0.1000E+07          4.1     1
+       261 B: 1 -0.9223E+05  0.1000E+07          4.1     1
+       262 B: 1 -0.9223E+05  0.1000E+07          4.1     1
+       263 B: 1 -0.9223E+05  0.1000E+07          4.1     1
+       264 B: 1 -0.9223E+05  0.1000E+07          4.1     1
+       265 B: 1 -0.9223E+05  0.1000E+07          4.1     1
+       266 B: 1 -0.9223E+05  0.1000E+07          4.1     1
+       267 B: 1 -0.9220E+05  0.1000E+07          4.1     1
+       268 B: 1 -0.9220E+05  0.1000E+07          4.1     1
+       269 B: 1 -0.9220E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             1.         1.   0.043877
+       270 B: 1 -0.9220E+05  0.1000E+07          4.1     1
+       271 B: 1 -0.9220E+05  0.1000E+07          4.1     1
+       272 B: 1 -0.9220E+05  0.1000E+07          4.1     1
+       273 B: 1 -0.9220E+05  0.1000E+07          4.1     1
+       274 B: 1 -0.9220E+05  0.1000E+07          4.1     1
+       275 B: 1 -0.9222E+05  0.1000E+07          4.1     1
+       276 B: 1 -0.9222E+05  0.1000E+07          4.1     1
+       277 B: 1 -0.9222E+05  0.1000E+07          4.1     1
+       278 B: 1 -0.9222E+05  0.1000E+07          4.1     1
+       279 B: 1 -0.9229E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             2.         2.   0.087754
+       280 B: 1 -0.9229E+05  0.1000E+07          4.1     1
+       281 B: 1 -0.9229E+05  0.1000E+07          4.1     1
+       282 B: 1 -0.9229E+05  0.1000E+07          4.1     1
+       283 B: 1 -0.9229E+05  0.1000E+07          4.1     1
+       284 B: 1 -0.9229E+05  0.1000E+07          4.1     1
+       285 B: 1 -0.9229E+05  0.1000E+07          4.1     1
+       286 B: 1 -0.9229E+05  0.1000E+07          4.1     1
+       287 B: 1 -0.9229E+05  0.1000E+07          4.1     1
+       288 B: 1 -0.9229E+05  0.1000E+07          4.1     1
+       289 B: 1 -0.9229E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+       290 B: 1 -0.9229E+05  0.1000E+07          4.1     1
+       291 B: 1 -0.9229E+05  0.1000E+07          4.1     1
+       292 B: 1 -0.9229E+05  0.1000E+07          4.1     1
+       293 B: 1 -0.9229E+05  0.1000E+07          4.1     1
+       294 B: 1 -0.9229E+05  0.1000E+07          4.1     1
+       295 B: 1 -0.9229E+05  0.1000E+07          4.1     1
+       296 B: 1 -0.9229E+05  0.1000E+07          4.1     1
+       297 B: 1 -0.9229E+05  0.1000E+07          4.1     1
+       298 B: 1 -0.9229E+05  0.1000E+07          4.1     1
+       299 B: 1 -0.9229E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             2.         0.   0.008775
+       300 B: 1 -0.9229E+05  0.1000E+07          4.1     1
+       301 B: 1 -0.9232E+05  0.1000E+07          4.1     1
+       302 B: 1 -0.9232E+05  0.1000E+07          4.1     1
+       303 B: 1 -0.9232E+05  0.1000E+07          4.1     1
+       304 B: 1 -0.9232E+05  0.1000E+07          4.1     1
+       305 B: 1 -0.9232E+05  0.1000E+07          4.1     1
+       306 B: 1 -0.9232E+05  0.1000E+07          4.1     1
+       307 B: 1 -0.9232E+05  0.1000E+07          4.1     1
+       308 B: 1 -0.9232E+05  0.1000E+07          4.1     1
+       309 B: 1 -0.9232E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             2.         2.   0.017551
+       310 B: 1 -0.9229E+05  0.1000E+07          4.1     1
+       311 B: 1 -0.9233E+05  0.1000E+07          4.1     1
+       312 B: 1 -0.9233E+05  0.1000E+07          4.1     1
+       313 B: 1 -0.9243E+05  0.1000E+07          4.1     1
+       314 B: 1 -0.9243E+05  0.1000E+07          4.1     1
+       315 B: 1 -0.9243E+05  0.1000E+07          4.1     1
+       316 B: 1 -0.9243E+05  0.1000E+07          4.1     1
+       317 B: 1 -0.9243E+05  0.1000E+07          4.1     1
+       318 B: 1 -0.9243E+05  0.1000E+07          4.1     1
+       319 B: 1 -0.9243E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             2.         2.   0.035102
+       320 B: 1 -0.9243E+05  0.1000E+07          4.1     1
+       321 B: 1 -0.9268E+05  0.1000E+07          4.1     1
+       322 B: 1 -0.9268E+05  0.1000E+07          4.1     1
+       323 B: 1 -0.9271E+05  0.1000E+07          4.1     1
+       324 B: 1 -0.9209E+05  0.1000E+07          4.1     1
+       325 B: 1 -0.9213E+05  0.1000E+07          4.1     1
+       326 B: 1 -0.9213E+05  0.1000E+07          4.1     1
+       327 B: 1 -0.9213E+05  0.1000E+07          4.1     1
+       328 B: 1 -0.9205E+05  0.1000E+07          4.1     1
+       329 B: 1 -0.9205E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             4.         3.   0.052653
+       330 B: 1 -0.9205E+05  0.1000E+07          4.1     1
+       331 B: 1 -0.9205E+05  0.1000E+07          4.1     1
+       332 B: 1 -0.9207E+05  0.1000E+07          4.1     1
+       333 B: 1 -0.9204E+05  0.1000E+07          4.1     1
+       334 B: 1 -0.9204E+05  0.1000E+07          4.1     1
+       335 B: 1 -0.9204E+05  0.1000E+07          4.1     1
+       336 B: 1 -0.9204E+05  0.1000E+07          4.1     1
+       337 B: 1 -0.9204E+05  0.1000E+07          4.1     1
+       338 B: 1 -0.9204E+05  0.1000E+07          4.1     1
+       339 B: 1 -0.9191E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             4.         2.   0.052653
+       340 B: 1 -0.9191E+05  0.1000E+07          4.1     1
+       341 B: 1 -0.9191E+05  0.1000E+07          4.1     1
+       342 B: 1 -0.9211E+05  0.1000E+07          4.1     1
+       343 B: 1 -0.9211E+05  0.1000E+07          4.1     1
+       344 B: 1 -0.9235E+05  0.1000E+07          4.1     1
+       345 B: 1 -0.9224E+05  0.1000E+07          4.1     1
+       346 B: 1 -0.9201E+05  0.1000E+07          4.1     1
+       347 B: 1 -0.9201E+05  0.1000E+07          4.1     1
+       348 B: 1 -0.9201E+05  0.1000E+07          4.1     1
+       349 B: 1 -0.9201E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             3.         3.   0.105305
+       350 B: 1 -0.9208E+05  0.1000E+07          4.1     1
+       351 B: 1 -0.9208E+05  0.1000E+07          4.1     1
+       352 B: 1 -0.9208E+05  0.1000E+07          4.1     1
+       353 B: 1 -0.9208E+05  0.1000E+07          4.1     1
+       354 B: 1 -0.9208E+05  0.1000E+07          4.1     1
+       355 B: 1 -0.9208E+05  0.1000E+07          4.1     1
+       356 B: 1 -0.9208E+05  0.1000E+07          4.1     1
+       357 B: 1 -0.9208E+05  0.1000E+07          4.1     1
+       358 B: 1 -0.9201E+05  0.1000E+07          4.1     1
+       359 B: 1 -0.9207E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             1.         0.   0.010531
+       360 B: 1 -0.9207E+05  0.1000E+07          4.1     1
+       361 B: 1 -0.9207E+05  0.1000E+07          4.1     1
+       362 B: 1 -0.9207E+05  0.1000E+07          4.1     1
+       363 B: 1 -0.9108E+05  0.1000E+07          4.1     1
+       364 B: 1 -0.9108E+05  0.1000E+07          4.1     1
+       365 B: 1 -0.9108E+05  0.1000E+07          4.1     1
+       366 B: 1 -0.9108E+05  0.1000E+07          4.1     1
+       367 B: 1 -0.9108E+05  0.1000E+07          4.1     1
+       368 B: 1 -0.9108E+05  0.1000E+07          4.1     1
+       369 B: 1 -0.9108E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             3.         2.   0.014041
+       370 B: 1 -0.9111E+05  0.1000E+07          4.1     1
+       371 B: 1 -0.9111E+05  0.1000E+07          4.1     1
+       372 B: 1 -0.9112E+05  0.1000E+07          4.1     1
+       373 B: 1 -0.9112E+05  0.1000E+07          4.1     1
+       374 B: 1 -0.9112E+05  0.1000E+07          4.1     1
+       375 B: 1 -0.9112E+05  0.1000E+07          4.1     1
+       376 B: 1 -0.9110E+05  0.1000E+07          4.1     1
+       377 B: 1 -0.9110E+05  0.1000E+07          4.1     1
+       378 B: 1 -0.9110E+05  0.1000E+07          4.1     1
+       379 B: 1 -0.9110E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             5.         4.   0.022465
+       380 B: 1 -0.9110E+05  0.1000E+07          4.1     1
+       381 B: 1 -0.9110E+05  0.1000E+07          4.1     1
+       382 B: 1 -0.9110E+05  0.1000E+07          4.1     1
+       383 B: 1 -0.9019E+05  0.1000E+07          4.1     1
+       384 B: 1 -0.9019E+05  0.1000E+07          4.1     1
+       385 B: 1 -0.9019E+05  0.1000E+07          4.1     1
+       386 B: 1 -0.9019E+05  0.1000E+07          4.1     1
+       387 B: 1 -0.9016E+05  0.1000E+07          4.1     1
+       388 B: 1 -0.9019E+05  0.1000E+07          4.1     1
+       389 B: 1 -0.9054E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             3.         2.   0.029954
+       390 B: 1 -0.9054E+05  0.1000E+07          4.1     1
+       391 B: 1 -0.9054E+05  0.1000E+07          4.1     1
+       392 B: 1 -0.9054E+05  0.1000E+07          4.1     1
+       393 B: 1 -0.9054E+05  0.1000E+07          4.1     1
+       394 B: 1 -0.9059E+05  0.1000E+07          4.1     1
+       395 B: 1 -0.9058E+05  0.1000E+07          4.1     1
+       396 B: 1 -0.9058E+05  0.1000E+07          4.1     1
+       397 B: 1 -0.9058E+05  0.1000E+07          4.1     1
+       398 B: 1 -0.9058E+05  0.1000E+07          4.1     1
+       399 B: 1 -0.9058E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             2.         2.   0.059907
+       400 B: 1 -0.9058E+05  0.1000E+07          4.1     1
+       401 B: 1 -0.9058E+05  0.1000E+07          4.1     1
+       402 B: 1 -0.9058E+05  0.1000E+07          4.1     1
+       403 B: 1 -0.9058E+05  0.1000E+07          4.1     1
+       404 B: 1 -0.9055E+05  0.1000E+07          4.1     1
+       405 B: 1 -0.9048E+05  0.1000E+07          4.1     1
+       406 B: 1 -0.9054E+05  0.1000E+07          4.1     1
+       407 B: 1 -0.9054E+05  0.1000E+07          4.1     1
+       408 B: 1 -0.9021E+05  0.1000E+07          4.1     1
+       409 B: 1 -0.9021E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             4.         4.   0.119814
+       410 B: 1 -0.9021E+05  0.1000E+07          4.1     1
+       411 B: 1 -0.9021E+05  0.1000E+07          4.1     1
+       412 B: 1 -0.9021E+05  0.1000E+07          4.1     1
+       413 B: 1 -0.9021E+05  0.1000E+07          4.1     1
+       414 B: 1 -0.9021E+05  0.1000E+07          4.1     1
+       415 B: 1 -0.9021E+05  0.1000E+07          4.1     1
+       416 B: 1 -0.9012E+05  0.1000E+07          4.1     1
+       417 B: 1 -0.9012E+05  0.1000E+07          4.1     1
+       418 B: 1 -0.9012E+05  0.1000E+07          4.1     1
+       419 B: 1 -0.9012E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             4.         1.   0.059907
+       420 B: 1 -0.9012E+05  0.1000E+07          4.1     1
+       421 B: 1 -0.9012E+05  0.1000E+07          4.1     1
+       422 B: 1 -0.9012E+05  0.1000E+07          4.1     1
+       423 B: 1 -0.9012E+05  0.1000E+07          4.1     1
+       424 B: 1 -0.9012E+05  0.1000E+07          4.1     1
+       425 B: 1 -0.9012E+05  0.1000E+07          4.1     1
+       426 B: 1 -0.9012E+05  0.1000E+07          4.1     1
+       427 B: 1 -0.9012E+05  0.1000E+07          4.1     1
+       428 B: 1 -0.8900E+05  0.1000E+07          4.1     1
+       429 B: 1 -0.8900E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             2.         0.   0.005991
+       430 B: 1 -0.8900E+05  0.1000E+07          4.1     1
+       431 B: 1 -0.8900E+05  0.1000E+07          4.1     1
+       432 B: 1 -0.8900E+05  0.1000E+07          4.1     1
+       433 B: 1 -0.8900E+05  0.1000E+07          4.1     1
+       434 B: 1 -0.8900E+05  0.1000E+07          4.1     1
+       435 B: 1 -0.8903E+05  0.1000E+07          4.1     1
+       436 B: 1 -0.8903E+05  0.1000E+07          4.1     1
+       437 B: 1 -0.8902E+05  0.1000E+07          4.1     1
+       438 B: 1 -0.8902E+05  0.1000E+07          4.1     1
+       439 B: 1 -0.8902E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             2.         2.   0.011981
+       440 B: 1 -0.8902E+05  0.1000E+07          4.1     1
+       441 B: 1 -0.8902E+05  0.1000E+07          4.1     1
+       442 B: 1 -0.8902E+05  0.1000E+07          4.1     1
+       443 B: 1 -0.8904E+05  0.1000E+07          4.1     1
+       444 B: 1 -0.8904E+05  0.1000E+07          4.1     1
+       445 B: 1 -0.8904E+05  0.1000E+07          4.1     1
+       446 B: 1 -0.8904E+05  0.1000E+07          4.1     1
+       447 B: 1 -0.8904E+05  0.1000E+07          4.1     1
+       448 B: 1 -0.8904E+05  0.1000E+07          4.1     1
+       449 B: 1 -0.8911E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             2.         2.   0.023963
+       450 B: 1 -0.8911E+05  0.1000E+07          4.1     1
+       451 B: 1 -0.8911E+05  0.1000E+07          4.1     1
+       452 B: 1 -0.8931E+05  0.1000E+07          4.1     1
+       453 B: 1 -0.8931E+05  0.1000E+07          4.1     1
+       454 B: 1 -0.8931E+05  0.1000E+07          4.1     1
+       455 B: 1 -0.8944E+05  0.1000E+07          4.1     1
+       456 B: 1 -0.8944E+05  0.1000E+07          4.1     1
+       457 B: 1 -0.8963E+05  0.1000E+07          4.1     1
+       458 B: 1 -0.8963E+05  0.1000E+07          4.1     1
+       459 B: 1 -0.8963E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             4.         3.   0.035944
+       460 B: 1 -0.8963E+05  0.1000E+07          4.1     1
+       461 B: 1 -0.8963E+05  0.1000E+07          4.1     1
+       462 B: 1 -0.8963E+05  0.1000E+07          4.1     1
+       463 B: 1 -0.8961E+05  0.1000E+07          4.1     1
+       464 B: 1 -0.8950E+05  0.1000E+07          4.1     1
+       465 B: 1 -0.8950E+05  0.1000E+07          4.1     1
+       466 B: 1 -0.8950E+05  0.1000E+07          4.1     1
+       467 B: 1 -0.8950E+05  0.1000E+07          4.1     1
+       468 B: 1 -0.8950E+05  0.1000E+07          4.1     1
+       469 B: 1 -0.8950E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             2.         2.   0.071888
+       470 B: 1 -0.8950E+05  0.1000E+07          4.1     1
+       471 B: 1 -0.8950E+05  0.1000E+07          4.1     1
+       472 B: 1 -0.8951E+05  0.1000E+07          4.1     1
+       473 B: 1 -0.8956E+05  0.1000E+07          4.1     1
+       474 B: 1 -0.8956E+05  0.1000E+07          4.1     1
+       475 B: 1 -0.8956E+05  0.1000E+07          4.1     1
+       476 B: 1 -0.8956E+05  0.1000E+07          4.1     1
+       477 B: 1 -0.8955E+05  0.1000E+07          4.1     1
+       478 B: 1 -0.8991E+05  0.1000E+07          4.1     1
+       479 B: 1 -0.8991E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             4.         3.   0.107833
+       480 B: 1 -0.8991E+05  0.1000E+07          4.1     1
+       481 B: 1 -0.8990E+05  0.1000E+07          4.1     1
+       482 B: 1 -0.9003E+05  0.1000E+07          4.1     1
+       483 B: 1 -0.9003E+05  0.1000E+07          4.1     1
+       484 B: 1 -0.9003E+05  0.1000E+07          4.1     1
+       485 B: 1 -0.9003E+05  0.1000E+07          4.1     1
+       486 B: 1 -0.9003E+05  0.1000E+07          4.1     1
+       487 B: 1 -0.9003E+05  0.1000E+07          4.1     1
+       488 B: 1 -0.9159E+05  0.1000E+07          4.1     1
+       489 B: 1 -0.9159E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             3.         3.   0.215665
+       490 B: 1 -0.9147E+05  0.1000E+07          4.1     1
+       491 B: 1 -0.9147E+05  0.1000E+07          4.1     1
+       492 B: 1 -0.9147E+05  0.1000E+07          4.1     1
+       493 B: 1 -0.9147E+05  0.1000E+07          4.1     1
+       494 B: 1 -0.9147E+05  0.1000E+07          4.1     1
+       495 B: 1 -0.9147E+05  0.1000E+07          4.1     1
+       496 B: 1 -0.9147E+05  0.1000E+07          4.1     1
+       497 B: 1 -0.9147E+05  0.1000E+07          4.1     1
+       498 B: 1 -0.9147E+05  0.1000E+07          4.1     1
+       499 B: 1 -0.9147E+05  0.1000E+07          4.1     1
+              Updating maximum translational/rotational displacements
+ Box: 1 Molecule:  1  Attempts   Accepted   New Displacement
+ Translate Atom             2.         0.   0.021567
+       500 B: 1 -0.9147E+05  0.1000E+07          4.1     1
+
+ +++++ end of markov chain +++++
+
+ Final hmatrix (general box dimensions) 
+Box:     1
+  hmatrix(1,x)     100.00000       0.00000       0.00000
+  hmatrix(2,x)       0.00000     100.00000       0.00000
+  hmatrix(3,x)       0.00000       0.00000     100.00000
+
+* Configurational-Bias SWAP Moves *
+Molecule type:     1
+  From box  1 to box  1 Attempted:       3 Grown:       3 Accepted:       0
+
+* Pivot Torsional Moves *
+ Molecule type:            1  Box:            1
+ Torsional Atoms  Attempts  Accepted  % Accepted
+   1   2         2         0      0.00
+   2   1         1         0      0.00
+   2   5         2         0      0.00
+   3   2         3         2     66.67
+   5   6         3         1     33.33
+   6   5         1         0      0.00
+   6   7         2         2    100.00
+   7   6         3         1     33.33
+   7   8         1         0      0.00
+   8   7         2         1     50.00
+   8   9         4         0      0.00
+   9   8         1         0      0.00
+   9  10         1         0      0.00
+  10   9         5         0      0.00
+  11   9         4         1     25.00
+  20  21         6         1     16.67
+  20   3         2         0      0.00
+  21  20         2         1     50.00
+  21  22         2         1     50.00
+  26  27         3         0      0.00
+  26  22         1         0      0.00
+  27  26         1         1    100.00
+  27  28         2         0      0.00
+  28  27         1         0      0.00
+  28  35         2         0      0.00
+  30  31         4         1     25.00
+  31  30         3         0      0.00
+  35  36         1         0      0.00
+  35  28         1         0      0.00
+  36  35         1         1    100.00
+  36  37         2         0      0.00
+  37  36         2         0      0.00
+  37  40         1         0      0.00
+  40  41         1         1    100.00
+  40  37         4         1     25.00
+  41  40         4         1     25.00
+  42  41         1         0      0.00
+  42  46         1         0      0.00
+  46  47         2         0      0.00
+  46  42         2         0      0.00
+  47  46         4         1     25.00
+  47  50         1         0      0.00
+  48  63         2         0      0.00
+  50  51         3         0      0.00
+  51  50         1         0      0.00
+  52  51         1         1    100.00
+  52  53         3         1     33.33
+  54  56         1         0      0.00
+  55  54         3         1     33.33
+  56  54         7         1     14.29
+  63  48         1         0      0.00
+  64  63         1         0      0.00
+  64  65         1         0      0.00
+  65  64         1         0      0.00
+  67  68         2         1     50.00
+  68  67         3         1     33.33
+  72  73         2         1     50.00
+  72  65         3         0      0.00
+  73  74         1         0      0.00
+  73  76         1         1    100.00
+  74  73         4         0      0.00
+  74  81         2         0      0.00
+  76  73         2         0      0.00
+  77  76         3         1     33.33
+  81  82         2         0      0.00
+  81  74         1         1    100.00
+  82  81         1         0      0.00
+  82  83         3         0      0.00
+  82  85         1         0      0.00
+  83  82         5         1     20.00
+  85  82         3         0      0.00
+  85  86         1         1    100.00
+  86  85         3         0      0.00
+totals:        160        30     18.75
+* Pivot breakdown by size of move *
+ Box:            1
+ Size of Move  Attempts  Accepted  % Accepted
+    0.00   30.00        25         9     36.00
+   30.00   60.00        26         5     19.23
+   60.00   90.00        24         2      8.33
+   90.00  120.00        26         1      3.85
+  120.00  150.00        30         3     10.00
+  150.00  180.00        29        10     34.48
+         totals:       160        30     18.75
+
+* Backbone Concerted Rotation Moves *
+ Molecule type:            1  Box:            1
+ Atom  Attempts  Accepted  % Accepted
+   1        11         0      0.00
+   2         9         0      0.00
+   3         9         0      0.00
+  20         4         0      0.00
+  21         6         0      0.00
+  22         6         0      0.00
+  26         4         1     25.00
+  27         8         0      0.00
+  28         4         0      0.00
+  35         6         0      0.00
+  36        11         0      0.00
+  37        10         0      0.00
+  40         9         0      0.00
+  41        10         0      0.00
+  42         8         0      0.00
+  46         5         0      0.00
+  47         9         0      0.00
+  48         6         0      0.00
+  63         7         1     14.29
+  64         9         0      0.00
+  65         8         0      0.00
+  72         5         0      0.00
+  73         4         0      0.00
+  74         6         0      0.00
+  81        12         0      0.00
+  82        12         0      0.00
+  83         6         0      0.00
+         totals:       204         2      0.98
+
+* Atom Translation Moves *
+Molecule:  1 Box: 1 Attempts:            133. Accepted:             93. Accepted:  69.925 %
+
+Final Energies for Box     1
+Total molecules in this box          1
+Molecules of type   1 :          1
+ Total vibration (atoms ij bonded together)                 12272.292 [K]        24.38769 [kcal/mol]
+  bond (ij) regular                                         12272.292 [K]        24.38769 [kcal/mol]
+  bond (ij) van der waals                                       0.000 [K]         0.00000 [kcal/mol]
+  bond (ij) Electric                                            0.000 [K]         0.00000 [kcal/mol]
+  bond-bond (ij-jk)                                             0.000 [K]         0.00000 [kcal/mol]
+ Total angle (atoms ijk bonded in sequence)                 24954.926 [K]        49.59082 [kcal/mol]
+  angle (ijk) regular                                       24954.926 [K]        49.59082 [kcal/mol]
+  bond-angle (ij-ijk)                                           0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) van der waals                                      0.000 [K]         0.00000 [kcal/mol]
+  angle (ik) Electric                                           0.000 [K]         0.00000 [kcal/mol]
+  angle-angle (ijk-ijm)                                         0.000 [K]         0.00000 [kcal/mol]
+ Total torsion (ijkl bonded in sequence)                    28097.789 [K]        55.83637 [kcal/mol]
+  torsion (ijkl) regular                                    11238.824 [K]        22.33397 [kcal/mol]
+  torsion (ij-kl) bond-bond                                     0.000 [K]         0.00000 [kcal/mol]
+  torsion (ij-ijkl) bond-torsion                                0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-ijkl) angle-torsion                              0.000 [K]         0.00000 [kcal/mol]
+  torsion (ijk-jkl-ijkl) angle-angle-torsion                    0.000 [K]         0.00000 [kcal/mol]
+  torsion (i-l) one-four van der waals                       7164.893 [K]        14.23819 [kcal/mol]
+  torsion (i-l) one-four Electric                            9694.072 [K]        19.26421 [kcal/mol]
+ Total improper (ijkm, i,k,m bonded to j)                    5483.907 [K]        10.89771 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) vdw               -14414.480 [K]       -28.64468 [kcal/mol]
+  intramolecular                                           -14414.480 [K]       -28.64468 [kcal/mol]
+  2-body vdw intermolecular                                     0.000 [K]         0.00000 [kcal/mol]
+  3-body vdw intermolecular                                     0.000 [K]         0.00000 [kcal/mol]
+ Total nonbond (more than 3 bonds apart) Electric          -63689.938 [K]      -126.56565 [kcal/mol]
+  total real space Electric                                -63689.938 [K]      -126.56565 [kcal/mol]
+   intramolecular Electric                                 -63689.938 [K]      -126.56565 [kcal/mol]
+   intermolecular Electric                                      0.000 [K]         0.00000 [kcal/mol]
+ Total external field                                           0.000 [K]         0.00000 [kcal/mol]
+ Total solvation                                           -84178.049 [K]      -167.27995 [kcal/mol]
+Total classical                                            -91473.553 [K]      -181.77769 [kcal/mol]
+ Aggregate van der waals (bond and nonbond)                 -7249.587 [K]       -14.40649 [kcal/mol]
+ Aggregate Electric (bond and nonbond)                     -53995.866 [K]      -107.30144 [kcal/mol]
+Averages               Units Type       Box  1
+ Volume                 nm^3       0.10000E+04
+ Volume^2               nm^6       0.10000E+07
+ Molecule Number                1        1.000
+ Molar Volume         ml/mol       0.60220E+06
+ Specific Density       g/ml        0.00155379
+ Number Density         nm-3    1      0.00100
+ Mole Fraction                  1    1.0000000
+ Radius of Gyration        A    1    7.7342405
+ Ideal Pressure          kPa       0.41176E+01
+ Ideal p_i <N/V>kT       kPa    1  0.41176E+01
+ Total Classical           K       -0.9072E+05
+ Inter vdw                 K        0.0000E+00
+ Angle                     K        0.2589E+05
+ Torsion                   K        0.3165E+05
+ Intra vdw                 K       -0.1493E+05
+ External Field            K        0.0000E+00
+ Vibration                 K        0.1318E+05
+ Coulomb                   K       -0.6293E+05
+ Tail vdw                  K        0.0000E+00
+ Solvation                 K       -0.8358E+05
+ G: Sum{<u_i><N_i>}   kJ/mol        0.0000E+00
+ U                    kJ/mol       -0.7542E+03
+ C_v: T^2<H^2>-<H>^2 J/K mol        0.1365E+03
+Please see towhee_citations for a list of suggested citations for this simulation

@@ -1,0 +1,4 @@
+#!/bin/bash
+cd Parallel_Test
+./execute_parallel
+cd ../

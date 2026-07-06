@@ -1,0 +1,145 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: C19sasa</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table border="0" cellspacing="0" cellpadding="0" >
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif">
+	 <a name="top"></a>MCCCS Towhee: C19sasa</font></b> </font> </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" border="0" alt="SourceForge.net Logo" align="right"/></A>
+   <tr> 
+    <td valign="top"> <b>Overview</b> 
+     <ul>
+      This section covers the C19sasa force field (which is a modified version of Charmm19 that includes an implicit
+      solvent model based on the solvent accessible surface area (SASA)) as it is implemented into the towhee_ff_c19sasa
+      file in the ForceFields directory.  All of the Towhee atom types for the C19sasa force field are listed, along with a
+      short description of their meanings.  Note that Charmm19 uses a '12-6 plus solvation' classical_potential and 'explicit' classical_mixrule
+      so it cannot currently be combined with any other forcefields.
+      The implicit water solvation is controlled using the <b>solvation_style</b> parameter in the towhee_input file.
+      Any discrepencies (especially typos) from the published C19sasa force field values are the sole responsibility of Marcus Martin,
+      and I welcome feedback on how this implementation compares with other programs.
+     </ul>
+     <b>References for C19sasa</b> 
+     <ul>
+      The best literature reference for the C19sasa forcefield parameters is
+      <ul>
+       <li><a href="../references.html#neria_et_al_1996">Neria <i>et al.</i> 1996</a></li>
+      </ul>
+      The best literature reference for the C19sasa solvation parameters is
+      <ul>
+       <li><a href="../references.html#lazaridis_karplus_1999">Lazaridis and Karplus 1999</a></li>
+      </ul>
+      This forcefield also uses parameter (param19_eef1.inp) and topology (toph19_eef1.inp) files 
+      that are extremely helpful, but are only available in the Charmm28 distribution.
+     </ul>	
+     <b>C19sasa in Towhee</b> 
+     <ul>
+      The official force field name for C19sasa in Towhee is 'C19sasa'.  Here I list all of 
+      the C19sasa atom names for use in the towhee_input file, along with a brief description.  C19sasa 
+      denotes extended-atom for cases where the hydrogens and the heavy element they are bonded to are all 
+      lumped into a single interaction site.
+      Please note that the capitalization and spacing pattern is important 
+      and must be followed exactly as listed here.  I include the atom notes from the Neria paper.
+      <ul>
+       <dt>'<b>C</b>' : Carbonyl carbon</dt>
+       <dt>'<b>CH1E</b>' : Extended aliphatic carbon with one hydrogen -CH- group</dt>
+       <dt>'<b>CH2E</b>' : Extended aliphatic carbon with two hydrogens -CH<sub>2</sub>- group</dt>
+       <dt>'<b>CH3E</b>' : Extended methyl terminal -CH<sub>3</sub> group</dt>
+       <dt>'<b>CM</b>' : Carbon in carbon monoxide</dt>       
+       <dt>'<b>CR</b>' : 4-bonded carbon in aromatics and Arginine</dt>       
+       <dt>'<b>CR1E</b>' : Extended aromatic carbon with one hydrogen</dt>
+       <dt>'<b>CT</b>' : aliphatic carbon</dt>       
+       <dt>'<b>Fe</b>' : Iron</dt>       
+       <dt>'<b>H</b>' : Polar hydrogen</dt>
+       <dt>'<b>HC</b>' : Polar hydrogen (in Arg, Lys, and N term)</dt>
+       <dt>'<b>HT</b>' : Water hydrogen, modified TIP3P model</dt>
+       <dt>'<b>N</b>' : Nitrogen with no hydrogens</dt>
+       <dt>'<b>NC2</b>' : Nitrogen bound to two hydrogens (in Arg.)</dt>
+       <dt>'<b>NH1</b>' : Nitrogen bound to one hydrogen</dt>
+       <dt>'<b>NH2</b>' : Nitrogen bound to two hydrogens</dt>
+       <dt>'<b>NH3</b>' : Nitrogen bound to three hydrogens</dt>
+       <dt>'<b>NP</b>' : Pyrole nitrogen</dt>
+       <dt>'<b>NR</b>' : Nitrogen in an aromatic ring with no hydrogens</dt>
+       <dt>'<b>O</b>' : Carbonyl oxygen</dt>
+       <dt>'<b>OC</b>' : Carboxyl oxygen</dt>
+       <dt>'<b>OH1</b>' : Hydroxyl oxygen</dt>
+       <dt>'<b>OH2</b>' : ST2 water oxygen</dt>
+       <dt>'<b>OM</b>' : Heme CO/O2 oxygen</dt>
+       <dt>'<b>OS</b>' : Ester oxygen</dt>
+       <dt>'<b>OT</b>' : Water oxygen, modified TIP3P model</dt>
+       <dt>'<b>S</b>' : Sulfur</dt>
+       <dt>'<b>SH1E</b>' : Extended sulfur with one hydrogen</dt>
+      </ul>
+     </ul>
+     <b>Coulombic Interactions</b> 
+     <ul>
+      C19sasa utilizes point charges on atomic centers to represent the charge distribution on a molecule.  As far as I know,
+      there is no automated system for assigning the charges in C19sasa.  However, C19sasa uses a neutral group approach for 
+      most moities found in organic molecules.  The charge distibution is similiar to that used in Charmm19, except the ionic side 
+      chain amino acids are neutralized, and the specifics on how to do this can be found in Lazaridis and Karplus 1999.  
+      Otherwise, it is fairly easy to scan through the example molecular charge distributions found in the files available at the 
+      <a href="../software.html#charmm">Charmm web site</a> and determine what charges to apply to the molecule you wish to simulate.
+     </ul>
+     <b>Improper torsions</b> 
+     <ul>
+      Improper torsions are not automatically generated by the Towhee code as the rules for determining where they are
+      applied are not always straight-forward.  C19sasa exclusively uses the out-of-plane version of the improper torsions, and
+      they are typically centered on an sp<sup>2</sup> atom in order to enforce planarity with its three neighbors.  These torsions
+      are listed in the C19sasa literature as i-j-k-l where the angle is the dihedral between i-j-k and j-k-l.  The bonding
+      pattern is not completely clear to me, but it appears that either i or l is the central atom which is bonded to all three
+      of the other atoms, and none of the other three atoms are bonded to each other.  In the towhee_input file the improper
+      torsions is listed starting from the central atom and the three other atoms are listed in the same order as C19sasa.
+      So, if the central atom is i, then the atoms are listed j, k, l.  If the central atom is l then the atoms are listed k, j, i.
+     </ul>
+     <b>Proteins</b> 
+     <ul>
+      All of the 20 typical amino acids (including the 3 forms of hystidine)
+      are functional for the C19sasa force field. I have implemented the atom types and charges according to the published 
+      C19sasa values.  Below is a complete list of the codes for the 20 amino acids, plus some other functional groups that 
+      work with the protein builder.  C19sasa does not apply a torsion across all set of atoms connected by 3 bonds 
+      in the amino acids.  The torsions are explicitly listed for these systems in the polyc19eef1.F routine.  I tried 
+      to faithfully reproduce all of their energetics, but had to make some accomodations for tryptophan.  They have 
+      two torsions in tryptophan that span atoms that are not bonded together and I could not implement those into 
+      Towhee without a major reworking of configuartional-bias.
+      <ul>
+       <dt>'<b>a0</b>' : alanine</dt>
+       <dt>'<b>c0</b>' : cysteine with hydrogen on the sulfur</dt>
+       <dt>'<b>d-</b>' : aspartic acid deprotonated</dt>
+       <dt>'<b>e-</b>' : glutamic acid deprotonated</dt>
+       <dt>'<b>f0</b>' : phenylalanine</dt>
+       <dt>'<b>g0</b>' : glycine</dt>
+       <dt>'<b>h+</b>' : histidine both N protonated</dt>
+       <dt>'<b>hd</b>' : histidine neutral with only N<sub>d</sub> protonated</dt>
+       <dt>'<b>he</b>' : histidine neutral with only N<sub>e</sub> protonated</dt>
+       <dt>'<b>i0</b>' : isoleucine</dt>
+       <dt>'<b>k+</b>' : lysine protonated</dt>
+       <dt>'<b>l0</b>' : leucine</dt>
+       <dt>'<b>m0</b>' : methionine</dt>
+       <dt>'<b>n0</b>' : asparagine</dt>
+       <dt>'<b>p0</b>' : proline (no parameters for N-terminal or C-terminal proline)</dt>
+       <dt>'<b>q0</b>' : glutamine</dt>
+       <dt>'<b>r+</b>' : arginine protonated</dt>
+       <dt>'<b>s0</b>' : serine</dt>
+       <dt>'<b>t0</b>' : threonine</dt>
+       <dt>'<b>v0</b>' : valine</dt>
+       <dt>'<b>w0</b>' : tryptophan</dt>
+       <dt>'<b>y0</b>' : tyrosine</dt>
+      </ul>
+     </ul>
+     <a href="../towhee_capabilities.html">Return to the Towhee Capabilities web page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->July 22, 2021<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>

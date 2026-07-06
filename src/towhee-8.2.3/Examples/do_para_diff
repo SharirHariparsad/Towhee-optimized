@@ -1,0 +1,4 @@
+#!/bin/bash
+diff par_answer_current answer_current > diffile
+cat header diffile > para_results
+/bin/rm diffile

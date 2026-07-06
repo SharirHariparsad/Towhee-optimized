@@ -1,0 +1,390 @@
+ensemble
+'npt'
+temperature
+373.0d0
+pressure
+223.4d0
+nmolty
+5
+nmolectyp
+216 0 0 0 0 
+numboxes
+1
+stepstyle
+'cycles'
+nstep
+2
+printfreq 
+5000   
+blocksize 
+1
+moviefreq
+100000
+backupfreq  
+5000
+runoutput
+'full'
+pdb_output_freq
+10000
+pressure_virial_freq
+20
+trmaxdispfreq
+1000
+volmaxdispfreq
+1000
+chempotperstep
+0 25 25 25 25
+linit   
+.false. 
+initboxtype
+'dimensions'
+initstyle
+'full cbmc' 'full cbmc' 'full cbmc' 'full cbmc' 'full cbmc' 
+initlattice
+'simple cubic' 'simple cubic' 'simple cubic' 'simple cubic' 'simple cubic'
+initmol
+216 0 0 0 0
+inix iniy iniz
+6    6    6   
+hmatrix
+30.0d0 0.0d0 0.0d0
+0.0d0 30.0d0 0.0d0
+0.0d0 0.0d0 30.0d0
+pmvol     
+0.01d0   
+          pmvlpr
+          1.0d0
+          rmvol
+          0.1d0
+          tavol
+          0.5d0
+pmcell
+0.0d0
+          pmcellpr
+          1.0d0
+          pmcellpt
+          0.5d0
+          rmcell
+          1.0d0
+          tacell
+          0.5d0
+pm1boxcbswap
+0.0d0     
+          pm1cbswmt
+          0.5d0 1.0d0 0.0d0 0.0d0 0.0d0
+pmavb1
+0.0d0
+          pmavb1in
+          0.5d0
+          pmavb1mt
+          0.50d0 1.0d0 1.0d0 1.0d0 1.0d0
+          pmavb1ct
+          0.50d0 1.0d0 1.0d0 1.0d0 1.0d0
+          0.50d0 1.0d0 1.0d0 1.0d0 1.0d0
+          0.50d0 1.0d0 1.0d0 1.0d0 1.0d0
+          0.50d0 1.0d0 1.0d0 1.0d0 1.0d0
+          0.50d0 1.0d0 1.0d0 1.0d0 1.0d0
+          avb1rad
+          8.0d0
+pmavb2
+0.0d0
+          pmavb2in
+          0.5d0
+          pmavb2mt
+          0.5d0 1.0d0 1.0d0 1.0d0 1.0d0 
+          pmavb2ct
+          0.50d0 1.0d0 1.0d0 1.0d0 1.0d0
+          0.50d0 1.0d0 1.0d0 1.0d0 1.0d0
+          0.50d0 1.0d0 1.0d0 1.0d0 1.0d0
+          0.50d0 1.0d0 1.0d0 1.0d0 1.0d0
+          0.50d0 1.0d0 1.0d0 1.0d0 1.0d0
+          avb2rad
+          8.0d0
+pmavb3
+0.0d0
+          pmavb3mt
+          0.5d0 1.0d0 1.0d0 1.0d0 1.0d0 
+          pmavb3ct
+          0.50d0 1.0d0 1.0d0 1.0d0 1.0d0
+          0.50d0 1.0d0 1.0d0 1.0d0 1.0d0
+          0.50d0 1.0d0 1.0d0 1.0d0 1.0d0
+          0.50d0 1.0d0 1.0d0 1.0d0 1.0d0
+          0.50d0 1.0d0 1.0d0 1.0d0 1.0d0
+          avb3rad
+          8.0d0
+pmcb      
+0.33d0     
+          pmcbmt
+          1.0d0 0.0d0 0.0d0 1.0d0 1.0d0
+          pmall
+          0.0d0 0.0d0 0.0d0 0.0d0 0.0d0 
+pmback
+0.0d0
+          pmbkmt
+          1.0d0 0.0d0 0.0d0 0.0d0 0.0d0
+pmpivot
+0.0d0
+          pmpivmt
+          1.0d0 0.0d0 0.0d0 0.0d0 0.0d0
+pmconrot
+0.0d0
+          pmcrmt
+	  1.0d0 0.0d0 0.0d0 0.0d0 0.0d0
+pmcrback
+0.0d0
+          pmcrbmt
+	  1.0d0 0.0d0 0.0d0 0.0d0 0.0d0
+pmplane
+0.0d0
+          pmplanebox
+          1.0d0
+          planewidth
+          3.0d0
+pmrow
+0.0d0
+          pmrowbox
+          1.0d0
+          rowwidth
+          3.0d0
+pmtraat   
+0.0d0	  
+          pmtamt
+          1.0d0 0.0d0 0.0d0 0.0d0 0.0d0
+          rmtraa
+          0.5d0 
+          tatraa
+          0.5d0
+pmtracm   
+0.67d0	  
+          pmtcmt
+          1.0d0 0.0d0 0.0d0 0.0d0 0.0d0
+          rmtrac
+          0.5d0 
+          tatrac
+          0.5d0
+pmrotate
+1.0d0
+          pmromt  
+          1.0d0 0.0d0 0.0d0 0.0d0 0.0d0
+          rmrot
+          0.05d0
+          tarot
+          0.5d0
+cbmc_formulation
+'Martin and Siepmann 1999 + Martin and Thompson 2004'
+cbmc_setting_style
+'explicit'
+cbmc_nb_one_generation
+'uniform' 'uniform' 'uniform' 'uniform' 'uniform'
+nch_nb_one
+10 1 1 1 1
+nch_nb
+10 1 1 1 1
+cbmc_dihedral_generation
+'ideal'
+nch_tor
+360  1 1 1 1
+nch_tor_connect
+360 1 1 1 1
+cbmc_bend_generation
+'ideal'
+nch_bend_a
+1000 1 1 1 1
+nch_bend_b
+1000 1 1 1 1
+cbmc_bond_generation
+'r^2 with bounds'
+vibrang
+0.85 1.15	
+nch_vib
+1 1 1 1 1
+two_bond_fixed_endpoint_bias_style
+'analytic Boltzmann dihedral energy sum'
+three_bond_fixed_endpoint_bias_style
+'analytic using max and min 2-4 distance'
+ffnumber
+3
+ff_filename
+/towheebase/ForceFields/towhee_ff_Coon1987
+/towheebase/ForceFields/towhee_ff_TraPPE-EH
+/towheebase/ForceFields/towhee_ff_TraPPE-UA
+classical_potential
+'Lennard-Jones'       
+classical_mixrule
+'Lorentz-Berthelot'
+lshift
+.false.
+ltailc
+.true.
+rmin  
+1.0d0 
+rcut  
+12.0d0
+rcutin 
+12.0d0 
+electrostatic_form
+'coulomb'
+coulombstyle
+'ewald_fixed_kmax'
+kalp
+5.6d0
+kmax
+5
+dielect
+1.0d0
+#trappe-ua ethanol
+input_style
+'basic connectivity map'
+nunit
+4
+nmaxcbmc
+4
+lpdbnames
+F
+forcefield
+'TraPPE-UA'
+charge_assignment
+'bond increment'
+unit ntype
+1    'CH3*(sp3)'
+vibration
+1
+2
+improper torsion
+0
+unit ntype
+2    'CH2**(sp3)'
+vibration
+2
+1 3
+improper torsion
+0
+unit ntype
+3    'Och(sp3)'
+vibration
+2
+2 4
+improper torsion
+0
+unit ntype
+4    'Ho'
+vibration
+1
+3
+improper torsion
+0
+#trappe-ua methane
+input_style
+'basic connectivity map'
+nunit
+1
+nmaxcbmc
+1
+lpdbnames
+F
+forcefield
+'TraPPE-UA'
+charge_assignment
+'bond increment'
+unit ntype
+1    'CH4'
+vibration
+0
+improper torsion
+0
+#Coon1987 oxygen
+input_style
+'basic connectivity map'
+nunit
+2
+nmaxcbmc
+2
+lpdbnames
+F
+forcefield
+'Coon1987'
+charge_assignment
+'none'
+unit ntype
+1    'O'
+vibration
+1
+2
+improper torsion
+0
+unit ntype
+2    'O'
+vibration
+1
+1
+improper torsion
+0
+#trappe-eh dinitrogen
+input_style
+'basic connectivity map'
+nunit
+3
+nmaxcbmc
+3
+lpdbnames
+F
+forcefield
+'TraPPE-EH'
+charge_assignment
+'bond increment'
+unit ntype
+1    'N_n2'
+vibration
+1
+2
+improper torsion
+0
+unit ntype
+2    'COM_n2'
+vibration
+2
+1 3
+improper torsion
+0
+unit ntype
+3    'N_n2'
+vibration
+1
+2
+improper torsion
+0
+#trappe-eh carbon dioxide
+input_style
+'basic connectivity map'
+nunit
+3
+nmaxcbmc
+3
+lpdbnames
+F
+forcefield
+'TraPPE-EH'
+charge_assignment
+'bond increment'
+unit ntype
+1    'O_co2'
+vibration
+1
+2
+improper torsion
+0
+unit ntype
+2    'C_co2'
+vibration
+2
+1 3
+improper torsion
+0
+unit ntype
+3    'O_co2'
+vibration
+1
+2
+improper torsion
+0
+

@@ -1,0 +1,18 @@
+This example is a demonstration of how to use the 
+Utils/fitcoex
+routine for taking a compilation of towhee_vlcc data and 
+fitting the single component vapor-liquid coexistence curve
+
+First you need to go into the Utils directory and compile the 
+fitcoex routine.  This is done using
+cd Utils
+make fitcoex
+
+Then come back to this directory and execute the Utils/fitcoex
+program.  It will prompt you for a root file name and you should enter
+ethane
+
+It will then ask a series of questions about how to analyse the data.
+The experimental data provided is in the Smith and Srivastava format.
+
+More information about this utility can be found on in the web manual.

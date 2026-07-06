@@ -1,0 +1,82 @@
+<html>
+ <head>
+  <title>MCCCS Towhee: parse_vlcc_plots script</title>
+ </head>
+ <body bgcolor="#FFFFFF" text="#000000">
+  <table width="675" border="0" cellspacing="0" cellpadding="0" height="590">
+   <tr> 
+    <td colspan="2" height="29"> 
+     <div align="center"> <font size="5"> <b><font face="Arial, Helvetica, sans-serif"><a name="top"></a>MCCCS Towhee: parse_vlcc_plots script</font></b>
+      </font>
+     </div>
+    </td>
+   </tr>
+   <A href="http://sourceforge.net"> 
+    <IMG src="http://sourceforge.net/sflogo.php?group_id=87039&amp;type=5" width="210" height="62" border="0" alt="SourceForge.net Logo" align="right"/>
+   </A>
+   <tr> 
+    <td width="18" height="371" valign="top"> 
+     <p>&nbsp; </p>
+     <p>&nbsp;</p>
+    </td>
+
+    <td width="697" valign="top"> 
+     <dt><b>Overview</b> 
+      <ul>
+       This section explains the <code>parse_vlcc_plots</code> utility script.
+       This BASH script is designed for use in conjunction with the standard towhee output file
+       and parses that file with gawk and grep in order to create several plottable files of the variables that are output during the run and the block
+       averages.
+      </ul>
+     </dt>
+     <dt><b>Compiling and Running</b> 
+      <ul>
+       <code>parse_vlcc_plots.script</code> is a BASH script and does not require compilation.
+       You just need a BASH shell (the default option on most Linux installations).
+       Please note that this script only works with output files generated from Towhee 3.17.5 or subsequent versions.
+      </ul>
+     </dt>
+     <dt><b>Features</b> 
+      <ul>
+       If your standard output file is named "towhee_output" then you would parse that file using the following command.
+       <ul><code>/towheebase/Utils/parse_vlcc_plots.script towhee_output</code></ul>
+       This creates a directory named <code>Plots</code> that contains the following files with data extracted from your standard output file.  
+       <ul>
+        <dt><font color="red">Files with data extracted from the block averages</font>
+         <li><b>avgchempot_box1</b>: contains the chemical potential (In simulation box 1) from the individual blocks used to compute the block averages.</li>
+         <li><b>avgchempot_box2</b>: contains the chemical potential (In simulation box 2) from the individual blocks used to compute the block averages.</li>
+         <li><b>avgden_box1</b>: contains the specific density (In simulation box 1) from the individual blocks used to compute the block averages.</li>
+         <li><b>avgden_box2</b>: contains the specific density (In simulation box 2) from the individual blocks used to compute the block averages.</li>
+         <li><b>avgeng_box1</b>: contains the total potential energy (In simulation box 1) from the individual blocks used to compute the block averages.</li>
+         <li><b>avgeng_box2</b>: contains the total potential energy (In simulation box 2) from the individual blocks used to compute the block averages.</li>
+         <li><b>avgnumden_box1</b>: contains the number density (In simulation box 1) from the individual blocks used to compute the block averages.</li>
+         <li><b>avgnumden_box2</b>: contains the number density (In simulation box 2) from the individual blocks used to compute the block averages.</li>
+         <li><b>avgpres_box1</b>: contains the pressure (In simulation box 1) from the individual blocks used to compute the block averages.</li>
+         <li><b>avgpres_box2</b>: contains the pressure (In simulation box 2) from the individual blocks used to compute the block averages.</li>
+        </dt>
+        <dt><font color="red">Files with data extracted from the snapshots</font>
+         <li><b>energy_box1</b>: contains the total energy (In simulation box 1) from the system snapshots.</li>
+         <li><b>energy_box2</b>: contains the total energy (In simulation box 2) from the system snapshots.</li>
+         <li><b>molecules_box1</b>: contains the number of molecules (In simulation box 1) from the system snapshots.</li>
+         <li><b>molecules_box2</b>: contains the number of molecules (In simulation box 2) from the system snapshots.</li>
+         <li><b>pressure_box1</b>: contains the pressure (In simulation box 1) from the system snapshots.</li>
+         <li><b>pressure_box2</b>: contains the pressure (In simulation box 2) from the system snapshots.</li>
+         <li><b>volume_box1</b>: contains the volume (In simulation box 1) from the system snapshots.</li>
+         <li><b>volume_box2</b>: contains the volume (In simulation box 2) from the system snapshots.</li>
+        </dt>
+       </ul>
+      </ul>
+     </dt>
+     <a href="utility_summary.html">Return to the Utility Summary page</a> 
+    </td>
+   </tr>
+  </table>
+ </body>
+ <foot>
+  <hr></hr>
+  <font face="Arial" size="2">
+   <i>Last updated: </i><!-- #BeginDate format:Am1 -->March 28, 2018<!-- #EndDate -->
+   <i>Send comments to: </i><a href="mailto:marcus_martin@users.sourceforge.net">Marcus Martin</a>
+  </font>
+ </foot>
+</html>
