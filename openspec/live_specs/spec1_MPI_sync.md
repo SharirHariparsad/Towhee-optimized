@@ -25,3 +25,14 @@ Eliminate redundant MPI synchronization overhead and convert blocking communicat
       m = J[k];
       MPI_Send(&m, 1, MPI_INT, k, LAMBDA_KEY, MPI_COMM_WORLD);
   }
+  
+** Action:** Refactor this block to use non-blocking communication to prevent serialization:
+
+-Declare an array of MPI requests: MPI_Request reqs[MAX_NODES]; (Ensure MAX_NODES or an equivalent upper bound is available, or dynamically allocate based on paramwrap->num_nodes).
+-Replace MPI_Send with MPI_Isend, passing the tracking request: &reqs[k-1].
+-Immediately following the loop, inject a blocking MPI_Waitall(paramwrap->num_nodes, reqs, MPI_STATUSES_IGNORE); to guarantee all data is safely out of the buffer before proceeding.
+
+## CONSTRAINTS & GUARDRAILS
+-Do NOT modify or alter the actual payload logic, variable assignments, or data values being passed (e.g., logicflag, m, J[k]).
+-Do NOT touch any code paths outside of these specific MPI message passing layers.
+-Maintain strict standard C compliance; ensure any dynamically allocated memory for tracking arrays (if utilized) is appropriately freed.
