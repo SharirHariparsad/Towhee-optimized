@@ -1,5 +1,5 @@
 ## OBJECTIVE
-Eliminate the Fortran-C dispatch call chain overhead in the O(N²) nonbonded energy evaluation loop by replacing indirect accessor subroutine calls (`twh_*(GLB_GET, ...)`) with direct array references, reducing per-atom-pair call cost from ~5-20 subroutine calls to 0-2 array reads.
+Eliminate the Fortran-C dispatch-call-chain overhead in the O(N²) nonbonded energy evaluation loop by bypassing the `twh_*(GLB_GET, ...)` flag-dispatch accessors in favor of direct module-POINTER array reads. Target: reduce dispatch-layer operations from ~8-15 per atom pair to 0, while retaining the physics computation calls (erfc, energy functions) as module-internal pure functions. The optimization adds a bypass path — the original `twh_*` accessors remain intact for non-hot-path callers.
 
 ## CONTEXT
 The hot path in `engtotal.F:334-458` evaluates all intermolecular atom pairs. Each pair currently traverses:
@@ -15,13 +15,14 @@ For a simulation with 1000 molecules × 100 atoms each, this is ~5×10⁹ atom p
 The fix: create a Fortran module with `POINTER` aliases to the specific `SAVE`d arrays used in the hot path, and access them directly by index.
 
 ## TARGET FILES
-- **NEW:** `Source/engtotal_globals.F` — Fortran module with `POINTER` aliases
+- **NEW:** `Source/engtotal_globals.F` — Fortran module with `POINTER` aliases (data only)
+- **NEW:** `Source/engtotal_inlines.F` — Module with inline pure functions for LJ and Coulomb (computation only)
 - `Source/engtotal.F:334-458` — Hot loop body (modify ~50 lines)
 - `Source/globaldata.F` — Add `TARGET` attribute to ~8 key SAVEd arrays
 - `Source/vtwobody.F:849-882` — Replace `twh_nbcoeff(GLB_GET, ...)` with module array access
 - `Source/vcoulomb.F:100-140` — Replace `twh_qqscale(GLB_GET, ...)` with module array access
 - `Source/allocate.F` — Add module pointer initialization after allocations
-- `Source/Makefile.am:44` — Add `engtotal_globals.F` to `towhee_SOURCES`
+- `Source/Makefile.am:44` — Add `engtotal_globals.F` and `engtotal_inlines.F` to `towhee_SOURCES`
 - `Source/energy_change.F` — Apply same inline pattern when this function dispatches to engtotal sub-loops
 
 ## ARCHITECTURE
@@ -81,30 +82,98 @@ module engtotal_globals
 end module engtotal_globals
 ```
 
+### New Module: `engtotal_inlines.F`
+Separate computation functions from the data module. This module contains pure functions for LJ and Coulomb energy evaluation that read from `engtotal_globals` pointers:
+
+```fortran
+module engtotal_inlines
+  use engtotal_globals
+  implicit none
+contains
+
+  real(8) function inline_lj_12_6(rijsq, ntij, lonefour) result(energy)
+    real(8), intent(in) :: rijsq
+    integer, intent(in) :: ntij
+    logical, intent(in) :: lonefour
+    real(8) :: sixterm, prefactor, srsix
+
+    if (lonefour) then
+      sixterm  = nbcoeff_15(ntij)
+      prefactor = nbcoeff_16(ntij)
+    else
+      sixterm  = nbcoeff_13(ntij)
+      prefactor = nbcoeff_14(ntij)
+    endif
+    srsix = sixterm / (rijsq * rijsq * rijsq)
+    energy = srsix * (srsix - 1.0d0) * prefactor
+    if (lshift_val) energy = energy - nbcoeff_0(ntij)
+  end function inline_lj_12_6
+
+  real(8) function inline_coulomb(rij, qqij, calp, lewald) result(energy)
+    real(8), intent(in) :: rij, qqij, calp
+    logical, intent(in) :: lewald
+    real(8) :: erfc_val
+
+    if (lewald) then
+      erfc_val = erfc(calp * rij)
+      energy = qqij * erfc_val / rij
+    else
+      energy = qqij / rij
+    endif
+  end function inline_coulomb
+
+end module engtotal_inlines
+```
+
+Note: The functions are regular (not `PURE`) because they access module-level pointers. Fortran `PURE` requires all data access through `INTENT(IN)` arguments, which would defeat the purpose of eliminating argument passing. The module pointers are read-only during simulation, so the functions are side-effect-free in practice.
+
 ### Pointer Wiring in `allocate.F`
 After all `twh_nbcoeff`, `twh_coordinates`, etc. arrays are allocated, add a call to `engtotal_globals_init()` which associates module pointers to the TARGET arrays in `globaldata.F`:
 
 ```fortran
 subroutine engtotal_globals_init()
   use engtotal_globals
-  call twh_coordstorage_handle(GLB_GET, ptr_crd_real, ...)
-  crd_x(1:natoms) => double_pointer_c(ptr_crd_real)(0::3)
-  crd_y(1:natoms) => double_pointer_c(ptr_crd_real)(1::3)
-  crd_z(1:natoms) => double_pointer_c(ptr_crd_real)(2::3)
-  ! ... same for all other arrays ...
+  use iso_c_binding, only: c_double, c_f_pointer, c_ptr
+  use globaldata, only: natoms
+  type(c_ptr) :: cptr
+  real(c_double), pointer :: coord_flat(:)
+
+  ! Coordinate arrays: retrieve C pointer and bind via c_f_pointer
+  call get_coord_storage_ptr(CRD_REAL, cptr)
+  call c_f_pointer(cptr, coord_flat, [3 * natoms])
+  ! SoA decomposition: flat array stores x0,y0,z0, x1,y1,z1, ...
+  ! Access pattern: crd_x(i) = coord_flat(3*(i-1)+1), etc.
+  crd_x_ptr => coord_flat(1::3)   ! Fortran pointer alias with stride
+  crd_y_ptr => coord_flat(2::3)
+  crd_z_ptr => coord_flat(3::3)
+
+  ! ... same for crd_temp_x/y/z using CRD_TEMP ...
+  ! ... same for nbcoeff, ntype, luse_c, etc. using TARGET arrays ...
 end subroutine
 ```
 
-NOTE: Fortran `POINTER` cannot directly stride a C pointer. Implementation approach: use a shim array `coord_flat(0:3*natoms-1)` with `TARGET`, set via a single `memcpy` from the C heap on initialization and on each accept/reject that modifies coordinates. This adds one memcpy per accept, but eliminates per-call overhead.
+NOTE: Fortran `POINTER` cannot directly stride a C pointer via `=>` with stride syntax on a section. Implementation approach: use a shim array `coord_flat(0:3*natoms-1)` with `TARGET`, set via a single `memcpy` from the C heap on initialization and on each accept/reject that modifies coordinates. This adds one memcpy per accept, but eliminates per-call overhead.
+
+### Expected Memory Layout (Hot Loop Access Pattern)
+
+Per atom pair (i, j), the ideal access pattern after optimization:
+```
+L1 cache line 1: crd_x(i), crd_x(j)     — 16 bytes (2 doubles)
+L1 cache line 2: crd_y(i), crd_y(j)     — 16 bytes
+L1 cache line 3: crd_z(i), crd_z(j)     — 16 bytes
+L1 cache line 4: ntype_arr(molty_i, ii), ntype_arr(molty_j, jj) — 8 bytes
+L1 cache line 5: nbcoeff_13(ntij)        — 8 bytes (single read, triangular index)
+```
+Total: ~64 bytes per pair ≈ 1 cache line. Original path: ~64 bytes + 8-15× subroutine stack frames + switch branches.
 
 ## STEP-BY-STEP IMPLEMENTATION PLAN
 
 ### Phase 1: Create Module and Wire Arrays (Estimated: 3 hours)
 
-#### Step 1.1 — Create `Source/engtotal_globals.F`
-Write the Fortran module as specified above in ARCHITECTURE. Every `POINTER` uses `CONTIGUOUS` attribute.
+#### Step 1.1 — Create `Source/engtotal_globals.F` and `Source/engtotal_inlines.F`
+Write the Fortran modules as specified above in ARCHITECTURE. `engtotal_globals.F` is the data-only module with `POINTER` aliases (every `POINTER` uses `CONTIGUOUS` attribute). `engtotal_inlines.F` contains the inline pure functions that read from the data module.
 
-Constraint: Do NOT introduce any USE statements in `globaldata.F`. The module is consumed only by the hot-path functions (`engtotal.F`, `vtwobody.F`, `vcoulomb.F`), not by the global data layer.
+Constraint: Do NOT introduce any USE statements in `globaldata.F`. The modules are consumed only by the hot-path functions (`engtotal.F`, `vtwobody.F`, `vcoulomb.F`), not by the global data layer.
 
 #### Step 1.2 — Add `TARGET` to Key Arrays in `globaldata.F`
 Locate each SAVEd array accessed from the hot path and add `TARGET`:
@@ -131,12 +200,14 @@ Create subroutine `engtotal_globals_init()` called once after all allocations co
 subroutine engtotal_globals_init()
   use engtotal_globals
   ! nbcoeff: extract slices for hot-path coefficients
-  call twh_nbcoeff_get_ptr(nbcoeff_all_ptr) ! new accessor in globaldata.F
-  nbcoeff_0(1:CROSSTYPEMAX) => nbcoeff_all_ptr(0, 1:CROSSTYPEMAX)
-  nbcoeff_13(1:CROSSTYPEMAX) => nbcoeff_all_ptr(13, 1:CROSSTYPEMAX)
-  nbcoeff_14(1:CROSSTYPEMAX) => nbcoeff_all_ptr(14, 1:CROSSTYPEMAX)
-  nbcoeff_15(1:CROSSTYPEMAX) => nbcoeff_all_ptr(15, 1:CROSSTYPEMAX)
-  nbcoeff_16(1:CROSSTYPEMAX) => nbcoeff_all_ptr(16, 1:CROSSTYPEMAX)
+  ! Method: use TARGET arrays and pointer assignment to sections
+  ! nbcoeff is declared as: real(8), save, target :: nbcoeff(MINNBCOEFF:MAXNBCOEFF, CROSSTYPEMAX)
+  ! Pointers alias specific coefficient rows for stride-1 access
+  nbcoeff_0  => nbcoeff(0,  1:CROSSTYPEMAX)
+  nbcoeff_13 => nbcoeff(13, 1:CROSSTYPEMAX)
+  nbcoeff_14 => nbcoeff(14, 1:CROSSTYPEMAX)
+  nbcoeff_15 => nbcoeff(15, 1:CROSSTYPEMAX)
+  nbcoeff_16 => nbcoeff(16, 1:CROSSTYPEMAX)
   ...
 end subroutine
 ```
@@ -144,9 +215,13 @@ end subroutine
 For the coordinate arrays (which live as C heap pointers in `double_pointer[]`), the implementation depends on C-Fortran interop. Create a C function `get_coord_storage_ptr(int crdflag, double **ptr)` returning the base address, then use `c_f_pointer` in Fortran to bind:
 
 ```fortran
-use iso_c_binding
+use iso_c_binding, only: c_double, c_f_pointer, c_ptr
+type(c_ptr) :: cptr
+real(c_double), pointer :: coord_flat(:)
 call get_coord_storage_ptr(CRD_REAL, cptr)
-call c_f_pointer(cptr, crd_x, [3*natoms])
+call c_f_pointer(cptr, coord_flat, [3 * natoms])
+! coord_flat stores interleaved: x0,y0,z0, x1,y1,z1, ...
+! Crd arrays use strided pointer aliasing (see MEMORY LAYOUT section)
 ```
 
 Constraint: The coordinate pointer must be re-queried after any `CRD_T_TO_R` swap (accept step), because the underlying C pointer changes. Add a hook in the accept path.
@@ -201,7 +276,7 @@ do ii = 1, numiunit
 
 #### Step 2.2 — Inline `twh_vtwobody` in `vtwobody.F` for LJ 12-6 (the dominant case)
 
-Create a new pure function `inline_lj_12_6(rijsq, ntij, lonefour)` in `engtotal_globals.F`:
+Create a new function `inline_lj_12_6(rijsq, ntij, lonefour)` in `engtotal_inlines.F`:
 
 ```fortran
 real(8) function inline_lj_12_6(rijsq, ntij, lonefour) result(energy)
@@ -225,7 +300,7 @@ real(8) function inline_lj_12_6(rijsq, ntij, lonefour) result(energy)
 end function
 ```
 
-Constraint: This function must be `PURE` — no side effects, no I/O, no SAVE variables except the module pointers (which are read-only). Verify `lshift_val` is also read-only during the simulation.
+Constraint: This function must have no side effects — no I/O, no writes to module pointers (which are read-only during simulation). The function is not declared `PURE` because it reads module-level pointers, but it is side-effect-free in practice. Verify `lshift_val` is read-only during simulation.
 
 #### Step 2.3 — Inline `twh_vcoulomb` in `vcoulomb.F`
 
@@ -255,11 +330,12 @@ Constraint: `twh_getnbtype` (ntii,ntjj → ntij triangular index map) is pure in
 ### Phase 3: Coordinate Refresh on Accept (Estimated: 1 hour)
 
 #### Step 3.1 — Hook in Accept Path
-After every MC accept (in `trancom.F:250-255`, `rotate.F:218-263`, `swapmoves.F` accept blocks), the C coordinate pointer swaps (CRD_REAL and CRD_TEMP exchange via `twh_coordstorage_` pointer swap). After this swap, the module pointers need to be updated:
+After every MC accept, the C coordinate pointer swaps (`CRD_REAL` and `CRD_TEMP` exchange via `twh_coordstorage_` pointer swap). After this swap, the module pointers must be updated:
 
 ```fortran
-! In engtotal_globals.F or a new subroutine engtotal_refresh_coords()
+! In engtotal_inlines.F or a new subroutine engtotal_refresh_coords()
 subroutine engtotal_refresh_coords()
+  use engtotal_globals
   if (associated(crd_x)) call refresh_coord_ptr(CRD_REAL, crd_x, crd_y, crd_z)
   if (associated(crd_temp_x)) call refresh_coord_ptr(CRD_TEMP, crd_temp_x, crd_temp_y, crd_temp_z)
 end subroutine
@@ -268,6 +344,32 @@ end subroutine
 Call this in every accept path immediately after `CRD_T_TO_R`.
 
 Constraint: Verify that the pointer refresh does not introduce race conditions in the OpenMP parallel case (Optimization 1). The refresh should happen outside the parallel region, between MC moves.
+
+#### Coordinate Refresh Audit Checklist
+Every file that calls `CRD_T_TO_R` must have a subsequent `engtotal_refresh_coords()` call:
+
+| File | Function | Accept path location | Refresh call added? |
+|------|----------|---------------------|-------------------|
+| `trancom.F` | translation move | ~line 250 (after CRD_T_TO_R) | ☐ |
+| `rotate.F` | rotation move | ~line 218-263 | ☐ |
+| `tranatom.F` | atom translation | (find accept block) | ☐ |
+| `swapmoves.F` | identity swap | (find accept block) | ☐ |
+| `volumemoves.F` | volume change | (find accept block) | ☐ |
+| `insert.F` | insertion | (find accept block) | ☐ |
+| `delete.F` | deletion | (find accept block) | ☐ |
+
+Add a grep-based CI check:
+```bash
+# Verify every CRD_T_TO_R has a subsequent refresh call
+grep -rn "CRD_T_TO_R" Source/ | while read line; do
+  file=$(echo "$line" | cut -d: -f1)
+  linenum=$(echo "$line" | cut -d: -f2)
+  if ! grep -q "engtotal_refresh_coords" "$file"; then
+    echo "ERROR: $file calls CRD_T_TO_R but not engtotal_refresh_coords"
+    exit 1
+  fi
+done
+```
 
 ### Phase 4: Update energy_change.F (Estimated: 1.5 hours)
 
@@ -294,15 +396,64 @@ Set per-chain before the outer loop based on `chaininfo(:,2:3)` flags.
 ### Phase 5: Build System (Estimated: 0.5 hours)
 
 #### Step 5.1 — Update `Makefile.am`
-Add `engtotal_globals.F` to `towhee_SOURCES` in alphabetical position (after `energy_change.F`, before `engatom.F`):
+Add `engtotal_globals.F` and `engtotal_inlines.F` to `towhee_SOURCES` in alphabetical position (after `energy_change.F`, before `engatom.F`):
 ```
 engtotal_globals.F \
+engtotal_inlines.F \
 ```
 
-Constraint: Ensure the module is compiled before `engtotal.F`, `vtwobody.F`, and `vcoulomb.F` which USE it. GNU `make` with `.mod` dependency tracking handles this automatically if the module file is listed first, but add an explicit dependency:
+Constraint: Ensure the modules are compiled before `engtotal.F`, `vtwobody.F`, and `vcoulomb.F` which USE them. GNU `make` with `.mod` dependency tracking handles this automatically if the module files are listed first, but add explicit dependencies:
 ```
-engtotal.o vtwobody.o vcoulomb.o: engtotal_globals.o
+engtotal.o vtwobody.o vcoulomb.o: engtotal_globals.o engtotal_inlines.o
 ```
+
+#### Step 5.2 — Add Preprocessor Guard
+
+In `engtotal_globals.F`, `engtotal_inlines.F`, and all files that USE them, wrap the inline path with a preprocessor guard:
+
+```fortran
+#ifndef HOT_PATH_INLINE
+#define HOT_PATH_INLINE 0
+#endif
+
+#if HOT_PATH_INLINE
+  use engtotal_globals, only: crd_x, crd_y, crd_z, ...
+  ! inline path — direct array access
+#else
+  ! original dispatch path (unchanged, uses twh_* subroutines)
+#endif
+```
+
+In `Makefile.am`, add a configure-time option:
+```makefile
+AC_ARG_ENABLE([hot-path-inline],
+  [AS_HELP_STRING([--enable-hot-path-inline],
+    [Enable inline hot-path optimization @<:@default=no@:>@])],
+  [hot_path_inline=$enableval],
+  [hot_path_inline=no])
+
+if test "x$hot_path_inline" = "xyes"; then
+  AM_CPPFLAGS += -DHOT_PATH_INLINE=1
+else
+  AM_CPPFLAGS += -DHOT_PATH_INLINE=0
+endif
+```
+
+This allows A/B comparison without code changes:
+```bash
+./configure --enable-hot-path-inline   # optimized build
+./configure                            # baseline build
+```
+
+## RISK & ROLLBACK
+
+| Risk | Likelihood | Impact | Mitigation |
+|------|-----------|--------|------------|
+| C coordinate pointer stride layout incompatible with Fortran POINTER | Medium | High — blocks Phase 1 | Fallback: copy coordinates to a Fortran-allocated flat array (`coord_flat(1:3*natoms)`) with `TARGET`. Accept one memcpy per step; still eliminates dispatch overhead. |
+| Pointer aliasing violates Fortran aliasing rules under aggressive optimization (ifort -O3) | Low | Medium — silent wrong results | Build both gfortran and ifort; compare energies. Add `-fcheck=all` in debug builds. |
+| `TARGET` attribute on SAVEd arrays causes unexpected codegen in `globaldata.F` | Low | Low — compile error only | The compiler will reject invalid TARGET placement; fix is mechanical. |
+| Coordinate refresh missed in an accept path → stale coordinates | Medium | High — wrong energies | Add a debug-mode assertion: after each energy eval, verify `crd_x(i) == twh_coordinates(GLB_GET, ...)` for a random sample of atoms. |
+| Performance gain < 1.5× | Medium | Medium — effort wasted | Profile before starting. If dispatch overhead < 30% of hot-loop time, pivot to loop tiling or vectorization instead. |
 
 ## TESTING & VALIDATION
 
@@ -319,6 +470,14 @@ engtotal.o vtwobody.o vcoulomb.o: engtotal_globals.o
 ### Memory Test
 1. Run with `valgrind --tool=memcheck` to detect any dangling pointer references introduced by the POINTER aliasing.
 2. Run with `-fbounds-check` (gfortran) to detect any array index out-of-bounds from incorrect index math.
+
+### Index Map Validation Test
+Write a unit test `test_getnbtype.F` that:
+1. Iterates all `(ntii, ntjj)` pairs in `[1, NNTYPE]`
+2. Computes `ntij` via the inline formula from Constraint #5
+3. Asserts `ntij == getnbtype(ntii, ntjj)` (existing function)
+4. Asserts `ntij` is in `[1, CROSSTYPEMAX]`
+5. Runs as part of `make check` before and after optimization
 
 ## CONSTRAINTS & GUARDRAILS
 
@@ -351,6 +510,8 @@ engtotal.o vtwobody.o vcoulomb.o: engtotal_globals.o
 
 8. **Do NOT use Fortran 2008+ features** beyond `CONTIGUOUS` and `c_f_pointer`. The codebase uses F77 + extensions. The module approach is compatible with gfortran -std=gnu and ifort -standard-semantics.
 
+9. **Thread safety (pending Optimization 1).** All module pointers in `engtotal_globals` are read-only during the parallel region. The coordinate refresh (`engtotal_refresh_coords`) must be called outside any `!$OMP PARALLEL` region. Verify with ThreadSanitizer or `valgrind --tool=helgrind` on a small test case.
+
 ## SUCCESS CRITERIA
 
 | Metric | Target | Measurement |
@@ -360,3 +521,10 @@ engtotal.o vtwobody.o vcoulomb.o: engtotal_globals.o
 | Per-step energy drift vs baseline | ≤1×10⁻¹² (relative) | Compare final energies |
 | Memory increase | ≤1% | `valgrind` heap usage |
 | Build time increase | ≤10 seconds | `make` timing |
+
+## POST-DEPLOYMENT MONITORING
+
+1. **Energy conservation drift**: In NVE runs, monitor total energy drift over 10⁶ steps. The optimization should not change drift characteristics.
+2. **Regression trigger**: If any CI test shows >1×10⁻¹⁰ relative energy deviation, bisect to identify the offending change.
+3. **Performance regression**: Add a `perf stat` step to CI that records branch-miss rate and L1-dcache-load-misses for the hot loop. Flag regressions >10%.
+4. **Pointer validity**: In debug builds (`-fbounds-check -fcheck=all`), run periodically to detect dangling pointer references or out-of-bounds access from the aliased arrays.
