@@ -36,6 +36,13 @@ a silent correctness bug, or an untested behavioral change:
 9. Minor: corrected the mechanism description of the `maddist` min-reduction, and moved
    the race-detector run to a small/fast system instead of the 10,000+ atom performance
    system.
+10. **Serial behavior regression:** the early-exit refactoring (named `douter` construct,
+    `lomp_failure` flag, `ATOMIC WRITE`, `exit douter`) alters program behavior even when
+    compiled without OpenMP — the original `return` becomes an `exit` that skips remaining
+    `jchain` pairs but continues the outer `ichain` loop. All early-exit changes must be
+    wrapped in `#ifdef USEOPENMP` / `#else` / `#endif` so the serial build preserves the
+    original immediate-return semantics. The Hot Loop Context excerpt, Phase 2 Step 2.3,
+    and Guardrails section have been updated accordingly (see Guardrail 12).
 
 An "OPEN QUESTIONS" checklist is at the end — these need to be answered by reading the
 actual current source before writing any `!$OMP` directive, not assumed from this spec.
@@ -74,7 +81,11 @@ The target loop is in subroutine `twh_engtotal_twobody`:
                call twh_com(GLB_GET,crdflag,ichain,xcmi,ycmi,zcmi)
                call twh_rcmu(GLB_GET,ichain,rcmi)
             endif
-            douter: do jchain = ichain + 1, nchain
+#ifdef USEOPENMP
+             douter: do jchain = ichain + 1, nchain
+#else
+             do jchain = ichain + 1, nchain
+#endif
                call twh_nboxi(GLB_GET,jchain,testboxj)
                if ( testboxj .eq. ibox ) then
                   call twh_moltyp(GLB_GET,jchain,jmolty)
@@ -122,28 +133,36 @@ The target loop is in subroutine `twh_engtotal_twobody`:
                                  do l = 1, scp_num_foreign_lambda
                                     vftwo(l)=vftwo(l) + vf(l)
                                  enddo
-                                 if ( lovrlap ) then
-                                    call twh_engtotal_overlap(...)
-                                    if ( lfailure ) then
-                                       !$OMP ATOMIC WRITE
-                                       lomp_failure = .true.
-                                       exit douter
-                                    endif
-                                 endif
-                              endif
-                              if ( lelect .and. leval_c) then
+                                  if ( lovrlap ) then
+                                     call twh_engtotal_overlap(...)
+#ifdef USEOPENMP
+                                     if ( lfailure ) then
+                                        !$OMP ATOMIC WRITE
+                                        lomp_failure = .true.
+                                        exit douter
+                                     endif
+#else
+                                     if ( lfailure ) return
+#endif
+                                  endif
+                               endif
+                               if ( lelect .and. leval_c) then
                                  rij = dsqrt(rijsq)
                                  call twh_vcoulomb(...)
                                  velectinter = velectinter + vcoulomb
-                                 if ( lovrlap ) then
-                                    call twh_engtotal_overlap(...)
-                                    if ( lfailure ) then
-                                       !$OMP ATOMIC WRITE
-                                       lomp_failure = .true.
-                                       exit douter
-                                    endif
-                                 endif
-                                 dl_elect = dl_elect + dvdl
+                                  if ( lovrlap ) then
+                                     call twh_engtotal_overlap(...)
+#ifdef USEOPENMP
+                                     if ( lfailure ) then
+                                        !$OMP ATOMIC WRITE
+                                        lomp_failure = .true.
+                                        exit douter
+                                     endif
+#else
+                                     if ( lfailure ) return
+#endif
+                                  endif
+                                  dl_elect = dl_elect + dvdl
                                  do l = 1, scp_num_foreign_lambda
                                     vfelec(l) = vfelec(l) + vf(l)
                                  enddo
@@ -156,18 +175,30 @@ The target loop is in subroutine `twh_engtotal_twobody`:
                      enddo
                   endif
                endif
-            enddo douter
+#ifdef USEOPENMP
+             enddo douter
+#else
+             enddo
+#endif
          endif
       enddo
 ```
 
-**What changed from the original excerpt:** the `jchain` loop is now a named construct
-(`douter`) and each `if (lovrlap) call twh_engtotal_overlap(...)` site now checks the
-resulting `lfailure` and, if set, atomically raises the shared `lomp_failure` flag and
-exits the named loop — abandoning only the *remaining pairs for the current `ichain`*
-rather than either (a) illegally returning from inside a parallel region or (b) silently
-computing the rest of the entire O(N²) sweep on top of a known-bad configuration. See
-Phase 2, Step 2.3 for the reasoning.
+**What changed from the original excerpt:** all early-exit refactoring is wrapped in
+`#ifdef USEOPENMP` guards so that the serial build (`-DUSEOPENMP` not defined) preserves
+the original immediate-`return` semantics exactly. In the OpenMP build:
+
+- The `jchain` loop is a named construct (`douter`) so it can be exited from within the
+  nested `ii`/`jj` loops without touching the OMP-controlled `ichain` loop.
+- Each `if (lovrlap) call twh_engtotal_overlap(...)` site now checks the resulting
+  `lfailure` and, if set, atomically raises the shared `lomp_failure` flag and exits the
+  named loop — abandoning only the *remaining pairs for the current `ichain`* rather than
+  either (a) illegally returning from inside a parallel region or (b) silently computing
+  the rest of the O(N²) sweep on top of a known-bad configuration.
+
+In the serial build, the `#else` branch retains the original `if ( lfailure ) return`,
+which is correct for single-threaded execution and avoids any behavioral regression.
+See Phase 2, Step 2.3 for the full reasoning.
 
 ## VARIABLE AUDIT & THREAD-SAFETY CLASSIFICATION
 
@@ -403,6 +434,24 @@ region-wide abort still isn't legal OpenMP): each thread stops working on its *c
    endif
    ```
 
+6. **MUST be guarded with `#ifdef USEOPENMP`.** Every change in steps 1-5 above (the
+   `lomp_failure` declaration, its initialization, the `douter` construct name, the
+   `ATOMIC WRITE` / `exit douter` blocks, and the post-region check) must be wrapped in
+   `#ifdef USEOPENMP` / `#else` / `#endif` so that the serial build (without
+   `-DUSEOPENMP`) preserves the original code exactly. The `#else` branches must contain
+   the original serial code:
+   - `douter:` label → bare `do jchain = ...` (no construct name)
+   - `ATOMIC WRITE` / `exit douter` blocks → original `if ( lfailure ) return`
+   - `enddo douter` → bare `enddo`
+   - `lomp_failure` declaration/init and post-region check → omitted entirely
+
+   **Rationale:** without these guards, the refactoring silently changes serial behavior:
+   the original `return` exits the entire subroutine; the refactored `exit douter` only
+   exits the inner `jchain` loop, leaving the outer `ichain` loop to continue processing
+   remaining chains on data already known to be bad. This is the correct tradeoff under
+   OpenMP (where `return` is illegal), but wrong for the serial build. The full guard
+   structure is shown in the Hot Loop Context excerpt above.
+
 **On `lovrlap` specifically:** it does not need a `REDUCTION` clause. Based on the
 visible code, it's produced by `twh_vtwobody`/`twh_vcoulomb` as a per-call output and
 consumed in the same iteration — a `PRIVATE` variable, not a value that needs to be
@@ -492,6 +541,22 @@ make -j
 ```
 Confirm the binary links (checks the Phase 1.2 `AM_LDFLAGS` fix) and `engtotal.o` was
 compiled with `-fopenmp`.
+
+#### Step 4.1b — Serial-build regression test (NEW, do this alongside 4.1)
+
+Before testing the OpenMP build, confirm that compiling *without* `-DUSEOPENMP` produces
+bitwise-identical output to the Phase 4.0 baseline:
+
+```bash
+./configure
+make -j
+./towhee < test_input > output_serial.txt
+```
+
+Diff `output_serial.txt` against the Phase 4.0 baseline — must be identical. This catches
+any serial behavioral regression introduced by the `#ifdef` refactoring (Guardrail 12).
+If this fails, the `#else` branches in the early-exit code are wrong and must be fixed
+before proceeding to OpenMP testing.
 
 #### Step 4.2 — Correctness test (comparison against baseline, not just cross-thread)
 ```bash
@@ -603,9 +668,21 @@ profile a representative production run to confirm what fraction of total wall t
     in Step 4.4, don't ship without an explicit `SCHEDULE`.
 
 11. **Hidden shared state (NEW):** a `GLB_SET`-only audit does not catch `SAVE`
-    variables or `COMMON` blocks used as scratch space inside called subroutines. Phase
-    3, Step 3.0 must be completed — and must find nothing that persists mutable state
-    across calls — before this spec's safety claims hold.
+     variables or `COMMON` blocks used as scratch space inside called subroutines. Phase
+     3, Step 3.0 must be completed — and must find nothing that persists mutable state
+     across calls — before this spec's safety claims hold.
+
+12. **Early-exit refactoring must be `#ifdef`-guarded (NEW):** the `douter` named
+     construct, `lomp_failure` flag, `ATOMIC WRITE`, `exit douter`, and post-region check
+     introduced in Phase 2, Step 2.3 change program behavior compared to the original
+     code: the original `return` exits the entire subroutine immediately, while `exit
+     douter` only exits the inner `jchain` loop and lets the outer `ichain` loop continue.
+     This is the correct tradeoff under OpenMP (where `return` is illegal), but it is
+     wrong for the serial build. **Every early-exit change must be wrapped in
+     `#ifdef USEOPENMP` / `#else` / `#endif`** so the serial build preserves the original
+     `return` semantics exactly. See the Hot Loop Context excerpt for the complete guard
+     structure. Failure to do this introduces a silent serial behavioral regression that
+     Phase 4.1b is designed to catch.
 
 ## SUCCESS CRITERIA
 
@@ -618,27 +695,20 @@ profile a representative production run to confirm what fraction of total wall t
 | Data races | 0 | `valgrind --tool=drd` clean on a small test input |
 | Compile with `--enable-openmp` | Clean build, links successfully | `make` with flag enabled |
 | Compile without `--enable-openmp` | No regression | Default build unchanged |
+| Serial-build output matches baseline | Bitwise identical | Phase 4.1b — catches `#ifdef` guard regressions |
 
 ## OPEN QUESTIONS — resolve before writing code
 
-These require reading the actual current source, not this spec, to answer:
+These require reading the actual current source, not this spec, to answer. Mark the
+status as you resolve each one during Phase 0.
 
-1. Does the full `engtotal.F:334-458` range match the excerpt above? What's in the gap
-   between the visible `enddo` and line 458 (the `vforeign` summation is referenced at
-   460-462, outside the stated range — confirm the boundaries)?
-2. Is `cutstyle` actually used anywhere in this specific loop, or is it a holdover from
-   a different code path? It doesn't appear in the excerpt.
-3. Is `lfailure` a dummy argument of `twh_engtotal_twobody` (passed by the caller) or a
-   purely local variable? This determines whether the `PRIVATE` classification is
-   correct or whether special handling is needed for the pre/post-region values.
-4. Do `twh_vtwobody` and `twh_vcoulomb` actually return `lovrlap` as a call-local output
-   argument, as assumed? Confirm the real call signatures (the excerpt elides the
-   arguments as `...`).
-5. Are `vftwo` and `vfelec` declared as fixed-size (explicit-shape) arrays, or
-   allocatable? This determines whether `REDUCTION(+:vftwo, vfelec)` is portable across
-   the target compiler versions.
-6. Do `vtwobody.F`, `vcoulomb.F`, or `mimage.F` contain any `SAVE` variables or `COMMON`
-   blocks used as cross-call scratch state? (Phase 3, Step 3.0)
-7. What fraction of total simulation wall time does `twh_engtotal_twobody` actually
-   account for in a representative production run, relative to `energy_change.F`?
-   (Phase 4.7 — informs whether this is the right first target for overall speedup.)
+| # | Question | Status | Resolved by | Notes |
+|---|----------|--------|-------------|-------|
+| 1 | Does the full `engtotal.F:334-458` range match the excerpt? What's in the gap between the visible `enddo` and line 458? | OPEN | | The `vforeign` summation is referenced at 460-462, outside the stated range — confirm boundaries |
+| 2 | Is `cutstyle` actually used anywhere in this specific loop, or is it a holdover? It doesn't appear in the excerpt. | OPEN | | If unused, remove from SHARED list |
+| 3 | Is `lfailure` a dummy argument of `twh_engtotal_twobody` (passed by caller) or a purely local variable? | OPEN | | Determines whether PRIVATE classification is correct or if pre/post-region handling is needed |
+| 4 | Do `twh_vtwobody` and `twh_vcoulomb` actually return `lovrlap` as a call-local output argument? | OPEN | | Confirm real call signatures — excerpt elides args as `...` |
+| 5 | Are `vftwo` and `vfelec` declared as fixed-size (explicit-shape) arrays, or allocatable? | OPEN | | Determines whether `REDUCTION(+:vftwo, vfelec)` is portable |
+| 6 | Do `vtwobody.F`, `vcoulomb.F`, or `mimage.F` contain `SAVE` variables or `COMMON` blocks used as cross-call scratch state? | OPEN | | Phase 3, Step 3.0 |
+| 7 | What fraction of total simulation wall time does `twh_engtotal_twobody` account for? | OPEN | | Phase 4.7 — informs whether this is the right first target |
+| 8 | Confirm exact original `return` semantics at each `if (lovrlap)`/`if (lfailure)` site in unmodified source | OPEN | | `#else` branches must reproduce original control flow exactly — check for cleanup/side-effects between `return` and end of subroutine |
