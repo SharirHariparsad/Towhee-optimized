@@ -74,9 +74,7 @@ double tramonto_()
   /* update start of timing for timer 1 */
   timekeeper(1,1,0);
   logicflag=1;
-  MPI_Barrier(MPI_COMM_WORLD);
   MPI_Bcast(&logicflag,1,MPI_INT,0,MPI_COMM_WORLD);
-  MPI_Barrier(MPI_COMM_WORLD);
   dftmain(&energy);
   /* update end of timing for timer 1 */
   timekeeper(2,1,0);
@@ -99,9 +97,7 @@ void tramontoloop()
   double dumb;
   logicflag = 1;
   while ( logicflag==1) {
-    MPI_Barrier(MPI_COMM_WORLD);
     MPI_Bcast(&logicflag,1,MPI_INT,0,MPI_COMM_WORLD);
-    MPI_Barrier(MPI_COMM_WORLD);
     if ( logicflag==1) dftmain(&dumb);
   }
   return;
