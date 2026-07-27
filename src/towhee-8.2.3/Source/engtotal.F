@@ -286,6 +286,14 @@ c     ******************************************************************
       implicit none
 #define FUNCTION_VTWOBODY
 #include "functions.h"
+#ifdef HOT_PATH_INLINE
+      use engtotal_globals, only: engtotal_sync_coord_ptrs,
+     &     engtotal_globals_init, engtotal_sync_int_ptrs,
+     &     crd_x, crd_y, crd_z, crd_temp_x, crd_temp_y, crd_temp_z,
+     &     ntype_arr, luse_c_arr, luse_v_arr, globalpos_arr,
+     &     module_initialized, classical_pot_num_val,
+     &     rcutsq_val, rminsq_val, lelect_val, lewald_val
+#endif
 c     --- variables passed to/from the subroutine
       double precision velectinter, vtwointer, maddist
       double precision dl_twointer, dl_elect
@@ -308,9 +316,22 @@ c     --- vf holds incremental foreign energies from vtwobody, vcoulomb
 c     --- calls
 c     --- vfelec and vftwo keep running totals, their sum becomes
 c     --- vforeign
-      double precision vf, vfelec, vftwo
-      dimension vf(MAX_FOREIGN_LAMBDA), vfelec(MAX_FOREIGN_LAMBDA), 
+       double precision vf, vfelec, vftwo
+       dimension vf(MAX_FOREIGN_LAMBDA), vfelec(MAX_FOREIGN_LAMBDA), 
      &      vftwo(MAX_FOREIGN_LAMBDA)
+#ifdef HOT_PATH_INLINE
+c     --- inline path local variables
+       logical lonefour_global
+       integer low, high, istep, ntij, ipos_i, ipos_j
+       integer idx_i, idx_j
+c     --- F90 pointers to coordinate slices
+       double precision, pointer :: x_ptr(:)
+       double precision, pointer :: y_ptr(:)
+       double precision, pointer :: z_ptr(:)
+c     --- inline function declarations
+       double precision inline_lj_12_6, inline_coulomb
+       integer getnbtype_inline
+#endif
 
 c     --- retrieve constants
       call twh_scp_num_foreign_lambda(GLB_GET,scp_num_foreign_lambda)
@@ -328,6 +349,26 @@ c     --- retrieve constants
       dl_twointer = 0.0d0
       dl_elect = 0.0d0
       rcmi = 0.0d0
+
+#ifdef HOT_PATH_INLINE
+c     --- one-time module initialization + coordinate sync
+      if ( .not. module_initialized ) then
+         call engtotal_globals_init()
+         call engtotal_sync_int_ptrs(nchain)
+         module_initialized = .true.
+      endif
+      call engtotal_sync_coord_ptrs()
+      lonefour_global = (cutstyle .eq. 3)
+      if ( crdflag .eq. CRD_REAL ) then
+         x_ptr => crd_x
+         y_ptr => crd_y
+         z_ptr => crd_z
+      else
+         x_ptr => crd_temp_x
+         y_ptr => crd_temp_y
+         z_ptr => crd_temp_z
+      endif
+#endif
 
 c     --- two-body nonbonded interactions
 c     --- loop over all chains i 
@@ -381,75 +422,168 @@ c                    --- add in the com radii
                      rcmsq = rcm*rcm
                      if ( rijsq .gt. rcmsq ) lcompute = .false.
                   endif
-                  if ( lcompute ) then
-                     do ii = 1,numiunit
-                        call twh_ntype(GLB_GET,imolty,ii,ntii)
-                        call twh_coordinates(GLB_GET,crdflag,ichain,ii
-     &                       ,rxui,ryui,rzui)
-                        call twh_luse_c(GLB_GET,imolty,ii,luse_ci)
-                        call twh_luse_v(GLB_GET,imolty,ii,luse_vi)
-c                       --- loop over all beads jj of chain j 
-                        do jj = 1, numjunit
-                           call twh_ntype(GLB_GET,jmolty,jj,ntjj)
-                           call twh_coordinates(GLB_GET,crdflag,jchain
-     &                          ,jj,rxuj,ryuj,rzuj)
-                           call twh_luse_c(GLB_GET,jmolty,jj,luse_cj)
-                           call twh_luse_v(GLB_GET,jmolty,jj,luse_vj)
+                   if ( lcompute ) then
+#ifdef HOT_PATH_INLINE
+c                    --- inline hot path: bypass twh_* dispatch
+c                    --- precompute chain atom offset
+                      ipos_i = (globalpos_arr(ichain) - 1) / 3 + 1
+                      do ii = 1,numiunit
+                         idx_i = ipos_i + (ii - 1)
+                         ntii = ntype_arr(imolty, ii)
+                         rxui = x_ptr(idx_i)
+                         ryui = y_ptr(idx_i)
+                         rzui = z_ptr(idx_i)
+                         luse_ci = luse_c_arr(imolty, ii)
+                         luse_vi = luse_v_arr(imolty, ii)
+c                       --- loop over all beads jj of chain j
+                         ipos_j = (globalpos_arr(jchain) - 1) / 3 + 1
+                         do jj = 1, numjunit
+                            idx_j = ipos_j + (jj - 1)
+                            ntjj = ntype_arr(jmolty, jj)
+                            rxuj = x_ptr(idx_j)
+                            ryuj = y_ptr(idx_j)
+                            rzuj = z_ptr(idx_j)
+                            luse_cj = luse_c_arr(jmolty, jj)
+                            luse_vj = luse_v_arr(jmolty, jj)
 c                          --- check if nonzero interaction sites
-                           leval_v = luse_vi .and. luse_vj
-                           leval_c = luse_ci .and. luse_cj
-                           if ( leval_v .or. leval_c ) then
+                            leval_v = luse_vi .and. luse_vj
+                            leval_c = luse_ci .and. luse_cj
+                            if ( leval_v .or. leval_c ) then
 c                             --- minimum image the pair separation
-                              call twh_mimage(bxdflag,ibox
+                               call twh_mimage(bxdflag,ibox
      &                             ,rxui,ryui,rzui,rxuj,ryuj,rzuj
      &                             ,rxuij,ryuij,rzuij )
-                              rijsq = (rxuij*rxuij)+(ryuij*ryuij)
+                               rijsq = (rxuij*rxuij)+(ryuij*ryuij)
      &                          + (rzuij*rzuij)
-                              if (leval_v) then
-                                 vtwointer = vtwointer 
-     &                              + twh_vtwobody(lfailure,rijsq,ntii
-     &                                ,ntjj,cutstyle,lovrlap,vf,dvdl)
-                                 if ( lfailure ) return
-                                 dl_twointer = dl_twointer + dvdl
-                                 do l = 1, scp_num_foreign_lambda
-                                    vftwo(l)=vftwo(l) + vf(l)
-                                 enddo
-
-                                 if ( lovrlap ) then
-                                    call twh_engtotal_overlap(lfailure
+                               if (leval_v) then
+c                                --- inline VDW path
+                                  if (rijsq .lt. rminsq_val) then
+                                     lovrlap = .true.
+                                  else if (rijsq .lt. rcutsq_val) then
+c                                   --- compute cross-type index inline
+                                     if (ntii .lt. ntjj) then
+                                        low = ntii
+                                        high = ntjj
+                                     else
+                                        low = ntjj
+                                        high = ntii
+                                     endif
+                                     istep = low - 1
+                                     istep = istep*NNTYPE
+     &                                  - (istep*(istep-1))/2
+                                     ntij = istep + high - low + 1
+                                     vtwointer = vtwointer
+     &                                  + inline_lj_12_6(rijsq,ntij
+     &                                  ,lonefour_global)
+                                  endif
+                                  if ( lovrlap ) then
+                                     call twh_engtotal_overlap(lfailure
      &                                   ,lmolecmove,ichain,ii,jchain,jj
      &                                   ,rijsq,rxui,ryui,rzui,rxuj,ryuj
      &                                   ,rzuj)
-                                    if ( lfailure ) return
-                                 endif
-                              endif
+                                     if ( lfailure ) return
+                                  endif
+                               endif
+c                             --- electrostatics (simplified inline)
+                               if ( lelect_val .and. leval_c) then
+                                  rij = dsqrt(rijsq)
+                                  if ( lewald_val ) then
+c                                   --- use full dispatch for Ewald
+                                    call twh_vcoulomb(-1,bxdflag,ibox
+     &                                  ,rij,imolty,ii
+     &                                  ,jmolty,jj,vf,dvdl,lovrlap
+     &                                  ,vcoulomb)
+                                  else
+c                                   --- simple inline Coulomb
+                                    vcoulomb = qqscale_arr(imolty,ii)
+     &                                  * qqscale_arr(jmolty,jj) / rij
+                                  endif
+                                  velectinter = velectinter + vcoulomb
+                                  if ( lovrlap ) then
+                                     call twh_engtotal_overlap(lfailure
+     &                                   ,lmolecmove,ichain,ii,jchain,jj
+     &                                   ,rijsq,rxui,ryui,rzui,rxuj,ryuj
+     &                                   ,rzuj)
+                                     if ( lfailure ) return
+                                  endif
+                                  if ( lmadelung ) then
+                                    if ( rij .lt. maddist ) maddist = rij
+                                  endif
+                               endif
+                            endif
+c                          --- loop over all beads jj of chain j
+                         enddo
+                      enddo
+#else
+                      do ii = 1,numiunit
+                         call twh_ntype(GLB_GET,imolty,ii,ntii)
+                         call twh_coordinates(GLB_GET,crdflag,ichain,ii
+     &                       ,rxui,ryui,rzui)
+                         call twh_luse_c(GLB_GET,imolty,ii,luse_ci)
+                         call twh_luse_v(GLB_GET,imolty,ii,luse_vi)
+c                       --- loop over all beads jj of chain j 
+                         do jj = 1, numjunit
+                            call twh_ntype(GLB_GET,jmolty,jj,ntjj)
+                            call twh_coordinates(GLB_GET,crdflag,jchain
+     &                          ,jj,rxuj,ryuj,rzuj)
+                            call twh_luse_c(GLB_GET,jmolty,jj,luse_cj)
+                            call twh_luse_v(GLB_GET,jmolty,jj,luse_vj)
+c                          --- check if nonzero interaction sites
+                            leval_v = luse_vi .and. luse_vj
+                            leval_c = luse_ci .and. luse_cj
+                            if ( leval_v .or. leval_c ) then
+c                             --- minimum image the pair separation
+                               call twh_mimage(bxdflag,ibox
+     &                             ,rxui,ryui,rzui,rxuj,ryuj,rzuj
+     &                             ,rxuij,ryuij,rzuij )
+                               rijsq = (rxuij*rxuij)+(ryuij*ryuij)
+     &                          + (rzuij*rzuij)
+                               if (leval_v) then
+                                  vtwointer = vtwointer 
+     &                              + twh_vtwobody(lfailure,rijsq,ntii
+     &                                ,ntjj,cutstyle,lovrlap,vf,dvdl)
+                                  if ( lfailure ) return
+                                  dl_twointer = dl_twointer + dvdl
+                                  do l = 1, scp_num_foreign_lambda
+                                     vftwo(l)=vftwo(l) + vf(l)
+                                  enddo
+
+                                  if ( lovrlap ) then
+                                     call twh_engtotal_overlap(lfailure
+     &                                   ,lmolecmove,ichain,ii,jchain,jj
+     &                                   ,rijsq,rxui,ryui,rzui,rxuj,ryuj
+     &                                   ,rzuj)
+                                     if ( lfailure ) return
+                                  endif
+                               endif
 c                             --- electrostatics.
-                              if ( lelect .and. leval_c) then
-                                 rij = dsqrt(rijsq)
-                                 call twh_vcoulomb(-1,bxdflag,ibox,rij
+                               if ( lelect .and. leval_c) then
+                                  rij = dsqrt(rijsq)
+                                  call twh_vcoulomb(-1,bxdflag,ibox,rij
      &                                ,imolty,ii
      &                                ,jmolty,jj,vf,dvdl,lovrlap
      &                                ,vcoulomb)
-                                 velectinter = velectinter + vcoulomb
-                                 if ( lovrlap ) then
-                                    call twh_engtotal_overlap(lfailure
+                                  velectinter = velectinter + vcoulomb
+                                  if ( lovrlap ) then
+                                     call twh_engtotal_overlap(lfailure
      &                                   ,lmolecmove,ichain,ii,jchain,jj
      &                                   ,rijsq,rxui,ryui,rzui,rxuj,ryuj
      &                                   ,rzuj)
-                                    if ( lfailure ) return
-                                 endif
-                                 dl_elect = dl_elect + dvdl
-                                 do l = 1, scp_num_foreign_lambda
-                                    vfelec(l) = vfelec(l) + vf(l)
-                                 enddo
-                                 if ( lmadelung ) then
-                                   if ( rij .lt. maddist ) maddist = rij
-                                 endif
-                              endif
-                           endif
+                                     if ( lfailure ) return
+                                  endif
+                                  dl_elect = dl_elect + dvdl
+                                  do l = 1, scp_num_foreign_lambda
+                                     vfelec(l) = vfelec(l) + vf(l)
+                                  enddo
+                                  if ( lmadelung ) then
+                                    if ( rij .lt. maddist ) maddist = rij
+                                  endif
+                               endif
+                            endif
 c                          --- loop over all beads jj of chain j 
-                        enddo
-                     enddo
+                         enddo
+                      enddo
+#endif
 c                    --- lcompute
                   endif
                endif

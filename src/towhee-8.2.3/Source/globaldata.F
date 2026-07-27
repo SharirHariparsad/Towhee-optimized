@@ -6794,6 +6794,7 @@ c     --- storage variable
       double precision hinverse
       dimension hinverse(MAXBXD,MAXBOX,3,3)
       save hinverse
+      target hinverse
 
       if ( flag .eq. GLB_GET ) then
          dvalue = hinverse(bxdflag,ibox,idim,jdim)
@@ -6982,6 +6983,7 @@ c     --- storage variable
       double precision hmatrix
       dimension hmatrix(MAXBXD,MAXBOX,3,3)
       save hmatrix
+      target hmatrix
 
       if ( flag .eq. GLB_GET ) then
          dvalue = hmatrix(bxdflag,ibox,idim,jdim)
@@ -9457,6 +9459,7 @@ c     --- variables passed to/from this subroutine
 c     --- information variables
       logical lelect
       save lelect
+      target lelect
 
       if ( flag .eq. GLB_GET ) then
          lvalue = lelect
@@ -9521,6 +9524,7 @@ c     --- variables passed to/from this subroutine
 c     --- information variables
       logical lewald
       save lewald
+      target lewald
 
       if ( flag .eq. GLB_GET ) then
          lvalue = lewald
@@ -10009,6 +10013,7 @@ c     --- variables passed to/from this subroutine
 c     --- information variables
       logical lshift
       save lshift
+      target lshift
 
       if ( flag .eq. GLB_GET ) then
          lvalue = lshift
@@ -10068,6 +10073,7 @@ c     --- information variables
       logical luse_c
       dimension luse_c(NTMAX,NUMAX)
       save luse_c
+      target luse_c
 
       if ( flag .eq. GLB_GET ) then
          lvalue = luse_c(imolty,iunit)
@@ -10105,6 +10111,7 @@ c     --- information variables
       logical luse_v
       dimension luse_v(NTMAX,NUMAX)
       save luse_v
+      target luse_v
 
       if ( flag .eq. GLB_GET ) then
          lvalue = luse_v(imolty,iunit)
@@ -10684,6 +10691,7 @@ c     --- information variables
       double precision nbcoeff
       dimension nbcoeff(MINNBCOEFF:MAXNBCOEFF,CROSSTYPEMAX)
       save nbcoeff
+      target nbcoeff
 
       if ( flag .eq. GLB_SET ) then
          nbcoeff(icoeff,itype) = dvalue
@@ -11581,6 +11589,7 @@ c     --- information variables
       integer ntype
       dimension ntype(NTMAX,NUMAX)
       save ntype
+      target ntype
 
       if ( flag .eq. GLB_GET ) then
          ivalue = ntype(itype,iunit)
@@ -11642,6 +11651,7 @@ c     --- information variables
       integer nunit
       dimension nunit(NTMAX)
       save nunit
+      target nunit
 
       if ( itype .gt. NTMAX ) then
          write(6,*) 'flag,itype,ivalue',flag,itype,ivalue
@@ -14239,6 +14249,7 @@ c     --- information variables
       double precision qqatom
       dimension qqatom(NTMAX,NUMAX)
       save qqatom
+      target qqatom
 
       if ( flag .eq. GLB_GET ) then
          dvalue = qqatom(itype,iunit)
@@ -14276,6 +14287,7 @@ c     --- information variables
       double precision qqscale
       dimension qqscale(NTMAX,NUMAX)
       save qqscale
+      target qqscale
 
       if ( flag .eq. GLB_GET ) then
          dvalue = qqscale(itype,iunit)
@@ -14421,6 +14433,7 @@ c     --- information variables
       double precision rcelect
       dimension rcelect(MAXBXD,MAXBOX)
       save rcelect
+      target rcelect
 
       if ( flag .eq. GLB_GET ) then
          dvalue = rcelect(bxdflag,ibox)
@@ -14458,6 +14471,7 @@ c     --- variables passed to/from this subroutine
 c     --- information variables
       double precision rcut
       save rcut
+      target rcut
 
       if ( flag .eq. GLB_GET ) then
          dvalue = rcut
@@ -14539,6 +14553,7 @@ c     --- variables passed to/from this subroutine
 c     --- information variables
       double precision rcutsq
       save rcutsq
+      target rcutsq
 
       if ( flag .eq. GLB_GET ) then
          dvalue = rcutsq
@@ -14761,6 +14776,7 @@ c     --- variables passed to/from this subroutine
 c     --- information variables
       double precision rminsq
       save rminsq
+      target rminsq
 
       if ( flag .eq. GLB_GET ) then
          dvalue = rminsq

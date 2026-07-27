@@ -36,6 +36,8 @@ endif
 AM_CPPFLAGS = $(MPI_CPPFLAGS) $(OK_CPPFLAGS) $(T_CPPFLAGS) $(I_CPPFLAGS)
 AM_CPPFLAGS += $(SC_CPPFLAGS) $(CLA_CPPFLAGS) $(DM_CPPFLAGS)
 AM_FFLAGS += $(SC_FFLAGS) $(FG_FFLAGS) $(DM_FFLAGS)
+HOT_PATH_CPPFLAGS =
+AM_CPPFLAGS += $(HOT_PATH_CPPFLAGS)
 LIBS = $(MPI_LIBS)
 
 # Add the Fortran libraries, so we can link with C
@@ -80,6 +82,7 @@ towhee_SOURCES =  \
 		energy_change.F \
 		engatom.F \
 		engtotal.F \
+		engtotal_globals.F90 \
 		expon.F \
 		febias.F \
 		fielddft.F \
@@ -585,6 +588,9 @@ writetorsion.o: preproc.h functions.h writetorsion.F
 writetowhee.o: preproc.h functions.h writetowhee.F
 writetramonto.o: preproc.h functions.h writetramonto.F
 wtwobody.o: preproc.h functions.h wtwobody.F
+### Module dependencies (engtotal_globals.F90 must compile before consumers)
+engtotal.o vtwobody.o vcoulomb.o energy.o: engtotal_globals.o
+engtotal_globals.o: preproc.h engtotal_globals.F90
 ###C dependencies
 control.o: globalc.h control.c
 dx-1597-2-7.o: globalc.h dx-1597-2-7.c

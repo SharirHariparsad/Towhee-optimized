@@ -27,6 +27,9 @@
 
 /* global variable declarations */
 double time_array[MAXTIMERS];
+/* cached natoms for hot-path coordinate pointer access */
+static int g_coordstorage_natoms = 0;
+static int g_coordstorage_maxunit = 0;
 /* global pointers */
 int * integer_pointer[MAX_INT_POINTERS];
 int integer_2dregkey[MAX_INT_POINTERS];
@@ -1037,6 +1040,10 @@ void twh_coordstorage_(int * flag, int * index, double * value)
   int errorcode,newindex;
   /* shift index down by 1 */
   newindex = *index -1;
+  /* cache natoms for hot-path coordinate pointer access */
+  if ( *flag == GLB_ALLOC_INIT ) {
+    g_coordstorage_natoms = (*index) / 3;
+  }
   errorcode = twh_1ddouble(PNT_COORDSTORAGE, flag, newindex, value);
   if ( errorcode == EXIT_FAILURE ) {
     printf("in twh_coordstorage \n");
@@ -1736,5 +1743,37 @@ void twh_wrap_foreign_lambda_lj_(int * flag, int * index, double * value)
     printf("in twh_wrap_foreign_lambda_lj \n");
     exit(errorcode);
   }
+  return;
+}
+
+void get_coord_storage_ptr(int crdflag, void **cptr, int *natoms)
+/* returns the raw C pointer and atom count for CRD_REAL (crdflag=0)
+   or CRD_TEMP (crdflag=1). Used by engtotal_globals.F90 for zero-copy
+   coordinate access in the hot path.
+   originally written 06-2025 for hot-path inline optimization
+*/
+{
+  if (crdflag == 0) {
+    *cptr = (void*) double_pointer[PNT_COORDSTORAGE];
+  } else {
+    *cptr = (void*) double_pointer[PNT_COORDTEMP];
+  }
+  *natoms = g_coordstorage_natoms;
+  return;
+}
+
+void get_integer_storage_ptr(int ptr_index, void **cptr, int *length)
+/* returns the raw C pointer and element count for the integer_pointer[]
+   entry at ptr_index. Used by engtotal_globals.F90 for zero-copy
+   access to C-based integer arrays in the hot path.
+   originally written 06-2025 for hot-path inline optimization
+*/
+{
+  *cptr = (void*) integer_pointer[ptr_index];
+#if SAFE_COMPARE
+  *length = integer_bounds[ptr_index];
+#else
+  *length = 0;
+#endif
   return;
 }

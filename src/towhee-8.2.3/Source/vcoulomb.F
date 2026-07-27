@@ -154,3 +154,27 @@ c              --- scale native energy
 
       return
       end
+
+#ifdef HOT_PATH_INLINE
+      function inline_coulomb(rij, imolty, iunit, jmolty, junit)
+c     ******************************************************************
+c     * Inlined basic Coulomb energy: U = qqa*qqb/rij                  *
+c     * reads qqscale directly from engtotal_globals module.           *
+c     * Caller must handle Ewald (erfc), solvation, and lambda scaling *
+c     ******************************************************************
+      use engtotal_globals, only: qqscale_arr
+      implicit none
+      double precision inline_coulomb
+c     --- argument declarations
+      double precision rij
+      integer imolty, iunit, jmolty, junit
+c     --- local variables
+      double precision qqa, qqb
+
+      qqa = qqscale_arr(imolty, iunit)
+      qqb = qqscale_arr(jmolty, junit)
+      inline_coulomb = qqa * qqb / rij
+
+      return
+      end
+#endif
