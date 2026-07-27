@@ -286,14 +286,10 @@ c     ******************************************************************
       implicit none
 #define FUNCTION_VTWOBODY
 #include "functions.h"
-#ifdef HOT_PATH_INLINE
-      use engtotal_globals, only: engtotal_sync_coord_ptrs,
-     &     engtotal_globals_init, engtotal_sync_int_ptrs,
-     &     crd_x, crd_y, crd_z, crd_temp_x, crd_temp_y, crd_temp_z,
-     &     ntype_arr, luse_c_arr, luse_v_arr, globalpos_arr,
-     &     module_initialized, classical_pot_num_val,
-     &     rcutsq_val, rminsq_val, lelect_val, lewald_val
-#endif
+C     --- hot_access.h provides COMMON _hot variants of ntype, luse_c,
+C         luse_v, qqscale, lshift, lewald, lelect, rcutsq, rminsq
+C         Guarded by #ifdef HOT_PATH_INLINE in the executable section.
+#include "hot_access.h"
 c     --- variables passed to/from the subroutine
       double precision velectinter, vtwointer, maddist
       double precision dl_twointer, dl_elect
@@ -322,15 +318,9 @@ c     --- vforeign
 #ifdef HOT_PATH_INLINE
 c     --- inline path local variables
        logical lonefour_global
-       integer low, high, istep, ntij, ipos_i, ipos_j
-       integer idx_i, idx_j
-c     --- F90 pointers to coordinate slices
-       double precision, pointer :: x_ptr(:)
-       double precision, pointer :: y_ptr(:)
-       double precision, pointer :: z_ptr(:)
+       integer low, high, istep, ntij
 c     --- inline function declarations
        double precision inline_lj_12_6, inline_coulomb
-       integer getnbtype_inline
 #endif
 
 c     --- retrieve constants
@@ -350,29 +340,14 @@ c     --- retrieve constants
       dl_elect = 0.0d0
       rcmi = 0.0d0
 
-#ifdef HOT_PATH_INLINE
-c     --- one-time module initialization + coordinate sync
-      if ( .not. module_initialized ) then
-         call engtotal_globals_init()
-         call engtotal_sync_int_ptrs(nchain)
-         module_initialized = .true.
-      endif
-      call engtotal_sync_coord_ptrs()
-      lonefour_global = (cutstyle .eq. 3)
-      if ( crdflag .eq. CRD_REAL ) then
-         x_ptr => crd_x
-         y_ptr => crd_y
-         z_ptr => crd_z
-      else
-         x_ptr => crd_temp_x
-         y_ptr => crd_temp_y
-         z_ptr => crd_temp_z
-      endif
-#endif
-
 c     --- two-body nonbonded interactions
 c     --- loop over all chains i 
       call twh_nchain(GLB_GET,nchain)
+
+#ifdef HOT_PATH_INLINE
+c     --- precompute lonefour flag from cutstyle
+      lonefour_global = (cutstyle .eq. 3)
+#endif
       do ichain = 1, nchain - 1
 c        --- check if i is in relevant box
          call twh_nboxi(GLB_GET,ichain,testboxi)
@@ -425,26 +400,21 @@ c                    --- add in the com radii
                    if ( lcompute ) then
 #ifdef HOT_PATH_INLINE
 c                    --- inline hot path: bypass twh_* dispatch
-c                    --- precompute chain atom offset
-                      ipos_i = (globalpos_arr(ichain) - 1) / 3 + 1
+c                    --- for ntype, luse_c, luse_v, qqscale via COMMON.
+c                    --- coordinates still use twh_coordinates.
                       do ii = 1,numiunit
-                         idx_i = ipos_i + (ii - 1)
-                         ntii = ntype_arr(imolty, ii)
-                         rxui = x_ptr(idx_i)
-                         ryui = y_ptr(idx_i)
-                         rzui = z_ptr(idx_i)
-                         luse_ci = luse_c_arr(imolty, ii)
-                         luse_vi = luse_v_arr(imolty, ii)
+                         ntii = ntype_hot(imolty, ii)
+                         call twh_coordinates(GLB_GET,crdflag,ichain,ii
+     &                       ,rxui,ryui,rzui)
+                         luse_ci = luse_c_hot(imolty, ii)
+                         luse_vi = luse_v_hot(imolty, ii)
 c                       --- loop over all beads jj of chain j
-                         ipos_j = (globalpos_arr(jchain) - 1) / 3 + 1
                          do jj = 1, numjunit
-                            idx_j = ipos_j + (jj - 1)
-                            ntjj = ntype_arr(jmolty, jj)
-                            rxuj = x_ptr(idx_j)
-                            ryuj = y_ptr(idx_j)
-                            rzuj = z_ptr(idx_j)
-                            luse_cj = luse_c_arr(jmolty, jj)
-                            luse_vj = luse_v_arr(jmolty, jj)
+                            ntjj = ntype_hot(jmolty, jj)
+                            call twh_coordinates(GLB_GET,crdflag,jchain
+     &                          ,jj,rxuj,ryuj,rzuj)
+                            luse_cj = luse_c_hot(jmolty, jj)
+                            luse_vj = luse_v_hot(jmolty, jj)
 c                          --- check if nonzero interaction sites
                             leval_v = luse_vi .and. luse_vj
                             leval_c = luse_ci .and. luse_cj
@@ -456,10 +426,10 @@ c                             --- minimum image the pair separation
                                rijsq = (rxuij*rxuij)+(ryuij*ryuij)
      &                          + (rzuij*rzuij)
                                if (leval_v) then
-c                                --- inline VDW path
-                                  if (rijsq .lt. rminsq_val) then
+c                                --- inline VDW path (LJ 12-6)
+                                  if (rijsq .lt. rminsq_hot) then
                                      lovrlap = .true.
-                                  else if (rijsq .lt. rcutsq_val) then
+                                  else if (rijsq .lt. rcutsq_hot) then
 c                                   --- compute cross-type index inline
                                      if (ntii .lt. ntjj) then
                                         low = ntii
@@ -485,9 +455,9 @@ c                                   --- compute cross-type index inline
                                   endif
                                endif
 c                             --- electrostatics (simplified inline)
-                               if ( lelect_val .and. leval_c) then
+                               if ( lelect_hot .and. leval_c) then
                                   rij = dsqrt(rijsq)
-                                  if ( lewald_val ) then
+                                  if ( lewald_hot ) then
 c                                   --- use full dispatch for Ewald
                                     call twh_vcoulomb(-1,bxdflag,ibox
      &                                  ,rij,imolty,ii
@@ -495,8 +465,8 @@ c                                   --- use full dispatch for Ewald
      &                                  ,vcoulomb)
                                   else
 c                                   --- simple inline Coulomb
-                                    vcoulomb = qqscale_arr(imolty,ii)
-     &                                  * qqscale_arr(jmolty,jj) / rij
+                                    vcoulomb = qqscale_hot(imolty,ii)
+     &                                  * qqscale_hot(jmolty,jj) / rij
                                   endif
                                   velectinter = velectinter + vcoulomb
                                   if ( lovrlap ) then
@@ -507,7 +477,8 @@ c                                   --- simple inline Coulomb
                                      if ( lfailure ) return
                                   endif
                                   if ( lmadelung ) then
-                                    if ( rij .lt. maddist ) maddist = rij
+                                    if ( rij .lt. maddist ) maddist
+     &                                  = rij
                                   endif
                                endif
                             endif
@@ -576,7 +547,8 @@ c                             --- electrostatics.
                                      vfelec(l) = vfelec(l) + vf(l)
                                   enddo
                                   if ( lmadelung ) then
-                                    if ( rij .lt. maddist ) maddist = rij
+                                    if ( rij .lt. maddist ) maddist
+     &                                  = rij
                                   endif
                                endif
                             endif

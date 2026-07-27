@@ -1,0 +1,13 @@
+Canonical_Ensemble/AVB1_Methane Results
+456c456
+<  Virial P_tail                kPa        1 -0.74371E-02  0.11642E-09
+---
+>  Virial P_tail                kPa        1 -0.74371E-02  0.00000E+00
+467c467
+<  Number Density              nm-3    1   1  0.25403E-01  0.32927E-09
+---
+>  Number Density              nm-3    1   1  0.25403E-01  0.00000E+00
+469c469
+<  Molarity                       M    1   1  0.42197E-01  0.54696E-09
+---
+>  Molarity                       M    1   1  0.42197E-01  0.00000E+00

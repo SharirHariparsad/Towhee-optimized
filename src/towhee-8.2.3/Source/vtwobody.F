@@ -972,11 +972,11 @@ c     --- zero in all cases this statement not reached.
       function inline_lj_12_6(rijsq, ntij, lonefour)
 c     ******************************************************************
 c     * Inlined Lennard-Jones 12-6 energy (no twh_* dispatch overhead) *
-c     * reads nbcoeff data directly from engtotal_globals module       *
+c     * reads nbcoeff and lshift from COMMON (hot_access.h)            *
 c     ******************************************************************
-      use engtotal_globals, only: nbcoeff_13, nbcoeff_14, nbcoeff_15,
-     &     nbcoeff_16, nbcoeff_0, lshift_val
       implicit none
+C     --- hot_access.h provides nbcoeff_hot, lshift_hot via COMMON
+#include "hot_access.h"
       double precision inline_lj_12_6
 c     --- argument declarations
       double precision rijsq
@@ -986,16 +986,16 @@ c     --- local variables
       double precision srsix, sixterm, prefactor
 
       if ( lonefour ) then
-         sixterm   = nbcoeff_15(ntij)
-         prefactor = nbcoeff_16(ntij)
+         sixterm   = nbcoeff_hot(15, ntij)
+         prefactor = nbcoeff_hot(16, ntij)
       else
-         sixterm   = nbcoeff_13(ntij)
-         prefactor = nbcoeff_14(ntij)
+         sixterm   = nbcoeff_hot(13, ntij)
+         prefactor = nbcoeff_hot(14, ntij)
       endif
       srsix = sixterm / (rijsq**3)
       inline_lj_12_6 = srsix * (srsix - 1.0d0) * prefactor
-      if ( lshift_val ) then
-         inline_lj_12_6 = inline_lj_12_6 - nbcoeff_0(ntij)
+      if ( lshift_hot ) then
+         inline_lj_12_6 = inline_lj_12_6 - nbcoeff_hot(0, ntij)
       endif
 
       return

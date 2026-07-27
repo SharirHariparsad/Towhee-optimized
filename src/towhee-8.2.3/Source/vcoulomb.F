@@ -159,11 +159,12 @@ c              --- scale native energy
       function inline_coulomb(rij, imolty, iunit, jmolty, junit)
 c     ******************************************************************
 c     * Inlined basic Coulomb energy: U = qqa*qqb/rij                  *
-c     * reads qqscale directly from engtotal_globals module.           *
+c     * reads qqscale_hot from COMMON /hot_qqscale/.                   *
 c     * Caller must handle Ewald (erfc), solvation, and lambda scaling *
 c     ******************************************************************
-      use engtotal_globals, only: qqscale_arr
       implicit none
+C     --- hot_access.h provides qqscale_hot via COMMON /hot_qqscale/
+#include "hot_access.h"
       double precision inline_coulomb
 c     --- argument declarations
       double precision rij
@@ -171,8 +172,8 @@ c     --- argument declarations
 c     --- local variables
       double precision qqa, qqb
 
-      qqa = qqscale_arr(imolty, iunit)
-      qqb = qqscale_arr(jmolty, junit)
+      qqa = qqscale_hot(imolty, iunit)
+      qqb = qqscale_hot(jmolty, junit)
       inline_coulomb = qqa * qqb / rij
 
       return
