@@ -78,6 +78,20 @@ AM_CONDITIONAL(UseSafeCompare, test x$UseSafeCompare = xtrue)
 AM_CONDITIONAL(UseFixGNU, test x$UseFixGNU = xtrue)
 AM_CONDITIONAL(DisableCLA, test x$DisableCLA = xtrue)
 
+# Define the argument to configure script to enable OpenMP
+AC_ARG_ENABLE(openmp,
+     [  --enable-openmp   Enable OpenMP parallelization],
+     [case "${enableval}" in
+       yes) UseOpenMP=true ;;
+       no)  UseOpenMP=false ;;
+       *) AC_MSG_ERROR(bad value ${enableval} for --enable-openmp) ;;
+     esac;echo "UseOpenMP is $UseOpenMP"],[UseOpenMP=false])
+
+AM_CONDITIONAL(UseOpenMP, test x$UseOpenMP = xtrue)
+AS_IF([test "x$UseOpenMP" = xtrue], [
+  AC_DEFINE([USEOPENMP], [1], [Define if OpenMP is enabled])
+])
+
 # Checks for compilers
 # It seems really silly to check for cc and when we know
 #   where it is, and will set it, but otherwise configure

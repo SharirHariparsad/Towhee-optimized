@@ -23,6 +23,10 @@ endif
 if UseFixGNU
 FG_FFLAGS = -fno-second-underscore
 endif
+if UseOpenMP
+OMP_FFLAGS = -fopenmp -ffixed-line-length-none
+OMP_CPPFLAGS = -DUSEOPENMP
+endif
 
 # If configured with --disable-command-line-args, command line arguments
 # won't be parsed by the towhee executable.
@@ -34,9 +38,10 @@ endif
 #endif
 
 AM_CPPFLAGS = $(MPI_CPPFLAGS) $(OK_CPPFLAGS) $(T_CPPFLAGS) $(I_CPPFLAGS)
-AM_CPPFLAGS += $(SC_CPPFLAGS) $(CLA_CPPFLAGS) $(DM_CPPFLAGS)
-AM_FFLAGS += $(SC_FFLAGS) $(FG_FFLAGS) $(DM_FFLAGS)
+AM_CPPFLAGS += $(SC_CPPFLAGS) $(CLA_CPPFLAGS) $(DM_CPPFLAGS) $(OMP_CPPFLAGS)
+AM_FFLAGS += $(SC_FFLAGS) $(FG_FFLAGS) $(DM_FFLAGS) $(OMP_FFLAGS)
 AM_FCFLAGS = -ffree-form $(AM_FFLAGS)
+AM_LDFLAGS = $(OMP_FFLAGS)
 HOT_PATH_CPPFLAGS =
 AM_CPPFLAGS += $(HOT_PATH_CPPFLAGS)
 LIBS = $(MPI_LIBS)

@@ -300,6 +300,9 @@ c     --- local variables
 c     --- logical scalars
       logical lcompute,leval_c,leval_v,lusecom,lmovemei,lmovemej
       logical luse_ci,luse_cj,luse_vi,luse_vj,lelect
+#ifdef USEOPENMP
+      logical lomp_failure
+#endif
 c     --- integer scalars
       integer ichain,imolty,jchain,jmolty,ii,ntii,jj,ntjj,l,nchain
       integer numiunit,numjunit,scp_num_foreign_lambda
@@ -339,6 +342,9 @@ c     --- retrieve constants
       dl_twointer = 0.0d0
       dl_elect = 0.0d0
       rcmi = 0.0d0
+#ifdef USEOPENMP
+      lomp_failure = .false.
+#endif
 
 c     --- two-body nonbonded interactions
 c     --- loop over all chains i 
@@ -347,6 +353,9 @@ c     --- loop over all chains i
 #ifdef HOT_PATH_INLINE
 c     --- precompute lonefour flag from cutstyle
       lonefour_global = (cutstyle .eq. 3)
+#endif
+#ifdef USEOPENMP
+!$OMP PARALLEL DO SCHEDULE(DYNAMIC, 8) PRIVATE(ichain, jchain, testboxi, testboxj, imolty, jmolty, numiunit, numjunit, lcompute, lmovemei, lmovemej, xcmi, ycmi, zcmi, rcmi, xcmj, ycmj, zcmj, rcmj, rcm, rcmsq, rijsq, rij, rxuij, ryuij, rzuij, rxui, ryui, rzui, rxuj, ryuj, rzuj, ii, jj, ntii, ntjj, luse_ci, luse_vi, luse_cj, luse_vj, leval_v, leval_c, vcoulomb, dvdl, l, vf, lovrlap, lfailure) SHARED(nchain, ibox, crdflag, bxdflag, lmolecmove, lmovelist, cutstyle, lelect, lusecom, lmadelung, scp_num_foreign_lambda, rcelect, lomp_failure) REDUCTION(+:vtwointer, velectinter, dl_twointer, dl_elect) REDUCTION(+:vftwo, vfelec) REDUCTION(min:maddist)
 #endif
       do ichain = 1, nchain - 1
 c        --- check if i is in relevant box
@@ -359,7 +368,11 @@ c        --- check if i is in relevant box
                call twh_rcmu(GLB_GET,ichain,rcmi)
             endif
 c           --- loop over all chains j with j>i 
-            do jchain = ichain + 1, nchain
+#ifdef USEOPENMP
+             douter: do jchain = ichain + 1, nchain
+#else
+             do jchain = ichain + 1, nchain
+#endif
 c              --- check for simulation box
                call twh_nboxi(GLB_GET,jchain,testboxj)
                if ( testboxj .eq. ibox ) then
@@ -451,7 +464,15 @@ c                                   --- compute cross-type index inline
      &                                   ,lmolecmove,ichain,ii,jchain,jj
      &                                   ,rijsq,rxui,ryui,rzui,rxuj,ryuj
      &                                   ,rzuj)
-                                     if ( lfailure ) return
+#ifdef USEOPENMP
+                                      if ( lfailure ) then
+                                         !$OMP ATOMIC WRITE
+                                         lomp_failure = .true.
+                                         exit douter
+                                      endif
+#else
+                                      if ( lfailure ) return
+#endif
                                   endif
                                endif
 c                             --- electrostatics (simplified inline)
@@ -474,7 +495,15 @@ c                                   --- simple inline Coulomb
      &                                   ,lmolecmove,ichain,ii,jchain,jj
      &                                   ,rijsq,rxui,ryui,rzui,rxuj,ryuj
      &                                   ,rzuj)
-                                     if ( lfailure ) return
+#ifdef USEOPENMP
+                                      if ( lfailure ) then
+                                         !$OMP ATOMIC WRITE
+                                         lomp_failure = .true.
+                                         exit douter
+                                      endif
+#else
+                                      if ( lfailure ) return
+#endif
                                   endif
                                   if ( lmadelung ) then
                                     if ( rij .lt. maddist ) maddist
@@ -513,7 +542,15 @@ c                             --- minimum image the pair separation
                                   vtwointer = vtwointer 
      &                              + twh_vtwobody(lfailure,rijsq,ntii
      &                                ,ntjj,cutstyle,lovrlap,vf,dvdl)
-                                  if ( lfailure ) return
+#ifdef USEOPENMP
+                                   if ( lfailure ) then
+                                      !$OMP ATOMIC WRITE
+                                      lomp_failure = .true.
+                                      exit douter
+                                   endif
+#else
+                                   if ( lfailure ) return
+#endif
                                   dl_twointer = dl_twointer + dvdl
                                   do l = 1, scp_num_foreign_lambda
                                      vftwo(l)=vftwo(l) + vf(l)
@@ -524,7 +561,15 @@ c                             --- minimum image the pair separation
      &                                   ,lmolecmove,ichain,ii,jchain,jj
      &                                   ,rijsq,rxui,ryui,rzui,rxuj,ryuj
      &                                   ,rzuj)
-                                     if ( lfailure ) return
+#ifdef USEOPENMP
+                                      if ( lfailure ) then
+                                         !$OMP ATOMIC WRITE
+                                         lomp_failure = .true.
+                                         exit douter
+                                      endif
+#else
+                                      if ( lfailure ) return
+#endif
                                   endif
                                endif
 c                             --- electrostatics.
@@ -540,7 +585,15 @@ c                             --- electrostatics.
      &                                   ,lmolecmove,ichain,ii,jchain,jj
      &                                   ,rijsq,rxui,ryui,rzui,rxuj,ryuj
      &                                   ,rzuj)
-                                     if ( lfailure ) return
+#ifdef USEOPENMP
+                                      if ( lfailure ) then
+                                         !$OMP ATOMIC WRITE
+                                         lomp_failure = .true.
+                                         exit douter
+                                      endif
+#else
+                                      if ( lfailure ) return
+#endif
                                   endif
                                   dl_elect = dl_elect + dvdl
                                   do l = 1, scp_num_foreign_lambda
@@ -559,9 +612,22 @@ c                          --- loop over all beads jj of chain j
 c                    --- lcompute
                   endif
                endif
-            enddo
+#ifdef USEOPENMP
+             enddo douter
+#else
+             enddo
+#endif
          endif
-      enddo
+#ifdef USEOPENMP
+       enddo
+!$OMP END PARALLEL DO
+       if ( lomp_failure ) then
+          lfailure = .true.
+          return
+       endif
+#else
+       enddo
+#endif
 
       do l=1,MAX_FOREIGN_LAMBDA
          vforeign(l) = vfelec(l) + vftwo(l)

@@ -190,10 +190,10 @@ AWK = gawk
 CC = gcc
 CCDEPMODE = depmode=none
 CFLAGS = -g -O2
-CPP = 
+CPP = @CPP@
 CPPFLAGS = 
 CYGPATH_W = echo
-DEFS = -DPACKAGE_NAME=\"towhee\" -DPACKAGE_TARNAME=\"towhee\" -DPACKAGE_VERSION=\"8.2.3\" -DPACKAGE_STRING=\"towhee-8.2.3\" -DPACKAGE_BUGREPORT=\"towhee-bugs@lists.sourceforge.net\" -DPACKAGE_URL=\"\" -DPACKAGE=\"towhee\" -DVERSION=\"8.2.3\" -DPACKAGE=\"towhee\" -DVERSION=\"8.2.3\" -DHAVE_STRSTR=1
+DEFS = -DPACKAGE_NAME=\"towhee\" -DPACKAGE_TARNAME=\"towhee\" -DPACKAGE_VERSION=\"8.2.3\" -DPACKAGE_STRING=\"towhee-8.2.3\" -DPACKAGE_BUGREPORT=\"towhee-bugs@lists.sourceforge.net\" -DPACKAGE_URL=\"\" -DPACKAGE=\"towhee\" -DVERSION=\"8.2.3\" -DPACKAGE=\"towhee\" -DVERSION=\"8.2.3\" -DUSEOPENMP=1 -DHAVE_STRSTR=1
 DEPDIR = .deps
 ECHO_C = 
 ECHO_N = -n
