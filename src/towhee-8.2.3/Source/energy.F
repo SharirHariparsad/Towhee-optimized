@@ -171,6 +171,10 @@ c     *                                                                *
 c     * rewritten from engmolec 08-05-2006 by M.G. Martin              *
 c     * last modified 04-02-2018 by M.G. Martin                        *
 c     ******************************************************************
+#ifdef HOT_PATH_INLINE
+      use engtotal_globals, only: ntype_arr, luse_c_arr, luse_v_arr
+     &     , nunit_arr
+#endif
       implicit none
 #define FUNCTION_CMP_GT
 #define FUNCTION_VTWOBODY
@@ -325,79 +329,139 @@ c                          --- add in the com radius components
                      endif
                   endif
 
-                  if ( lcompute ) then
-c                    --- loop over all beads jj of chain jchain 
-                     call twh_nunit(GLB_GET,jmolty,numjunit)
-                     do jj = 1, numjunit
-                        call twh_ntype(GLB_GET,jmolty,jj,ntjj)
-                        call twh_coordinates(GLB_GET,jcrd,jchain
+                   if ( lcompute ) then
+#ifdef HOT_PATH_INLINE
+c                    --- inline path: bypass twh_* dispatch for
+c                    --- ntype, luse_c, luse_v, nunit via module.
+c                    --- Physics calls (vtwobody, vcoulomb, mimage,
+c                    --- coordinates) kept intact.
+                      numjunit = nunit_arr(jmolty)
+                      do jj = 1, numjunit
+                         ntjj = ntype_arr(jmolty, jj)
+                         call twh_coordinates(GLB_GET,jcrd,jchain
      &                       ,jj,rxj,ryj,rzj)
-                        call twh_luse_c(GLB_GET,jmolty,jj,luse_cj)
-                        call twh_luse_v(GLB_GET,jmolty,jj,luse_vj)
+                         luse_cj = luse_c_arr(jmolty, jj)
+                         luse_vj = luse_v_arr(jmolty, jj)
 c                       --- loop over all beads iunit of testchain
-                        do iunit = 1,numiunit
-                           call twh_ntype(GLB_GET,imolty,iunit,ntii)
-                           call twh_luse_v(GLB_GET,imolty,iunit,luse_vi)
-c                          --- set evaulation logicals
-                           leval_v = luse_vi .and. luse_vj
-                           call twh_luse_c(GLB_GET,imolty,iunit,luse_ci)
-                           leval_c = luse_ci .and. luse_cj
-                           if (leval_v .or. leval_c) then
-                              call twh_coordinates(GLB_GET,testcrd
+                         do iunit = 1,numiunit
+                            ntii = ntype_arr(imolty, iunit)
+                            luse_vi = luse_v_arr(imolty, iunit)
+                            leval_v = luse_vi .and. luse_vj
+                            luse_ci = luse_c_arr(imolty, iunit)
+                            leval_c = luse_ci .and. luse_cj
+                            if (leval_v .or. leval_c) then
+                               call twh_coordinates(GLB_GET,testcrd
      &                             ,testchain,iunit,rxi,ryi,rzi)
 c                             --- minimum image the pair separation
-                              call twh_mimage (bxdflag,activebox
+                               call twh_mimage (bxdflag,activebox
      &                             ,rxi,ryi,rzi
      &                             ,rxj,ryj,rzj,rxij,ryij,rzij )
-                              rijsq = rxij*rxij + ryij*ryij 
+                               rijsq = rxij*rxij + ryij*ryij 
      &                             + rzij*rzij
-c                             --- if partial correction then we do
-c                             --- not compute for rijsq < rcutinsq
-                              if ( .not. (lpartial 
+                               if ( .not. (lpartial 
      &                             .and. rijsq .lt. rcutinsq) ) then
-                                 if (leval_v) then
-                                    v_inter = v_inter
+                                  if (leval_v) then
+                                     v_inter = v_inter
      &                                   + twh_vtwobody(lfailure
      &                                   ,rijsq,ntii,ntjj,cutstyle
      &                                   ,loverlap,vf,dvdllj)
-                                    if ( lfailure ) return
-                                    if ( loverlap ) return
-                                    l_vinter = l_vinter + dvdllj
-                                    do lambda = 1
+                                     if ( lfailure ) return
+                                     if ( loverlap ) return
+                                     l_vinter = l_vinter + dvdllj
+                                     do lambda = 1
      &                                   ,scp_num_foreign_lambda
-                                       v_foreign(lambda)
+                                        v_foreign(lambda)
      &                                      = v_foreign(lambda)
      &                                      + vf(lambda)
-                                    enddo
-                                 endif
+                                     enddo
+                                  endif
 c                                --- electrostatics
-                                 if ( lelect .and. leval_c) then
-                                    rij = dsqrt(rijsq)
-                                    call twh_vcoulomb(-1,bxdflag
+                                  if ( lelect .and. leval_c) then
+                                     rij = dsqrt(rijsq)
+                                     call twh_vcoulomb(-1,bxdflag
      &                                   ,activebox
      &                                   ,rij,imolty,iunit,jmolty,jj
      &                                   , vf, dvdlc
      &                                   ,loverlap,venergy)
-                                    if ( loverlap ) return
-c                                   --- vcoulomb returns units [EE]
-c                                   --- convert foreign energy to
-c                                   --- units [K] here;
-c                                   --- v_elect converted to [K]
-c                                   --- later.
-                                    v_elect = v_elect + venergy
-c                                   --- derivatives in units of [K]
-                                    l_velect = l_velect + dvdlc
-                                    do lambda = 1
+                                     if ( loverlap ) return
+                                     v_elect = v_elect + venergy
+                                     l_velect = l_velect + dvdlc
+                                     do lambda = 1
      &                                   ,scp_num_foreign_lambda
-                                       v_foreign(lambda) 
+                                        v_foreign(lambda) 
      &                                      = v_foreign(lambda)
      &                                      +vf(lambda)
-                                    enddo
-                                 endif
-                              endif
-                           endif
-                        enddo
-                     enddo
+                                     enddo
+                                  endif
+                               endif
+                            endif
+                         enddo
+                      enddo
+#else
+c                    --- dispatch path: twh_* subroutine calls
+                      call twh_nunit(GLB_GET,jmolty,numjunit)
+                      do jj = 1, numjunit
+                         call twh_ntype(GLB_GET,jmolty,jj,ntjj)
+                         call twh_coordinates(GLB_GET,jcrd,jchain
+     &                       ,jj,rxj,ryj,rzj)
+                         call twh_luse_c(GLB_GET,jmolty,jj,luse_cj)
+                         call twh_luse_v(GLB_GET,jmolty,jj,luse_vj)
+c                       --- loop over all beads iunit of testchain
+                         do iunit = 1,numiunit
+                            call twh_ntype(GLB_GET,imolty,iunit,ntii)
+                            call twh_luse_v(GLB_GET,imolty,iunit,luse_vi)
+                            leval_v = luse_vi .and. luse_vj
+                            call twh_luse_c(GLB_GET,imolty,iunit,luse_ci)
+                            leval_c = luse_ci .and. luse_cj
+                            if (leval_v .or. leval_c) then
+                               call twh_coordinates(GLB_GET,testcrd
+     &                             ,testchain,iunit,rxi,ryi,rzi)
+c                             --- minimum image the pair separation
+                               call twh_mimage (bxdflag,activebox
+     &                             ,rxi,ryi,rzi
+     &                             ,rxj,ryj,rzj,rxij,ryij,rzij )
+                               rijsq = rxij*rxij + ryij*ryij 
+     &                             + rzij*rzij
+                               if ( .not. (lpartial 
+     &                             .and. rijsq .lt. rcutinsq) ) then
+                                  if (leval_v) then
+                                     v_inter = v_inter
+     &                                   + twh_vtwobody(lfailure
+     &                                   ,rijsq,ntii,ntjj,cutstyle
+     &                                   ,loverlap,vf,dvdllj)
+                                     if ( lfailure ) return
+                                     if ( loverlap ) return
+                                     l_vinter = l_vinter + dvdllj
+                                     do lambda = 1
+     &                                   ,scp_num_foreign_lambda
+                                        v_foreign(lambda)
+     &                                      = v_foreign(lambda)
+     &                                      + vf(lambda)
+                                     enddo
+                                  endif
+c                                --- electrostatics
+                                  if ( lelect .and. leval_c) then
+                                     rij = dsqrt(rijsq)
+                                     call twh_vcoulomb(-1,bxdflag
+     &                                   ,activebox
+     &                                   ,rij,imolty,iunit,jmolty,jj
+     &                                   , vf, dvdlc
+     &                                   ,loverlap,venergy)
+                                     if ( loverlap ) return
+                                     v_elect = v_elect + venergy
+                                     l_velect = l_velect + dvdlc
+                                     do lambda = 1
+     &                                   ,scp_num_foreign_lambda
+                                        v_foreign(lambda) 
+     &                                      = v_foreign(lambda)
+     &                                      +vf(lambda)
+                                     enddo
+                                  endif
+                               endif
+                            endif
+                         enddo
+                      enddo
+#endif
                   endif
                enddo
             enddo

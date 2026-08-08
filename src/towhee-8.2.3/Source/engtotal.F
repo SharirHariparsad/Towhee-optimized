@@ -283,13 +283,15 @@ c     *                                                                *
 c     * split from original engtotal 08-11-2005 by MAW                 *
 c     * last modified 03-29-2020 by M.G. Martin                        *
 c     ******************************************************************
+#ifdef HOT_PATH_INLINE
+      use engtotal_globals, only: ntype_arr, luse_c_arr, luse_v_arr
+     &     , qqscale_arr, rcutsq_val, rminsq_val, lelect_val
+     &     , lewald_val, lshift_val
+#endif
       implicit none
+#define FUNCTION_GETNBTYPE
 #define FUNCTION_VTWOBODY
 #include "functions.h"
-C     --- hot_access.h provides COMMON _hot variants of ntype, luse_c,
-C         luse_v, qqscale, lshift, lewald, lelect, rcutsq, rminsq
-C         Guarded by #ifdef HOT_PATH_INLINE in the executable section.
-#include "hot_access.h"
 c     --- variables passed to/from the subroutine
       double precision velectinter, vtwointer, maddist
       double precision dl_twointer, dl_elect
@@ -321,9 +323,14 @@ c     --- vforeign
 #ifdef HOT_PATH_INLINE
 c     --- inline path local variables
        logical lonefour_global
-       integer low, high, istep, ntij
-c     --- inline function declarations
+       integer ntij
+c     --- inline function declarations (defined in vtwobody.F, vcoulomb.F)
        double precision inline_lj_12_6, inline_coulomb
+#else
+c     --- declare lonefour_global, ntij unconditionally for
+c     --- OpenMP PRIVATE clause consistency
+       logical lonefour_global
+       integer ntij
 #endif
 
 c     --- retrieve constants
@@ -355,7 +362,7 @@ c     --- precompute lonefour flag from cutstyle
       lonefour_global = (cutstyle .eq. 3)
 #endif
 #ifdef USEOPENMP
-!$OMP PARALLEL DO SCHEDULE(DYNAMIC, 8) PRIVATE(ichain, jchain, testboxi, testboxj, imolty, jmolty, numiunit, numjunit, lcompute, lmovemei, lmovemej, xcmi, ycmi, zcmi, rcmi, xcmj, ycmj, zcmj, rcmj, rcm, rcmsq, rijsq, rij, rxuij, ryuij, rzuij, rxui, ryui, rzui, rxuj, ryuj, rzuj, ii, jj, ntii, ntjj, luse_ci, luse_vi, luse_cj, luse_vj, leval_v, leval_c, vcoulomb, dvdl, l, vf, lovrlap, lfailure) SHARED(nchain, ibox, crdflag, bxdflag, lmolecmove, lmovelist, cutstyle, lelect, lusecom, lmadelung, scp_num_foreign_lambda, rcelect, lomp_failure) REDUCTION(+:vtwointer, velectinter, dl_twointer, dl_elect) REDUCTION(+:vftwo, vfelec) REDUCTION(min:maddist)
+!$OMP PARALLEL DO SCHEDULE(DYNAMIC, 8) PRIVATE(ichain, jchain, testboxi, testboxj, imolty, jmolty, numiunit, numjunit, lcompute, lmovemei, lmovemej, xcmi, ycmi, zcmi, rcmi, xcmj, ycmj, zcmj, rcmj, rcm, rcmsq, rijsq, rij, rxuij, ryuij, rzuij, rxui, ryui, rzui, rxuj, ryuj, rzuj, ii, jj, ntii, ntjj, luse_ci, luse_vi, luse_cj, luse_vj, leval_v, leval_c, lonefour_global, ntij, vcoulomb, dvdl, l, vf, lovrlap, lfailure) SHARED(nchain, ibox, crdflag, bxdflag, lmolecmove, lmovelist, cutstyle, lelect, lusecom, lmadelung, scp_num_foreign_lambda, rcelect, lomp_failure) REDUCTION(+:vtwointer, velectinter, dl_twointer, dl_elect) REDUCTION(+:vftwo, vfelec) REDUCTION(min:maddist)
 #endif
       do ichain = 1, nchain - 1
 c        --- check if i is in relevant box
@@ -412,108 +419,116 @@ c                    --- add in the com radii
                   endif
                    if ( lcompute ) then
 #ifdef HOT_PATH_INLINE
-c                    --- inline hot path: bypass twh_* dispatch
-c                    --- for ntype, luse_c, luse_v, qqscale via COMMON.
-c                    --- coordinates still use twh_coordinates.
-                      do ii = 1,numiunit
-                         ntii = ntype_hot(imolty, ii)
-                         call twh_coordinates(GLB_GET,crdflag,ichain,ii
+c                    --- inline hot path: direct array access via
+c                    --- engtotal_globals module.  Bypasses twh_* dispatch
+c                    --- for ntype, luse_c, luse_v, qqscale.
+c                    --- Coordinates still use twh_coordinates (zero-copy
+c                    --- to be added in Phase 3).
+                       do ii = 1,numiunit
+                          ntii = ntype_arr(imolty, ii)
+                          call twh_coordinates(GLB_GET,crdflag,ichain,ii
      &                       ,rxui,ryui,rzui)
-                         luse_ci = luse_c_hot(imolty, ii)
-                         luse_vi = luse_v_hot(imolty, ii)
+                          luse_ci = luse_c_arr(imolty, ii)
+                          luse_vi = luse_v_arr(imolty, ii)
 c                       --- loop over all beads jj of chain j
-                         do jj = 1, numjunit
-                            ntjj = ntype_hot(jmolty, jj)
-                            call twh_coordinates(GLB_GET,crdflag,jchain
+                          do jj = 1, numjunit
+                             ntjj = ntype_arr(jmolty, jj)
+                             call twh_coordinates(GLB_GET,crdflag,jchain
      &                          ,jj,rxuj,ryuj,rzuj)
-                            luse_cj = luse_c_hot(jmolty, jj)
-                            luse_vj = luse_v_hot(jmolty, jj)
+                             luse_cj = luse_c_arr(jmolty, jj)
+                             luse_vj = luse_v_arr(jmolty, jj)
 c                          --- check if nonzero interaction sites
-                            leval_v = luse_vi .and. luse_vj
-                            leval_c = luse_ci .and. luse_cj
-                            if ( leval_v .or. leval_c ) then
+                             leval_v = luse_vi .and. luse_vj
+                             leval_c = luse_ci .and. luse_cj
+                             if ( leval_v .or. leval_c ) then
 c                             --- minimum image the pair separation
-                               call twh_mimage(bxdflag,ibox
+                                call twh_mimage(bxdflag,ibox
      &                             ,rxui,ryui,rzui,rxuj,ryuj,rzuj
      &                             ,rxuij,ryuij,rzuij )
-                               rijsq = (rxuij*rxuij)+(ryuij*ryuij)
+                                rijsq = (rxuij*rxuij)+(ryuij*ryuij)
      &                          + (rzuij*rzuij)
-                               if (leval_v) then
-c                                --- inline VDW path (LJ 12-6)
-                                  if (rijsq .lt. rminsq_hot) then
-                                     lovrlap = .true.
-                                  else if (rijsq .lt. rcutsq_hot) then
-c                                   --- compute cross-type index inline
-                                     if (ntii .lt. ntjj) then
-                                        low = ntii
-                                        high = ntjj
-                                     else
-                                        low = ntjj
-                                        high = ntii
-                                     endif
-                                     istep = low - 1
-                                     istep = istep*NNTYPE
-     &                                  - (istep*(istep-1))/2
-                                     ntij = istep + high - low + 1
-                                     vtwointer = vtwointer
-     &                                  + inline_lj_12_6(rijsq,ntij
+                                if (leval_v) then
+c                                --- VDW: inline LJ 12-6 via module
+                                   lovrlap = .false.
+                                   if (rijsq .lt. rminsq_val) then
+                                      lovrlap = .true.
+                                   else if (rijsq .lt. rcutsq_val) then
+                                      ntij = twh_getnbtype(ntii,ntjj)
+                                      vtwointer = vtwointer
+     &                                  + inline_lj_12_6(rijsq, ntij
      &                                  ,lonefour_global)
-                                  endif
-                                  if ( lovrlap ) then
-                                     call twh_engtotal_overlap(lfailure
+                                      dvdl = 0.0d0
+                                      dl_twointer = dl_twointer
+     &                                  + dvdl
+                                      do l = 1, scp_num_foreign_lambda
+                                         vf(l) = 0.0d0
+                                         vftwo(l) = vftwo(l) + vf(l)
+                                      enddo
+                                   endif
+                                   if ( lovrlap ) then
+                                      call twh_engtotal_overlap(lfailure
      &                                   ,lmolecmove,ichain,ii,jchain,jj
      &                                   ,rijsq,rxui,ryui,rzui,rxuj,ryuj
      &                                   ,rzuj)
 #ifdef USEOPENMP
-                                      if ( lfailure ) then
-                                         !$OMP ATOMIC WRITE
-                                         lomp_failure = .true.
-                                         exit douter
-                                      endif
+                                       if ( lfailure ) then
+                                          !$OMP ATOMIC WRITE
+                                          lomp_failure = .true.
+                                          exit douter
+                                       endif
 #else
-                                      if ( lfailure ) return
+                                       if ( lfailure ) return
 #endif
-                                  endif
-                               endif
-c                             --- electrostatics (simplified inline)
-                               if ( lelect_hot .and. leval_c) then
-                                  rij = dsqrt(rijsq)
-                                  if ( lewald_hot ) then
-c                                   --- use full dispatch for Ewald
-                                    call twh_vcoulomb(-1,bxdflag,ibox
+                                   endif
+                                endif
+c                             --- electrostatics
+                                if ( lelect_val .and. leval_c) then
+                                   rij = dsqrt(rijsq)
+                                   lovrlap = .false.
+                                   if ( lewald_val ) then
+c                                   --- full dispatch for Ewald
+                                     call twh_vcoulomb(-1,bxdflag,ibox
      &                                  ,rij,imolty,ii
      &                                  ,jmolty,jj,vf,dvdl,lovrlap
      &                                  ,vcoulomb)
-                                  else
-c                                   --- simple inline Coulomb
-                                    vcoulomb = qqscale_hot(imolty,ii)
-     &                                  * qqscale_hot(jmolty,jj) / rij
-                                  endif
-                                  velectinter = velectinter + vcoulomb
-                                  if ( lovrlap ) then
-                                     call twh_engtotal_overlap(lfailure
+                                   else
+c                                   --- simple inline Coulomb via module
+                                     vcoulomb = qqscale_arr(imolty,ii)
+     &                                  * qqscale_arr(jmolty,jj) / rij
+                                     dvdl = 0.0d0
+                                     do l = 1, scp_num_foreign_lambda
+                                        vf(l) = 0.0d0
+                                     enddo
+                                   endif
+                                   velectinter = velectinter + vcoulomb
+                                   dl_elect = dl_elect + dvdl
+                                   do l = 1, scp_num_foreign_lambda
+                                      vfelec(l) = vfelec(l) + vf(l)
+                                   enddo
+                                   if ( lovrlap ) then
+                                      call twh_engtotal_overlap(lfailure
      &                                   ,lmolecmove,ichain,ii,jchain,jj
      &                                   ,rijsq,rxui,ryui,rzui,rxuj,ryuj
      &                                   ,rzuj)
 #ifdef USEOPENMP
-                                      if ( lfailure ) then
-                                         !$OMP ATOMIC WRITE
-                                         lomp_failure = .true.
-                                         exit douter
-                                      endif
+                                       if ( lfailure ) then
+                                          !$OMP ATOMIC WRITE
+                                          lomp_failure = .true.
+                                          exit douter
+                                       endif
 #else
-                                      if ( lfailure ) return
+                                       if ( lfailure ) return
 #endif
-                                  endif
-                                  if ( lmadelung ) then
-                                    if ( rij .lt. maddist ) maddist
+                                   endif
+                                   if ( lmadelung ) then
+                                     if ( rij .lt. maddist ) maddist
      &                                  = rij
-                                  endif
-                               endif
-                            endif
+                                   endif
+                                endif
+                             endif
 c                          --- loop over all beads jj of chain j
-                         enddo
-                      enddo
+                          enddo
+                       enddo
 #else
                       do ii = 1,numiunit
                          call twh_ntype(GLB_GET,imolty,ii,ntii)

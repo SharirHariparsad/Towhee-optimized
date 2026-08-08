@@ -29,6 +29,9 @@ c     *                                                                *
 c     * rewritten from old readinput 05-15-2002 by M.G. Martin         *
 c     * last modified 03-30-2020 by M.G. Martin                        *
 c     ******************************************************************
+#ifdef HOT_PATH_INLINE
+      use engtotal_globals, only: engtotal_globals_init
+#endif
       implicit none
 #define FUNCTION_EXPON
 #define FUNCTION_LEN_TRIM
@@ -2231,6 +2234,13 @@ c     --- initialize chempotdata file
      &        (dmarray(jmolty),jmolty=1,nmolty)   
          close(51)
       endif
+#ifdef HOT_PATH_INLINE
+c     --- must be called before any USE-imported module that accesses
+c         the same COMMON data through POINTER aliases.
+c         NO re-execution; the return from twh_readtowhee_tootowhee
+c         does not pass through this point.
+      call engtotal_globals_init()
+#endif
       return
       end
 

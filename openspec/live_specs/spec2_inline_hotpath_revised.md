@@ -324,7 +324,11 @@ Add a debug counter (temporary, removed before merge) incrementing on each `engt
 
 Constraint: If a future accept path is added elsewhere in the codebase, it does not need to know about this module at all — correctness comes from the pull at the top of `engtotal.F`/`energy_change.F`, not from anything the accept path does. This is the main robustness win of the pull-based design over the original push-based one.
 
-### Phase 4: Update `energy_change.F` (Estimated: 1.5 hours)
+### Phase 4: Update `energy_change.F` (Estimated: 1.5 hours) — COMPLETE 2026-08-08
+
+**Implementation note:** In this codebase `twh_ec_two_body_dv` (energy_change.F:217) does **not** contain its own pair loop — it delegates to `twh_eng_two_body` (energy.F) for both `TRL_NEW` and `TRL_OLD`, which is exactly the routine inlined in Phase 2. Therefore no additional inlining is required in `energy_change.F` itself; the OLD/NEW coordinate selection flows through `chaininfo(ichainmove,crdflag)` → `testcrd`/`jcrd`, which feed the `twh_coordinates` calls preserved in the inline path. No `engtotal_sync_coord_ptrs()` call was added because the current architecture keeps `twh_coordinates` for coordinate access (zero-copy coord pointers are not used anywhere).
+
+**Validation (2026-08-08):** Baseline (dispatch) vs `HOT_PATH_INLINE` builds on a 10-example set spanning all ensembles (NVT AVB1/Hard_Sphere/Formamide_Scaled/TraPPE_Molecules, Gibbs EPM_VLCC/Cui2002_Hexane, grand canonical Energy_Biasing, NPT OPLS_Propanamide, TMMC LJ/SPC_E_WATER): **10/10 bit-identical** outputs. Move-heavy OLD/NEW acceptance checks (AVB1_Methane, Square_Well_Chain, TraPPE_Isomers) also bit-identical. Full 56-test serial suite: identical pass/fail sets (45 pre-existing platform/compiler diffs in both builds). **Zero regressions.**
 
 #### Step 4.1 — Find equivalent hot loops in `energy_change.F`
 `ec_two_body_dv` evaluates pair energy changes for moved molecules vs. all others, with the same nested structure as `engtotal.F` but over (moved molecule, all others). Add `call engtotal_sync_coord_ptrs()` once at the top of this routine (or its outer caller, whichever is the single entry point for a given move evaluation — not inside the pair loop), then apply the identical inlining pattern from Phase 2.
@@ -376,7 +380,7 @@ Note: this replaces any requirement for bit-for-bit identical output. `CONTIGUOU
 4. Run a second regression system dominated by single-molecule translation/rotation moves (not just the full-recompute-heavy NPT case above), since Phase 4's `energy_change.F` path is the one flagged as highest-risk in ARCHITECTURE.
 
 ### Performance Test
-1. Benchmark a large system (e.g., 10,000-atom SPC/E water, 10,000 MC steps) with and without the optimization, using the Baseline Capture numbers above as the "without" side.
+1. Benchmark a realistic system: **1,000-molecule SPC/E water (3,000 atoms), run for 10,000 MC cycles with `stepstyle='cycles'`** (`mainloop.F:360-370`: a cycle = `nchain` moves, i.e. one attempted move per molecule), with and without the optimization, using the Baseline Capture numbers above as the "without" side. **Do not use `stepstyle='moves'` at 10,000 steps on a 10,000-atom system** — that yields only ~1 attempted move per molecule, which leaves the O(N) `energy_change.F` per-move path (the dominant call frequency in a real simulation, per CONTEXT) essentially unexercised and understates the optimization's benefit. 1,000 molecules × 10,000 cycles = 10,000 attempted moves per molecule, exercising the accept path at realistic density.
 2. Profile with `perf stat` or `gprof` — measure reduction in function call counts in the hot path, and separately confirm `engtotal_sync_coord_ptrs()` call count matches hot-function entry count (not atom-pair count).
 3. Expected result: 1.5-3× speedup on the nonbonded energy evaluation, 20-50% reduction in total simulation time.
 

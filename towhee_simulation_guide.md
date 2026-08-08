@@ -39,7 +39,7 @@ The input file is keyword-driven, free-format. Keywords are case-insensitive. A 
 These are the first keywords in the file:
 
 ```
-ensemble          'nvt' | 'npt' | 'uvt'          ! NVT, NpT, or grand canonical
+ensemble          'nvt' | 'npt' | 'uvt'           ! NVT, NpT, or grand canonical
 temperature       <temp>                          ! Kelvin
 pressure          <press>                         ! [bar] (NpT only)
 chempot           <mu>                            ! Chemical potential (uVT only)

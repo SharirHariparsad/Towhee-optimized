@@ -158,6 +158,7 @@ am_towhee_OBJECTS = accumulateaverages.$(OBJEXT) allocate.$(OBJEXT) \
 	dihedral_distribution.$(OBJEXT) distance.$(OBJEXT) \
 	dotproduct.$(OBJEXT) energy.$(OBJEXT) energybiasbox.$(OBJEXT) \
 	energy_change.$(OBJEXT) engatom.$(OBJEXT) engtotal.$(OBJEXT) \
+	engtotal_globals.$(OBJEXT) \
 	expon.$(OBJEXT) febias.$(OBJEXT) fielddft.$(OBJEXT) \
 	finalize.$(OBJEXT) findrings.$(OBJEXT) findtarget.$(OBJEXT) \
 	gaussian.$(OBJEXT) gaussprob.$(OBJEXT) getcbangle.$(OBJEXT) \
@@ -400,7 +401,9 @@ AM_FFLAGS = $(SC_FFLAGS) $(FG_FFLAGS) $(DM_FFLAGS)
 #DM_CPPFLAGS = -DUSE_DYNAMIC_MEMORY
 #endif
 AM_CPPFLAGS = $(MPI_CPPFLAGS) $(OK_CPPFLAGS) $(T_CPPFLAGS) \
-	$(I_CPPFLAGS) $(SC_CPPFLAGS) $(CLA_CPPFLAGS) $(DM_CPPFLAGS)
+	$(I_CPPFLAGS) $(SC_CPPFLAGS) $(CLA_CPPFLAGS) $(DM_CPPFLAGS) $(HOT_PATH_CPPFLAGS)
+# To build with hot-path inlining: make clean && make HOT_PATH_CPPFLAGS="-DHOT_PATH_INLINE"
+HOT_PATH_CPPFLAGS =
 
 # Add the Fortran libraries, so we can link with C
 LDADD =  -L/usr/lib/gcc/x86_64-linux-gnu/13 -L/usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/13/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/13/../../.. -lgfortran -lm -lgcc_s -lquadmath
@@ -443,6 +446,7 @@ towhee_SOURCES = \
 		energy_change.F \
 		engatom.F \
 		engtotal.F \
+		engtotal_globals.F \
 		expon.F \
 		febias.F \
 		fielddft.F \
@@ -1039,11 +1043,12 @@ ctrmas.o: preproc.h functions.h ctrmas.F
 dihedral_distribution.o: preproc.h functions.h dihedral_distribution.F
 distance.o: functions.h distance.F
 dotproduct.o: preproc.h functions.h dotproduct.F
-energy.o: preproc.h functions.h energy.F
+energy.o: preproc.h functions.h energy.F engtotal_globals.o
 energybiasbox.o: preproc.h functions.h energybiasbox.F
 energy_change.o: preproc.h functions.h energy_change.F
 engatom.o: preproc.h functions.h engatom.F
-engtotal.o: preproc.h functions.h engtotal.F
+engtotal.o: preproc.h functions.h engtotal.F engtotal_globals.o
+engtotal_globals.o: preproc.h hot_common.h engtotal_globals.F
 expon.o: preproc.h functions.h expon.F 
 febias.o: preproc.h functions.h febias.F
 ffackl2004.o: preproc.h functions.h ffackl2004.F
@@ -1186,7 +1191,8 @@ ranlux.o: ranlux.F
 readclassical.o: preproc.h functions.h wrapperF.h readclassical.F
 readinput.o: preproc.h wrapperF.h functions.h readinput.F
 readlammps.o: preproc.h readlammps.F
-readtowhee.o: preproc.h wrapperF.h functions.h readtowhee.F
+readtowhee.o: preproc.h wrapperF.h functions.h readtowhee.F \
+	engtotal_globals.o
 readutils.o: functions.h readutils.F
 recip.o: preproc.h recip.F
 recippress.o: preproc.h recippress.F

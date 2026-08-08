@@ -42,6 +42,8 @@ AM_CPPFLAGS += $(SC_CPPFLAGS) $(CLA_CPPFLAGS) $(DM_CPPFLAGS) $(OMP_CPPFLAGS)
 AM_FFLAGS += $(SC_FFLAGS) $(FG_FFLAGS) $(DM_FFLAGS) $(OMP_FFLAGS)
 AM_FCFLAGS = -ffree-form $(AM_FFLAGS)
 AM_LDFLAGS = $(OMP_FFLAGS)
+# To build with hot-path inlining:
+#    make clean && make HOT_PATH_CPPFLAGS="-DHOT_PATH_INLINE"
 HOT_PATH_CPPFLAGS =
 AM_CPPFLAGS += $(HOT_PATH_CPPFLAGS)
 LIBS = $(MPI_LIBS)
@@ -88,6 +90,7 @@ towhee_SOURCES =  \
 		energy_change.F \
 		engatom.F \
 		engtotal.F \
+		engtotal_globals.F \
 		expon.F \
 		febias.F \
 		fielddft.F \
@@ -593,10 +596,8 @@ writetorsion.o: preproc.h functions.h writetorsion.F
 writetowhee.o: preproc.h functions.h writetowhee.F
 writetramonto.o: preproc.h functions.h writetramonto.F
 wtwobody.o: preproc.h functions.h wtwobody.F
-### Module dependencies (engtotal_globals.F90 must compile before consumers)
-engtotal.o: preproc.h hot_common.h hot_access.h engtotal.F
-vtwobody.o: preproc.h hot_access.h vtwobody.F
-vcoulomb.o: preproc.h hot_access.h vcoulomb.F
+### Module dependencies: engtotal_globals.F must compile before consumers
+engtotal.o vtwobody.o vcoulomb.o energy.o readtowhee.o: engtotal_globals.o
 ###C dependencies
 control.o: globalc.h control.c
 dx-1597-2-7.o: globalc.h dx-1597-2-7.c

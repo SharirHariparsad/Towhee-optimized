@@ -9459,6 +9459,7 @@ c     --- variables passed to/from this subroutine
 c     --- information variables
       logical lelect
       common /hot_lelect/ lelect
+      target lelect
 
       if ( flag .eq. GLB_GET ) then
          lvalue = lelect
@@ -9523,6 +9524,7 @@ c     --- variables passed to/from this subroutine
 c     --- information variables
       logical lewald
       common /hot_lewald/ lewald
+      target lewald
 
       if ( flag .eq. GLB_GET ) then
          lvalue = lewald
@@ -10011,6 +10013,7 @@ c     --- variables passed to/from this subroutine
 c     --- information variables
       logical lshift
       common /hot_lshift/ lshift
+      target lshift
 
       if ( flag .eq. GLB_GET ) then
          lvalue = lshift
@@ -10070,6 +10073,7 @@ c     --- information variables
       logical luse_c
       dimension luse_c(NTMAX,NUMAX)
       common /hot_luse_c/ luse_c
+      target luse_c
 
       if ( flag .eq. GLB_GET ) then
          lvalue = luse_c(imolty,iunit)
@@ -10107,6 +10111,7 @@ c     --- information variables
       logical luse_v
       dimension luse_v(NTMAX,NUMAX)
       common /hot_luse_v/ luse_v
+      target luse_v
 
       if ( flag .eq. GLB_GET ) then
          lvalue = luse_v(imolty,iunit)
@@ -10686,6 +10691,7 @@ c     --- information variables
       double precision nbcoeff
       dimension nbcoeff(MINNBCOEFF:MAXNBCOEFF,CROSSTYPEMAX)
       common /hot_nbcoeff/ nbcoeff
+      target nbcoeff
 
       if ( flag .eq. GLB_SET ) then
          nbcoeff(icoeff,itype) = dvalue
@@ -11583,6 +11589,7 @@ c     --- information variables
       integer ntype
       dimension ntype(NTMAX,NUMAX)
       common /hot_ntype/ ntype
+      target ntype
 
       if ( flag .eq. GLB_GET ) then
          ivalue = ntype(itype,iunit)
@@ -11644,6 +11651,7 @@ c     --- information variables
       integer nunit
       dimension nunit(NTMAX)
       common /hot_nunit/ nunit
+      target nunit
 
       if ( itype .gt. NTMAX ) then
          write(6,*) 'flag,itype,ivalue',flag,itype,ivalue
@@ -14279,6 +14287,7 @@ c     --- information variables
       double precision qqscale
       dimension qqscale(NTMAX,NUMAX)
       common /hot_qqscale/ qqscale
+      target qqscale
 
       if ( flag .eq. GLB_GET ) then
          dvalue = qqscale(itype,iunit)
@@ -14424,6 +14433,7 @@ c     --- information variables
       double precision rcelect
       dimension rcelect(MAXBXD,MAXBOX)
       common /hot_rcelect/ rcelect
+      target rcelect
 
       if ( flag .eq. GLB_GET ) then
          dvalue = rcelect(bxdflag,ibox)
@@ -14461,6 +14471,7 @@ c     --- variables passed to/from this subroutine
 c     --- information variables
       double precision rcut
       common /hot_rcut/ rcut
+      target rcut
 
       if ( flag .eq. GLB_GET ) then
          dvalue = rcut
@@ -14542,6 +14553,7 @@ c     --- variables passed to/from this subroutine
 c     --- information variables
       double precision rcutsq
       common /hot_rcutsq/ rcutsq
+      target rcutsq
 
       if ( flag .eq. GLB_GET ) then
          dvalue = rcutsq
@@ -14737,6 +14749,7 @@ c     --- variables passed to/from this subroutine
 c     --- information variables
       double precision rmin
       save rmin
+      target rmin
 
       if ( flag .eq. GLB_GET ) then
          dvalue = rmin
@@ -14764,6 +14777,7 @@ c     --- variables passed to/from this subroutine
 c     --- information variables
       double precision rminsq
       common /hot_rminsq/ rminsq
+      target rminsq
 
       if ( flag .eq. GLB_GET ) then
          dvalue = rminsq
