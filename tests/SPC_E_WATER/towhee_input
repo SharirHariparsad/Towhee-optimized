@@ -1,0 +1,292 @@
+random_number_generator
+'RANLUX'
+random_luxlevel
+1
+random_seed
+12345
+random_allow_restart
+.FALSE.
+ensemble
+'uvt'
+temperature
+500.0D0
+nmolty
+1
+nmolectyp
+270
+chempot
+#-6423.985d0
+#-4226.760d0
+-6800.0d0
+numboxes
+1
+stepstyle
+'moves'
+nstep
+5000
+printfreq
+1000
+blocksize
+100000000
+moviefreq
+0
+backupfreq
+0
+runoutput
+'blocks'
+pdb_output_freq
+0
+loutdft 
+.false.  
+loutlammps
+.false.
+tmmc_flag
+.true.
+weight_freq
+5000
+c_matrix_freq
+5000
+run_name
+'h2o.500Kr1'
+louthist
+T
+hist_label
+ 1
+hist_suffix
+'d'
+hist_nequil
+ 0
+histcalcfreq
+1
+histdumpfreq
+10000
+pressure_virial_freq
+0
+trmaxdispfreq
+10000
+volmaxdispfreq
+0
+chempotperstep
+0
+linit   
+.true.
+initboxtype
+'dimensions'
+initstyle
+'full cbmc'
+initlattice
+'simple cubic' 
+initmol
+0
+inix iniy iniz
+0    0     0   
+hmatrix
+20.0d0 0.0d0 0.0d0
+0.0d0   20.0d0  0.0d0
+0.0d0 0.0d0  20.0d0   
+pmuvtcbswap
+0.6500d0
+          pmuvtcbmt
+          1.0d0
+pm1boxcbswap
+0.000d0
+          pm1cbswmt
+          1.0d0
+pmavb1    
+0.0d0     
+          pmavb1in
+          0.5d0
+          pmavb1mt
+          1.0d0
+          pmavb1ct
+          1.0d0
+          avb1rad
+          1.0d0
+pmavb2
+0.25d0     
+          pmavb2in
+          0.5
+          pmavb2mt
+          1.0d0
+          pmavb2ct
+          1.0d0
+          avb2rad
+          4.00d0
+pmavb3
+0.0d0     
+          pmavb3mt
+          1.0d0
+          pmavb3ct
+          1.0d0
+          avb3rad
+          1.0d0
+pmcb
+0.050d0
+          pmcbmt
+          1.0d0 
+          pmall
+          0.50d0 
+pmback
+0.0d0
+          pmbkmt
+          1.0d0
+pmpivot
+0.0d0
+          pmpivmt
+          1.0d0
+pmconrot
+0.0d0
+          pmcrmt
+          1.0d0
+pmcrback
+0.0d0
+          pmcrbmt
+          1.0d0
+pmplane
+0.0d0
+          pmplanebox
+          1.0d0
+          planewidth
+          3.0d0
+pmrow
+0.0d0
+          pmrowbox
+          1.0d0
+          rowwidth
+          3.0d0
+pmtraat
+0.0d0
+          pmtamt          
+          1.0d0      	
+          rmtraa
+          0.5d0 
+          tatraa
+          0.5d0
+pmtracm
+0.800d0
+          pmtcmt          
+          1.0d0      	
+          rmtrac
+          0.5d0 
+          tatrac
+          0.5d0
+pmrotate
+1.000d0
+          pmromt  
+          1.0d0
+          rmrot
+          0.05d0
+          tarot
+          0.5d0
+cbmc_formulation
+'Martin and Siepmann 1999 + Martin and Thompson 2004'
+cbmc_setting_style
+'explicit'
+cbmc_nb_one_generation
+'uniform'
+nch_nb_one
+8
+nch_nb
+8
+cbmc_dihedral_generation
+'ideal + autofit gaussian'
+dihedral_peak_weight_style
+'uniform'
+dihedral_sdev_multiplier
+1.0D0
+dihedral_ideal_fraction
+0.01D0
+nch_tor
+100
+nch_tor_connect
+100
+cbmc_bend_generation
+'ideal + autofit gaussian'
+bend_a_sdev_multiplier
+1.0D0
+bend_b_sdev_multiplier
+1.0D0
+bend_a_ideal_fraction
+0.01D0
+bend_b_ideal_fraction
+0.01D0
+nch_bend_a
+1
+nch_bend_b
+100
+cbmc_bond_generation
+'autofit gaussian'
+bond_sdev_multiplier
+1.0D0
+nch_vib
+1
+two_bond_fixed_endpoint_bias_style
+'analytic Boltzmann using angles'
+three_bond_fixed_endpoint_bias_style
+'analytic using max and min 2-4 distance'
+ffnumber
+1
+ff_filename
+/towheebase/ForceFields/towhee_ff_SPC-E
+classical_potential
+'Lennard-Jones'       
+classical_mixrule
+'Lorentz-Berthelot'
+lshift
+.false.
+ltailc
+.true.
+rmin  
+0.500d0 
+rcut  
+10.0000D0
+rcutin 
+4.00D0 
+electrostatic_form
+'coulomb'
+coulombstyle
+'ewald_fixed_kmax'
+kalp
+5.60D0
+kmax
+5
+dielect
+1.0D0
+nfield
+0
+solvation_style
+'none'
+#spc-e water
+input_style
+'basic connectivity map'
+nunit
+3
+nmaxcbmc
+3
+lpdbnames
+F
+forcefield
+'SPC-E'
+charge_assignment
+'manual'
+unit ntype qqatom
+1    'OW'  -0.8476d0
+vibration
+2
+2 3
+improper torsion
+0
+unit ntype qqatom
+2    'HW'  0.4238d0
+vibration
+1
+1
+improper torsion
+0
+unit ntype qqatom
+3    'HW'  0.4238d0
+vibration
+1
+1
+improper torsion
+0
