@@ -13,7 +13,7 @@ temperature
 nmolty
 1
 nmolectyp
-270
+5000
 chempot
 #-6423.985d0
 #-4226.760d0
@@ -23,7 +23,7 @@ numboxes
 stepstyle
 'moves'
 nstep
-5000
+50000
 printfreq
 1000
 blocksize
@@ -47,7 +47,7 @@ weight_freq
 c_matrix_freq
 5000
 run_name
-'h2o.500Kr1'
+'SPC_E_H2O_BMK'
 louthist
 T
 hist_label
@@ -81,9 +81,9 @@ initmol
 inix iniy iniz
 0    0     0   
 hmatrix
-20.0d0 0.0d0 0.0d0
-0.0d0   20.0d0  0.0d0
-0.0d0 0.0d0  20.0d0   
+53.0d0 0.0d0 0.0d0
+0.0d0   53.0d0  0.0d0
+0.0d0 0.0d0  53.0d0   
 pmuvtcbswap
 0.6500d0
           pmuvtcbmt
