@@ -1,0 +1,21 @@
+Suggested citations for the methods, algorithms and force fields used in this simulation
+
+Simulations were performed using version 8.2.3   of MCCCS Towhee [ 1, 2]
+[ 1] M.G. Martin;
+"MCCCS Towhee: a tool for Monte Carlo molecular simulation"
+Mol. Simulat. 39 1212-1222 (2013)
+[ 2] http://towhee.sourceforge.net
+
+pseudo-random numbers generated using RANLUX [ 3, 4]
+[ 3] M. Luscher;
+"A portable high-quality random number generator for lattice field theory simulations"
+Comp. Phys. Comm. 79 100-110 (1994)
+[ 4] F. James;
+"RANLUX: A Fortran implementation of the high-quality pseudorandom number generator of Luscher"
+Comp. Phys. Comm. 79 111-114 (1994)
+
+Grand Canonical ensemble [ 5]
+[ 5] G.E. Norman; V.S. Filinov;
+"Investigations of Phase Transitions by a Monte-Carlo Method"
+High Temperature 7 216-222 (1969)
+
