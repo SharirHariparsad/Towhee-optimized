@@ -14,6 +14,7 @@ Usage:
 """
 
 import argparse
+import json
 import os
 import statistics
 import subprocess
@@ -67,13 +68,83 @@ def summarize(label: str, timings: list) -> dict:
     return {"mean": mean_t, "min": min_t, "stdev": stdev_t}
 
 
+def load_config(config_path: Path = Path("bench_config.json")) -> dict:
+    """Load configuration from JSON file, with env and fallback defaults."""
+    defaults = {
+        "original": None,
+        "optimized": None,
+        "run_dir": Path("."),
+        "threads": 1,
+        "repeats": 5,
+        "warmup": 1,
+    }
+
+    if config_path.is_file():
+        try:
+            with config_path.open("r") as f:
+                file_config = json.load(f)
+            defaults.update(file_config)
+        except (json.JSONDecodeError, OSError):
+            pass
+
+    # Override with environment variables if set
+    for key in defaults:
+        env_key = f"TOWHEE_{key.upper()}"
+        if env_key in os.environ:
+            defaults[key] = os.environ[env_key]
+
+    # Convert types
+    if defaults["run_dir"]:
+        defaults["run_dir"] = Path(defaults["run_dir"])
+    if isinstance(defaults["threads"], str):
+        defaults["threads"] = int(defaults["threads"])
+    if isinstance(defaults["repeats"], str):
+        defaults["repeats"] = int(defaults["repeats"])
+    if isinstance(defaults["warmup"], str):
+        defaults["warmup"] = int(defaults["warmup"])
+
+    return defaults
+
+
+def write_json_results(results: dict, path: Path = Path("bench_results.json")):
+    """Append benchmark results to JSON file."""
+    entry = {
+        "timestamp": time.strftime("%Y-%m-%dT%H:%M:%S"),
+        "threads": results["threads"],
+        "repeats": results["repeats"],
+        "original_mean": results["og_stats"]["mean"],
+        "original_min": results["og_stats"]["min"],
+        "original_stdev": results["og_stats"]["stdev"],
+        "optimized_mean": results["opt_stats"]["mean"],
+        "optimized_min": results["opt_stats"]["min"],
+        "optimized_stdev": results["opt_stats"]["stdev"],
+        "speedup": results["speedup"],
+    }
+
+    if path.exists():
+        try:
+            with path.open("r") as f:
+                existing = json.load(f)
+            if not isinstance(existing, list):
+                existing = [existing]
+            existing.append(entry)
+            results_to_write = existing
+        except (json.JSONDecodeError, OSError):
+            results_to_write = [entry]
+    else:
+        results_to_write = [entry]
+
+    with path.open("w") as f:
+        json.dump(results_to_write, f, indent=2)
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--original", type=Path, required=True,
+    p.add_argument("--original", type=Path,
                    help="Path to the original (unoptimized) towhee binary")
-    p.add_argument("--optimized", type=Path, required=True,
+    p.add_argument("--optimized", type=Path,
                    help="Path to your optimized towhee binary")
-    p.add_argument("--run-dir", type=Path, required=True,
+    p.add_argument("--run-dir", type=Path,
                    help="Directory containing towhee_input")
     p.add_argument("--threads", type=int, default=1,
                    help="OMP_NUM_THREADS to use for both runs (default: 1)")
@@ -81,21 +152,36 @@ def main():
                    help="Measured runs per binary (default: 5)")
     p.add_argument("--warmup", type=int, default=1,
                    help="Warmup runs discarded per binary (default: 1)")
+    p.add_argument("--config", type=Path, default=Path("bench_config.json"),
+                   help="Path to JSON config file (default: bench_config.json)")
     args = p.parse_args()
 
-    for exe in (args.original, args.optimized):
-        if not exe.is_file():
-            raise SystemExit(f"ERROR: executable not found: {exe}")
-    if not (args.run_dir / "towhee_input").is_file():
-        raise SystemExit(f"ERROR: no towhee_input in {args.run_dir}")
+    # Load configuration from JSON file + env vars
+    config = load_config(Path(args.config))
 
-    print(f"Threads: {args.threads}  Repeats: {args.repeats}  "
-          f"Warmup: {args.warmup}")
+    # Use CLI args if provided, otherwise fall back to config defaults
+    original = args.original or config.get("original")
+    optimized = args.optimized or config.get("optimized")
+    run_dir = args.run_dir or config.get("run_dir", Path("."))
+    threads = args.threads if args.threads > 0 else config.get("threads", 1)
+    repeats = args.repeats if args.repeats > 0 else config.get("repeats", 5)
+    warmup = args.warmup if args.warmup > 0 else config.get("warmup", 1)
 
-    og_timings = benchmark("original", args.original, args.run_dir,
-                           args.threads, args.repeats, args.warmup)
-    opt_timings = benchmark("optimized", args.optimized, args.run_dir,
-                            args.threads, args.repeats, args.warmup)
+    # Validate paths exist
+    if not original or not Path(original).is_file():
+        raise SystemExit(f"ERROR: executable not found: {original}")
+    if not optimized or not Path(optimized).is_file():
+        raise SystemExit(f"ERROR: executable not found: {optimized}")
+    if not (Path(run_dir) / "towhee_input").is_file():
+        raise SystemExit(f"ERROR: no towhee_input in {run_dir}")
+
+    print(f"Threads: {threads}  Repeats: {repeats}  "
+          f"Warmup: {warmup}")
+
+    og_timings = benchmark("original", Path(original), Path(run_dir),
+                           threads, repeats, warmup)
+    opt_timings = benchmark("optimized", Path(optimized), Path(run_dir),
+                            threads, repeats, warmup)
 
     print("\n" + "=" * 40)
     og_stats = summarize("original ", og_timings)
@@ -108,6 +194,14 @@ def main():
         print(f"Optimized version is {speedup:.2f}x faster.")
     else:
         print(f"Optimized version is {1/speedup:.2f}x SLOWER.")
+
+    write_json_results({
+        "threads": threads,
+        "repeats": repeats,
+        "og_stats": og_stats,
+        "opt_stats": opt_stats,
+        "speedup": speedup,
+    })
 
 
 if __name__ == "__main__":
