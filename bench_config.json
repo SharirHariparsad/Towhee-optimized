@@ -1,0 +1,8 @@
+{
+  "original": "src/towhee-8.2.3/Source/towhee_original",
+  "optimized": "src/towhee-8.2.3/Source/towhee",
+  "run_dir": "tests/SPC_E_WATER",
+  "threads": 1,
+  "repeats": 5,
+  "warmup": 1
+}
