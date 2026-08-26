@@ -147,12 +147,12 @@ def main():
                    help="Path to your optimized towhee binary")
     p.add_argument("--run-dir", type=Path,
                    help="Directory containing towhee_input")
-    p.add_argument("--threads", type=int, default=1,
-                   help="OMP_NUM_THREADS to use for both runs (default: 1)")
-    p.add_argument("--repeats", type=int, default=5,
-                   help="Measured runs per binary (default: 5)")
-    p.add_argument("--warmup", type=int, default=1,
-                   help="Warmup runs discarded per binary (default: 1)")
+    p.add_argument("--threads", type=int, default=None,
+                   help="OMP_NUM_THREADS to use for both runs")
+    p.add_argument("--repeats", type=int, default=None,
+                   help="Measured runs per binary")
+    p.add_argument("--warmup", type=int, default=None,
+                   help="Warmup runs discarded per binary")
     p.add_argument("--config", type=Path, default=Path("bench_config.json"),
                    help="Path to JSON config file (default: bench_config.json)")
     args = p.parse_args()
@@ -164,9 +164,9 @@ def main():
     original = args.original or config.get("original")
     optimized = args.optimized or config.get("optimized")
     run_dir = args.run_dir or config.get("run_dir", Path("."))
-    threads = args.threads if args.threads > 0 else config.get("threads", 1)
-    repeats = args.repeats if args.repeats > 0 else config.get("repeats", 5)
-    warmup = args.warmup if args.warmup > 0 else config.get("warmup", 1)
+    threads = args.threads if args.threads is not None else config.get("threads", 1)
+    repeats = args.repeats if args.repeats is not None else config.get("repeats", 5)
+    warmup = args.warmup if args.warmup is not None else config.get("warmup", 1)
 
     # Validate paths exist
     if not original or not Path(original).is_file():
