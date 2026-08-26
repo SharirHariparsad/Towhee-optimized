@@ -9,7 +9,8 @@
     "optimized_mean": 15.17973603060002,
     "optimized_min": 13.48557559599999,
     "optimized_stdev": 1.0694645179545987,
-    "speedup": 1.0844548105853538
+    "speedup": 1.0844548105853538,
+    "note": "Ran under WSL via /mnt mount before project moved to native Linux; runtimes inflated ~2x by 9P filesystem I/O overhead and high variance. Not comparable with later native-Linux results."
   },
   {
     "timestamp": "2026-08-26T09:03:58",
@@ -23,5 +24,18 @@
     "optimized_min": 7.920530815999882,
     "optimized_stdev": 0.05477431357070939,
     "speedup": 1.0045344169376855
+  },
+  {
+    "timestamp": "2026-08-26T09:14:19",
+    "simulation": "SPC_E_WATER",
+    "threads": 8,
+    "repeats": 10,
+    "original_mean": 8.223060334100046,
+    "original_min": 8.087000628000169,
+    "original_stdev": 0.07170037055262021,
+    "optimized_mean": 8.125376101600068,
+    "optimized_min": 8.043144494999979,
+    "optimized_stdev": 0.0651178000824909,
+    "speedup": 1.0120221182722535
   }
 ]
