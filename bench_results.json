@@ -1,0 +1,14 @@
+[
+  {
+    "timestamp": "2026-08-26T07:41:43",
+    "threads": 1,
+    "repeats": 5,
+    "original_mean": 16.461737761800016,
+    "original_min": 15.63535957800002,
+    "original_stdev": 0.4992421958328245,
+    "optimized_mean": 15.17973603060002,
+    "optimized_min": 13.48557559599999,
+    "optimized_stdev": 1.0694645179545987,
+    "speedup": 1.0844548105853538
+  }
+]

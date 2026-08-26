@@ -2,7 +2,7 @@
   "original": "/home/sharir/towhee-8.2.3/Source/towhee",
   "optimized": "src/towhee-8.2.3/Source/towhee",
   "run_dir": "tests/SPC_E_WATER",
-  "threads": 1,
+  "threads": 8,
   "repeats": 5,
   "warmup": 1
 }
