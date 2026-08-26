@@ -110,6 +110,7 @@ def write_json_results(results: dict, path: Path = Path("bench_results.json")):
     """Append benchmark results to JSON file."""
     entry = {
         "timestamp": time.strftime("%Y-%m-%dT%H:%M:%S"),
+        "simulation": results["simulation"],
         "threads": results["threads"],
         "repeats": results["repeats"],
         "original_mean": results["og_stats"]["mean"],
@@ -175,7 +176,9 @@ def main():
     if not (Path(run_dir) / "towhee_input").is_file():
         raise SystemExit(f"ERROR: no towhee_input in {run_dir}")
 
-    print(f"Threads: {threads}  Repeats: {repeats}  "
+    sim_name = Path(run_dir).resolve().name
+
+    print(f"Simulation: {sim_name}  Threads: {threads}  Repeats: {repeats}  "
           f"Warmup: {warmup}")
 
     og_timings = benchmark("original", Path(original), Path(run_dir),
@@ -196,6 +199,7 @@ def main():
         print(f"Optimized version is {1/speedup:.2f}x SLOWER.")
 
     write_json_results({
+        "simulation": sim_name,
         "threads": threads,
         "repeats": repeats,
         "og_stats": og_stats,
