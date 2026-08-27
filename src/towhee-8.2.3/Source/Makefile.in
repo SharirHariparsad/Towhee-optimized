@@ -157,7 +157,7 @@ am_towhee_OBJECTS = accumulateaverages.$(OBJEXT) allocate.$(OBJEXT) \
 	crossproduct.$(OBJEXT) ctrmas.$(OBJEXT) \
 	dihedral_distribution.$(OBJEXT) distance.$(OBJEXT) \
 	dotproduct.$(OBJEXT) energy.$(OBJEXT) energybiasbox.$(OBJEXT) \
-	energy_change.$(OBJEXT) engatom.$(OBJEXT) engtotal.$(OBJEXT) \
+	energy_change.$(OBJEXT) engatom.$(OBJEXT) engtotal.$(OBJEXT) engtotal_globals.$(OBJEXT) \
 	expon.$(OBJEXT) febias.$(OBJEXT) fielddft.$(OBJEXT) \
 	finalize.$(OBJEXT) findrings.$(OBJEXT) findtarget.$(OBJEXT) \
 	gaussian.$(OBJEXT) gaussprob.$(OBJEXT) getcbangle.$(OBJEXT) \
@@ -442,7 +442,7 @@ towhee_SOURCES = \
 		energybiasbox.F \
 		energy_change.F \
 		engatom.F \
-		engtotal.F \
+		engtotal.F engtotal_globals.F \
 		expon.F \
 		febias.F \
 		fielddft.F \
@@ -1044,6 +1044,7 @@ energybiasbox.o: preproc.h functions.h energybiasbox.F
 energy_change.o: preproc.h functions.h energy_change.F
 engatom.o: preproc.h functions.h engatom.F
 engtotal.o: preproc.h functions.h engtotal.F
+engtotal_globals.o: preproc.h functions.h engtotal_globals.F hot_common.h
 expon.o: preproc.h functions.h expon.F 
 febias.o: preproc.h functions.h febias.F
 ffackl2004.o: preproc.h functions.h ffackl2004.F
