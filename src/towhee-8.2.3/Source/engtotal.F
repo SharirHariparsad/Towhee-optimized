@@ -238,12 +238,90 @@ c     --- foreign energies add terms which do not change with lambda
 c     --- add the bond-bond terms into the regular bond
       vvib = vvib + vbondbond
 c     --- add the angleangle terms into the regular angle
-      vbend = vbend + vangleangle
+       vbend = vbend + vangleangle
 c     --- add the improper terms into the regular torsions
-      vtg = vtg + vimpr
+       vtg = vtg + vimpr
 c      write(6,*) 'end ENGTOTAL'
-      return
-      end
+       return
+       end
+
+#ifdef HOT_PATH_INLINE
+C     ==================================================================
+C     inline_atomnum - Inline atom number calculation
+C     Replaces twh_atomnum call chain.
+C     Uses twh_globalpos accessor.
+C     ==================================================================
+      function inline_atomnum(ichain, iunit)
+        implicit none
+        integer, intent(in) :: ichain, iunit
+        integer inline_atomnum, globalpos
+
+        call twh_globalpos(GLB_GET, ichain, globalpos)
+        inline_atomnum = globalpos + 3 * (iunit - 1)
+      end function inline_atomnum
+
+C     ==================================================================
+C     inline_mimage - Inline minimum image convention
+C     Replaces twh_mimage call chain for rectangular boxes.
+C     Uses twh_hmatrix and twh_halfbox accessors.
+C     ==================================================================
+      subroutine inline_mimage(bxdflag, ibox, rxuij, ryuij, rzuij)
+        implicit none
+        integer, intent(in) :: bxdflag, ibox
+        real(8), intent(inout) :: rxuij, ryuij, rzuij
+        integer :: idim
+        real(8) :: hmvalue, hbx
+
+        if (ibox .eq. 0) return
+
+C       --- rectangular box: simple min image using halfbox lengths
+        idim = 1
+        call twh_halfbox(GLB_GET, bxdflag, ibox, idim, hbx)
+        call twh_hmatrix(GLB_GET, bxdflag, ibox, idim, idim, hmvalue)
+        do while (rxuij .gt. hbx)
+           rxuij = rxuij - hmvalue
+        enddo
+        do while (rxuij .lt. -hbx)
+           rxuij = rxuij + hmvalue
+        enddo
+
+        idim = 2
+        call twh_halfbox(GLB_GET, bxdflag, ibox, idim, hbx)
+        call twh_hmatrix(GLB_GET, bxdflag, ibox, idim, idim, hmvalue)
+        do while (ryuij .gt. hbx)
+           ryuij = ryuij - hmvalue
+        enddo
+        do while (ryuij .lt. -hbx)
+           ryuij = ryuij + hmvalue
+        enddo
+
+        idim = 3
+        call twh_halfbox(GLB_GET, bxdflag, ibox, idim, hbx)
+        call twh_hmatrix(GLB_GET, bxdflag, ibox, idim, idim, hmvalue)
+        do while (rzuij .gt. hbx)
+           rzuij = rzuij - hmvalue
+        enddo
+        do while (rzuij .lt. -hbx)
+           rzuij = rzuij + hmvalue
+        enddo
+      end subroutine inline_mimage
+
+C     ==================================================================
+C     inline_coulomb - Inline Coulomb energy
+C     Replaces twh_vcoulomb for non-Ewald case.
+C     Uses zero-copy qqscale_arr from engtotal_globals.
+C     ==================================================================
+      function inline_coulomb(rij, imolty, ii, jmolty, jj)
+        use engtotal_globals, only: qqscale_arr
+        implicit none
+        double precision inline_coulomb
+        double precision rij
+        integer imolty, ii, jmolty, jj
+
+        inline_coulomb = qqscale_arr(imolty, ii) * qqscale_arr(jmolty, jj) / rij
+        return
+      end function inline_coulomb
+#endif
 
       subroutine twh_engtotal_twobody(lfailure,crdflag
      &     ,velectinter,vtwointer
@@ -287,6 +365,7 @@ c     ******************************************************************
       use engtotal_globals, only: ntype_arr, luse_c_arr, luse_v_arr
      &     , qqscale_arr, rcutsq_val, rminsq_val, lelect_val
      &     , lewald_val, lshift_val
+     &     , inline_atomnum, inline_mimage, inline_coulomb
 #endif
       implicit none
 #define FUNCTION_GETNBTYPE
@@ -362,7 +441,7 @@ c     --- precompute lonefour flag from cutstyle
       lonefour_global = (cutstyle .eq. 3)
 #endif
 #ifdef USEOPENMP
-!$OMP PARALLEL DO SCHEDULE(DYNAMIC, 8) PRIVATE(ichain, jchain, testboxi, testboxj, imolty, jmolty, numiunit, numjunit, lcompute, lmovemei, lmovemej, xcmi, ycmi, zcmi, rcmi, xcmj, ycmj, zcmj, rcmj, rcm, rcmsq, rijsq, rij, rxuij, ryuij, rzuij, rxui, ryui, rzui, rxuj, ryuj, rzuj, ii, jj, ntii, ntjj, luse_ci, luse_vi, luse_cj, luse_vj, leval_v, leval_c, lonefour_global, ntij, vcoulomb, dvdl, l, vf, lovrlap, lfailure) SHARED(nchain, ibox, crdflag, bxdflag, lmolecmove, lmovelist, cutstyle, lelect, lusecom, lmadelung, scp_num_foreign_lambda, rcelect, lomp_failure) REDUCTION(+:vtwointer, velectinter, dl_twointer, dl_elect) REDUCTION(+:vftwo, vfelec) REDUCTION(min:maddist)
+!$OMP PARALLEL DO SCHEDULE(DYNAMIC, 8) PRIVATE(ichain, jchain, testboxi, testboxj, imolty, jmolty, numiunit, numjunit, lcompute, lmovemei, lmovemej, xcmi, ycmi, zcmi, rcmi, xcmj, ycmj, zcmj, rcmj, rcm, rcmsq, rijsq, rij, rxuij, ryuij, rzuij, rxui, ryui, rzui, rxuj, ryuj, rzuj, ii, jj, ntii, ntjj, luse_ci, luse_vi, luse_cj, luse_vj, leval_v, leval_c, ntij, vcoulomb, dvdl, l, vf, lovrlap) FIRSTPRIVATE(lfailure, lonefour_global) SHARED(nchain, ibox, crdflag, bxdflag, lmolecmove, lmovelist, cutstyle, lelect, lusecom, lmadelung, scp_num_foreign_lambda, rcelect, lomp_failure) REDUCTION(+:vtwointer, velectinter, dl_twointer, dl_elect) REDUCTION(+:vftwo, vfelec) REDUCTION(min:maddist)
 #endif
       do ichain = 1, nchain - 1
 c        --- check if i is in relevant box
@@ -424,29 +503,35 @@ c                    --- engtotal_globals module.  Bypasses twh_* dispatch
 c                    --- for ntype, luse_c, luse_v, qqscale.
 c                    --- Coordinates still use twh_coordinates (zero-copy
 c                    --- to be added in Phase 3).
-                       do ii = 1,numiunit
-                          ntii = ntype_arr(imolty, ii)
-                          call twh_coordinates(GLB_GET,crdflag,ichain,ii
-     &                       ,rxui,ryui,rzui)
-                          luse_ci = luse_c_arr(imolty, ii)
-                          luse_vi = luse_v_arr(imolty, ii)
+do ii = 1,numiunit
+                           ntii = ntype_arr(imolty, ii)
+                           i_atom = inline_atomnum(ichain, ii)
+                           rxui = coord_real_arr(1, i_atom)
+                           ryui = coord_real_arr(2, i_atom)
+                           rzui = coord_real_arr(3, i_atom)
+                           luse_ci = luse_c_arr(imolty, ii)
+                           luse_vi = luse_v_arr(imolty, ii)
 c                       --- loop over all beads jj of chain j
-                          do jj = 1, numjunit
-                             ntjj = ntype_arr(jmolty, jj)
-                             call twh_coordinates(GLB_GET,crdflag,jchain
-     &                          ,jj,rxuj,ryuj,rzuj)
-                             luse_cj = luse_c_arr(jmolty, jj)
-                             luse_vj = luse_v_arr(jmolty, jj)
+                           do jj = 1, numjunit
+                              ntjj = ntype_arr(jmolty, jj)
+                              j_atom = inline_atomnum(jchain, jj)
+                              rxuj = coord_real_arr(1, j_atom)
+                              ryuj = coord_real_arr(2, j_atom)
+                              rzuj = coord_real_arr(3, j_atom)
+                              luse_cj = luse_c_arr(jmolty, jj)
+                              luse_vj = luse_v_arr(jmolty, jj)
 c                          --- check if nonzero interaction sites
-                             leval_v = luse_vi .and. luse_vj
-                             leval_c = luse_ci .and. luse_cj
-                             if ( leval_v .or. leval_c ) then
+                              leval_v = luse_vi .and. luse_vj
+                              leval_c = luse_ci .and. luse_cj
+                              if ( leval_v .or. leval_c ) then
 c                             --- minimum image the pair separation
-                                call twh_mimage(bxdflag,ibox
-     &                             ,rxui,ryui,rzui,rxuj,ryuj,rzuj
-     &                             ,rxuij,ryuij,rzuij )
-                                rijsq = (rxuij*rxuij)+(ryuij*ryuij)
-     &                          + (rzuij*rzuij)
+                                 call inline_mimage(bxdflag, ibox
+      &                             ,rxuij,ryuij,rzuij)
+                                 rxuij = rxui - rxuj
+                                 ryuij = ryui - ryuj
+                                 rzuij = rzui - rzuj
+                                 rijsq = (rxuij*rxuij)+(ryuij*ryuij)
+      &                          + (rzuij*rzuij)
                                 if (leval_v) then
 c                                --- VDW: inline LJ 12-6 via module
                                    lovrlap = .false.
@@ -491,15 +576,14 @@ c                                   --- full dispatch for Ewald
      &                                  ,rij,imolty,ii
      &                                  ,jmolty,jj,vf,dvdl,lovrlap
      &                                  ,vcoulomb)
-                                   else
+else
 c                                   --- simple inline Coulomb via module
-                                     vcoulomb = qqscale_arr(imolty,ii)
-     &                                  * qqscale_arr(jmolty,jj) / rij
-                                     dvdl = 0.0d0
-                                     do l = 1, scp_num_foreign_lambda
-                                        vf(l) = 0.0d0
-                                     enddo
-                                   endif
+                                      vcoulomb = inline_coulomb(rij, imolty, ii, jmolty, jj)
+                                      dvdl = 0.0d0
+                                      do l = 1, scp_num_foreign_lambda
+                                         vf(l) = 0.0d0
+                                      enddo
+                                    endif
                                    velectinter = velectinter + vcoulomb
                                    dl_elect = dl_elect + dvdl
                                    do l = 1, scp_num_foreign_lambda
@@ -553,8 +637,9 @@ c                             --- minimum image the pair separation
      &                             ,rxuij,ryuij,rzuij )
                                rijsq = (rxuij*rxuij)+(ryuij*ryuij)
      &                          + (rzuij*rzuij)
-                               if (leval_v) then
-                                  vtwointer = vtwointer 
+                                if (leval_v) then
+                                   lovrlap = .false.
+                                   vtwointer = vtwointer
      &                              + twh_vtwobody(lfailure,rijsq,ntii
      &                                ,ntjj,cutstyle,lovrlap,vf,dvdl)
 #ifdef USEOPENMP
@@ -590,6 +675,7 @@ c                             --- minimum image the pair separation
 c                             --- electrostatics.
                                if ( lelect .and. leval_c) then
                                   rij = dsqrt(rijsq)
+                                  lovrlap = .false.
                                   call twh_vcoulomb(-1,bxdflag,ibox,rij
      &                                ,imolty,ii
      &                                ,jmolty,jj,vf,dvdl,lovrlap
@@ -636,6 +722,7 @@ c                    --- lcompute
 #ifdef USEOPENMP
        enddo
 !$OMP END PARALLEL DO
+       write(6,*) 'DEBUG twobody: lomp_failure=',lomp_failure
        if ( lomp_failure ) then
           lfailure = .true.
           return

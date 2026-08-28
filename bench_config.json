@@ -1,8 +1,8 @@
 {
   "original": "/home/sharir/towhee-8.2.3/Source/towhee",
   "optimized": "src/towhee-8.2.3/Source/towhee",
-  "run_dir": "tests/SPC_E_WATER",
+  "run_dir": "tests/TraPPE_Pentane",
   "threads": 8,
-  "repeats": 10,
-  "warmup": 1
+  "repeats": 20,
+  "warmup": 5
 }

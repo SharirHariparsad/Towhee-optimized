@@ -19,11 +19,33 @@ import os
 import statistics
 import subprocess
 import time
+import shutil
 from pathlib import Path
+
+
+def clean_run_dir(run_dir: Path):
+    """Remove all towhee output files to ensure clean state."""
+    # Files to preserve
+    preserve = {"towhee_input"}
+    patterns = [
+        "towhee_altinp", "towhee_cbmc", "towhee_citations", "towhee_final",
+        "towhee_backup", "towhee_movie", "towhee_initial",
+        "towhee_his*", "towhee_nfl*", "towhee_pvs*", "towhee_ostwald",
+        "box_*_step_*.pdb", "*.dat", "gmon.out",
+        "*.backup", "*.final", "*.movie", "*.cbmc", "*.citations",
+    ]
+    for pattern in patterns:
+        for f in run_dir.glob(pattern):
+            if f.name not in preserve:
+                try:
+                    f.unlink()
+                except OSError:
+                    pass
 
 
 def run_once(exe: Path, run_dir: Path, threads: int) -> float:
     """Run one towhee execution, return wall-clock seconds."""
+    clean_run_dir(run_dir)
     env = os.environ.copy()
     env["OMP_NUM_THREADS"] = str(threads)
 

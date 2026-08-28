@@ -420,3 +420,4 @@ void twh_wrap_foreign_lambda_lj_(int *, int *, double *);
 #define twh_wrap_foreign_lambda_c_ TWH_WRAP_FOREIGN_LAMBDA_C
 #endif
 void twh_wrap_foreign_lambda_c_(int *, int *, double *);
+void get_coord_storage_ptr(int crdflag, void **cptr, int *natoms);

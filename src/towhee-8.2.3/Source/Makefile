@@ -157,8 +157,7 @@ am_towhee_OBJECTS = accumulateaverages.$(OBJEXT) allocate.$(OBJEXT) \
 	crossproduct.$(OBJEXT) ctrmas.$(OBJEXT) \
 	dihedral_distribution.$(OBJEXT) distance.$(OBJEXT) \
 	dotproduct.$(OBJEXT) energy.$(OBJEXT) energybiasbox.$(OBJEXT) \
-	energy_change.$(OBJEXT) engatom.$(OBJEXT) engtotal.$(OBJEXT) \
-	engtotal_globals.$(OBJEXT) \
+	energy_change.$(OBJEXT) engatom.$(OBJEXT) engtotal.$(OBJEXT) engtotal_globals.$(OBJEXT) \
 	expon.$(OBJEXT) febias.$(OBJEXT) fielddft.$(OBJEXT) \
 	finalize.$(OBJEXT) findrings.$(OBJEXT) findtarget.$(OBJEXT) \
 	gaussian.$(OBJEXT) gaussprob.$(OBJEXT) getcbangle.$(OBJEXT) \
@@ -299,7 +298,7 @@ CFLAGS = -g -O2
 CPP = @CPP@
 CPPFLAGS = 
 CYGPATH_W = echo
-DEFS = -DPACKAGE_NAME=\"towhee\" -DPACKAGE_TARNAME=\"towhee\" -DPACKAGE_VERSION=\"8.2.3\" -DPACKAGE_STRING=\"towhee-8.2.3\" -DPACKAGE_BUGREPORT=\"towhee-bugs@lists.sourceforge.net\" -DPACKAGE_URL=\"\" -DPACKAGE=\"towhee\" -DVERSION=\"8.2.3\" -DPACKAGE=\"towhee\" -DVERSION=\"8.2.3\" -DUSEOPENMP=1 -DHAVE_STRSTR=1
+DEFS = -DPACKAGE_NAME=\"towhee\" -DPACKAGE_TARNAME=\"towhee\" -DPACKAGE_VERSION=\"8.2.3\" -DPACKAGE_STRING=\"towhee-8.2.3\" -DPACKAGE_BUGREPORT=\"towhee-bugs@lists.sourceforge.net\" -DPACKAGE_URL=\"\" -DPACKAGE=\"towhee\" -DVERSION=\"8.2.3\" -DPACKAGE=\"towhee\" -DVERSION=\"8.2.3\" -DHAVE_STRSTR=1
 DEPDIR = .deps
 ECHO_C = 
 ECHO_N = -n
@@ -308,7 +307,7 @@ EGREP =
 EXEEXT = 
 F77 = f77
 F77LD = gcc
-FFLAGS = -g -O2
+FFLAGS = -g -O2 -ffixed-line-length-none
 FLIBS =  -L/usr/lib/gcc/x86_64-linux-gnu/13 -L/usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/13/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/13/../../.. -lgfortran -lm -lgcc_s -lquadmath
 GREP = 
 INSTALL = /usr/bin/install -c
@@ -339,10 +338,10 @@ SET_MAKE =
 SHELL = /bin/bash
 STRIP = 
 VERSION = 8.2.3
-abs_builddir = /mnt/e/RND/MCCSTowhee_opt/src/towhee-8.2.3/Source
-abs_srcdir = /mnt/e/RND/MCCSTowhee_opt/src/towhee-8.2.3/Source
-abs_top_builddir = /mnt/e/RND/MCCSTowhee_opt/src/towhee-8.2.3
-abs_top_srcdir = /mnt/e/RND/MCCSTowhee_opt/src/towhee-8.2.3
+abs_builddir = /home/sharir/MCCSTowhee_opt/src/towhee-8.2.3/Source
+abs_srcdir = /home/sharir/MCCSTowhee_opt/src/towhee-8.2.3/Source
+abs_top_builddir = /home/sharir/MCCSTowhee_opt/src/towhee-8.2.3
+abs_top_srcdir = /home/sharir/MCCSTowhee_opt/src/towhee-8.2.3
 ac_ct_CC = gcc
 ac_ct_F77 = f77
 am__include = include
@@ -362,7 +361,7 @@ host_alias =
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /mnt/e/RND/MCCSTowhee_opt/src/towhee-8.2.3/install/install-sh
+install_sh = ${SHELL} /home/sharir/MCCSTowhee_opt/src/towhee-8.2.3/install/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -401,9 +400,7 @@ AM_FFLAGS = $(SC_FFLAGS) $(FG_FFLAGS) $(DM_FFLAGS)
 #DM_CPPFLAGS = -DUSE_DYNAMIC_MEMORY
 #endif
 AM_CPPFLAGS = $(MPI_CPPFLAGS) $(OK_CPPFLAGS) $(T_CPPFLAGS) \
-	$(I_CPPFLAGS) $(SC_CPPFLAGS) $(CLA_CPPFLAGS) $(DM_CPPFLAGS) $(HOT_PATH_CPPFLAGS)
-# To build with hot-path inlining: make clean && make HOT_PATH_CPPFLAGS="-DHOT_PATH_INLINE"
-HOT_PATH_CPPFLAGS =
+	$(I_CPPFLAGS) $(SC_CPPFLAGS) $(CLA_CPPFLAGS) $(DM_CPPFLAGS)
 
 # Add the Fortran libraries, so we can link with C
 LDADD =  -L/usr/lib/gcc/x86_64-linux-gnu/13 -L/usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/13/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/13/../../.. -lgfortran -lm -lgcc_s -lquadmath
@@ -445,8 +442,7 @@ towhee_SOURCES = \
 		energybiasbox.F \
 		energy_change.F \
 		engatom.F \
-		engtotal.F \
-		engtotal_globals.F \
+		engtotal.F engtotal_globals.F \
 		expon.F \
 		febias.F \
 		fielddft.F \
@@ -1043,12 +1039,12 @@ ctrmas.o: preproc.h functions.h ctrmas.F
 dihedral_distribution.o: preproc.h functions.h dihedral_distribution.F
 distance.o: functions.h distance.F
 dotproduct.o: preproc.h functions.h dotproduct.F
-energy.o: preproc.h functions.h energy.F engtotal_globals.o
+energy.o: preproc.h functions.h energy.F
 energybiasbox.o: preproc.h functions.h energybiasbox.F
 energy_change.o: preproc.h functions.h energy_change.F
 engatom.o: preproc.h functions.h engatom.F
-engtotal.o: preproc.h functions.h engtotal.F engtotal_globals.o
-engtotal_globals.o: preproc.h hot_common.h engtotal_globals.F
+engtotal.o: preproc.h functions.h engtotal.F
+engtotal_globals.o: preproc.h functions.h engtotal_globals.F hot_common.h
 expon.o: preproc.h functions.h expon.F 
 febias.o: preproc.h functions.h febias.F
 ffackl2004.o: preproc.h functions.h ffackl2004.F
@@ -1191,8 +1187,7 @@ ranlux.o: ranlux.F
 readclassical.o: preproc.h functions.h wrapperF.h readclassical.F
 readinput.o: preproc.h wrapperF.h functions.h readinput.F
 readlammps.o: preproc.h readlammps.F
-readtowhee.o: preproc.h wrapperF.h functions.h readtowhee.F \
-	engtotal_globals.o
+readtowhee.o: preproc.h wrapperF.h functions.h readtowhee.F
 readutils.o: functions.h readutils.F
 recip.o: preproc.h recip.F
 recippress.o: preproc.h recippress.F
