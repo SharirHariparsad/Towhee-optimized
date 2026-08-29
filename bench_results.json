@@ -376,5 +376,18 @@
     "optimized_min": 8.286596391000785,
     "optimized_stdev": 0.1709713116407527,
     "speedup": 1.0396607786875558
+  },
+  {
+    "timestamp": "2026-08-29T09:59:47",
+    "simulation": "SPC_E_WATER",
+    "threads": 1,
+    "repeats": 1,
+    "original_mean": 8.84682898200117,
+    "original_min": 8.84682898200117,
+    "original_stdev": 0.0,
+    "optimized_mean": 8.53209242199955,
+    "optimized_min": 8.53209242199955,
+    "optimized_stdev": 0.0,
+    "speedup": 1.036888554932913
   }
 ]
