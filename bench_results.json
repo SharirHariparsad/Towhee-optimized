@@ -324,5 +324,57 @@
     "optimized_min": 7.963637792003283,
     "optimized_stdev": 0.24314586240973776,
     "speedup": 1.0066826622773921
+  },
+  {
+    "timestamp": "2026-08-29T09:33:53",
+    "simulation": "SPC_E_WATER",
+    "threads": 1,
+    "repeats": 10,
+    "original_mean": 8.668096766299277,
+    "original_min": 8.323176404999685,
+    "original_stdev": 0.3052301647127617,
+    "optimized_mean": 8.820175647300493,
+    "optimized_min": 8.631988553002884,
+    "optimized_stdev": 0.19761452971150967,
+    "speedup": 0.9827578398568784
+  },
+  {
+    "timestamp": "2026-08-29T09:38:08",
+    "simulation": "SPC_E_WATER",
+    "threads": 4,
+    "repeats": 10,
+    "original_mean": 9.179781064800045,
+    "original_min": 8.982335344000603,
+    "original_stdev": 0.11403142978110006,
+    "optimized_mean": 9.09028832949989,
+    "optimized_min": 8.577249272006156,
+    "optimized_stdev": 0.21819238299095062,
+    "speedup": 1.009844873127922
+  },
+  {
+    "timestamp": "2026-08-29T09:42:29",
+    "simulation": "SPC_E_WATER",
+    "threads": 8,
+    "repeats": 10,
+    "original_mean": 8.84164459429885,
+    "original_min": 8.53393238499848,
+    "original_stdev": 0.25998985735479985,
+    "optimized_mean": 8.661803797901666,
+    "optimized_min": 8.43822866499977,
+    "optimized_stdev": 0.20257307901960797,
+    "speedup": 1.0207625109726859
+  },
+  {
+    "timestamp": "2026-08-29T09:46:42",
+    "simulation": "SPC_E_WATER",
+    "threads": 16,
+    "repeats": 10,
+    "original_mean": 8.81037145250084,
+    "original_min": 8.479498541004432,
+    "original_stdev": 0.3196889403235663,
+    "optimized_mean": 8.474275103099354,
+    "optimized_min": 8.286596391000785,
+    "optimized_stdev": 0.1709713116407527,
+    "speedup": 1.0396607786875558
   }
 ]

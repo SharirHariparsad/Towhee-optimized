@@ -501,23 +501,35 @@ c                    --- add in the com radii
 c                    --- inline hot path: direct array access via
 c                    --- engtotal_globals module.  Bypasses twh_* dispatch
 c                    --- for ntype, luse_c, luse_v, qqscale.
-c                    --- Coordinates still use twh_coordinates (zero-copy
-c                    --- to be added in Phase 3).
-do ii = 1,numiunit
+c                    --- Coordinates use zero-copy coord_real_arr/coord_temp_arr
+c                    --- based on crdflag (CRD_REAL=3001, CRD_TEMP=3002).
+                        do ii = 1,numiunit
                            ntii = ntype_arr(imolty, ii)
                            i_atom = inline_atomnum(ichain, ii)
-                           rxui = coord_real_arr(1, i_atom)
-                           ryui = coord_real_arr(2, i_atom)
-                           rzui = coord_real_arr(3, i_atom)
+                           if (crdflag .eq. 3001) then
+                              rxui = coord_real_arr(1, i_atom)
+                              ryui = coord_real_arr(2, i_atom)
+                              rzui = coord_real_arr(3, i_atom)
+                           else
+                              rxui = coord_temp_arr(1, i_atom)
+                              ryui = coord_temp_arr(2, i_atom)
+                              rzui = coord_temp_arr(3, i_atom)
+                           endif
                            luse_ci = luse_c_arr(imolty, ii)
                            luse_vi = luse_v_arr(imolty, ii)
 c                       --- loop over all beads jj of chain j
                            do jj = 1, numjunit
                               ntjj = ntype_arr(jmolty, jj)
                               j_atom = inline_atomnum(jchain, jj)
-                              rxuj = coord_real_arr(1, j_atom)
-                              ryuj = coord_real_arr(2, j_atom)
-                              rzuj = coord_real_arr(3, j_atom)
+                              if (crdflag .eq. 3001) then
+                                 rxuj = coord_real_arr(1, j_atom)
+                                 ryuj = coord_real_arr(2, j_atom)
+                                 rzuj = coord_real_arr(3, j_atom)
+                              else
+                                 rxuj = coord_temp_arr(1, j_atom)
+                                 ryuj = coord_temp_arr(2, j_atom)
+                                 rzuj = coord_temp_arr(3, j_atom)
+                              endif
                               luse_cj = luse_c_arr(jmolty, jj)
                               luse_vj = luse_v_arr(jmolty, jj)
 c                          --- check if nonzero interaction sites
