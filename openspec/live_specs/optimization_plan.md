@@ -1,6 +1,6 @@
 # Towhee 8.2.3 Multi-Node CPU Optimization Plan
 
-**Status**: Phase 1.1 complete (HPI serial verified); OpenMP dropped from scope (see below)  
+**Status**: Phase 1.2 complete (Phase 1 done — HPI serial deliverable verified, getter caches in place); OpenMP dropped from scope (see below)  
 **Target**: 5-10x single-node speedup, near-linear MPI scaling to 64+ nodes  
 **Compiler**: GNU Fortran + OpenMPI, `-O3 -march=native -ffast-math -fopenmp`  
 **Regression tolerance**: `1e-6` relative (not bitwise)
@@ -109,6 +109,42 @@ end module pointer_access
 - Thread-local caches for immutable scalars: `rcut`, `rcutsq`, `rminsq`, `rcutinsq`, `rcmu`, `rcelect`, `box_volume`, `hmatrix_diag`
 - Replace frequent scalar getters with array fetches in hot loops
 - Add `threadprivate` caches in `engtotal_globals`
+
+**As implemented (2026-08-31)**: the general two-body / coulomb / mimage code paths
+(used by CBMC insertion and move energies — the paths the Phase 1.1 inline engine
+does **not** cover) now read the scalar/array values via small extern-COMMON blocks
+shared with the `globaldata.F` accessor storage and the `engtotal_globals.F`
+flat `nbcoeff` copies, replacing the per-pair `twh_*` dispatch calls. All reads are
+guarded by `#ifdef HOT_PATH_INLINE` so the non-HPI baseline code path is untouched
+(verified: baseline build still compiles and passes 0-diff regression).
+
+Cached values (all immutable for the run):
+- `rminsq`/`rcutsq`/`rcut` (COMMON `/hot_rminsq/`, `/hot_rcutsq/`, `/hot_rcut/`)
+- `nbcoeff(0,13,14,15,16)` flat copies (COMMON `/hot_nbcoeff0..16/`)
+- `lshift` (COMMON `/hot_lshift/`)
+- `qqscale`, `rcelect`, `rcelect` + `lewald` (COMMON `/hot_qqscale/`,
+  `/hot_rcelect/`, `/hot_lewald/`)
+- `hmatrix`/`halfbox` in the general `twh_mimage` (COMMON `/hot_hmatrix/`,
+  `/hot_halfbox/`)
+
+**NOT cached** (correctly left as accessors): `box_volume`, `hmatrix_diag`
+(box-shape dependent, change on volume moves), `rcmu` (per-chain, low call count).
+
+**Measured (gprof, SPC_E_WATER, HPI-serial -pg)**:
+
+| Getter | Phase 1.1 | Phase 1.2 |
+|--------|-----------|-----------|
+| `twh_halfbox_` | 1.02M calls / 1.2% | removed |
+| `twh_mimage_` | 337K / 1.2% | removed |
+| `twh_rcelect_` | 212K / 1.2% | removed |
+| `twh_qqscale_` | 467K / 0.0% | removed |
+| `twh_nbcoeff_` | 440K / 4.6% | 352K / 3.8% (remaining = one-four/generic/table branches) |
+| `twh_1ddouble` | 2.3% | 1.3% |
+| profile total | 0.87s | 0.79s (~9% accounting reduction) |
+
+Wall-clock on SPC_E_WATER unchanged (~1.04-1.05s min of 5 for all three builds) —
+the example is CBMC-dominated (`twh_cbmcbendinfo_` 53%, `ranlux_` 11%) and getter
+removal helps the engine pair loops more on larger systems (see Phase 2).
 
 ---
 
@@ -245,9 +281,10 @@ mpirun -np 64 --bind-to core --map-by socket ./towhee
 - [ ] Update `Source/globalc.h` (C declarations) — deferred
 
 ### Phase 1.2: Scalar Getter Caches
-- [ ] Add threadprivate caches in `engtotal_globals`
-- [ ] Populate at `engtotal_globals_init`
-- [ ] Replace accessor calls in `engtotal.F`, `mimage.F`, `vtwobody.F`, `vcoulomb.F`
+- [x] Add caches for immutable scalars (`rcut`, `rcutsq`, `rminsq`, `rcelect`, `lshift`, `qqscale`, `hmatrix`/`halfbox`) as extern-COMMON in `engtotal_globals`
+- [x] Convert `nbcoeff` flat copies to COMMON in `engtotal_globals` (accessible to general path)
+- [x] Replace accessor calls in `engtotal.F`, `mimage.F`, `vtwobody.F`, `vcoulomb.F`
+- [x] Verify: `twh_halfbox_`/`twh_mimage_`/`twh_rcelect_`/`twh_qqscale_` removed from gprof; baseline build still 0-diff
 
 ### Phase 2: CBMC Memoization
 - [ ] Add `bend_cache` / `bend_cached` to cbmc module
@@ -318,7 +355,7 @@ def compare_outputs(ref, test, tol=1e-6):
 | Phase | Single-Node Speedup | MPI Scaling Target |
 |-------|---------------------|-------------------|
 | Baseline | 1.00x | N/A |
-| Phase 1 (accessors) | 1.15-1.20x | — |
+| Phase 1 (accessors) | ≤1.05x (SPC_E_WATER: CBMC-dominated, parity in wall clock; ~9% CPU accounting reduction — expect gains on pair-loop-heavy systems) | — |
 | Phase 2 (CBMC) | 1.25-1.30x | — |
 | Phase 3 (MPI) | 1.25x | 16 nodes > 80% |
 | Phase 4 (vectorization) | 1.5-1.8x | 16 nodes > 80% |

@@ -55,6 +55,17 @@ c     --- local variables
       double precision rijsq,rxuij_temp,ryuij_temp,rzuij_temp
       double precision rijsq_temp,hmvalue,minhbxsq
 
+#ifdef HOT_PATH_INLINE
+c     --- Phase 1.2: direct COMMON reads (shared with the accessor
+c         subroutines in globaldata.F).  Value-identical to the twh_*
+c         accessor calls, without the dispatch overhead.
+      double precision c_hmxc,c_hbxc
+      dimension c_hmxc(MAXBXD,MAXBOX,3,3)
+      common /hot_hmatrix/ c_hmxc
+      dimension c_hbxc(MAXBXD,MAXBOX,3)
+      common /hot_halfbox/ c_hbxc
+#endif
+
 c      write(6,*) 'start MIMAGE',ibox
 
 c     --- compute the distances
@@ -70,8 +81,13 @@ c           --- box is a rectangular parallapiped, no need for fancy
 c           --- hmatrix operations
 c           --- find the minimum image
             idim = 1
+#ifdef HOT_PATH_INLINE
+            hmvalue = c_hmxc(bxdflag,ibox,idim,idim)
+            hbx = c_hbxc(bxdflag,ibox,idim)
+#else
             call twh_hmatrix(GLB_GET,bxdflag,ibox,idim,idim,hmvalue)
             call twh_halfbox(GLB_GET,bxdflag,ibox,idim,hbx)
+#endif
             do while ( twh_cmp_gt(rxuij, hbx) )
                rxuij = rxuij - hmvalue
             enddo
@@ -79,8 +95,13 @@ c           --- find the minimum image
                rxuij = rxuij + hmvalue
             enddo
             idim = 2
+#ifdef HOT_PATH_INLINE
+            hmvalue = c_hmxc(bxdflag,ibox,idim,idim)
+            hbx = c_hbxc(bxdflag,ibox,idim)
+#else
             call twh_hmatrix(GLB_GET,bxdflag,ibox,idim,idim,hmvalue)
             call twh_halfbox(GLB_GET,bxdflag,ibox,idim,hbx)
+#endif
             do while ( twh_cmp_gt(ryuij, hbx) )
                ryuij = ryuij - hmvalue
             enddo
@@ -88,8 +109,13 @@ c           --- find the minimum image
                ryuij = ryuij + hmvalue
             enddo
             idim = 3
+#ifdef HOT_PATH_INLINE
+            hmvalue = c_hmxc(bxdflag,ibox,idim,idim)
+            hbx = c_hbxc(bxdflag,ibox,idim)
+#else
             call twh_hmatrix(GLB_GET,bxdflag,ibox,idim,idim,hmvalue)
             call twh_halfbox(GLB_GET,bxdflag,ibox,idim,hbx)
+#endif
             do while ( twh_cmp_gt(rzuij, hbx) )
                rzuij = rzuij - hmvalue
             enddo

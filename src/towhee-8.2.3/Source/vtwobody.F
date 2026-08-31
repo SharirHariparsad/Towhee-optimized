@@ -80,13 +80,41 @@ c     --- double precision arrays
 c     --- functions
       double precision vtb_lennard_jones,vtb_scaled_lj
 
+#ifdef HOT_PATH_INLINE
+c     --- Phase 1.2: cached immutable scalars / nbcoeff flat copies.
+c         COMMON blocks shared with the accessor subroutines in globaldata.F
+c         and with engtotal_globals.F (nbcoeff copies).  Value-identical to
+c         the twh_* accessor reads, minus the dispatch overhead.
+      double precision c_rcut,c_rcutsq,c_rminsq
+      common /hot_rcut/ c_rcut
+      common /hot_rcutsq/ c_rcutsq
+      common /hot_rminsq/ c_rminsq
+      logical c_lshift
+      common /hot_lshift/ c_lshift
+      double precision c_nb0,c_nb13,c_nb14,c_nb15,c_nb16
+      dimension c_nb0(CROSSTYPEMAX)
+      common /hot_nbcoeff0/ c_nb0
+      dimension c_nb13(CROSSTYPEMAX)
+      common /hot_nbcoeff13/ c_nb13
+      dimension c_nb14(CROSSTYPEMAX)
+      common /hot_nbcoeff14/ c_nb14
+      dimension c_nb15(CROSSTYPEMAX)
+      common /hot_nbcoeff15/ c_nb15
+      dimension c_nb16(CROSSTYPEMAX)
+      common /hot_nbcoeff16/ c_nb16
+#endif
+
 #if DEBUG_VTWOBODY
       write(6,*) 'starting VTWOBODY'
 #endif
 
 c     --- retrieve constants
       call twh_scp_num_foreign_lambda(GLB_GET,scp_num_foreign_lambda)
+#ifdef HOT_PATH_INLINE
+      rminsq = c_rminsq
+#else
       call twh_rminsq(GLB_GET,rminsq)
+#endif
 
 c     --- initialize 
       twh_vtwobody = 0.0d0
@@ -807,6 +835,12 @@ c     --- variables passed to/from the subroutine
       integer cutstyle
       double precision rijsq,rmaxsq,rcut,rcutin
 
+#ifdef HOT_PATH_INLINE
+c     --- Phase 1.2: cached rcutsq via extern COMMON
+      double precision c_rcutsq
+      common /hot_rcutsq/ c_rcutsq
+#endif
+
 c     --- retrieve constants
       call twh_rcut(GLB_GET,rcut)
 
@@ -817,7 +851,11 @@ c        --- be larger than this distance to avoid roundoff trouble
          rmaxsq = rijsq + 0.1d0
       elseif ( cutstyle .eq. 0 ) then
 c        --- use the normal non-coulombic nonbonded cut-off
+#ifdef HOT_PATH_INLINE
+         rmaxsq = c_rcutsq
+#else
          call twh_rcutsq(GLB_GET,rmaxsq)
+#endif
       elseif ( cutstyle .eq. 1 ) then
          call twh_ldualcutoff(GLB_GET,ldualcutoff)
          if ( ldualcutoff ) then
@@ -862,6 +900,32 @@ c     --- local variables
       logical lshift
       double precision srsix,sixterm,prefactor,shiftterm
 
+#ifdef HOT_PATH_INLINE
+c     --- Phase 1.2: cached nbcoeff / lshift via extern COMMON
+      double precision c_nb0,c_nb13,c_nb14,c_nb15,c_nb16
+      dimension c_nb0(CROSSTYPEMAX)
+      common /hot_nbcoeff0/ c_nb0
+      dimension c_nb13(CROSSTYPEMAX)
+      common /hot_nbcoeff13/ c_nb13
+      dimension c_nb14(CROSSTYPEMAX)
+      common /hot_nbcoeff14/ c_nb14
+      dimension c_nb15(CROSSTYPEMAX)
+      common /hot_nbcoeff15/ c_nb15
+      dimension c_nb16(CROSSTYPEMAX)
+      common /hot_nbcoeff16/ c_nb16
+      logical c_lshift
+      common /hot_lshift/ c_lshift
+#endif
+
+#ifdef HOT_PATH_INLINE
+      if ( lonefour ) then
+         sixterm = c_nb15(ntij)
+         prefactor = c_nb16(ntij)
+      else
+         sixterm = c_nb13(ntij)
+         prefactor = c_nb14(ntij)
+      endif
+#else
       if ( lonefour ) then
          call twh_nbcoeff(GLB_GET,15,ntij,sixterm)
          call twh_nbcoeff(GLB_GET,16,ntij,prefactor)
@@ -869,14 +933,22 @@ c     --- local variables
          call twh_nbcoeff(GLB_GET,13,ntij,sixterm)
          call twh_nbcoeff(GLB_GET,14,ntij,prefactor)
       endif
+#endif
 c     --- this part uses the parameter set above for either 1-4 or reg
       srsix = sixterm / (rijsq**3)
       vtb_lennard_jones = srsix*(srsix-1.0d0)*prefactor
+#ifdef HOT_PATH_INLINE
+      if ( c_lshift ) then
+         vtb_lennard_jones = vtb_lennard_jones
+     &      - c_nb0(ntij)
+      endif
+#else
       call twh_lshift(GLB_GET,lshift)
       if ( lshift ) then
          call twh_nbcoeff(GLB_GET,0,ntij,shiftterm)
          vtb_lennard_jones = vtb_lennard_jones - shiftterm
       endif
+#endif
 
       return
       end

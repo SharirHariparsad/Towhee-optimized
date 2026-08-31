@@ -61,9 +61,26 @@ c     --- local variables
       integer ntii, ntjj, l,isolvtype,scp_num_foreign_lambda,eformcode
       double precision qqa,qqb,calp,rcelect,rmin
 
+#ifdef HOT_PATH_INLINE
+c     --- Phase 1.2: cached scalars via extern COMMON (shared with the
+c         accessor subroutines in globaldata.F and engtotal_globals.F).
+      double precision c_qqscale,c_rcelect
+      dimension c_qqscale(NTMAX,NUMAX)
+      common /hot_qqscale/ c_qqscale
+      dimension c_rcelect(MAXBXD,MAXBOX)
+      common /hot_rcelect/ c_rcelect
+      logical c_lewald
+      common /hot_lewald/ c_lewald
+#endif
+
 c     --- retrieve constants
+#ifdef HOT_PATH_INLINE
+      qqa = c_qqscale(imolty,iunit)
+      qqb = c_qqscale(jmolty,junit)
+#else
       call twh_qqscale(GLB_GET,imolty,iunit,qqa)
       call twh_qqscale(GLB_GET,jmolty,junit,qqb)
+#endif
       call twh_elect_form_code(GLB_GET,eformcode)
 
 c     --- initialize
@@ -94,10 +111,18 @@ c        --- potential in the 0 box.
          lcompute = .true.
       else
 c        --- check rcelect for this simulation box
+#ifdef HOT_PATH_INLINE
+         rcelect = c_rcelect(bxdflag,simbox)
+#else
          call twh_rcelect(GLB_GET,bxdflag,simbox,rcelect)
+#endif
          if ( twh_cmp_gt(rcelect,rij) ) then
             lcompute = .true.
+#ifdef HOT_PATH_INLINE
+            if ( chgflag .ne. 0 ) lalpha = c_lewald
+#else
             if ( chgflag .ne. 0 ) call twh_lewald(GLB_GET,lalpha)
+#endif
          endif
       endif
 

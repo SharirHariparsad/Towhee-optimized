@@ -80,11 +80,19 @@ C     --- Zero-copy coordinate access (C-allocated arrays) ---
       real(8), pointer, contiguous :: coord_temp_arr(:,:) => null()
 
 C     --- Nonbonded coefficients: flat contiguous copies (see spec2) ---
-      real(8), allocatable :: nbcoeff_0(:)
-      real(8), allocatable :: nbcoeff_13(:)
-      real(8), allocatable :: nbcoeff_14(:)
-      real(8), allocatable :: nbcoeff_15(:)
-      real(8), allocatable :: nbcoeff_16(:)
+C         Stored in COMMON so the general (non-inline) two-body path in
+C         vtwobody.F can read them with a matching extern COMMON
+C         declaration (Phase 1.2 scalar getter batching).
+      real(8), target :: nbcoeff_0(hp_CROSST)
+      common /hot_nbcoeff0/ nbcoeff_0
+      real(8), target :: nbcoeff_13(hp_CROSST)
+      common /hot_nbcoeff13/ nbcoeff_13
+      real(8), target :: nbcoeff_14(hp_CROSST)
+      common /hot_nbcoeff14/ nbcoeff_14
+      real(8), target :: nbcoeff_15(hp_CROSST)
+      common /hot_nbcoeff15/ nbcoeff_15
+      real(8), target :: nbcoeff_16(hp_CROSST)
+      common /hot_nbcoeff16/ nbcoeff_16
 
       interface
         subroutine get_coord_storage_ptr(crdflag, cptr, natoms) bind(C, name='get_coord_storage_ptr')
@@ -128,11 +136,6 @@ C           globaldata.F accessor subroutines (zero-copy) ---
 
 C       --- nbcoeff flat copies via accessor (not direct COMMON read)
 C           This guarantees post-mixing-rule values are captured.
-        allocate(nbcoeff_0(CROSSTYPEMAX))
-        allocate(nbcoeff_13(CROSSTYPEMAX))
-        allocate(nbcoeff_14(CROSSTYPEMAX))
-        allocate(nbcoeff_15(CROSSTYPEMAX))
-        allocate(nbcoeff_16(CROSSTYPEMAX))
         do ct = 1, CROSSTYPEMAX
           call twh_nbcoeff(GLB_GET, 0,  ct, nbcoeff_0(ct))
           call twh_nbcoeff(GLB_GET, 13, ct, nbcoeff_13(ct))
