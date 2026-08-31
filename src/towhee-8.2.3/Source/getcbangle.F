@@ -135,6 +135,15 @@ c     --- double precision scalars
       double precision radtodeg
       double precision distjk,distkl,distjl,distlm
       double precision angc_jlm,angc_klm
+#ifdef HOT_PATH_INLINE
+c     --- Phase 2: cached CBMC bend info table.  COMMON block shared
+c         with the twh_cbmcbendinfo accessor in globaldata.F.  Value-
+c         identical to the GLB_GET reads, minus the per-call dispatch
+c         and repeated 6-D index arithmetic in the hot CBMC angle code.
+      double precision c_cbmcbendinfo
+      common /hot_cbmcbendinfo/ c_cbmcbendinfo(NTMAX,NUMAX,MAXBEND
+     &     ,MAXBEND,CBMC_MAXBENDPEAKS,CBMCMAXBEND)
+#endif
 
 c     --- double precison arrays
       double precision ang_trial
@@ -420,8 +429,13 @@ c           --- bond length to compute the allowed angle
             do ipeak = 1,npeaks
 c              --- combine the allowed bond lengths with existing
 c              --- lengths to compute the allowed angle
+#ifdef HOT_PATH_INLINE
+               testlen = c_cbmcbendinfo(imolty,iugrow,index,index
+     &              ,ipeak,1)
+#else
                call twh_cbmcbendinfo(GLB_GET,imolty,iugrow,index,index
      &              ,ipeak,1,testlen)
+#endif
                anglec = twh_inverselawofcosine(testlen,distp
      &              ,distg)
                angle = twh_arccos(anglec)
@@ -440,8 +454,13 @@ c           --- distribution plus the Boltzman weight
             call twh_cbmcbendcount(GLB_GET,imolty,iugrow,index,index
      &           ,npeaks)
             do ipeak = 1,npeaks
+#ifdef HOT_PATH_INLINE
+               angle = c_cbmcbendinfo(imolty,iugrow,index,index
+     &              ,ipeak,1)
+#else
                call twh_cbmcbendinfo(GLB_GET,imolty,iugrow,index
      &              ,index,ipeak,1,angle)
+#endif
                anglec = dcos(angle)
                delta_angle(ipeak) = angle
                delta_anglec(ipeak) = anglec
@@ -465,10 +484,17 @@ c           --- the bond lengths and allowed distances
                lfailure = .true.
                return
             endif
+#ifdef HOT_PATH_INLINE
+            distlo = c_cbmcbendinfo(imolty,iugrow,index,index
+     &           ,npeaks,1)
+            disthi = c_cbmcbendinfo(imolty,iugrow,index,index
+     &           ,npeaks,2)
+#else
             call twh_cbmcbendinfo(GLB_GET,imolty,iugrow,index,index
      &           ,npeaks,1,distlo)
             call twh_cbmcbendinfo(GLB_GET,imolty,iugrow,index,index
      &           ,npeaks,2,disthi)
+#endif
             lobound = twh_inverselawofcosine(distp,
      &           distg,distlo)
             hibound = twh_inverselawofcosine(distp,
@@ -492,6 +518,16 @@ c           --- the bond lengths and allowed distances
                lfailure = .true.
                return
             endif
+#ifdef HOT_PATH_INLINE
+            mean = c_cbmcbendinfo(imolty,iugrow,index,index
+     &           ,npeaks,1)
+            std_dev = c_cbmcbendinfo(imolty,iugrow,index,index
+     &           ,npeaks,2)
+            lolimit = c_cbmcbendinfo(imolty,iugrow,index,index
+     &           ,npeaks,3)
+            hilimit = c_cbmcbendinfo(imolty,iugrow,index,index
+     &           ,npeaks,4)
+#else
             call twh_cbmcbendinfo(GLB_GET,imolty,iugrow,index
      &           ,index,npeaks,1,mean)
             call twh_cbmcbendinfo(GLB_GET,imolty,iugrow,index
@@ -500,6 +536,7 @@ c           --- the bond lengths and allowed distances
      &           ,index,npeaks,3,lolimit)
             call twh_cbmcbendinfo(GLB_GET,imolty,iugrow,index
      &           ,index,npeaks,4,hilimit)
+#endif
          endif
 
 c        --- compute trial angles and energies
@@ -973,8 +1010,13 @@ c              --- a rigid bond between iugrow and iuone
 c              --- combine the rigid bond length with the current angle
 c              --- and bond information to create a delta distribution
 c              --- for the pseudo-dihedral angles
+#ifdef HOT_PATH_INLINE
+               testlen = c_cbmcbendinfo(imolty,iuprev,icone,ictwo
+     &              ,ipeak,1)
+#else
                call twh_cbmcbendinfo(GLB_GET,imolty,iuprev,icone,ictwo
      &              ,ipeak,1,testlen)
+#endif
 c              --- convert into an angle for the delta distribution
                call twh_bondlen(GLB_GET,angstart,distone)
                call twh_bondlen(GLB_GET,count,disttwo)
@@ -983,8 +1025,13 @@ c              --- convert to angle
                ang_gamma = twh_arccos(anglec)
             else
 c              --- ang_gamma in the bend distribution
+#ifdef HOT_PATH_INLINE
+               ang_gamma = c_cbmcbendinfo(imolty,iuprev,icone,ictwo
+     &              ,ipeak,1)
+#else
                call twh_cbmcbendinfo(GLB_GET,imolty,iuprev,icone,ictwo
      &              ,ipeak,1,ang_gamma)
+#endif
             endif
 c           --- fetch ang_alpha (iuone or angstart)
             call twh_bendang(GLB_GET,angstart,ang_alpha)
@@ -1270,6 +1317,16 @@ c                 --- select a peak at random
 c                    --- don't do random if just 1 peak
                      ipeak = npeaks
                   endif
+#ifdef HOT_PATH_INLINE
+                  mean = c_cbmcbendinfo(imolty,iuprev,icone,ictwo
+     &                 ,ipeak,1)
+                  std_dev = c_cbmcbendinfo(imolty,iuprev,icone,ictwo
+     &                 ,ipeak,2)
+                  lolimit = c_cbmcbendinfo(imolty,iuprev,icone,ictwo
+     &                 ,ipeak,3)
+                  hilimit = c_cbmcbendinfo(imolty,iuprev,icone,ictwo
+     &                 ,ipeak,4)
+#else
                   call twh_cbmcbendinfo(GLB_GET,imolty,iuprev,icone
      &                 ,ictwo,ipeak,1,mean)
                   call twh_cbmcbendinfo(GLB_GET,imolty,iuprev,icone
@@ -1278,6 +1335,7 @@ c                    --- don't do random if just 1 peak
      &                 ,ictwo,ipeak,3,lolimit)
                   call twh_cbmcbendinfo(GLB_GET,imolty,iuprev,icone
      &                 ,ictwo,ipeak,4,hilimit)
+#endif
                endif
             else
                write(6,*) 'GETCBANGLE: unknown cbmc_bendgen_code'

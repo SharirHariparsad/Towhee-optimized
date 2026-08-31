@@ -1,6 +1,6 @@
 # Towhee 8.2.3 Multi-Node CPU Optimization Plan
 
-**Status**: Phase 1.2 complete (Phase 1 done — HPI serial deliverable verified, getter caches in place); OpenMP dropped from scope (see below)  
+**Status**: Phase 2 complete (CBMC bend info dispatch removed via COMMON zero-copy); HPI serial deliverable verified 0-diff; OpenMP dropped from scope (see below)  
 **Target**: 5-10x single-node speedup, near-linear MPI scaling to 64+ nodes  
 **Compiler**: GNU Fortran + OpenMPI, `-O3 -march=native -ffast-math -fopenmp`  
 **Regression tolerance**: `1e-6` relative (not bitwise)
@@ -176,6 +176,36 @@ endif
 
 **Decision**: Start with Option A, upgrade to B if needed
 
+**As implemented (2026-08-31)**: `twh_cbmcbendinfo` is a straight get/set into a
+large SAVEd 6-D table `cbmcbendinfo(NTMAX,NUMAX,MAXBEND,MAXBEND,
+CBMC_MAXBENDPEAKS,CBMCMAXBEND)`. It computes nothing — so Option A's value cache
+does not apply (each call reads a distinct table element). The real cost is the
+per-call accessor **dispatch + repeated 6-D index arithmetic** on a 266 MB array.
+Following the established Phase 1.2 pattern, the table storage was moved into a
+COMMON block (`/hot_cbmcbendinfo/`) and the hot `GLB_GET` reads in the CBMC
+angle code (`getcbangle.F`, `angle_b_distribution.F`) now read the array directly
+(guarded by `#ifdef HOT_PATH_INLINE`, with the original accessor preserved in
+`#else`). `atd_cbmc_setup.F` was left untouched — it runs once at startup, not on
+the hot path. Also fixed: `make HOT_PATH_CPPFLAGS="-DHOT_PATH_INLINE"` was a no-op
+because the generated `Source/Makefile` did not propagate `HOT_PATH_CPPFLAGS` into
+`AM_CPPFLAGS` (added it, matching `Makefile.am`).
+
+**Measured (gprof, SPC_E_WATER)**:
+
+| Metric | Baseline | Phase 2 (HPI) |
+|--------|----------|---------------|
+| `twh_cbmcbendinfo_` calls | 2,986 | **5** |
+| `twh_cbmcbendinfo_` from getcbangle | 2,981 | 4 (setup) |
+| `twh_halfbox_`/`twh_mimage_`/`twh_qqscale_`/`twh_rcelect_` | 12K/337K/229K/93K @ 0% | unchanged @ 0% |
+
+Both HPI and baseline builds pass the SPC_E_WATER regression **0 diff** vs
+`answer_current`. Remaining `twh_cbmcbendinfo_` self-time (~45% in the flat
+profile) is the one-time ~266 MB table **page-fault/initialization** cost at
+startup (GLB_SET writes), not the MC hot loop (call count drops by ~600x).
+Wall clock on SPC_E_WATER: HPI ~1.40s vs baseline ~1.42s (min of 3) — near
+parity because SPC_E_WATER is CBMC/array-init dominated; expect the dispatch
+removal to pay off on pair-loop-heavy systems (see plan note in Phase 1.2).
+
 ---
 
 ## Phase 3: MPI Domain Decomposition (Week 3-4)
@@ -287,9 +317,11 @@ mpirun -np 64 --bind-to core --map-by socket ./towhee
 - [x] Verify: `twh_halfbox_`/`twh_mimage_`/`twh_rcelect_`/`twh_qqscale_` removed from gprof; baseline build still 0-diff
 
 ### Phase 2: CBMC Memoization
-- [ ] Add `bend_cache` / `bend_cached` to cbmc module
-- [ ] Modify `twh_cbmcbendinfo` to check cache first
-- [ ] Profile: verify `twh_cbmcbendinfo_` calls reduced
+- [x] Expose `cbmcbendinfo` storage via COMMON `/hot_cbmcbendinfo/` in `globaldata.F` (`twh_cbmcbendinfo`)
+- [x] Direct-COMMON reads in `getcbangle.F` + `angle_b_distribution.F` (HPI-guarded, `#else` preserved)
+- [x] Fix `Source/Makefile`: propagate `HOT_PATH_CPPFLAGS` into `AM_CPPFLAGS`
+- [x] Verify: `twh_cbmcbendinfo_` calls 2986 → 5; both builds 0-diff SPC_E_WATER
+- [ ] (Deferred) Literal `bend_cache` — not applicable: `twh_cbmcbendinfo` is a pure table get/set, no computed redundancy
 
 ### Phase 3: MPI
 - [ ] Remove redundant `MPI_Barrier` in `control.c`
@@ -388,7 +420,7 @@ mpirun -np 4 --bind-to core --map-by socket ./towhee
 
 | Decision | Status | Notes |
 |----------|--------|-------|
-| CBMC memoization approach | Pending | Option A (cache) vs B (precompute) |
+| CBMC memoization approach | Resolved | Chose COMMON zero-copy direct-read (Phase 1.2 pattern); cache N/A (pure table lookup) |
 | System size for MPI | Pending | Need typical atom count |
 | CBMC cache memory budget | Pending | Affects memoization strategy |
 | Regression test format | Pending | Update `do_test` and `comparison_benchmark.py` |

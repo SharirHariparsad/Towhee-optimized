@@ -383,6 +383,9 @@ top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
 AM_FFLAGS = $(SC_FFLAGS) $(FG_FFLAGS) $(DM_FFLAGS)
+# To build with hot-path inlining:
+#    make clean && make HOT_PATH_CPPFLAGS="-DHOT_PATH_INLINE"
+HOT_PATH_CPPFLAGS =
 #MPI_CPPFLAGS = -DUSEMPI
 #MPI_LIBS = $(MPILIBS)
 # If configured with --enable-tramonto, set the flag
@@ -400,7 +403,8 @@ AM_FFLAGS = $(SC_FFLAGS) $(FG_FFLAGS) $(DM_FFLAGS)
 #DM_CPPFLAGS = -DUSE_DYNAMIC_MEMORY
 #endif
 AM_CPPFLAGS = $(MPI_CPPFLAGS) $(OK_CPPFLAGS) $(T_CPPFLAGS) \
-	$(I_CPPFLAGS) $(SC_CPPFLAGS) $(CLA_CPPFLAGS) $(DM_CPPFLAGS)
+	$(I_CPPFLAGS) $(SC_CPPFLAGS) $(CLA_CPPFLAGS) $(DM_CPPFLAGS) \
+	$(HOT_PATH_CPPFLAGS)
 
 # Add the Fortran libraries, so we can link with C
 LDADD =  -L/usr/lib/gcc/x86_64-linux-gnu/13 -L/usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/13/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/13/../../.. -lgfortran -lm -lgcc_s -lquadmath

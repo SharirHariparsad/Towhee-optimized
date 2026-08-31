@@ -37,6 +37,13 @@ c     --- local variables
       logical lfound
       integer ipeak
       double precision twopi,radtodeg
+#ifdef HOT_PATH_INLINE
+c     --- Phase 2: cached CBMC bend info table.  COMMON block shared
+c         with the twh_cbmcbendinfo accessor in globaldata.F.
+      double precision c_cbmcbendinfo
+      common /hot_cbmcbendinfo/ c_cbmcbendinfo(NTMAX,NUMAX,MAXBEND
+     &     ,MAXBEND,CBMC_MAXBENDPEAKS,CBMCMAXBEND)
+#endif
 
       lfound = .false.
 c     --- retrieve constants
@@ -54,6 +61,16 @@ c     --- retrieve constants
      &     .or. style_code .eq. DIST_UNIFORM_GAUSSIAN ) then
          do while ( .not. lfound .and. ipeak .lt. ngausspeaks )
             ipeak = ipeak + 1
+#ifdef HOT_PATH_INLINE
+            mean = c_cbmcbendinfo(imolty,iuprev,icone,ictwo
+     &           ,ipeak,1)
+            std_dev = c_cbmcbendinfo(imolty,iuprev,icone,ictwo
+     &           ,ipeak,2)
+            lolimit = c_cbmcbendinfo(imolty,iuprev,icone,ictwo
+     &           ,ipeak,3)
+            hilimit = c_cbmcbendinfo(imolty,iuprev,icone,ictwo
+     &           ,ipeak,4)
+#else
             call twh_cbmcbendinfo(GLB_GET,imolty,iuprev,icone,ictwo
      &           ,ipeak,1,mean)
             call twh_cbmcbendinfo(GLB_GET,imolty,iuprev,icone,ictwo
@@ -62,6 +79,7 @@ c     --- retrieve constants
      &           ,ipeak,3,lolimit)
             call twh_cbmcbendinfo(GLB_GET,imolty,iuprev,icone,ictwo
      &           ,ipeak,4,hilimit)
+#endif
             if ( lolimit .le. phidisp 
      &           .and. phidisp .lt. hilimit ) then
                lfound = .true.

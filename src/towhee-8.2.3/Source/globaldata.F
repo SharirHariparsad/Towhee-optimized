@@ -3277,11 +3277,14 @@ c     --- variables passed to/from the subroutine
       double precision dvalue
 c     --- local variables
       integer imtemp,iutemp,ibtemp,ijtemp,iptemp,ipartemp
-c     --- storage variable
+c     --- storage variable (shared via COMMON so the hot path in the
+c         CBMC angle routines can read it directly, bypassing the
+c         accessor dispatch; see optimization_plan.md Phase 2)
       double precision cbmcbendinfo
       dimension cbmcbendinfo(NTMAX,NUMAX,MAXBEND,MAXBEND
      &,CBMC_MAXBENDPEAKS,CBMCMAXBEND)
-      save cbmcbendinfo
+      common /hot_cbmcbendinfo/ cbmcbendinfo
+      target cbmcbendinfo
 
       if ( flag .eq. GLB_GET ) then
          dvalue = cbmcbendinfo(imolty,iunit,ibend,jbend,ipeak,iparam)
