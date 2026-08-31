@@ -135,7 +135,7 @@ void do_tramonto(user_args *args, int myproc) {
   tramonto_control(args->quiet_mode,myproc);
   MPI_Barrier(MPI_COMM_WORLD);
   if ( myproc == 0 ) finalize_clocks();
-  MPI_Barrier(MPI_COMM_WORLD);
+  /* MPI_Finalize is itself a collective; no barrier needed before it. */
   MPI_Finalize();
 #else
   printf("Warning: MPI not supported, parstyle TRAMONTO disabled.\n");
@@ -165,8 +165,7 @@ void do_jobfarm(user_args *args, int myproc) {
     fclose(fp);
   }
 
-
-  MPI_Barrier(MPI_COMM_WORLD);
+  /* MPI_Finalize is itself a collective; no barrier needed before it. */
   MPI_Finalize();
 #else
   printf("Warning: MPI not supported, parstyle JOBFARM disabled.\n");

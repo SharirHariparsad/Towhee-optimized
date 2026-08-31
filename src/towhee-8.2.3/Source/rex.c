@@ -112,10 +112,18 @@ void run_rex_server(user_args *args, rex_params *paramwrap) {
       exit(1);
     }
 
-    /* send lambda key to each node.  lambda key m is given by J[k] */
-    for (k = 1; k <= paramwrap->num_nodes; k++) {
-      m = J[k]; 
-      MPI_Send(&m,1,MPI_INT,k,LAMBDA_KEY,MPI_COMM_WORLD);
+    /* send lambda key to each node.  lambda key m is given by J[k].
+     * Use non-blocking Isend + one Waitall so the outbound handshake to
+     * the clients is not serialized node-by-node.  Each Isend posts a
+     * distinct, stable buffer (&J[k]) so the async payload is well-defined. */
+    {
+      MPI_Request *reqs = (MPI_Request*) twh_allocateVector(sizeof(MPI_Request),
+          paramwrap->num_nodes);
+      for (k = 1; k <= paramwrap->num_nodes; k++) {
+        MPI_Isend(&(J[k]),1,MPI_INT,k,LAMBDA_KEY,MPI_COMM_WORLD,&reqs[k-1]);
+      }
+      MPI_Waitall(paramwrap->num_nodes, reqs, MPI_STATUSES_IGNORE);
+      free(reqs);
     }
 
     /* Now we hang out and wait for responses from clients.

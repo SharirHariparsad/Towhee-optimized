@@ -1,6 +1,6 @@
 # Towhee 8.2.3 Multi-Node CPU Optimization Plan
 
-**Status**: Phase 2 complete (CBMC bend info dispatch removed via COMMON zero-copy); HPI serial deliverable verified 0-diff; OpenMP dropped from scope (see below)  
+**Status**: Phase 3.1 complete (MPI sync reduction + REX Isend per spec1); Phase 2 complete (CBMC bend info dispatch removed via COMMON zero-copy); HPI serial deliverable verified 0-diff; OpenMP dropped from scope (see below)  
 **Target**: 5-10x single-node speedup, near-linear MPI scaling to 64+ nodes  
 **Compiler**: GNU Fortran + OpenMPI, `-O3 -march=native -ffast-math -fopenmp`  
 **Regression tolerance**: `1e-6` relative (not bitwise)
@@ -210,9 +210,13 @@ removal to pay off on pair-loop-heavy systems (see plan note in Phase 1.2).
 
 ## Phase 3: MPI Domain Decomposition (Week 3-4)
 
-### 3.1 Communication Optimization (spec1)
-- `Source/control.c`: Remove redundant `MPI_Barrier`
-- `Source/rex.c`: `MPI_Send` → `MPI_Isend`/`MPI_Irecv` + `MPI_Waitall`
+### 3.1 Communication Optimization (spec1) — **Implemented 2026-08-31**
+
+- `Source/control.c` `tramonto_control` (lines 49-51): `MPI_Barrier; MPI_Bcast(&logicflag); MPI_Barrier;` → single `MPI_Bcast` (Bcast is collective/self-synchronizing; surrounding Barriers redundant). Guarded by `#ifdef USETRAMONTO`/`#ifdef USEMPI`, so serial HPI build unaffected.
+- `Source/towhee.c` `do_tramonto` (lines 136-139) and `do_jobfarm` (lines 161-170): drop the `MPI_Barrier` immediately before `MPI_Finalize` (`MPI_Finalize` is collective; barrier before it is redundant). The remaining `MPI_Barrier` after the job/loop stays. Also `#ifdef USEMPI`-guarded.
+- `Source/rex.c` `run_rex_server` lambda-key fan-out (lines 115-119): `for(k=1..num_nodes){ m=J[k]; MPI_Send(&m,...,k,LAMBDA_KEY); }` → `MPI_Isend(&(J[k]),..., &reqs[k-1])` per rank + single `MPI_Waitall(num_nodes, reqs, MPI_STATUSES_IGNORE)` + `free(reqs)`. Uses `twh_allocateVector(sizeof(MPI_Request), paramwrap->num_nodes)` so no `MAX_NODES` needed; each Isend uses distinct stable buffer `&(J[k])` (not aliased `&m`). Swaps section (`m = drain_random()` / `MPI_Send(&m)`) left as blocking single-send.
+
+Validation: `mpicc -DUSEMPI` compile of all 5 `USEMPI` C files (`towhee.c`, `control.c`, `rex.c`, `globalinfo.c`, `jobfarm.c`) clean; full MPI link (`mpicc` + Fortran objs + 5 MPI C objs + `-lgfortran`) succeeds at `/tmp/opencode/towhee_mpi` (5.6 MB). Serial HPI binary untouched (edits inside `#ifdef USEMPI`/`USETRAMONTO`). No spec change to `rex.c` `run_rex_client` single `MPI_Send` (line 358).
 
 ### 3.2 Domain Decomposition
 **Need clarification**: Typical system size?
@@ -323,10 +327,10 @@ mpirun -np 64 --bind-to core --map-by socket ./towhee
 - [x] Verify: `twh_cbmcbendinfo_` calls 2986 → 5; both builds 0-diff SPC_E_WATER
 - [ ] (Deferred) Literal `bend_cache` — not applicable: `twh_cbmcbendinfo` is a pure table get/set, no computed redundancy
 
-### Phase 3: MPI
-- [ ] Remove redundant `MPI_Barrier` in `control.c`
-- [ ] Convert `rex.c` to `MPI_Isend`/`MPI_Irecv`
-- [ ] Implement domain decomposition (await system size clarification)
+### Phase 3: MPI — **3.1 done; 3.2 blocked**
+- [x] Remove redundant `MPI_Barrier` in `control.c` (`tramonto_control`) + `towhee.c` (`do_tramonto`/`do_jobfarm` pre-`MPI_Finalize`) — 2026-08-31, serial unaffected (`#ifdef USEMPI`)
+- [x] Convert `rex.c` `run_rex_server` lambda fan-out to `MPI_Isend` + `MPI_Waitall` (distinct `&(J[k])` buffers, `twh_allocateVector` reqs) — compile+link verified with `mpicc -DUSEMPI` → `/tmp/opencode/towhee_mpi`
+- [ ] Implement domain decomposition (await system size clarification) — **BLOCKED**
 
 ### Phase 4: Vectorization
 - [ ] Update `FFLAGS` in configure

@@ -44,11 +44,11 @@ void tramonto_control(int outputmode, int myproc)
     jobcount = 0;
     /* master enters towhee, does not return until everything is finished */
     towheemainloop_(&jobcount,&outputmode,&zero,&pstyle); 
-    /* let the other nodes know we are done */
+    /* let the other nodes know we are done.
+     * MPI_Bcast is itself a collective synchronization point, so the
+     * surrounding redundant MPI_Barrier calls are dropped. */
     logicflag = 0;
-    MPI_Barrier(MPI_COMM_WORLD);
     MPI_Bcast(&logicflag,1,MPI_INT,0,MPI_COMM_WORLD);
-    MPI_Barrier(MPI_COMM_WORLD);
   }
   else { 
     /* worker node enters the tramontoloop and remains there until the master 
