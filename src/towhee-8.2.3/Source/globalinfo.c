@@ -1747,13 +1747,13 @@ void twh_wrap_foreign_lambda_lj_(int * flag, int * index, double * value)
 }
 
 void get_coord_storage_ptr(int crdflag, void **cptr, int *natoms)
-/* returns the raw C pointer and atom count for CRD_REAL (crdflag=0)
-   or CRD_TEMP (crdflag=1). Used by engtotal_globals.F90 for zero-copy
+/* returns the raw C pointer and atom count for CRD_REAL (crdflag=3001)
+   or CRD_TEMP (crdflag=3002). Used by engtotal_globals.F90 for zero-copy
    coordinate access in the hot path.
    originally written 06-2025 for hot-path inline optimization
 */
 {
-  if (crdflag == 0) {
+  if (crdflag == CRD_REAL) {
     *cptr = (void*) double_pointer[PNT_COORDSTORAGE];
   } else {
     *cptr = (void*) double_pointer[PNT_COORDTEMP];

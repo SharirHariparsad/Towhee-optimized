@@ -1,6 +1,6 @@
 # Towhee 8.2.3 Multi-Node CPU Optimization Plan
 
-**Status**: Phase 1.1 in progress  
+**Status**: Phase 1.1 complete (HPI serial verified); OpenMP dropped from scope (see below)  
 **Target**: 5-10x single-node speedup, near-linear MPI scaling to 64+ nodes  
 **Compiler**: GNU Fortran + OpenMPI, `-O3 -march=native -ffast-math -fopenmp`  
 **Regression tolerance**: `1e-6` relative (not bitwise)
@@ -19,6 +19,24 @@
 | Ewald + Coulomb | 6.3% |
 
 **Root cause**: OMP parallelizes `engtotal_twobody` (0.25% of runtime). Real hotspots are accessor overhead (35%) and CBMC bend info (13.5%).
+
+---
+
+## OpenMP Scope Decision (2026-08-31)
+
+**Decision**: OpenMP is dropped from scope for Phase 1.1. The deliverable is the **HOT_PATH_INLINE (HPI) serial** build, which passes the SPC_E_WATER regression exactly (0 diff lines vs `answer_current`). The OpenMP build is **not usable** — see below.
+
+**Findings (isolated by experiment, all deterministic)**:
+
+1. **The OpenMP build corrupts results from the very first MC move.** The 2nd energy call reads the same CRD_REAL coordinate buffer but at atom 241 instead of 85 (wrong `inline_atomnum`/molecule-to-atom mapping), producing an impossible negative VDW energy. The trajectory then diverges from step 0.
+2. **Not the parallel loop.** With the `!$OMP PARALLEL DO` directive disabled (plain serial loop), the `-fopenmp` build still reproduces the identical wrong energy on call 2.
+3. **Not `-frecursive`.** Adding `-fno-recursive` (gfortran OpenMP implies `-frecursive`, breaking F77 implicit-SAVE statics) does not change the corruption.
+4. **Not an OpenMP-gated code path elsewhere.** `engtotal.F` is the only file with `#ifdef USEOPENMP`; the RNG has no OpenMP branches.
+5. **Pre-existing, independent of HPI.** `--enable-openmp` WITHOUT `HOT_PATH_INLINE` also fails: 121 diff lines vs gold at `OMP_NUM_THREADS=1`.
+
+**Conclusion**: the `-fopenmp`/`--enable-openmp` configuration itself deterministically corrupts shared program state (atom indexing) from the first move, in code untouched by the HPI path. Root-causing it (suspected interaction of the gfortran OpenMP runtime with F77 static locals / COMMON memory layout) is a separate, high-effort effort and is explicitly **out of scope** for Phase 1.1.
+
+**Benchmark note (SPC_E_WATER)**: HPI serial vs plain serial run at parity (~1.32 s vs ~1.33 s min of 3). The plan's own profile shows `engtotal_twobody` at 0.25% of runtime, so Phase 1.1's accessor-elimination gain is below measurement noise on this example. Real Phase 1 gains require tackling the dominant hotspots (accessor chains in CBMC/move code, `twh_cbmcbendinfo`).
 
 ---
 
@@ -219,13 +237,12 @@ mpirun -np 64 --bind-to core --map-by socket ./towhee
 ## Implementation Checklist
 
 ### Phase 1.1: hmatrix/halfbox Zero-Copy
-- [ ] Create `Source/pointer_access.f90`
-- [ ] Update `Makefile.in` (add `pointer_access.o`)
-- [ ] Update `engtotal_globals.F` (add `hmatrix_arr`, `halfbox_arr`)
-- [ ] Update `engtotal_globals_init()` (call `get_hmatrix_ptr`/`get_halfbox_ptr`)
-- [ ] Update `engtotal.F` (`inline_mimage` uses zero-copy arrays)
-- [ ] Update `Source/globalc.h` (C declarations)
-- [ ] Verify: `twh_hmatrix_`/`twh_halfbox_` eliminated from gprof
+- [x] Update `engtotal_globals.F` (add `hmatrix_arr`, `halfbox_arr`)
+- [x] Update `engtotal_globals_init()` (bind `hmatrix_arr`/`halfbox_arr` via COMMON association)
+- [x] Update `engtotal.F` (`inline_mimage` uses zero-copy arrays)
+- [x] Verify: `twh_hmatrix_`/`twh_halfbox_` eliminated from gprof
+- [ ] Create `Source/pointer_access.f90` (NOT built — COMMON association used instead; see `engtotal_globals.F`)
+- [ ] Update `Source/globalc.h` (C declarations) — deferred
 
 ### Phase 1.2: Scalar Getter Caches
 - [ ] Add threadprivate caches in `engtotal_globals`
@@ -267,10 +284,10 @@ def compare_outputs(ref, test, tol=1e-6):
 ### Test Matrix
 | Config | Threads | Tolerance | Status |
 |--------|---------|-----------|--------|
-| SPC_E_WATER | 1 | 1e-6 | ✅ |
-| SPC_E_WATER | 16 | 1e-6 | ✅ |
-| Wall_Water | 1 | 1e-6 | ✅ |
-| Wall_Water | 16 | 1e-6 | ✅ |
+| SPC_E_WATER, HPI serial | 1 | 1e-6 | ✅ (0 diff, byte-identical) |
+| SPC_E_WATER, plain serial (baseline) | 1 | 1e-6 | ✅ |
+| SPC_E_WATER, OMP (any) | 1/16 | 1e-6 | ❌ **out of scope** — pre-existing corruption from move 1 (see above) |
+| Wall_Water | 1 | 1e-6 | 🕓 pending |
 
 ---
 

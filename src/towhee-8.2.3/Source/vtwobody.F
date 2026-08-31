@@ -986,37 +986,24 @@ c     --- argument declarations
 c     --- local variables
       double precision srsix, sixterm, prefactor
 
-      if ( lonefour ) then
-         sixterm   = nbcoeff_15(ntij)
-         prefactor = nbcoeff_16(ntij)
-      else
-         sixterm   = nbcoeff_13(ntij)
-         prefactor = nbcoeff_14(ntij)
-      endif
-      srsix = sixterm / (rijsq**3)
-      inline_lj_12_6 = srsix * (srsix - 1.0d0) * prefactor
-      if ( lshift_val ) then
-         inline_lj_12_6 = inline_lj_12_6 - nbcoeff_0(ntij)
-      endif
+       if ( lonefour ) then
+          sixterm   = nbcoeff_15(ntij)
+          prefactor = nbcoeff_16(ntij)
+       else
+          sixterm   = nbcoeff_13(ntij)
+          prefactor = nbcoeff_14(ntij)
+       endif
+       srsix = sixterm / (rijsq**3)
+       inline_lj_12_6 = srsix * (srsix - 1.0d0) * prefactor
+       if ( lshift_val ) then
+          inline_lj_12_6 = inline_lj_12_6 - nbcoeff_0(ntij)
+       endif
 
       return
       end
 #endif
 
 #ifdef HOT_PATH_INLINE
-      function inline_coulomb(rij, imolty, ii, jmolty, jj)
-c     ******************************************************************
-c     * Inlined Coulomb energy.                                        *
-c     * Reads qqscale_arr from engtotal_globals module.                *
-c     ******************************************************************
-      use engtotal_globals, only: qqscale_arr
-      implicit none
-      double precision inline_coulomb
-      double precision rij
-      integer imolty, ii, jmolty, jj
-
-      inline_coulomb = qqscale_arr(imolty, ii) * qqscale_arr(jmolty, jj) / rij
-      return
-      end
+C     inline_coulomb is defined in engtotal.F (single global definition).
 #endif
 

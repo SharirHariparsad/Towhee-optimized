@@ -4,11 +4,76 @@ C     for bypassing the twh_* dispatch call chain in the hot path.
 C
 C     Guard: HOT_PATH_INLINE (compile-time CPP define)
 C
+C     The module declares COMMON blocks that share storage (by linker
+C     association) with the SAVEd arrays inside the matching twh_*
+C     accessor subroutines in globaldata.F.  Module POINTER aliases are
+C     then bound to those COMMON arrays in engtotal_globals_init(),
+C     giving the hot-path code direct, zero-copy array access without
+C     any per-access subroutine dispatch overhead.
+C
 C     ==================================================================
       module engtotal_globals
       use iso_c_binding, only: c_ptr, c_f_pointer
       implicit none
       save
+
+C     --- Parameter aliases for array bounds (kept in sync with
+C         preproc.h via CPP; explicit integer,parameter avoids the
+C         fixed-form module/COMMON macro-folding quirk) ---
+      integer, parameter :: hp_NTMAX   = NTMAX
+      integer, parameter :: hp_NUMAX   = NUMAX
+      integer, parameter :: hp_CROSST  = CROSSTYPEMAX
+      integer, parameter :: hp_MAXBXD  = MAXBXD
+      integer, parameter :: hp_MAXBOX  = MAXBOX
+
+C     --- COMMON storage shared with globaldata.F accessor subroutines ---
+C         (linker-level COMMON association; TARGET so POINTERs can bind)
+      integer, target :: ntype(hp_NTMAX, hp_NUMAX)
+      common /hot_ntype/ ntype
+      integer, target :: nunit(hp_NTMAX)
+      common /hot_nunit/ nunit
+      logical, target :: luse_c(hp_NTMAX, hp_NUMAX)
+      common /hot_luse_c/ luse_c
+      logical, target :: luse_v(hp_NTMAX, hp_NUMAX)
+      common /hot_luse_v/ luse_v
+      real(8), target :: qqscale(hp_NTMAX, hp_NUMAX)
+      common /hot_qqscale/ qqscale
+      real(8), target :: rcut
+      common /hot_rcut/ rcut
+      real(8), target :: rcutsq
+      common /hot_rcutsq/ rcutsq
+      real(8), target :: rminsq
+      common /hot_rminsq/ rminsq
+      real(8), target :: rcelect(hp_MAXBXD, hp_MAXBOX)
+      common /hot_rcelect/ rcelect
+      logical, target :: lshift
+      common /hot_lshift/ lshift
+      logical, target :: lewald
+      common /hot_lewald/ lewald
+      logical, target :: lelect
+      common /hot_lelect/ lelect
+
+C     --- hmatrix / halfbox (Phase 1.1 zero-copy mimage) ---
+      real(8), target :: hmatrix(hp_MAXBXD, hp_MAXBOX, 3, 3)
+      common /hot_hmatrix/ hmatrix
+      real(8), target :: halfbox(hp_MAXBXD, hp_MAXBOX, 3)
+      common /hot_halfbox/ halfbox
+
+C     --- POINTER aliases into COMMON storage (hot-path zero-copy) ---
+      integer, pointer, contiguous :: ntype_arr(:,:) => null()
+      integer, pointer, contiguous :: nunit_arr(:) => null()
+      logical, pointer, contiguous :: luse_c_arr(:,:) => null()
+      logical, pointer, contiguous :: luse_v_arr(:,:) => null()
+      real(8), pointer, contiguous :: qqscale_arr(:,:) => null()
+      real(8), pointer :: rcut_val => null()
+      real(8), pointer :: rcutsq_val => null()
+      real(8), pointer :: rminsq_val => null()
+      real(8), pointer, contiguous :: rcelect_arr(:,:) => null()
+      logical, pointer :: lshift_val => null()
+      logical, pointer :: lewald_val => null()
+      logical, pointer :: lelect_val => null()
+      real(8), pointer, contiguous :: hmatrix_arr(:,:,:,:) => null()
+      real(8), pointer, contiguous :: halfbox_arr(:,:,:) => null()
 
 C     --- Zero-copy coordinate access (C-allocated arrays) ---
       real(8), pointer, contiguous :: coord_real_arr(:,:) => null()
@@ -43,6 +108,23 @@ C     ==================================================================
         type(c_ptr) :: cptr
         integer :: natoms
         integer :: natoms_f, natoms_max
+
+C       --- Bind POINTER aliases to the COMMON storage shared with
+C           globaldata.F accessor subroutines (zero-copy) ---
+        ntype_arr   => ntype
+        nunit_arr   => nunit
+        luse_c_arr  => luse_c
+        luse_v_arr  => luse_v
+        qqscale_arr => qqscale
+        rcut_val    => rcut
+        rcutsq_val  => rcutsq
+        rminsq_val  => rminsq
+        rcelect_arr => rcelect
+        lshift_val  => lshift
+        lewald_val  => lewald
+        lelect_val  => lelect
+        hmatrix_arr => hmatrix
+        halfbox_arr => halfbox
 
 C       --- nbcoeff flat copies via accessor (not direct COMMON read)
 C           This guarantees post-mixing-rule values are captured.

@@ -266,6 +266,7 @@ C     Replaces twh_mimage call chain for rectangular boxes.
 C     Uses twh_hmatrix and twh_halfbox accessors.
 C     ==================================================================
       subroutine inline_mimage(bxdflag, ibox, rxuij, ryuij, rzuij)
+        use engtotal_globals, only: halfbox_arr, hmatrix_arr
         implicit none
         integer, intent(in) :: bxdflag, ibox
         real(8), intent(inout) :: rxuij, ryuij, rzuij
@@ -275,9 +276,11 @@ C     ==================================================================
         if (ibox .eq. 0) return
 
 C       --- rectangular box: simple min image using halfbox lengths
+C       --- zero-copy: direct array access into COMMON storage shared
+C           with twh_hmatrix / twh_halfbox (Phase 1.1) ---
         idim = 1
-        call twh_halfbox(GLB_GET, bxdflag, ibox, idim, hbx)
-        call twh_hmatrix(GLB_GET, bxdflag, ibox, idim, idim, hmvalue)
+        hbx = halfbox_arr(bxdflag, ibox, idim)
+        hmvalue = hmatrix_arr(bxdflag, ibox, idim, idim)
         do while (rxuij .gt. hbx)
            rxuij = rxuij - hmvalue
         enddo
@@ -286,8 +289,8 @@ C       --- rectangular box: simple min image using halfbox lengths
         enddo
 
         idim = 2
-        call twh_halfbox(GLB_GET, bxdflag, ibox, idim, hbx)
-        call twh_hmatrix(GLB_GET, bxdflag, ibox, idim, idim, hmvalue)
+        hbx = halfbox_arr(bxdflag, ibox, idim)
+        hmvalue = hmatrix_arr(bxdflag, ibox, idim, idim)
         do while (ryuij .gt. hbx)
            ryuij = ryuij - hmvalue
         enddo
@@ -296,8 +299,8 @@ C       --- rectangular box: simple min image using halfbox lengths
         enddo
 
         idim = 3
-        call twh_halfbox(GLB_GET, bxdflag, ibox, idim, hbx)
-        call twh_hmatrix(GLB_GET, bxdflag, ibox, idim, idim, hmvalue)
+        hbx = halfbox_arr(bxdflag, ibox, idim)
+        hmvalue = hmatrix_arr(bxdflag, ibox, idim, idim)
         do while (rzuij .gt. hbx)
            rzuij = rzuij - hmvalue
         enddo
@@ -365,7 +368,7 @@ c     ******************************************************************
       use engtotal_globals, only: ntype_arr, luse_c_arr, luse_v_arr
      &     , qqscale_arr, rcutsq_val, rminsq_val, lelect_val
      &     , lewald_val, lshift_val
-     &     , inline_atomnum, inline_mimage, inline_coulomb
+     &     , coord_real_arr, coord_temp_arr
 #endif
       implicit none
 #define FUNCTION_GETNBTYPE
@@ -402,7 +405,8 @@ c     --- vforeign
 #ifdef HOT_PATH_INLINE
 c     --- inline path local variables
        logical lonefour_global
-       integer ntij
+        integer ntij, i_atom, j_atom
+        integer inline_atomnum
 c     --- inline function declarations (defined in vtwobody.F, vcoulomb.F)
        double precision inline_lj_12_6, inline_coulomb
 #else
@@ -503,24 +507,24 @@ c                    --- engtotal_globals module.  Bypasses twh_* dispatch
 c                    --- for ntype, luse_c, luse_v, qqscale.
 c                    --- Coordinates use zero-copy coord_real_arr/coord_temp_arr
 c                    --- based on crdflag (CRD_REAL=3001, CRD_TEMP=3002).
-                        do ii = 1,numiunit
-                           ntii = ntype_arr(imolty, ii)
-                           i_atom = inline_atomnum(ichain, ii)
-                           if (crdflag .eq. 3001) then
-                              rxui = coord_real_arr(1, i_atom)
-                              ryui = coord_real_arr(2, i_atom)
-                              rzui = coord_real_arr(3, i_atom)
-                           else
-                              rxui = coord_temp_arr(1, i_atom)
-                              ryui = coord_temp_arr(2, i_atom)
-                              rzui = coord_temp_arr(3, i_atom)
-                           endif
-                           luse_ci = luse_c_arr(imolty, ii)
-                           luse_vi = luse_v_arr(imolty, ii)
+                         do ii = 1,numiunit
+                            ntii = ntype_arr(imolty, ii)
+                            i_atom = (inline_atomnum(ichain, ii) + 2)/3
+                            if (crdflag .eq. 3001) then
+                               rxui = coord_real_arr(1, i_atom)
+                               ryui = coord_real_arr(2, i_atom)
+                               rzui = coord_real_arr(3, i_atom)
+                            else
+                               rxui = coord_temp_arr(1, i_atom)
+                               ryui = coord_temp_arr(2, i_atom)
+                               rzui = coord_temp_arr(3, i_atom)
+                            endif
+                            luse_ci = luse_c_arr(imolty, ii)
+                            luse_vi = luse_v_arr(imolty, ii)
 c                       --- loop over all beads jj of chain j
                            do jj = 1, numjunit
-                              ntjj = ntype_arr(jmolty, jj)
-                              j_atom = inline_atomnum(jchain, jj)
+                               ntjj = ntype_arr(jmolty, jj)
+                               j_atom = (inline_atomnum(jchain, jj) + 2)/3
                               if (crdflag .eq. 3001) then
                                  rxuj = coord_real_arr(1, j_atom)
                                  ryuj = coord_real_arr(2, j_atom)
@@ -536,15 +540,15 @@ c                          --- check if nonzero interaction sites
                               leval_v = luse_vi .and. luse_vj
                               leval_c = luse_ci .and. luse_cj
                               if ( leval_v .or. leval_c ) then
+                                  rxuij = rxui - rxuj
+                                  ryuij = ryui - ryuj
+                                  rzuij = rzui - rzuj
 c                             --- minimum image the pair separation
-                                 call inline_mimage(bxdflag, ibox
-      &                             ,rxuij,ryuij,rzuij)
-                                 rxuij = rxui - rxuj
-                                 ryuij = ryui - ryuj
-                                 rzuij = rzui - rzuj
-                                 rijsq = (rxuij*rxuij)+(ryuij*ryuij)
-      &                          + (rzuij*rzuij)
-                                if (leval_v) then
+                                  call inline_mimage(bxdflag, ibox
+     &                             ,rxuij,ryuij,rzuij)
+                                    rijsq = (rxuij*rxuij)+(ryuij*ryuij)
+     &                          + (rzuij*rzuij)
+                                 if (leval_v) then
 c                                --- VDW: inline LJ 12-6 via module
                                    lovrlap = .false.
                                    if (rijsq .lt. rminsq_val) then
@@ -588,7 +592,7 @@ c                                   --- full dispatch for Ewald
      &                                  ,rij,imolty,ii
      &                                  ,jmolty,jj,vf,dvdl,lovrlap
      &                                  ,vcoulomb)
-else
+                                    else
 c                                   --- simple inline Coulomb via module
                                       vcoulomb = inline_coulomb(rij, imolty, ii, jmolty, jj)
                                       dvdl = 0.0d0
@@ -732,13 +736,12 @@ c                    --- lcompute
 #endif
          endif
 #ifdef USEOPENMP
-       enddo
-!$OMP END PARALLEL DO
-       write(6,*) 'DEBUG twobody: lomp_failure=',lomp_failure
-       if ( lomp_failure ) then
-          lfailure = .true.
-          return
-       endif
+        enddo
+  !$OMP END PARALLEL DO
+         if ( lomp_failure ) then
+           lfailure = .true.
+           return
+        endif
 #else
        enddo
 #endif

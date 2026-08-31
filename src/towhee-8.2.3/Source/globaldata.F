@@ -6516,7 +6516,8 @@ c     --- local variables
 c     --- storage variable
       double precision halfbox
       dimension halfbox(MAXBXD,MAXBOX,3)
-      save halfbox
+      target halfbox
+      common /hot_halfbox/ halfbox
 
       if ( flag .eq. GLB_GET ) then
          dvalue = halfbox(bxdflag,ibox,idim)
@@ -6982,8 +6983,8 @@ c     --- local variables
 c     --- storage variable
       double precision hmatrix
       dimension hmatrix(MAXBXD,MAXBOX,3,3)
-      save hmatrix
       target hmatrix
+      common /hot_hmatrix/ hmatrix
 
       if ( flag .eq. GLB_GET ) then
          dvalue = hmatrix(bxdflag,ibox,idim,jdim)
