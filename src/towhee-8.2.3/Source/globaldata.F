@@ -5330,10 +5330,11 @@ c     --- variables passed to/from the subroutine
       double precision dvalue
 c     --- local variable
       integer ixtemp,ibtemp
-c     --- storage variable
+c     --- storage variable (Phase 5: hot COMMON for zero-copy)
       double precision ewald_calp
       dimension ewald_calp(MAXBXD,0:MAXBOX)
-      save ewald_calp
+      common /hot_ewald_calp/ ewald_calp
+      target ewald_calp
 
       if ( flag .eq. GLB_GET ) then
          dvalue = ewald_calp(bxdflag,ibox)

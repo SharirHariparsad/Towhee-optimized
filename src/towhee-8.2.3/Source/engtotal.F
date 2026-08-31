@@ -250,7 +250,9 @@ C     ==================================================================
 C     inline_atomnum - Inline atom number calculation
 C     Replaces twh_atomnum call chain.
 C     Uses twh_globalpos accessor.
+C     Phase 4: DECLARE SIMD for vectorization.
 C     ==================================================================
+!$OMP DECLARE SIMD(inline_atomnum)
       function inline_atomnum(ichain, iunit)
         implicit none
         integer, intent(in) :: ichain, iunit
@@ -264,7 +266,9 @@ C     ==================================================================
 C     inline_mimage - Inline minimum image convention
 C     Replaces twh_mimage call chain for rectangular boxes.
 C     Uses twh_hmatrix and twh_halfbox accessors.
+C     Phase 4: DECLARE SIMD - allows vectorizer to call from SIMD loop
 C     ==================================================================
+!$OMP DECLARE SIMD(inline_mimage)
       subroutine inline_mimage(bxdflag, ibox, rxuij, ryuij, rzuij)
         use engtotal_globals, only: halfbox_arr, hmatrix_arr
         implicit none
@@ -313,7 +317,9 @@ C     ==================================================================
 C     inline_coulomb - Inline Coulomb energy
 C     Replaces twh_vcoulomb for non-Ewald case.
 C     Uses zero-copy qqscale_arr from engtotal_globals.
+C     Phase 4: DECLARE SIMD for vectorization.
 C     ==================================================================
+!$OMP DECLARE SIMD(inline_coulomb)
       function inline_coulomb(rij, imolty, ii, jmolty, jj)
         use engtotal_globals, only: qqscale_arr
         implicit none
@@ -519,10 +525,13 @@ c                    --- based on crdflag (CRD_REAL=3001, CRD_TEMP=3002).
                                ryui = coord_temp_arr(2, i_atom)
                                rzui = coord_temp_arr(3, i_atom)
                             endif
-                            luse_ci = luse_c_arr(imolty, ii)
-                            luse_vi = luse_v_arr(imolty, ii)
+                             luse_ci = luse_c_arr(imolty, ii)
+                             luse_vi = luse_v_arr(imolty, ii)
 c                       --- loop over all beads jj of chain j
-                           do jj = 1, numjunit
+c                       --- Phase 4: SIMD vectorize inner pair loop (branches
+c                           inside remain scalar but arithmetic is vectorized)
+!$OMP SIMD
+                            do jj = 1, numjunit
                                ntjj = ntype_arr(jmolty, jj)
                                j_atom = (inline_atomnum(jchain, jj) + 2)/3
                               if (crdflag .eq. 3001) then

@@ -83,8 +83,20 @@ int initialize_MPI(int argc, char* argv[]) {
   return -1;
 #else
   int myproc;
-  /* initialize mpi */
+#ifdef USEOPENMP
+  /* Hybrid MPI+OpenMP: request FUNNELED so only master thread makes MPI calls.
+   * Towhee's MPI usage is all from the C driver / master thread, so FUNNELED
+   * is sufficient and more portable than THREAD_MULTIPLE.  Fall back to
+   * plain MPI_Init when OpenMP not enabled. */
+  int provided;
+  MPI_Init_thread( &argc , &argv, MPI_THREAD_FUNNELED, &provided );
+  if ( provided < MPI_THREAD_FUNNELED ) {
+    fprintf(stderr,
+      "Warning: MPI thread support FUNNELED not provided (got %d)\n", provided);
+  }
+#else
   MPI_Init( &argc , &argv );
+#endif
   MPI_Comm_rank(MPI_COMM_WORLD,&myproc);
   MPI_Barrier(MPI_COMM_WORLD);
   return myproc;

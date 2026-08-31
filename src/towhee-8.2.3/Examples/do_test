@@ -1,6 +1,35 @@
 #!/bin/bash
+# Phase 4: tolerance-aware regression (1e-6 relative)
+# Original strict diff kept as diffile; tolerance check via tolerance_diff.py
+# Usage: ./do_test [towhee_binary]  # default tries candidate paths
 cat header
-time /towheebase/Source/towhee > answer_new 
+TOWHEE_BIN="${1:-}"
+if [ -z "$TOWHEE_BIN" ]; then
+  # Try candidate paths for varying example depths (TMMC depth 3, others depth 2)
+  for cand in "../../../Source/towhee" "../../Source/towhee" "../Source/towhee" "/towheebase/Source/towhee"; do
+    if [ -x "$cand" ]; then TOWHEE_BIN="$cand"; break; fi
+  done
+  # fallback to absolute built path
+  if [ -z "$TOWHEE_BIN" ] || [ ! -x "$TOWHEE_BIN" ]; then
+    if [ -x "/home/sharir/MCCSTowhee_opt/src/towhee-8.2.3/Source/towhee" ]; then
+      TOWHEE_BIN="/home/sharir/MCCSTowhee_opt/src/towhee-8.2.3/Source/towhee"
+    else
+      TOWHEE_BIN="../../../Source/towhee"
+    fi
+  fi
+fi
+time "$TOWHEE_BIN" > answer_new
 diff -w answer_new answer_current > diffile
+# Phase 4 tolerance check (1e-6)
+python3 "$(dirname "$0")/tolerance_diff.py" answer_current answer_new 1e-6 > tolerance_result 2>&1
+TOL_EXIT=$?
 cat header diffile > results
-/bin/rm diffile
+echo "--- tolerance check (1e-6) ---" >> results
+cat tolerance_result >> results
+if [ $TOL_EXIT -eq 0 ]; then
+  echo "TOLERANCE PASS" >> results
+else
+  echo "TOLERANCE FAIL (see above)" >> results
+fi
+cat tolerance_result
+/bin/rm diffile tolerance_result

@@ -382,7 +382,16 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-AM_FFLAGS = $(SC_FFLAGS) $(FG_FFLAGS) $(DM_FFLAGS)
+@UseOpenMP_TRUE@OMP_FFLAGS = -fopenmp -ffixed-line-length-none
+@UseOpenMP_TRUE@OMP_CPPFLAGS = -DUSEOPENMP
+@UseSafeCompare_TRUE@VEC_FFLAGS =
+@UseSafeCompare_TRUE@VEC_CFLAGS =
+@UseSafeCompare_FALSE@VEC_FFLAGS = -O3 -march=native -ffast-math -funroll-loops -ftree-vectorize
+@UseSafeCompare_FALSE@VEC_CFLAGS = -O3 -march=native -ffast-math -funroll-loops -ftree-vectorize
+AM_FFLAGS = $(SC_FFLAGS) $(FG_FFLAGS) $(DM_FFLAGS) $(OMP_FFLAGS) $(VEC_FFLAGS)
+AM_CFLAGS = $(VEC_CFLAGS)
+AM_FCFLAGS = -ffree-form $(AM_FFLAGS)
+AM_LDFLAGS = $(OMP_FFLAGS)
 @UseMPI_TRUE@MPI_CPPFLAGS = -DUSEMPI
 @UseMPI_TRUE@MPI_LIBS = $(MPILIBS)
 # If configured with --enable-tramonto, set the flag
@@ -399,8 +408,12 @@ AM_FFLAGS = $(SC_FFLAGS) $(FG_FFLAGS) $(DM_FFLAGS)
 #if UseDM
 #DM_CPPFLAGS = -DUSE_DYNAMIC_MEMORY
 #endif
-AM_CPPFLAGS = $(MPI_CPPFLAGS) $(OK_CPPFLAGS) $(T_CPPFLAGS) \
-	$(I_CPPFLAGS) $(SC_CPPFLAGS) $(CLA_CPPFLAGS) $(DM_CPPFLAGS)
+AM_CPPFLAGS = $(MPI_CPPFLAGS) $(OK_CPPFLAGS) $(T_CPPFLAGS) $(I_CPPFLAGS)
+AM_CPPFLAGS += $(SC_CPPFLAGS) $(CLA_CPPFLAGS) $(DM_CPPFLAGS) $(OMP_CPPFLAGS)
+# To build with hot-path inlining:
+#    make clean && make HOT_PATH_CPPFLAGS="-DHOT_PATH_INLINE"
+HOT_PATH_CPPFLAGS =
+AM_CPPFLAGS += $(HOT_PATH_CPPFLAGS)
 
 # Add the Fortran libraries, so we can link with C
 LDADD = @FLIBS@

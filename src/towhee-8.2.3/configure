@@ -3482,6 +3482,21 @@ printf "%s\n" "#define USEOPENMP 1" >>confdefs.h
 
 fi
 
+# Phase 4: capture whether user set FFLAGS/CFLAGS before compilers set defaults.
+# Must be before AC_PROG_CC/F77 which would set defaults to -g -O2.
+if test "x${FFLAGS+set}" != xset -o "x$FFLAGS" = x
+then :
+  towhee_fflags_user_set=no
+else $as_nop
+  towhee_fflags_user_set=yes
+fi
+if test "x${CFLAGS+set}" != xset -o "x$CFLAGS" = x
+then :
+  towhee_cflags_user_set=no
+else $as_nop
+  towhee_cflags_user_set=yes
+fi
+
 # Checks for compilers
 # It seems really silly to check for cc and when we know
 #   where it is, and will set it, but otherwise configure
@@ -5099,6 +5114,18 @@ ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
 ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
 ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
+# Phase 4: if user did not set flags, clear autoconf defaults so AM_FFLAGS VEC
+# (-O3 -march=native ...) is not overridden by -g -O2.
+if test "x$towhee_fflags_user_set" = xno; then
+  FFLAGS=""
+fi
+if test "x$towhee_cflags_user_set" = xno; then
+  # keep -pie -fpic added for icc if needed, but drop -g -O2 default
+  case "$CFLAGS" in
+    *-pie*) ;; # keep icc tweak
+    *) CFLAGS="" ;;
+  esac
+fi
 
 # Link normally
 F77LD=${CC}

@@ -62,13 +62,15 @@ c     --- local variables
       double precision qqa,qqb,calp,rcelect,rmin
 
 #ifdef HOT_PATH_INLINE
-c     --- Phase 1.2: cached scalars via extern COMMON (shared with the
+c     --- Phase 1.2/5: cached scalars via extern COMMON (shared with the
 c         accessor subroutines in globaldata.F and engtotal_globals.F).
-      double precision c_qqscale,c_rcelect
+      double precision c_qqscale,c_rcelect,c_ewald_calp
       dimension c_qqscale(NTMAX,NUMAX)
       common /hot_qqscale/ c_qqscale
       dimension c_rcelect(MAXBXD,MAXBOX)
       common /hot_rcelect/ c_rcelect
+      dimension c_ewald_calp(MAXBXD,0:MAXBOX)
+      common /hot_ewald_calp/ c_ewald_calp
       logical c_lewald
       common /hot_lewald/ c_lewald
 #endif
@@ -131,9 +133,13 @@ c        --- compute coulombic interactions
          vcoulomb = qqa*qqb/rij
 
          if ( lalpha ) then
+#ifdef HOT_PATH_INLINE
+            calp = c_ewald_calp(bxdflag,simbox)
+#else
             call twh_ewald_calp(GLB_GET,bxdflag,simbox,calp)
+#endif
             vcoulomb = vcoulomb * twh_derfc(calp*rij)
-         endif
+          endif
 
          call twh_isolvtype(GLB_GET,isolvtype)
          if ( isolvtype .eq. SOLV_SASA ) then

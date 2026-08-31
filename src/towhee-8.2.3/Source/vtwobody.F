@@ -884,9 +884,11 @@ c        --- one-four interactions, only special for 12-6 LJ
       end
 
 
+!$OMP DECLARE SIMD(vtb_lennard_jones)
       double precision function vtb_lennard_jones(ntij, rijsq, lonefour)
 c     ******************************************************************
 c     * calculates Lennard-Jones twobody potential                     *
+c     * Phase 4: DECLARE SIMD for vectorization                        *
 c     *                                                                *
 c     * originally split out of vtwobody 03-01-2006 by MAW             *
 c     * last modified 03-31-2020 by M.G. Martin                        *
@@ -1041,11 +1043,13 @@ c     --- zero in all cases this statement not reached.
       end
 
 #ifdef HOT_PATH_INLINE
+!$OMP DECLARE SIMD(inline_lj_12_6)
       function inline_lj_12_6(rijsq, ntij, lonefour)
 c     ******************************************************************
 c     * Inlined Lennard-Jones 12-6 energy.                             *
 c     * Reads nbcoeff_*, lshift_val from engtotal_globals module.      *
 c     * Pure arithmetic: no I/O, no SAVE, no twh_* dispatch.           *
+c     * Phase 4: DECLARE SIMD - enables vectorization of caller loop   *
 c     ******************************************************************
       use engtotal_globals, only: nbcoeff_13, nbcoeff_14, nbcoeff_15
      &     , nbcoeff_16, nbcoeff_0, lshift_val

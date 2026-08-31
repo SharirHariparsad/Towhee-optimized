@@ -28,6 +28,17 @@ OMP_FFLAGS = -fopenmp -ffixed-line-length-none
 OMP_CPPFLAGS = -DUSEOPENMP
 endif
 
+# Phase 4: Vectorization + FP relaxation
+# Enabled when --enable-safe-compare is NOT set; safe-compare keeps strict FP.
+# These flags are appended after SC_FFLAGS so safe mode can override.
+if UseSafeCompare
+VEC_FFLAGS =
+VEC_CFLAGS =
+else
+VEC_FFLAGS = -O3 -march=native -ffast-math -funroll-loops -ftree-vectorize
+VEC_CFLAGS = -O3 -march=native -ffast-math -funroll-loops -ftree-vectorize
+endif
+
 # If configured with --disable-command-line-args, command line arguments
 # won't be parsed by the towhee executable.
 if DisableCLA
@@ -39,7 +50,9 @@ endif
 
 AM_CPPFLAGS = $(MPI_CPPFLAGS) $(OK_CPPFLAGS) $(T_CPPFLAGS) $(I_CPPFLAGS)
 AM_CPPFLAGS += $(SC_CPPFLAGS) $(CLA_CPPFLAGS) $(DM_CPPFLAGS) $(OMP_CPPFLAGS)
+AM_FFLAGS = $(VEC_FFLAGS)
 AM_FFLAGS += $(SC_FFLAGS) $(FG_FFLAGS) $(DM_FFLAGS) $(OMP_FFLAGS)
+AM_CFLAGS = $(VEC_CFLAGS)
 AM_FCFLAGS = -ffree-form $(AM_FFLAGS)
 AM_LDFLAGS = $(OMP_FFLAGS)
 # To build with hot-path inlining:

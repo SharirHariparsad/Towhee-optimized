@@ -45,6 +45,12 @@ c     --- double precision scalars
       double precision n_one,n_two,n_thr,rxui,ryui,rzui,twopi,qqfact
       double precision charge,kx,ky,kz,prefact,calp
       double precision hinv1,hinv2,hinv3,boxvolume
+#ifdef HOT_PATH_INLINE
+c     --- Phase 5: calp zero-copy via COMMON (shared with globaldata.F)
+      double precision c_ewald_calp
+      dimension c_ewald_calp(MAXBXD,0:MAXBOX)
+      common /hot_ewald_calp/ c_ewald_calp
+#endif
 
 c     --- retrieve constants
       call twh_constant_twopi(GLB_GET,twopi)
@@ -54,7 +60,11 @@ c     --- retrieve constants
 c     --- Set up the reciprocal space vectors
       ncount = 0
       vrecip = 0.0d0
+#ifdef HOT_PATH_INLINE
+      calp = c_ewald_calp(bxdflag,ibox)
+#else
       call twh_ewald_calp(GLB_GET,bxdflag,ibox,calp)
+#endif
       call twh_ewald_kmax(GLB_GET,bxdflag,ibox,kmax)
       if ( kmax .eq. 0 ) then
 c        --- no vectors
@@ -131,6 +141,7 @@ c              --- sum up q*cos and q*sin
                   call twh_nunit(GLB_GET,imolty,nunit)
                   call twh_nboxi(GLB_GET,ichain,testboxi)
                   if ( testboxi .eq. ibox) then
+!$OMP SIMD REDUCTION(+:sumr,sumi)
                      do iunit = 1,nunit
                         call twh_coordinates(GLB_GET,crdflag,ichain
      &                       ,iunit,rxui,ryui,rzui)

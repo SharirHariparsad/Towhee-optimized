@@ -16,11 +16,77 @@ Usage:
 import argparse
 import json
 import os
+import re
 import statistics
 import subprocess
 import time
 import shutil
 from pathlib import Path
+
+# Phase 4: tolerance-based regression (1e-6 relative)
+DEFAULT_TOL = 1e-6
+_NUMERIC_RE = re.compile(r'[-+]?\d*\.?\d+[eE][-+]?\d+|[-+]?\d+\.\d*|[-+]?\d+')
+
+def _is_numeric_token(tok: str) -> bool:
+    try:
+        float(tok)
+        return True
+    except ValueError:
+        return False
+
+def compare_outputs(ref_path: Path, test_path: Path, tol: float = DEFAULT_TOL,
+                    verbose: bool = False) -> tuple:
+    """Compare two towhee output files with relative tolerance tol.
+    Returns (passed: bool, diffs: list of strings).
+    Numeric tokens are compared with relative tolerance  tol * max(|ref|,1.0).
+    Non-numeric lines are compared via exact (whitespace-normalized) diff.
+    """
+    diffs = []
+    try:
+        ref_lines = ref_path.read_text(errors='ignore').splitlines()
+        test_lines = test_path.read_text(errors='ignore').splitlines()
+    except OSError as e:
+        return False, [str(e)]
+    if len(ref_lines) != len(test_lines):
+        diffs.append(f"line count differs: ref={len(ref_lines)} test={len(test_lines)}")
+        # continue to compare up to min
+    for i, (r, t) in enumerate(zip(ref_lines, test_lines), 1):
+        if r == t:
+            continue
+        # whitespace-normalized quick check: diff -w behaviour
+        if r.split() == t.split():
+            continue
+        r_toks = r.split()
+        t_toks = t.split()
+        if len(r_toks) != len(t_toks):
+            diffs.append(f"line {i}: token count {len(r_toks)} vs {len(t_toks)}")
+            if verbose:
+                diffs.append(f"  ref:  {r[:200]}")
+                diffs.append(f"  test: {t[:200]}")
+            continue
+        line_ok = True
+        for rt, tt in zip(r_toks, t_toks):
+            rn = _is_numeric_token(rt)
+            tn = _is_numeric_token(tt)
+            if rn and tn:
+                rv, tv = float(rt), float(tt)
+                denom = max(abs(rv), 1.0)
+                if abs(rv - tv) > tol * denom:
+                    line_ok = False
+                    break
+            else:
+                if rt != tt:
+                    line_ok = False
+                    break
+        if not line_ok:
+            diffs.append(f"line {i} exceeds tol {tol}:")
+            diffs.append(f"  ref:  {r[:200]}")
+            diffs.append(f"  test: {t[:200]}")
+            if len(diffs) > 200:
+                diffs.append("... truncated")
+                break
+    passed = len(diffs) == 0
+    return passed, diffs
 
 
 def clean_run_dir(run_dir: Path):
@@ -177,6 +243,10 @@ def main():
                    help="Warmup runs discarded per binary")
     p.add_argument("--config", type=Path, default=Path("bench_config.json"),
                    help="Path to JSON config file (default: bench_config.json)")
+    p.add_argument("--tolerance", type=float, default=DEFAULT_TOL,
+                   help="Relative tolerance for output comparison (Phase 4, default 1e-6)")
+    p.add_argument("--check-tolerance", action="store_true",
+                   help="After benchmarking, compare original vs optimized outputs with tolerance")
     args = p.parse_args()
 
     # Load configuration from JSON file + env vars
@@ -228,6 +298,35 @@ def main():
         "opt_stats": opt_stats,
         "speedup": speedup,
     })
+
+    if args.check_tolerance:
+        # Phase 4: compare latest outputs with tolerance
+        # After benchmark, each binary's last run left its output in run_dir
+        # We re-run each once more capturing to temp files for clean compare
+        print(f"\n-- tolerance check (tol={args.tolerance}) --")
+        # run each once capturing stdout to file for comparison
+        ref_out = Path(run_dir) / "answer_ref_tol"
+        test_out = Path(run_dir) / "answer_test_tol"
+        for exe, out in [(Path(original), ref_out), (Path(optimized), test_out)]:
+            clean_run_dir(Path(run_dir))
+            env = os.environ.copy()
+            env["OMP_NUM_THREADS"] = str(threads)
+            result = subprocess.run([str(exe.resolve())], cwd=str(Path(run_dir)),
+                                    env=env, capture_output=True, text=True)
+            out.write_text(result.stdout)
+        passed, diffs = compare_outputs(ref_out, test_out, tol=args.tolerance)
+        if passed:
+            print(f"  tolerance check PASSED (tol={args.tolerance})")
+        else:
+            print(f"  tolerance check FAILED (tol={args.tolerance}):")
+            for d in diffs[:20]:
+                print(f"    {d}")
+        # cleanup
+        for p in [ref_out, test_out]:
+            try:
+                p.unlink()
+            except OSError:
+                pass
 
 
 if __name__ == "__main__":

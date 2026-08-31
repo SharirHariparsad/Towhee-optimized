@@ -59,6 +59,10 @@ C     --- hmatrix / halfbox (Phase 1.1 zero-copy mimage) ---
       real(8), target :: halfbox(hp_MAXBXD, hp_MAXBOX, 3)
       common /hot_halfbox/ halfbox
 
+C     --- Ewald calp (Phase 5: precomputed, vectorized) ---
+      real(8), target :: ewald_calp(hp_MAXBXD, 0:hp_MAXBOX)
+      common /hot_ewald_calp/ ewald_calp
+
 C     --- POINTER aliases into COMMON storage (hot-path zero-copy) ---
       integer, pointer, contiguous :: ntype_arr(:,:) => null()
       integer, pointer, contiguous :: nunit_arr(:) => null()
@@ -74,6 +78,7 @@ C     --- POINTER aliases into COMMON storage (hot-path zero-copy) ---
       logical, pointer :: lelect_val => null()
       real(8), pointer, contiguous :: hmatrix_arr(:,:,:,:) => null()
       real(8), pointer, contiguous :: halfbox_arr(:,:,:) => null()
+      real(8), pointer, contiguous :: ewald_calp_arr(:,:) => null()
 
 C     --- Zero-copy coordinate access (C-allocated arrays) ---
       real(8), pointer, contiguous :: coord_real_arr(:,:) => null()
@@ -133,6 +138,7 @@ C           globaldata.F accessor subroutines (zero-copy) ---
         lelect_val  => lelect
         hmatrix_arr => hmatrix
         halfbox_arr => halfbox
+        ewald_calp_arr => ewald_calp
 
 C       --- nbcoeff flat copies via accessor (not direct COMMON read)
 C           This guarantees post-mixing-rule values are captured.

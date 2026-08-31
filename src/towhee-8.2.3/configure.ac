@@ -92,6 +92,13 @@ AS_IF([test "x$UseOpenMP" = xtrue], [
   AC_DEFINE([USEOPENMP], [1], [Define if OpenMP is enabled])
 ])
 
+# Phase 4: capture whether user set FFLAGS/CFLAGS before compilers set defaults.
+# Must be before AC_PROG_CC/F77 which would set defaults to -g -O2.
+AS_IF([test "x${FFLAGS+set}" != xset -o "x$FFLAGS" = x],
+      [towhee_fflags_user_set=no], [towhee_fflags_user_set=yes])
+AS_IF([test "x${CFLAGS+set}" != xset -o "x$CFLAGS" = x],
+      [towhee_cflags_user_set=no], [towhee_cflags_user_set=yes])
+
 # Checks for compilers
 # It seems really silly to check for cc and when we know
 #   where it is, and will set it, but otherwise configure
@@ -106,6 +113,18 @@ fi
 # Compiler Tests
 # Already did CC test
 AC_PROG_F77
+# Phase 4: if user did not set flags, clear autoconf defaults so AM_FFLAGS VEC
+# (-O3 -march=native ...) is not overridden by -g -O2.
+if test "x$towhee_fflags_user_set" = xno; then
+  FFLAGS=""
+fi
+if test "x$towhee_cflags_user_set" = xno; then
+  # keep -pie -fpic added for icc if needed, but drop -g -O2 default
+  case "$CFLAGS" in
+    *-pie*) ;; # keep icc tweak
+    *) CFLAGS="" ;;
+  esac
+fi
 
 # Link normally
 AC_SUBST(F77LD,${CC})

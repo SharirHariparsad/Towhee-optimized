@@ -73,3 +73,8 @@ C     --- RMINSQ: squared hard-core inner radius ---
       double precision rminsq
       common /hot_rminsq/ rminsq
       target rminsq
+
+C     --- EWALD_CALP: Ewald real-space cutoff parameter calp=kalp/boxlen ---
+      double precision ewald_calp
+      common /hot_ewald_calp/ ewald_calp(MAXBXD,0:MAXBOX)
+      target ewald_calp
