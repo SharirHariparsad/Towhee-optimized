@@ -1,0 +1,330 @@
+inputformat
+'Towhee'
+random_number_generator
+'DX-1597-2-7'
+random_seed
+     1302002
+random_allow_restart
+T
+ensemble
+'nvt                           '
+temperature
+   300.00000000000000     
+nmolty
+           1
+nmolectyp
+         570
+numboxes
+           1
+stepstyle
+'cycles  '
+nstep
+          10
+controlstyle
+'manual              '
+printfreq
+           1
+blocksize
+           2
+moviefreq
+           1
+backupfreq
+        1000
+restartfreq
+           0
+runoutput
+'full                '
+pdb_output_freq
+           1
+loutdft
+ F
+loutlammps
+ F
+loutdlpoly
+ F
+pressure_virial_freq
+        2000
+pressure_thermo_freq
+           0
+pressure_thermo_style
+'range               '
+pressure_thermo_range
+  -1.0000000000000000E-002   1.0000000000000000E-002
+trmaxdispfreq
+           1
+volmaxdispfreq
+           5
+chempotperstep
+           0
+loutchempotdata
+ F
+linit
+ F
+initboxtype
+'dimensions          '
+initstyle
+ 'full cbmc           ' 
+initlattice
+'simple cubic        '
+initmol
+         570
+inix iniy iniz
+           8           8          11
+hmatrix
+   22.174869000000001        0.0000000000000000        0.0000000000000000     
+   0.0000000000000000        24.004999000000002        0.0000000000000000     
+   0.0000000000000000        0.0000000000000000        80.000000000000000     
+pm1boxcbswap
+0.0500
+          pm1cbswmt
+          .10000E+01
+pmavb1
+0.0000
+          pmavb1in
+          .50000E+00
+          pmavb1mt
+          .10000E+01
+          pmavb1ct
+          .10000E+01
+          avb1rad
+           8.0000
+pmavb2
+0.0000
+          pmavb2in
+          .50000E+00
+          pmavb2mt
+          .10000E+01
+          pmavb2ct
+          .10000E+01
+          avb2rad
+           8.0000
+pmavb3
+0.0000
+          pmavb3mt
+          .10000E+01
+          pmavb3ct
+          .10000E+01
+          avb3rad
+           8.0000
+pmcb
+0.0000
+          pmcbmt
+          .10000E+01
+          pmall
+          .00000E+00
+pmback
+0.0000
+          pmbkmt
+          .10000E+01
+pmcbside
+0.0000
+          pmcbsidemt
+          .10000E+01
+pmpivot
+0.0000
+          pmpivmt
+          .10000E+01
+pmconrot
+0.0000
+          pmcrmt
+          .10000E+01
+pmcrback
+0.0000
+          pmcrbmt
+          .10000E+01
+pmplane
+0.0000
+          pmplanebox
+          .10000E+01
+          planewidth
+          .30000E+01
+pmrow
+0.0000
+          pmrowbox
+          .10000E+01
+          rowwidth
+          .30000E+01
+pmtraat
+0.0000
+          pmtamt
+          .10000E+01
+          rmtraa
+          .50000E+00
+          tatraa
+          .50000E+00
+pmcomposite
+          .00000E+00
+pmcomt
+          .10000E+01
+rmcomtra
+          .50000E+00
+rmcomrot
+          .50000E+00
+pmtracm
+0.5500
+          pmtcmt
+          .10000E+01
+          rmtrac
+          .50000E+00
+          tatrac
+          .50000E+00
+pmrotate
+1.0000
+          pmromt
+          .10000E+01
+          rmrot
+          .50000E-01
+          tarot
+          .50000E+00
+cbmc_analysis
+'normal                        '
+cbmc_formulation      
+'Martin and Frischknecht 2006                                '
+cbmc_setting_style
+'Martin and Frischknecht       '
+cbmc_fit_strategy
+'equilibrium                   '
+cbmc_nb_one_generation 
+'uniform                       '
+nch_nb_one
+          10
+nch_nb
+          10
+nch_pre_nb
+         100
+cbmc_dihedral_generation
+'ideal + autofit gaussian      '
+dihedral_peak_weight_style
+'uniform                       '
+dihedral_sdev_multiplier
+   1.0000000000000000     
+dihedral_ideal_fraction
+   1.0000000000000000E-002
+nch_tor
+           1
+nch_tor_connect
+           1
+cbmc_bend_generation
+'ideal + autofit gaussian      '
+bend_a_sdev_multiplier
+   1.0000000000000000     
+bend_b_sdev_multiplier
+   1.0000000000000000     
+bend_a_ideal_fraction
+   1.0000000000000000E-002
+bend_b_ideal_fraction
+   1.0000000000000000E-002
+nch_bend_a
+           1
+nch_bend_b
+           1
+max_bond_length
+   3.0000000000000000     
+cbmc_bond_generation
+'autofit gaussian              '
+bond_sdev_multiplier
+   1.0000000000000000     
+nch_vib
+           1
+two_bond_fixed_endpoint_bias_style
+'analytic Boltzmann using angles                   '
+three_bond_fixed_endpoint_bias_style
+'analytic using max and min 2-4 distance           '
+ffnumber
+           1
+ff_filename
+/towheebase/ForceFields/towhee_ff_SPC-E                                                                                 
+classical_potential
+'Lennard-Jones                 '
+classical_mixrule
+'Lorentz-Berthelot             '
+lshift
+ T
+ltailc
+ F
+rmin
+  0.10000000000000001     
+rcut
+   10.000000000000000     
+rcutin
+   10.000000000000000     
+electrostatic_form
+'coulomb                                           '
+coulombstyle
+'ewald_fixed_kmax    '
+kalp
+   5.5999999999999996     
+kmax
+           5
+dielect
+   1.0000000000000000     
+lcompute_madelung
+ F
+nfield
+           1
+fieldtype
+'Hard Wall           '
+hrdbox
+           1
+hrdxyz
+'z'
+hrdcen
+   0.0000000000000000     
+hrdrad
+   26.000000000000000     
+hrd_repulsion_style
+'centers    '
+hrd_energy_type
+'infinite   '
+solvation_style
+'none                '
+input_style
+explicit
+nunit
+           3
+nmaxcbmc
+           3
+lpdbnames
+ F
+unit ntype qqatom
+           1           1 -0.84760000000000002     
+vibration
+           2
+           2           1
+           3           1
+bending
+           0
+torsion
+           0
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+           2           2  0.42380000000000001     
+vibration
+           1
+           1           1
+bending
+           1
+           1           3           1           1           0           0
+torsion
+           0
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+           3           2  0.42380000000000001     
+vibration
+           1
+           1           1
+bending
+           1
+           1           2           1           1           0           0
+torsion
+           0
+angle-angle
+           0
+improper torsion
+           0

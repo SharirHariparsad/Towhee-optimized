@@ -1,0 +1,18 @@
+Suggested citations for the methods, algorithms and force fields used in this simulation
+
+Simulations were performed using version 8.2.3   of MCCCS Towhee [ 1, 2]
+[ 1] M.G. Martin;
+"MCCCS Towhee: a tool for Monte Carlo molecular simulation"
+Mol. Simulat. 39 1212-1222 (2013)
+[ 2] http://towhee.sourceforge.net
+
+pseudo-random numbers generated using DX-1597-2-7 [ 3]
+[ 3] L.-Y. Deng;
+"Efficient and Portable Multiple Recursive Generators of Large Order"
+ACM Transactions on Modeling and Computer Simulation 15 1-13 (2005)
+
+Canonical ensemble [ 4]
+[ 4] N. Metropolis; A.W. Rosenbluth; M.N. Rosenbluth A.H. Teller; E. Teller;
+"Equation of State Calculations by Fast Computing Machines"
+J. Chem. Phys. 21 1088-1092 (1953)
+

@@ -1,0 +1,1073 @@
+inputformat
+'Towhee'
+random_number_generator
+'DX-1597-2-7'
+random_seed
+     1302002
+random_allow_restart
+T
+ensemble
+'nvt                           '
+temperature
+   400.00000000000000     
+nmolty
+           6
+nmolectyp
+           1           1           1           1           1           1
+numboxes
+           1
+stepstyle
+'cycles  '
+nstep
+          10
+controlstyle
+'manual              '
+printfreq
+           1
+blocksize
+           2
+moviefreq
+      100000
+backupfreq
+        1000
+restartfreq
+           0
+runoutput
+'full                '
+pdb_output_freq
+      100000
+loutdft
+ F
+loutlammps
+ F
+loutdlpoly
+ F
+pressure_virial_freq
+          20
+pressure_thermo_freq
+           0
+pressure_thermo_style
+'range               '
+pressure_thermo_range
+  -1.0000000000000000E-002   1.0000000000000000E-002
+trmaxdispfreq
+        1000
+volmaxdispfreq
+        1000
+chempotperstep
+           0           0           0           0           0           0
+loutchempotdata
+ F
+linit
+ T
+initboxtype
+'dimensions          '
+initstyle
+ 'full cbmc           ' 'full cbmc           ' 'full cbmc           ' 'full cbmc           ' 'full cbmc           ' 'full cbmc           ' 
+initlattice
+'simple cubic        ' 'simple cubic        ' 'simple cubic        ' 'simple cubic        ' 'simple cubic        ' 'simple cubic        '
+initmol
+           1           1           1           1           1           1
+inix iniy iniz
+           2           3           1
+hmatrix
+   40.000000000000000        0.0000000000000000        0.0000000000000000     
+   0.0000000000000000        40.000000000000000        0.0000000000000000     
+   0.0000000000000000        0.0000000000000000        40.000000000000000     
+pm1boxcbswap
+0.0000
+          pm1cbswmt
+          .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01
+pm1boxcomswitch
+0.1000
+          pm1comswbox
+          .10000E+01
+          pm1comswpair
+          .70000E-01 .13000E+00 .20000E+00 .27000E+00 .33000E+00 .40000E+00 .47000E+00 .53000E+00 .60000E+00 .67000E+00 .73000E+00 .80000E+00 .87000E+00 .93000E+00 .10000E+01
+pmavb1
+0.0000
+          pmavb1in
+          .50000E+00
+          pmavb1mt
+          .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01
+          pmavb1ct
+          .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01
+          .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01
+          .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01
+          .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01
+          .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01
+          .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01
+          avb1rad
+           0.1000
+pmavb2
+0.0000
+          pmavb2in
+          .50000E+00
+          pmavb2mt
+          .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01
+          pmavb2ct
+          .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01
+          .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01
+          .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01
+          .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01
+          .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01
+          .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01
+          avb2rad
+           0.1000
+pmavb3
+0.0000
+          pmavb3mt
+          .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01
+          pmavb3ct
+          .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01
+          .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01
+          .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01
+          .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01
+          .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01
+          .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01
+          avb3rad
+           0.1000
+pmcb
+0.2500
+          pmcbmt
+          .16600E+00 .33300E+00 .50000E+00 .66600E+00 .83300E+00 .10000E+01
+          pmall
+          .00000E+00 .00000E+00 .00000E+00 .00000E+00 .00000E+00 .00000E+00
+pmback
+0.0000
+          pmbkmt
+          .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01
+pmcbside
+0.0000
+          pmcbsidemt
+          .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01
+pmpivot
+0.0000
+          pmpivmt
+          .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01
+pmconrot
+0.0000
+          pmcrmt
+          .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01
+pmcrback
+0.0000
+          pmcrbmt
+          .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01
+pmplane
+0.0000
+          pmplanebox
+          .10000E+01
+          planewidth
+          .10000E+01
+pmrow
+0.0000
+          pmrowbox
+          .10000E+01
+          rowwidth
+          .10000E+01
+pmtraat
+0.0000
+          pmtamt
+          .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01 .10000E+01
+          rmtraa
+          .50000E+00
+          tatraa
+          .50000E+00
+pmcomposite
+          .50000E+00
+pmcomt
+          .16600E+00 .33300E+00 .50000E+00 .66600E+00 .83300E+00 .10000E+01
+rmcomtra
+          .10000E+02
+rmcomrot
+          .10000E+01
+pmtracm
+0.7500
+          pmtcmt
+          .16600E+00 .33300E+00 .50000E+00 .66600E+00 .83300E+00 .10000E+01
+          rmtrac
+          .50000E+00
+          tatrac
+          .50000E+00
+pmrotate
+1.0000
+          pmromt
+          .16600E+00 .33300E+00 .50000E+00 .66600E+00 .83300E+00 .10000E+01
+          rmrot
+          .50000E-01
+          tarot
+          .50000E+00
+cbmc_analysis
+'normal                        '
+cbmc_formulation      
+'Martin and Frischknecht 2006                                '
+cbmc_setting_style
+'Martin and Frischknecht       '
+cbmc_fit_strategy
+'equilibrium                   '
+cbmc_nb_one_generation 
+'uniform                       ' 'uniform                       ' 'uniform                       ' 'uniform                       ' 'uniform                       ' 'uniform                       '
+nch_nb_one
+          10          10          10          10          10          10
+nch_nb
+          10          10          10          10          10          10
+nch_pre_nb
+         100         100         100         100         100         100
+cbmc_dihedral_generation
+'ideal + autofit gaussian      '
+dihedral_peak_weight_style
+'uniform                       '
+dihedral_sdev_multiplier
+   1.0000000000000000     
+dihedral_ideal_fraction
+   1.0000000000000000E-002
+nch_tor
+           1           1           1           1           1           1
+nch_tor_connect
+           1           1           1           1           1           1
+cbmc_bend_generation
+'ideal + autofit gaussian      '
+bend_a_sdev_multiplier
+   1.0000000000000000     
+bend_b_sdev_multiplier
+   1.0000000000000000     
+bend_a_ideal_fraction
+   1.0000000000000000E-002
+bend_b_ideal_fraction
+   1.0000000000000000E-002
+nch_bend_a
+           1           1           1           1           1           1
+nch_bend_b
+           1           1           1           1           1           1
+max_bond_length
+   3.0000000000000000     
+cbmc_bond_generation
+'autofit gaussian              '
+bond_sdev_multiplier
+   1.0000000000000000     
+nch_vib
+           1           1           1           1           1           1
+two_bond_fixed_endpoint_bias_style
+'analytic Boltzmann using angles                   '
+three_bond_fixed_endpoint_bias_style
+'analytic using max and min 2-4 distance           '
+ffnumber
+           1
+ff_filename
+/towheebase/ForceFields/towhee_ff_TraPPE-UA                                                                             
+classical_potential
+'Lennard-Jones                 '
+classical_mixrule
+'Lorentz-Berthelot             '
+lshift
+ F
+ltailc
+ T
+rmin
+   1.0000000000000000     
+rcut
+   14.000000000000000     
+rcutin
+   5.0000000000000000     
+electrostatic_form
+'coulomb                                           '
+coulombstyle
+'ewald_fixed_kmax    '
+kalp
+   5.5999999999999996     
+kmax
+           5
+dielect
+   1.0000000000000000     
+lcompute_madelung
+ F
+nfield
+           0
+solvation_style
+'none                '
+input_style
+explicit
+nunit
+          16
+nmaxcbmc
+          16
+lpdbnames
+ F
+unit ntype qqatom
+           1           3   0.0000000000000000     
+vibration
+           1
+           2           1
+bending
+           3
+           2           3           3           1           0           0
+           2          10           3           1           0           0
+           2          11           3           1           0           0
+torsion
+           1
+           2           3           4           3
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+           2          12   0.0000000000000000     
+vibration
+           4
+           1           1
+           3           1
+          10           1
+          11           1
+bending
+           1
+           3           4           1           1           0           0
+torsion
+           3
+           3           4           5           3
+           3           4          12           3
+           3           4          13           3
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+           3           4   0.0000000000000000     
+vibration
+           2
+           2           1
+           4           1
+bending
+           6
+           2           1           3           1           0           0
+           2          10           3           1           0           0
+           2          11           3           1           0           0
+           4           5           3           1           0           0
+           4          12           3           1           0           0
+           4          13           3           1           0           0
+torsion
+           1
+           4           5           6           3
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+           4          12   0.0000000000000000     
+vibration
+           4
+           3           1
+           5           1
+          12           1
+          13           1
+bending
+           2
+           3           2           1           1           0           0
+           5           6           1           1           0           0
+torsion
+           5
+           3           2           1           3
+           3           2          10           3
+           3           2          11           3
+           5           6           7           2
+           5           6          14           2
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+           5           4   0.0000000000000000     
+vibration
+           2
+           4           1
+           6           1
+bending
+           5
+           4           3           3           1           0           0
+           4          12           3           1           0           0
+           4          13           3           1           0           0
+           6           7           2           1           0           0
+           6          14           2           1           0           0
+torsion
+           2
+           4           3           2           3
+           6           7           8           2
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+           6           6   0.0000000000000000     
+vibration
+           3
+           5           1
+           7           1
+          14           1
+bending
+           2
+           5           4           1           1           0           0
+           7           8           1           1           0           0
+torsion
+           6
+           5           4           3           3
+           5           4          12           3
+           5           4          13           3
+           7           8           9           3
+           7           8          15           3
+           7           8          16           3
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+           7           4   0.0000000000000000     
+vibration
+           2
+           6           1
+           8           1
+bending
+           5
+           6           5           2           1           0           0
+           6          14           2           1           0           0
+           8           9           3           1           0           0
+           8          15           3           1           0           0
+           8          16           3           1           0           0
+torsion
+           1
+           6           5           4           2
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+           8          12   0.0000000000000000     
+vibration
+           4
+           7           1
+           9           1
+          15           1
+          16           1
+bending
+           1
+           7           6           1           1           0           0
+torsion
+           2
+           7           6           5           2
+           7           6          14           2
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+           9           3   0.0000000000000000     
+vibration
+           1
+           8           1
+bending
+           3
+           8           7           3           1           0           0
+           8          15           3           1           0           0
+           8          16           3           1           0           0
+torsion
+           1
+           8           7           6           3
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+          10           3   0.0000000000000000     
+vibration
+           1
+           2           1
+bending
+           3
+           2           1           3           1           0           0
+           2           3           3           1           0           0
+           2          11           3           1           0           0
+torsion
+           1
+           2           3           4           3
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+          11           3   0.0000000000000000     
+vibration
+           1
+           2           1
+bending
+           3
+           2           1           3           1           0           0
+           2           3           3           1           0           0
+           2          10           3           1           0           0
+torsion
+           1
+           2           3           4           3
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+          12           3   0.0000000000000000     
+vibration
+           1
+           4           1
+bending
+           3
+           4           3           3           1           0           0
+           4           5           3           1           0           0
+           4          13           3           1           0           0
+torsion
+           2
+           4           3           2           3
+           4           5           6           3
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+          13           3   0.0000000000000000     
+vibration
+           1
+           4           1
+bending
+           3
+           4           3           3           1           0           0
+           4           5           3           1           0           0
+           4          12           3           1           0           0
+torsion
+           2
+           4           3           2           3
+           4           5           6           3
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+          14           3   0.0000000000000000     
+vibration
+           1
+           6           1
+bending
+           2
+           6           5           2           1           0           0
+           6           7           2           1           0           0
+torsion
+           2
+           6           5           4           2
+           6           7           8           2
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+          15           3   0.0000000000000000     
+vibration
+           1
+           8           1
+bending
+           3
+           8           7           3           1           0           0
+           8           9           3           1           0           0
+           8          16           3           1           0           0
+torsion
+           1
+           8           7           6           3
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+          16           3   0.0000000000000000     
+vibration
+           1
+           8           1
+bending
+           3
+           8           7           3           1           0           0
+           8           9           3           1           0           0
+           8          15           3           1           0           0
+torsion
+           1
+           8           7           6           3
+angle-angle
+           0
+improper torsion
+           0
+input_style
+explicit
+nunit
+           3
+nmaxcbmc
+           3
+lpdbnames
+ F
+unit ntype qqatom
+           1           3  0.26500000000000001     
+vibration
+           1
+           2           4
+bending
+           1
+           2           3           7           1           0           0
+torsion
+           0
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+           2          23 -0.69999999999999996     
+vibration
+           2
+           1           4
+           3           5
+bending
+           0
+torsion
+           0
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+           3          20  0.43500000000000000     
+vibration
+           1
+           2           5
+bending
+           1
+           2           1           7          -1           0           0
+torsion
+           0
+angle-angle
+           0
+improper torsion
+           0
+input_style
+explicit
+nunit
+           6
+nmaxcbmc
+           6
+lpdbnames
+ F
+unit ntype qqatom
+           1           3   0.0000000000000000     
+vibration
+           1
+           2           1
+bending
+           3
+           2           3           3           1           0           0
+           2           5           3           1           0           0
+           2           6           3           1           0           0
+torsion
+           1
+           2           3           4          11
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+           2          12  -4.2999999999999997E-002
+vibration
+           4
+           1           1
+           3           9
+           5           1
+           6           1
+bending
+           1
+           3           4          10           1           0           0
+torsion
+           0
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+           3          10  0.52500000000000002     
+vibration
+           2
+           2           9
+           4           8
+bending
+           3
+           2           1           3           1           0           0
+           2           5           3           1           0           0
+           2           6           3           1           0           0
+torsion
+           0
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+           4          25 -0.48199999999999998     
+vibration
+           1
+           3           8
+bending
+           1
+           3           2          10          -1           0           0
+torsion
+           3
+           3           2           1          11
+           3           2           5          11
+           3           2           6          11
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+           5           3   0.0000000000000000     
+vibration
+           1
+           2           1
+bending
+           3
+           2           1           3           1           0           0
+           2           3           3           1           0           0
+           2           6           3           1           0           0
+torsion
+           1
+           2           3           4          11
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+           6           3   0.0000000000000000     
+vibration
+           1
+           2           1
+bending
+           3
+           2           1           3           1           0           0
+           2           3           3           1           0           0
+           2           5           3           1           0           0
+torsion
+           1
+           2           3           4          11
+angle-angle
+           0
+improper torsion
+           0
+input_style
+explicit
+nunit
+           6
+nmaxcbmc
+           6
+lpdbnames
+ F
+unit ntype qqatom
+           1           3  0.25000000000000000     
+vibration
+           1
+           2           6
+bending
+           1
+           2           3           8           1           0           0
+torsion
+           1
+           2           3           4           9
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+           2          24 -0.50000000000000000     
+vibration
+           2
+           1           6
+           3           6
+bending
+           1
+           3           4           6          -1           0           0
+torsion
+           1
+           3           4           5          10
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+           3           4  0.25000000000000000     
+vibration
+           2
+           2           6
+           4           1
+bending
+           2
+           2           1           8           1           0           0
+           4           5           6           1           0           0
+torsion
+           1
+           4           5           6           6
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+           4           4  0.26500000000000001     
+vibration
+           2
+           3           1
+           5           4
+bending
+           2
+           3           2           6           1           0           0
+           5           6           7           1           0           0
+torsion
+           1
+           3           2           1           9
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+           5          23 -0.69999999999999996     
+vibration
+           2
+           4           4
+           6           5
+bending
+           1
+           4           3           6          -1           0           0
+torsion
+           1
+           4           3           2          10
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+           6          20  0.43500000000000000     
+vibration
+           1
+           5           5
+bending
+           1
+           5           4           7          -1           0           0
+torsion
+           1
+           5           4           3           6
+angle-angle
+           0
+improper torsion
+           0
+input_style
+explicit
+nunit
+           6
+nmaxcbmc
+           6
+lpdbnames
+ F
+unit ntype qqatom
+           1          20  0.43500000000000000     
+vibration
+           1
+           2           5
+bending
+           1
+           2           3           7          -1           0           0
+torsion
+           1
+           2           3           4           6
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+           2          23 -0.69999999999999996     
+vibration
+           2
+           1           5
+           3           4
+bending
+           1
+           3           4           6          -1           0           0
+torsion
+           1
+           3           4           5          10
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+           3           4  0.26500000000000001     
+vibration
+           2
+           2           4
+           4           1
+bending
+           2
+           2           1           7           1           0           0
+           4           5           6           1           0           0
+torsion
+           1
+           4           5           6           6
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+           4           4  0.26500000000000001     
+vibration
+           2
+           3           1
+           5           4
+bending
+           2
+           3           2           6           1           0           0
+           5           6           7           1           0           0
+torsion
+           1
+           3           2           1           6
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+           5          23 -0.69999999999999996     
+vibration
+           2
+           4           4
+           6           5
+bending
+           1
+           4           3           6          -1           0           0
+torsion
+           1
+           4           3           2          10
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+           6          20  0.43500000000000000     
+vibration
+           1
+           5           5
+bending
+           1
+           5           4           7          -1           0           0
+torsion
+           1
+           5           4           3           6
+angle-angle
+           0
+improper torsion
+           0
+input_style
+explicit
+nunit
+           6
+nmaxcbmc
+           6
+lpdbnames
+ F
+unit ntype qqatom
+           1           3   0.0000000000000000     
+vibration
+           1
+           2           1
+bending
+           1
+           2           3           1           1           0           0
+torsion
+           2
+           2           3           4           1
+           2           3           6          23
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+           2           4  0.12000000000000000     
+vibration
+           2
+           1           1
+           3           9
+bending
+           2
+           3           4          13          -1           0           0
+           3           6          14          -1           0           0
+torsion
+           1
+           3           4           5          24
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+           3          18  0.42000000000000004     
+vibration
+           3
+           2           9
+           4          11
+           6          10
+bending
+           2
+           2           1           1           1           0           0
+           4           5          11          -1           0           0
+torsion
+           0
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+           4          23 -0.45999999999999996     
+vibration
+           2
+           3          11
+           5          12
+bending
+           2
+           3           2          13           1           0           0
+           3           6          12           1           0           0
+torsion
+           1
+           3           2           1           1
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+           5          21  0.37000000000000000     
+vibration
+           1
+           4          12
+bending
+           1
+           4           3          11           1           0           0
+torsion
+           2
+           4           3           2          24
+           4           3           6          23
+angle-angle
+           0
+improper torsion
+           0
+unit ntype qqatom
+           6          25 -0.45000000000000001     
+vibration
+           1
+           3          10
+bending
+           2
+           3           2          14           1           0           0
+           3           4          12          -1           0           0
+torsion
+           2
+           3           2           1          23
+           3           4           5          23
+angle-angle
+           0
+improper torsion
+           0

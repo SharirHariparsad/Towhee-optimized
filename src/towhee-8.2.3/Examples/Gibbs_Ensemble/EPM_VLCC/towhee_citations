@@ -1,0 +1,31 @@
+Suggested citations for the methods, algorithms and force fields used in this simulation
+
+Simulations were performed using version 8.2.3   of MCCCS Towhee [ 1, 2]
+[ 1] M.G. Martin;
+"MCCCS Towhee: a tool for Monte Carlo molecular simulation"
+Mol. Simulat. 39 1212-1222 (2013)
+[ 2] http://towhee.sourceforge.net
+
+pseudo-random numbers generated using DX-1597-2-7 [ 3]
+[ 3] L.-Y. Deng;
+"Efficient and Portable Multiple Recursive Generators of Large Order"
+ACM Transactions on Modeling and Computer Simulation 15 1-13 (2005)
+
+NVT-Gibbs ensemble [ 4, 5]
+[ 4] A.Z. Panagiotopoulos;
+"Direct determination of phase coexistence properties of fluids by Monte Carlo simulation in a new ensemble"
+Mol. Phys. 61 813-826 (1987)
+[ 5] A.Z. Panagiotopoulos; N. Quirke; M. Stapleton; D.J. Tildesley;
+"Phase equilibria by simulation in the Gibbs ensemble: Alternative derivation, generalization and application to mixture and membrane equilibria"
+Mol. Phys. 63 527-545 (1988)
+
+Volume exchange between simulation boxes [ 6]
+[ 6] A.Z. Panagiotopoulos;
+"Direct determination of phase coexistence properties of fluids by Monte Carlo simulation in a new ensemble"
+Mol. Phys. 61 813-826 (1987)
+ Towhee adjusts the volume based on the logarithm of the ratios of box volumes
+
+Configurational-bias molecule transfer move [ 7]
+[ 7] G.C.A.M. Mooij; D. Frenkel; B. Smit;
+"Direct Simulation of phase equilibria of chain molecules"
+J. Phys. Condens. Matter 4 L255-L259 (1992)

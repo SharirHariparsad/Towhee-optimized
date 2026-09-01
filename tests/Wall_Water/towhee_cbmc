@@ -1,0 +1,64 @@
+cbmc_fit_strategy
+'equilibrium                   '
+cbmc_nb_one_generation 
+'uniform                       '
+nch_nb_one
+          10
+nch_nb
+          10
+nch_pre_nb
+         100
+cbmc_dihedral_generation
+'ideal + autofit gaussian      '
+dihedral_peak_weight_style
+'uniform                       '
+dihedral_sdev_multiplier
+   1.0000000000000000     
+dihedral_ideal_fraction
+   1.0000000000000000E-002
+nch_tor
+           1
+nch_tor_connect
+           1
+cbmc_bend_generation
+'ideal + autofit gaussian      '
+bend_a_sdev_multiplier
+   1.0000000000000000     
+bend_b_sdev_multiplier
+   1.0000000000000000     
+bend_a_ideal_fraction
+   1.0000000000000000E-002
+bend_b_ideal_fraction
+   1.0000000000000000E-002
+nch_bend_a
+           1
+nch_bend_b
+           1
+max_bond_length
+   3.0000000000000000     
+cbmc_bond_generation
+'autofit gaussian              '
+bond_sdev_multiplier
+   1.0000000000000000     
+nch_vib
+           1
+two_bond_fixed_endpoint_bias_style
+'analytic Boltzmann using angles                   '
+three_bond_fixed_endpoint_bias_style
+'analytic using max and min 2-4 distance           '
+Determining CBMC Arbitrary Trial Distributions: Bonds
+Moltyp:     1 Units:     1     2  ATD: Delta                    
+      Length:  1.0000000
+Moltyp:     1 Units:     1     3  ATD: Delta                    
+      Length:  1.0000000
+Moltyp:     1 Units:     2     1  ATD: Delta                    
+      Length:  1.0000000
+Moltyp:     1 Units:     3     1  ATD: Delta                    
+      Length:  1.0000000
+Determining CBMC Arbitrary Trial Distributions: Angle A
+Moltyp:     1 Units:     2     1     3 Peaks:   1 ATD: Delta                    
+      Peak:   1 Allowed Angle (deg):  109.4700
+Moltyp:     1 Units:     3     1     2 Peaks:   1 ATD: Delta                    
+      Peak:   1 Allowed Angle (deg):  109.4700
+Determining CBMC Arbitrary Trial Distributions: Angle B
+Determining Autofit Gaussian dihedral parameters

@@ -1,0 +1,99 @@
+cbmc_fit_strategy
+'equilibrium                   '
+cbmc_nb_one_generation 
+'uniform                       '
+'uniform                       '
+nch_nb_one
+          10
+nch_nb
+          10
+nch_pre_nb
+         100
+cbmc_dihedral_generation
+'ideal + autofit gaussian      '
+dihedral_peak_weight_style
+'uniform                       '
+dihedral_sdev_multiplier
+   1.0000000000000000     
+dihedral_ideal_fraction
+   1.0000000000000000E-002
+nch_tor
+           1
+nch_tor_connect
+           1
+cbmc_bend_generation
+'ideal + autofit gaussian      '
+bend_a_sdev_multiplier
+   1.0000000000000000     
+bend_b_sdev_multiplier
+   1.0000000000000000     
+bend_a_ideal_fraction
+   1.0000000000000000E-002
+bend_b_ideal_fraction
+   1.0000000000000000E-002
+nch_bend_a
+           1
+nch_bend_b
+           1
+max_bond_length
+   3.0000000000000000     
+cbmc_bond_generation
+'autofit gaussian              '
+bond_sdev_multiplier
+   1.0000000000000000     
+nch_vib
+           1
+two_bond_fixed_endpoint_bias_style
+'analytic Boltzmann using angles                   '
+three_bond_fixed_endpoint_bias_style
+'analytic using max and min 2-4 distance           '
+Determining CBMC Arbitrary Trial Distributions: Bonds
+Moltyp:     1 Units:     1     2  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     1 Units:     2     1  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     1 Units:     2     3  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     1 Units:     3     2  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     1 Units:     3     4  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     1 Units:     4     3  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     1 Units:     4     5  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     1 Units:     5     4  ATD: Delta                    
+      Length:  1.5400000
+Determining CBMC Arbitrary Trial Distributions: Angle A
+Moltyp:     1 Units:     1     2     3 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  113.8629 Std Dev (deg):    4.1874 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     2     3     4 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  113.8629 Std Dev (deg):    4.1874 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     3     2     1 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  113.8629 Std Dev (deg):    4.1874 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     3     4     5 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  113.8629 Std Dev (deg):    4.1874 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     4     3     2 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  113.8629 Std Dev (deg):    4.1874 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     5     4     3 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  113.8629 Std Dev (deg):    4.1874 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Determining CBMC Arbitrary Trial Distributions: Angle B
+Determining Autofit Gaussian dihedral parameters
+Moltyp:     1 Units:     1     2     3     4 Count: 1 Mean: -180.00 Std Dev: 7204.67 Low Bound: -241.56 High Bound -118.44
+Moltyp:     1 Units:     1     2     3     4 Count: 2 Mean:  -64.58 Std Dev: 2297.67 Low Bound: -118.44 High Bound    0.00
+Moltyp:     1 Units:     1     2     3     4 Count: 3 Mean:   64.58 Std Dev: 2297.67 Low Bound:    0.00 High Bound  118.44
+Moltyp:     1 Units:     2     3     4     5 Count: 1 Mean: -180.00 Std Dev: 7204.67 Low Bound: -241.56 High Bound -118.44
+Moltyp:     1 Units:     2     3     4     5 Count: 2 Mean:  -64.58 Std Dev: 2297.67 Low Bound: -118.44 High Bound    0.00
+Moltyp:     1 Units:     2     3     4     5 Count: 3 Mean:   64.58 Std Dev: 2297.67 Low Bound:    0.00 High Bound  118.44
+Moltyp:     1 Units:     4     3     2     1 Count: 1 Mean: -180.00 Std Dev: 7204.67 Low Bound: -241.56 High Bound -118.44
+Moltyp:     1 Units:     4     3     2     1 Count: 2 Mean:  -64.58 Std Dev: 2297.67 Low Bound: -118.44 High Bound    0.00
+Moltyp:     1 Units:     4     3     2     1 Count: 3 Mean:   64.58 Std Dev: 2297.67 Low Bound:    0.00 High Bound  118.44
+Moltyp:     1 Units:     5     4     3     2 Count: 1 Mean: -180.00 Std Dev: 7204.67 Low Bound: -241.56 High Bound -118.44
+Moltyp:     1 Units:     5     4     3     2 Count: 2 Mean:  -64.58 Std Dev: 2297.67 Low Bound: -118.44 High Bound    0.00
+Moltyp:     1 Units:     5     4     3     2 Count: 3 Mean:   64.58 Std Dev: 2297.67 Low Bound:    0.00 High Bound  118.44

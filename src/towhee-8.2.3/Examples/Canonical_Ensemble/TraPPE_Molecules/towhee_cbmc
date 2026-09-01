@@ -1,0 +1,1160 @@
+cbmc_fit_strategy
+'equilibrium                   '
+cbmc_nb_one_generation 
+'uniform                       ' 'uniform                       ' 'uniform                       ' 'uniform                       ' 'uniform                       ' 'uniform                       '
+nch_nb_one
+          10          10          10          10          10          10
+nch_nb
+          10          10          10          10          10          10
+nch_pre_nb
+         100         100         100         100         100         100
+cbmc_dihedral_generation
+'ideal + autofit gaussian      '
+dihedral_peak_weight_style
+'uniform                       '
+dihedral_sdev_multiplier
+   1.0000000000000000     
+dihedral_ideal_fraction
+   1.0000000000000000E-002
+nch_tor
+           1           1           1           1           1           1
+nch_tor_connect
+           1           1           1           1           1           1
+cbmc_bend_generation
+'ideal + autofit gaussian      '
+bend_a_sdev_multiplier
+   1.0000000000000000     
+bend_b_sdev_multiplier
+   1.0000000000000000     
+bend_a_ideal_fraction
+   1.0000000000000000E-002
+bend_b_ideal_fraction
+   1.0000000000000000E-002
+nch_bend_a
+           1           1           1           1           1           1
+nch_bend_b
+           1           1           1           1           1           1
+max_bond_length
+   3.0000000000000000     
+cbmc_bond_generation
+'autofit gaussian              '
+bond_sdev_multiplier
+   1.0000000000000000     
+nch_vib
+           1           1           1           1           1           1
+two_bond_fixed_endpoint_bias_style
+'analytic Boltzmann using angles                   '
+three_bond_fixed_endpoint_bias_style
+'analytic using max and min 2-4 distance           '
+Determining CBMC Arbitrary Trial Distributions: Bonds
+Moltyp:     1 Units:     1     2  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     1 Units:     2     1  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     1 Units:     2     3  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     1 Units:     2    10  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     1 Units:     2    11  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     1 Units:     3     2  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     1 Units:     3     4  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     1 Units:     4     3  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     1 Units:     4     5  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     1 Units:     4    12  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     1 Units:     4    13  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     1 Units:     5     4  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     1 Units:     5     6  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     1 Units:     6     5  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     1 Units:     6     7  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     1 Units:     6    14  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     1 Units:     7     6  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     1 Units:     7     8  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     1 Units:     8     7  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     1 Units:     8     9  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     1 Units:     8    15  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     1 Units:     8    16  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     1 Units:     9     8  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     1 Units:    10     2  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     1 Units:    11     2  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     1 Units:    12     4  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     1 Units:    13     4  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     1 Units:    14     6  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     1 Units:    15     8  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     1 Units:    16     8  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     2 Units:     1     2  ATD: Delta                    
+      Length:  1.4300000
+Moltyp:     2 Units:     2     1  ATD: Delta                    
+      Length:  1.4300000
+Moltyp:     2 Units:     2     3  ATD: Delta                    
+      Length:  0.9450000
+Moltyp:     2 Units:     3     2  ATD: Delta                    
+      Length:  0.9450000
+Moltyp:     3 Units:     1     2  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     3 Units:     2     1  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     3 Units:     2     3  ATD: Delta                    
+      Length:  1.5200000
+Moltyp:     3 Units:     2     5  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     3 Units:     2     6  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     3 Units:     3     2  ATD: Delta                    
+      Length:  1.5200000
+Moltyp:     3 Units:     3     4  ATD: Delta                    
+      Length:  1.2170000
+Moltyp:     3 Units:     4     3  ATD: Delta                    
+      Length:  1.2170000
+Moltyp:     3 Units:     5     2  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     3 Units:     6     2  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     4 Units:     1     2  ATD: Delta                    
+      Length:  1.4100000
+Moltyp:     4 Units:     2     1  ATD: Delta                    
+      Length:  1.4100000
+Moltyp:     4 Units:     2     3  ATD: Delta                    
+      Length:  1.4100000
+Moltyp:     4 Units:     3     2  ATD: Delta                    
+      Length:  1.4100000
+Moltyp:     4 Units:     3     4  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     4 Units:     4     3  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     4 Units:     4     5  ATD: Delta                    
+      Length:  1.4300000
+Moltyp:     4 Units:     5     4  ATD: Delta                    
+      Length:  1.4300000
+Moltyp:     4 Units:     5     6  ATD: Delta                    
+      Length:  0.9450000
+Moltyp:     4 Units:     6     5  ATD: Delta                    
+      Length:  0.9450000
+Moltyp:     5 Units:     1     2  ATD: Delta                    
+      Length:  0.9450000
+Moltyp:     5 Units:     2     1  ATD: Delta                    
+      Length:  0.9450000
+Moltyp:     5 Units:     2     3  ATD: Delta                    
+      Length:  1.4300000
+Moltyp:     5 Units:     3     2  ATD: Delta                    
+      Length:  1.4300000
+Moltyp:     5 Units:     3     4  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     5 Units:     4     3  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     5 Units:     4     5  ATD: Delta                    
+      Length:  1.4300000
+Moltyp:     5 Units:     5     4  ATD: Delta                    
+      Length:  1.4300000
+Moltyp:     5 Units:     5     6  ATD: Delta                    
+      Length:  0.9450000
+Moltyp:     5 Units:     6     5  ATD: Delta                    
+      Length:  0.9450000
+Moltyp:     6 Units:     1     2  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     6 Units:     2     1  ATD: Delta                    
+      Length:  1.5400000
+Moltyp:     6 Units:     2     3  ATD: Delta                    
+      Length:  1.5200000
+Moltyp:     6 Units:     3     2  ATD: Delta                    
+      Length:  1.5200000
+Moltyp:     6 Units:     3     4  ATD: Delta                    
+      Length:  1.3640000
+Moltyp:     6 Units:     3     6  ATD: Delta                    
+      Length:  1.2140000
+Moltyp:     6 Units:     4     3  ATD: Delta                    
+      Length:  1.3640000
+Moltyp:     6 Units:     4     5  ATD: Delta                    
+      Length:  0.9700000
+Moltyp:     6 Units:     5     4  ATD: Delta                    
+      Length:  0.9700000
+Moltyp:     6 Units:     6     3  ATD: Delta                    
+      Length:  1.2140000
+Determining CBMC Arbitrary Trial Distributions: Angle A
+Moltyp:     1 Units:     1     2     3 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     1     2    10 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     1     2    11 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     2     3     4 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  113.8367 Std Dev (deg):    4.5661 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     3     2     1 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     3     2    10 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     3     2    11 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     3     4     5 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     3     4    12 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     3     4    13 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     4     3     2 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  113.8367 Std Dev (deg):    4.5661 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     4     5     6 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  113.8367 Std Dev (deg):    4.5661 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     5     4     3 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     5     4    12 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     5     4    13 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     5     6     7 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  111.8518 Std Dev (deg):    4.5666 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     5     6    14 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  111.8518 Std Dev (deg):    4.5666 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     6     5     4 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  113.8367 Std Dev (deg):    4.5661 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     6     7     8 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  113.8367 Std Dev (deg):    4.5661 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     7     6     5 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  111.8518 Std Dev (deg):    4.5666 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     7     6    14 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  111.8518 Std Dev (deg):    4.5666 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     7     8     9 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     7     8    15 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     7     8    16 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     8     7     6 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  113.8367 Std Dev (deg):    4.5661 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     9     8     7 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     9     8    15 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     9     8    16 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    10     2     1 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    10     2     3 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    10     2    11 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    11     2     1 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    11     2     3 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    11     2    10 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    12     4     3 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    12     4     5 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    12     4    13 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    13     4     3 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    13     4     5 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    13     4    12 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    14     6     5 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  111.8518 Std Dev (deg):    4.5666 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    14     6     7 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  111.8518 Std Dev (deg):    4.5666 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    15     8     7 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    15     8     9 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    15     8    16 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    16     8     7 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    16     8     9 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    16     8    15 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     2 Units:     1     2     3 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.4300   0.9450
+      Peak:   1 Angle Mean (deg):  108.3616 Std Dev (deg):    4.8489 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     2 Units:     3     2     1 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   0.9450   1.4300
+      Peak:   1 Angle Mean (deg):  108.3616 Std Dev (deg):    4.8489 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     1     2     3 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5200
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     1     2     5 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     1     2     6 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     2     3     4 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5200   1.2170
+      Peak:   1 Angle Mean (deg):  121.1762 Std Dev (deg):    4.5635 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     3     2     1 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5200   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     3     2     5 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5200   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     3     2     6 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5200   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     4     3     2 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.2170   1.5200
+      Peak:   1 Angle Mean (deg):  121.1762 Std Dev (deg):    4.5635 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     5     2     1 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     5     2     3 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5200
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     5     2     6 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     6     2     1 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     6     2     3 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5200
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     6     2     5 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5400
+      Peak:   1 Angle Mean (deg):  109.3404 Std Dev (deg):    4.5671 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     4 Units:     1     2     3 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.4100   1.4100
+      Peak:   1 Angle Mean (deg):  111.8467 Std Dev (deg):    4.6447 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     4 Units:     2     3     4 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.4100   1.5400
+      Peak:   1 Angle Mean (deg):  109.3092 Std Dev (deg):    5.0815 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     4 Units:     3     2     1 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.4100   1.4100
+      Peak:   1 Angle Mean (deg):  111.8467 Std Dev (deg):    4.6447 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     4 Units:     3     4     5 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.4300
+      Peak:   1 Angle Mean (deg):  109.3092 Std Dev (deg):    5.0815 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     4 Units:     4     3     2 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.4100
+      Peak:   1 Angle Mean (deg):  109.3092 Std Dev (deg):    5.0815 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     4 Units:     4     5     6 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.4300   0.9450
+      Peak:   1 Angle Mean (deg):  108.3616 Std Dev (deg):    4.8489 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     4 Units:     5     4     3 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.4300   1.5400
+      Peak:   1 Angle Mean (deg):  109.3092 Std Dev (deg):    5.0815 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     4 Units:     6     5     4 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   0.9450   1.4300
+      Peak:   1 Angle Mean (deg):  108.3616 Std Dev (deg):    4.8489 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     5 Units:     1     2     3 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   0.9450   1.4300
+      Peak:   1 Angle Mean (deg):  108.3616 Std Dev (deg):    4.8489 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     5 Units:     2     3     4 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.4300   1.5400
+      Peak:   1 Angle Mean (deg):  109.3092 Std Dev (deg):    5.0815 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     5 Units:     3     2     1 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.4300   0.9450
+      Peak:   1 Angle Mean (deg):  108.3616 Std Dev (deg):    4.8489 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     5 Units:     3     4     5 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.4300
+      Peak:   1 Angle Mean (deg):  109.3092 Std Dev (deg):    5.0815 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     5 Units:     4     3     2 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.4300
+      Peak:   1 Angle Mean (deg):  109.3092 Std Dev (deg):    5.0815 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     5 Units:     4     5     6 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.4300   0.9450
+      Peak:   1 Angle Mean (deg):  108.3616 Std Dev (deg):    4.8489 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     5 Units:     5     4     3 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.4300   1.5400
+      Peak:   1 Angle Mean (deg):  109.3092 Std Dev (deg):    5.0815 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     5 Units:     6     5     4 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   0.9450   1.4300
+      Peak:   1 Angle Mean (deg):  108.3616 Std Dev (deg):    4.8489 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     6 Units:     1     2     3 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5400   1.5200
+      Peak:   1 Angle Mean (deg):  113.8367 Std Dev (deg):    4.5661 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     6 Units:     2     3     4 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5200   1.3640
+      Peak:   1 Angle Mean (deg):  110.7508 Std Dev (deg):    6.0593 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     6 Units:     2     3     6 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5200   1.2140
+      Peak:   1 Angle Mean (deg):  125.5868 Std Dev (deg):    5.6648 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     6 Units:     3     2     1 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.5200   1.5400
+      Peak:   1 Angle Mean (deg):  113.8367 Std Dev (deg):    4.5661 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     6 Units:     3     4     5 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.3640   0.9700
+      Peak:   1 Angle Mean (deg):  106.6019 Std Dev (deg):    8.5297 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     6 Units:     4     3     2 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.3640   1.5200
+      Peak:   1 Angle Mean (deg):  110.7508 Std Dev (deg):    6.0593 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     6 Units:     4     3     6 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.3640   1.2140
+      Peak:   1 Angle Mean (deg):  122.6307 Std Dev (deg):    5.6678 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     6 Units:     5     4     3 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   0.9700   1.3640
+      Peak:   1 Angle Mean (deg):  106.6019 Std Dev (deg):    8.5297 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     6 Units:     6     3     2 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.2140   1.5200
+      Peak:   1 Angle Mean (deg):  125.5868 Std Dev (deg):    5.6648 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     6 Units:     6     3     4 Peaks:   1 ATD: Gaussian                 
+      Fitting Bond Lengths:   1.2140   1.3640
+      Peak:   1 Angle Mean (deg):  122.6307 Std Dev (deg):    5.6678 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Determining CBMC Arbitrary Trial Distributions: Angle B
+Moltyp:     1 Units:     1     2     3    10 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     1     2     3    11 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     1     2    10     3 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     1     2    10    11 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     1     2    11     3 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     1     2    11    10 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     3     2     1    10 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     3     2     1    11 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     3     2    10     1 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     3     2    10    11 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     3     2    11     1 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     3     2    11    10 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     3     4     5    12 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     3     4     5    13 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     3     4    12     5 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     3     4    12    13 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     3     4    13     5 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     3     4    13    12 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     5     4     3    12 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     5     4     3    13 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     5     4    12     3 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     5     4    12    13 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     5     4    13     3 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     5     4    13    12 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     5     6     7    14 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -127.2882 Std Dev (deg):    6.3131 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  127.2882 Std Dev (deg):    6.3131 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     5     6    14     7 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -127.2882 Std Dev (deg):    6.3131 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  127.2882 Std Dev (deg):    6.3131 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     7     6     5    14 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -127.2882 Std Dev (deg):    6.3131 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  127.2882 Std Dev (deg):    6.3131 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     7     6    14     5 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -127.2882 Std Dev (deg):    6.3131 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  127.2882 Std Dev (deg):    6.3131 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     7     8     9    15 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     7     8     9    16 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     7     8    15     9 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     7     8    15    16 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     7     8    16     9 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     7     8    16    15 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     9     8     7    15 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     9     8     7    16 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     9     8    15     7 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     9     8    15    16 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     9     8    16     7 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:     9     8    16    15 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    10     2     1     3 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    10     2     1    11 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    10     2     3     1 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    10     2     3    11 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    10     2    11     1 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    10     2    11     3 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    11     2     1     3 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    11     2     1    10 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    11     2     3     1 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    11     2     3    10 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    11     2    10     1 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    11     2    10     3 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    12     4     3     5 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    12     4     3    13 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    12     4     5     3 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    12     4     5    13 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    12     4    13     3 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    12     4    13     5 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    13     4     3     5 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    13     4     3    12 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    13     4     5     3 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    13     4     5    12 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    13     4    12     3 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    13     4    12     5 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    14     6     5     7 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -127.2882 Std Dev (deg):    6.3131 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  127.2882 Std Dev (deg):    6.3131 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    14     6     7     5 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -127.2882 Std Dev (deg):    6.3131 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  127.2882 Std Dev (deg):    6.3131 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    15     8     7     9 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    15     8     7    16 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    15     8     9     7 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    15     8     9    16 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    15     8    16     7 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    15     8    16     9 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    16     8     7     9 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    16     8     7    15 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    16     8     9     7 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    16     8     9    15 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    16     8    15     7 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     1 Units:    16     8    15     9 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     1     2     3     5 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5200   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     1     2     3     6 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5200   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     1     2     5     3 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5200
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     1     2     5     6 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     1     2     6     3 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5200
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     1     2     6     5 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     3     2     1     5 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     3     2     1     6 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     3     2     5     1 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     3     2     5     6 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     3     2     6     1 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     3     2     6     5 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     5     2     1     3 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5200
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     5     2     1     6 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     5     2     3     1 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5200   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     5     2     3     6 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5200   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     5     2     6     1 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     5     2     6     3 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5200
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     6     2     1     3 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5200
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     6     2     1     5 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     6     2     3     1 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5200   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     6     2     3     5 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5200   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     6     2     5     1 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5400
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     3 Units:     6     2     5     3 Peaks:   2 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5400   1.5200
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg): -120.2483 Std Dev (deg):    5.6670 Low Bound (deg): -180.0000 High Bound (deg):    0.0000
+      Peak:   2 Angle Mean (deg):  120.2483 Std Dev (deg):    5.6670 Low Bound (deg):    0.0000 High Bound (deg):  180.0000
+Moltyp:     6 Units:     2     3     4     6 Peaks:   1 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.3640   1.2140
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg):  180.0000 Std Dev (deg):   19.5191 Low Bound (deg):    0.0000 High Bound (deg):  360.0000
+Moltyp:     6 Units:     2     3     6     4 Peaks:   1 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.2140   1.3640
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg):  180.0000 Std Dev (deg):   19.5191 Low Bound (deg):    0.0000 High Bound (deg):  360.0000
+Moltyp:     6 Units:     4     3     2     6 Peaks:   1 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5200   1.2140
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg):  180.0000 Std Dev (deg):   18.8702 Low Bound (deg):    0.0000 High Bound (deg):  360.0000
+Moltyp:     6 Units:     4     3     6     2 Peaks:   1 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.2140   1.5200
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg):  180.0000 Std Dev (deg):   18.8702 Low Bound (deg):    0.0000 High Bound (deg):  360.0000
+Moltyp:     6 Units:     6     3     2     4 Peaks:   1 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.5200   1.3640
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg):  180.0000 Std Dev (deg):   22.3415 Low Bound (deg):    0.0000 High Bound (deg):  360.0000
+Moltyp:     6 Units:     6     3     4     2 Peaks:   1 ATD: Uniform & Gaussian       
+      Fitting Bond Lengths:   1.3640   1.5200
+      Uniform Probability:   0.0100
+      Peak:   1 Angle Mean (deg):  180.0000 Std Dev (deg):   22.3415 Low Bound (deg):    0.0000 High Bound (deg):  360.0000
+Determining Autofit Gaussian dihedral parameters
+Moltyp:     1 Units:     1     2     3     4 Count: 1 Mean: -180.00 Std Dev: ******* Low Bound: -240.12 High Bound -119.88
+Moltyp:     1 Units:     1     2     3     4 Count: 2 Mean:  -59.99 Std Dev: ******* Low Bound: -119.88 High Bound    0.00
+Moltyp:     1 Units:     1     2     3     4 Count: 3 Mean:   59.99 Std Dev: ******* Low Bound:    0.00 High Bound  119.88
+Moltyp:     1 Units:     2     3     4     5 Count: 1 Mean: -180.00 Std Dev: ******* Low Bound: -240.12 High Bound -119.88
+Moltyp:     1 Units:     2     3     4     5 Count: 2 Mean:  -59.99 Std Dev: ******* Low Bound: -119.88 High Bound    0.00
+Moltyp:     1 Units:     2     3     4     5 Count: 3 Mean:   59.99 Std Dev: ******* Low Bound:    0.00 High Bound  119.88
+Moltyp:     1 Units:     2     3     4    12 Count: 1 Mean: -180.00 Std Dev: ******* Low Bound: -240.12 High Bound -119.88
+Moltyp:     1 Units:     2     3     4    12 Count: 2 Mean:  -59.99 Std Dev: ******* Low Bound: -119.88 High Bound    0.00
+Moltyp:     1 Units:     2     3     4    12 Count: 3 Mean:   59.99 Std Dev: ******* Low Bound:    0.00 High Bound  119.88
+Moltyp:     1 Units:     2     3     4    13 Count: 1 Mean: -180.00 Std Dev: ******* Low Bound: -240.12 High Bound -119.88
+Moltyp:     1 Units:     2     3     4    13 Count: 2 Mean:  -59.99 Std Dev: ******* Low Bound: -119.88 High Bound    0.00
+Moltyp:     1 Units:     2     3     4    13 Count: 3 Mean:   59.99 Std Dev: ******* Low Bound:    0.00 High Bound  119.88
+Moltyp:     1 Units:     3     4     5     6 Count: 1 Mean: -180.00 Std Dev: ******* Low Bound: -240.12 High Bound -119.88
+Moltyp:     1 Units:     3     4     5     6 Count: 2 Mean:  -59.99 Std Dev: ******* Low Bound: -119.88 High Bound    0.00
+Moltyp:     1 Units:     3     4     5     6 Count: 3 Mean:   59.99 Std Dev: ******* Low Bound:    0.00 High Bound  119.88
+Moltyp:     1 Units:     4     3     2     1 Count: 1 Mean: -180.00 Std Dev: ******* Low Bound: -240.12 High Bound -119.88
+Moltyp:     1 Units:     4     3     2     1 Count: 2 Mean:  -59.99 Std Dev: ******* Low Bound: -119.88 High Bound    0.00
+Moltyp:     1 Units:     4     3     2     1 Count: 3 Mean:   59.99 Std Dev: ******* Low Bound:    0.00 High Bound  119.88
+Moltyp:     1 Units:     4     3     2    10 Count: 1 Mean: -180.00 Std Dev: ******* Low Bound: -240.12 High Bound -119.88
+Moltyp:     1 Units:     4     3     2    10 Count: 2 Mean:  -59.99 Std Dev: ******* Low Bound: -119.88 High Bound    0.00
+Moltyp:     1 Units:     4     3     2    10 Count: 3 Mean:   59.99 Std Dev: ******* Low Bound:    0.00 High Bound  119.88
+Moltyp:     1 Units:     4     3     2    11 Count: 1 Mean: -180.00 Std Dev: ******* Low Bound: -240.12 High Bound -119.88
+Moltyp:     1 Units:     4     3     2    11 Count: 2 Mean:  -59.99 Std Dev: ******* Low Bound: -119.88 High Bound    0.00
+Moltyp:     1 Units:     4     3     2    11 Count: 3 Mean:   59.99 Std Dev: ******* Low Bound:    0.00 High Bound  119.88
+Moltyp:     1 Units:     4     5     6     7 Count: 1 Mean: -180.00 Std Dev: ******* Low Bound: -243.00 High Bound -117.00
+Moltyp:     1 Units:     4     5     6     7 Count: 2 Mean:  -70.43 Std Dev: 8057.14 Low Bound: -117.00 High Bound    0.00
+Moltyp:     1 Units:     4     5     6     7 Count: 3 Mean:   70.43 Std Dev: 8057.14 Low Bound:    0.00 High Bound  117.00
+Moltyp:     1 Units:     4     5     6    14 Count: 1 Mean: -180.00 Std Dev: ******* Low Bound: -243.00 High Bound -117.00
+Moltyp:     1 Units:     4     5     6    14 Count: 2 Mean:  -70.43 Std Dev: 8057.14 Low Bound: -117.00 High Bound    0.00
+Moltyp:     1 Units:     4     5     6    14 Count: 3 Mean:   70.43 Std Dev: 8057.14 Low Bound:    0.00 High Bound  117.00
+Moltyp:     1 Units:     5     4     3     2 Count: 1 Mean: -180.00 Std Dev: ******* Low Bound: -240.12 High Bound -119.88
+Moltyp:     1 Units:     5     4     3     2 Count: 2 Mean:  -59.99 Std Dev: ******* Low Bound: -119.88 High Bound    0.00
+Moltyp:     1 Units:     5     4     3     2 Count: 3 Mean:   59.99 Std Dev: ******* Low Bound:    0.00 High Bound  119.88
+Moltyp:     1 Units:     5     6     7     8 Count: 1 Mean: -180.00 Std Dev: ******* Low Bound: -243.00 High Bound -117.00
+Moltyp:     1 Units:     5     6     7     8 Count: 2 Mean:  -70.43 Std Dev: 8057.14 Low Bound: -117.00 High Bound    0.00
+Moltyp:     1 Units:     5     6     7     8 Count: 3 Mean:   70.43 Std Dev: 8057.14 Low Bound:    0.00 High Bound  117.00
+Moltyp:     1 Units:     6     5     4     3 Count: 1 Mean: -180.00 Std Dev: ******* Low Bound: -240.12 High Bound -119.88
+Moltyp:     1 Units:     6     5     4     3 Count: 2 Mean:  -59.99 Std Dev: ******* Low Bound: -119.88 High Bound    0.00
+Moltyp:     1 Units:     6     5     4     3 Count: 3 Mean:   59.99 Std Dev: ******* Low Bound:    0.00 High Bound  119.88
+Moltyp:     1 Units:     6     5     4    12 Count: 1 Mean: -180.00 Std Dev: ******* Low Bound: -240.12 High Bound -119.88
+Moltyp:     1 Units:     6     5     4    12 Count: 2 Mean:  -59.99 Std Dev: ******* Low Bound: -119.88 High Bound    0.00
+Moltyp:     1 Units:     6     5     4    12 Count: 3 Mean:   59.99 Std Dev: ******* Low Bound:    0.00 High Bound  119.88
+Moltyp:     1 Units:     6     5     4    13 Count: 1 Mean: -180.00 Std Dev: ******* Low Bound: -240.12 High Bound -119.88
+Moltyp:     1 Units:     6     5     4    13 Count: 2 Mean:  -59.99 Std Dev: ******* Low Bound: -119.88 High Bound    0.00
+Moltyp:     1 Units:     6     5     4    13 Count: 3 Mean:   59.99 Std Dev: ******* Low Bound:    0.00 High Bound  119.88
+Moltyp:     1 Units:     6     7     8     9 Count: 1 Mean: -180.00 Std Dev: ******* Low Bound: -240.12 High Bound -119.88
+Moltyp:     1 Units:     6     7     8     9 Count: 2 Mean:  -59.99 Std Dev: ******* Low Bound: -119.88 High Bound    0.00
+Moltyp:     1 Units:     6     7     8     9 Count: 3 Mean:   59.99 Std Dev: ******* Low Bound:    0.00 High Bound  119.88
+Moltyp:     1 Units:     6     7     8    15 Count: 1 Mean: -180.00 Std Dev: ******* Low Bound: -240.12 High Bound -119.88
+Moltyp:     1 Units:     6     7     8    15 Count: 2 Mean:  -59.99 Std Dev: ******* Low Bound: -119.88 High Bound    0.00
+Moltyp:     1 Units:     6     7     8    15 Count: 3 Mean:   59.99 Std Dev: ******* Low Bound:    0.00 High Bound  119.88
+Moltyp:     1 Units:     6     7     8    16 Count: 1 Mean: -180.00 Std Dev: ******* Low Bound: -240.12 High Bound -119.88
+Moltyp:     1 Units:     6     7     8    16 Count: 2 Mean:  -59.99 Std Dev: ******* Low Bound: -119.88 High Bound    0.00
+Moltyp:     1 Units:     6     7     8    16 Count: 3 Mean:   59.99 Std Dev: ******* Low Bound:    0.00 High Bound  119.88
+Moltyp:     1 Units:     7     6     5     4 Count: 1 Mean: -180.00 Std Dev: ******* Low Bound: -243.00 High Bound -117.00
+Moltyp:     1 Units:     7     6     5     4 Count: 2 Mean:  -70.43 Std Dev: 8057.14 Low Bound: -117.00 High Bound    0.00
+Moltyp:     1 Units:     7     6     5     4 Count: 3 Mean:   70.43 Std Dev: 8057.14 Low Bound:    0.00 High Bound  117.00
+Moltyp:     1 Units:     8     7     6     5 Count: 1 Mean: -180.00 Std Dev: ******* Low Bound: -243.00 High Bound -117.00
+Moltyp:     1 Units:     8     7     6     5 Count: 2 Mean:  -70.43 Std Dev: 8057.14 Low Bound: -117.00 High Bound    0.00
+Moltyp:     1 Units:     8     7     6     5 Count: 3 Mean:   70.43 Std Dev: 8057.14 Low Bound:    0.00 High Bound  117.00
+Moltyp:     1 Units:     8     7     6    14 Count: 1 Mean: -180.00 Std Dev: ******* Low Bound: -243.00 High Bound -117.00
+Moltyp:     1 Units:     8     7     6    14 Count: 2 Mean:  -70.43 Std Dev: 8057.14 Low Bound: -117.00 High Bound    0.00
+Moltyp:     1 Units:     8     7     6    14 Count: 3 Mean:   70.43 Std Dev: 8057.14 Low Bound:    0.00 High Bound  117.00
+Moltyp:     1 Units:     9     8     7     6 Count: 1 Mean: -180.00 Std Dev: ******* Low Bound: -240.12 High Bound -119.88
+Moltyp:     1 Units:     9     8     7     6 Count: 2 Mean:  -59.99 Std Dev: ******* Low Bound: -119.88 High Bound    0.00
+Moltyp:     1 Units:     9     8     7     6 Count: 3 Mean:   59.99 Std Dev: ******* Low Bound:    0.00 High Bound  119.88
+Moltyp:     1 Units:    10     2     3     4 Count: 1 Mean: -180.00 Std Dev: ******* Low Bound: -240.12 High Bound -119.88
+Moltyp:     1 Units:    10     2     3     4 Count: 2 Mean:  -59.99 Std Dev: ******* Low Bound: -119.88 High Bound    0.00
+Moltyp:     1 Units:    10     2     3     4 Count: 3 Mean:   59.99 Std Dev: ******* Low Bound:    0.00 High Bound  119.88
+Moltyp:     1 Units:    11     2     3     4 Count: 1 Mean: -180.00 Std Dev: ******* Low Bound: -240.12 High Bound -119.88
+Moltyp:     1 Units:    11     2     3     4 Count: 2 Mean:  -59.99 Std Dev: ******* Low Bound: -119.88 High Bound    0.00
+Moltyp:     1 Units:    11     2     3     4 Count: 3 Mean:   59.99 Std Dev: ******* Low Bound:    0.00 High Bound  119.88
+Moltyp:     1 Units:    12     4     3     2 Count: 1 Mean: -180.00 Std Dev: ******* Low Bound: -240.12 High Bound -119.88
+Moltyp:     1 Units:    12     4     3     2 Count: 2 Mean:  -59.99 Std Dev: ******* Low Bound: -119.88 High Bound    0.00
+Moltyp:     1 Units:    12     4     3     2 Count: 3 Mean:   59.99 Std Dev: ******* Low Bound:    0.00 High Bound  119.88
+Moltyp:     1 Units:    12     4     5     6 Count: 1 Mean: -180.00 Std Dev: ******* Low Bound: -240.12 High Bound -119.88
+Moltyp:     1 Units:    12     4     5     6 Count: 2 Mean:  -59.99 Std Dev: ******* Low Bound: -119.88 High Bound    0.00
+Moltyp:     1 Units:    12     4     5     6 Count: 3 Mean:   59.99 Std Dev: ******* Low Bound:    0.00 High Bound  119.88
+Moltyp:     1 Units:    13     4     3     2 Count: 1 Mean: -180.00 Std Dev: ******* Low Bound: -240.12 High Bound -119.88
+Moltyp:     1 Units:    13     4     3     2 Count: 2 Mean:  -59.99 Std Dev: ******* Low Bound: -119.88 High Bound    0.00
+Moltyp:     1 Units:    13     4     3     2 Count: 3 Mean:   59.99 Std Dev: ******* Low Bound:    0.00 High Bound  119.88
+Moltyp:     1 Units:    13     4     5     6 Count: 1 Mean: -180.00 Std Dev: ******* Low Bound: -240.12 High Bound -119.88
+Moltyp:     1 Units:    13     4     5     6 Count: 2 Mean:  -59.99 Std Dev: ******* Low Bound: -119.88 High Bound    0.00
+Moltyp:     1 Units:    13     4     5     6 Count: 3 Mean:   59.99 Std Dev: ******* Low Bound:    0.00 High Bound  119.88
+Moltyp:     1 Units:    14     6     5     4 Count: 1 Mean: -180.00 Std Dev: ******* Low Bound: -243.00 High Bound -117.00
+Moltyp:     1 Units:    14     6     5     4 Count: 2 Mean:  -70.43 Std Dev: 8057.14 Low Bound: -117.00 High Bound    0.00
+Moltyp:     1 Units:    14     6     5     4 Count: 3 Mean:   70.43 Std Dev: 8057.14 Low Bound:    0.00 High Bound  117.00
+Moltyp:     1 Units:    14     6     7     8 Count: 1 Mean: -180.00 Std Dev: ******* Low Bound: -243.00 High Bound -117.00
+Moltyp:     1 Units:    14     6     7     8 Count: 2 Mean:  -70.43 Std Dev: 8057.14 Low Bound: -117.00 High Bound    0.00
+Moltyp:     1 Units:    14     6     7     8 Count: 3 Mean:   70.43 Std Dev: 8057.14 Low Bound:    0.00 High Bound  117.00
+Moltyp:     1 Units:    15     8     7     6 Count: 1 Mean: -180.00 Std Dev: ******* Low Bound: -240.12 High Bound -119.88
+Moltyp:     1 Units:    15     8     7     6 Count: 2 Mean:  -59.99 Std Dev: ******* Low Bound: -119.88 High Bound    0.00
+Moltyp:     1 Units:    15     8     7     6 Count: 3 Mean:   59.99 Std Dev: ******* Low Bound:    0.00 High Bound  119.88
+Moltyp:     1 Units:    16     8     7     6 Count: 1 Mean: -180.00 Std Dev: ******* Low Bound: -240.12 High Bound -119.88
+Moltyp:     1 Units:    16     8     7     6 Count: 2 Mean:  -59.99 Std Dev: ******* Low Bound: -119.88 High Bound    0.00
+Moltyp:     1 Units:    16     8     7     6 Count: 3 Mean:   59.99 Std Dev: ******* Low Bound:    0.00 High Bound  119.88
+Moltyp:     3 Units:     1     2     3     4 Count: 1 Mean: -113.16 Std Dev: 1219.07 Low Bound: -180.00 High Bound  -80.28
+Moltyp:     3 Units:     1     2     3     4 Count: 2 Mean:    0.00 Std Dev: 7552.36 Low Bound:  -80.28 High Bound   80.28
+Moltyp:     3 Units:     1     2     3     4 Count: 3 Mean:  113.16 Std Dev: 1219.07 Low Bound:   80.28 High Bound  180.00
+Moltyp:     3 Units:     4     3     2     1 Count: 1 Mean: -113.16 Std Dev: 1219.07 Low Bound: -180.00 High Bound  -80.28
+Moltyp:     3 Units:     4     3     2     1 Count: 2 Mean:    0.00 Std Dev: 7552.36 Low Bound:  -80.28 High Bound   80.28
+Moltyp:     3 Units:     4     3     2     1 Count: 3 Mean:  113.16 Std Dev: 1219.07 Low Bound:   80.28 High Bound  180.00
+Moltyp:     3 Units:     4     3     2     5 Count: 1 Mean: -113.16 Std Dev: 1219.07 Low Bound: -180.00 High Bound  -80.28
+Moltyp:     3 Units:     4     3     2     5 Count: 2 Mean:    0.00 Std Dev: 7552.36 Low Bound:  -80.28 High Bound   80.28
+Moltyp:     3 Units:     4     3     2     5 Count: 3 Mean:  113.16 Std Dev: 1219.07 Low Bound:   80.28 High Bound  180.00
+Moltyp:     3 Units:     4     3     2     6 Count: 1 Mean: -113.16 Std Dev: 1219.07 Low Bound: -180.00 High Bound  -80.28
+Moltyp:     3 Units:     4     3     2     6 Count: 2 Mean:    0.00 Std Dev: 7552.36 Low Bound:  -80.28 High Bound   80.28
+Moltyp:     3 Units:     4     3     2     6 Count: 3 Mean:  113.16 Std Dev: 1219.07 Low Bound:   80.28 High Bound  180.00
+Moltyp:     3 Units:     5     2     3     4 Count: 1 Mean: -113.16 Std Dev: 1219.07 Low Bound: -180.00 High Bound  -80.28
+Moltyp:     3 Units:     5     2     3     4 Count: 2 Mean:    0.00 Std Dev: 7552.36 Low Bound:  -80.28 High Bound   80.28
+Moltyp:     3 Units:     5     2     3     4 Count: 3 Mean:  113.16 Std Dev: 1219.07 Low Bound:   80.28 High Bound  180.00
+Moltyp:     3 Units:     6     2     3     4 Count: 1 Mean: -113.16 Std Dev: 1219.07 Low Bound: -180.00 High Bound  -80.28
+Moltyp:     3 Units:     6     2     3     4 Count: 2 Mean:    0.00 Std Dev: 7552.36 Low Bound:  -80.28 High Bound   80.28
+Moltyp:     3 Units:     6     2     3     4 Count: 3 Mean:  113.16 Std Dev: 1219.07 Low Bound:   80.28 High Bound  180.00
+Moltyp:     4 Units:     1     2     3     4 Count: 1 Mean: -180.00 Std Dev:  182.79 Low Bound: -248.40 High Bound -111.60
+Moltyp:     4 Units:     1     2     3     4 Count: 2 Mean:  -78.31 Std Dev:   17.53 Low Bound: -111.60 High Bound    0.00
+Moltyp:     4 Units:     1     2     3     4 Count: 3 Mean:   78.31 Std Dev:   17.53 Low Bound:    0.00 High Bound  111.60
+Moltyp:     4 Units:     2     3     4     5 Count: 1 Mean: -180.00 Std Dev:    0.00 Low Bound: -245.88 High Bound -114.12
+Moltyp:     4 Units:     2     3     4     5 Count: 2 Mean:  -79.14 Std Dev:    0.00 Low Bound: -114.12 High Bound    0.00
+Moltyp:     4 Units:     2     3     4     5 Count: 3 Mean:   79.14 Std Dev:    0.00 Low Bound:    0.00 High Bound  114.12
+Moltyp:     4 Units:     3     4     5     6 Count: 1 Mean: -180.00 Std Dev:    2.09 Low Bound: -360.00 High Bound    0.00
+Moltyp:     4 Units:     4     3     2     1 Count: 1 Mean: -180.00 Std Dev:  182.79 Low Bound: -248.40 High Bound -111.60
+Moltyp:     4 Units:     4     3     2     1 Count: 2 Mean:  -78.31 Std Dev:   17.53 Low Bound: -111.60 High Bound    0.00
+Moltyp:     4 Units:     4     3     2     1 Count: 3 Mean:   78.31 Std Dev:   17.53 Low Bound:    0.00 High Bound  111.60
+Moltyp:     4 Units:     5     4     3     2 Count: 1 Mean: -180.00 Std Dev:    0.00 Low Bound: -245.88 High Bound -114.12
+Moltyp:     4 Units:     5     4     3     2 Count: 2 Mean:  -79.14 Std Dev:    0.00 Low Bound: -114.12 High Bound    0.00
+Moltyp:     4 Units:     5     4     3     2 Count: 3 Mean:   79.14 Std Dev:    0.00 Low Bound:    0.00 High Bound  114.12
+Moltyp:     4 Units:     6     5     4     3 Count: 1 Mean: -180.00 Std Dev:    2.09 Low Bound: -360.00 High Bound    0.00
+Moltyp:     5 Units:     1     2     3     4 Count: 1 Mean: -180.00 Std Dev:    1.34 Low Bound: -360.00 High Bound    0.00
+Moltyp:     5 Units:     2     3     4     5 Count: 1 Mean: -180.00 Std Dev:    0.00 Low Bound: -250.56 High Bound -109.44
+Moltyp:     5 Units:     2     3     4     5 Count: 2 Mean:  -84.22 Std Dev:    0.00 Low Bound: -109.44 High Bound    0.00
+Moltyp:     5 Units:     2     3     4     5 Count: 3 Mean:   84.22 Std Dev:    0.00 Low Bound:    0.00 High Bound  109.44
+Moltyp:     5 Units:     3     4     5     6 Count: 1 Mean: -180.00 Std Dev:    1.34 Low Bound: -360.00 High Bound    0.00
+Moltyp:     5 Units:     4     3     2     1 Count: 1 Mean: -180.00 Std Dev:    1.34 Low Bound: -360.00 High Bound    0.00
+Moltyp:     5 Units:     5     4     3     2 Count: 1 Mean: -180.00 Std Dev:    0.00 Low Bound: -250.56 High Bound -109.44
+Moltyp:     5 Units:     5     4     3     2 Count: 2 Mean:  -84.22 Std Dev:    0.00 Low Bound: -109.44 High Bound    0.00
+Moltyp:     5 Units:     5     4     3     2 Count: 3 Mean:   84.22 Std Dev:    0.00 Low Bound:    0.00 High Bound  109.44
+Moltyp:     5 Units:     6     5     4     3 Count: 1 Mean: -180.00 Std Dev:    1.34 Low Bound: -360.00 High Bound    0.00
+Moltyp:     6 Units:     1     2     3     4 Count: 1 Mean: -180.00 Std Dev: 7996.35 Low Bound: -241.56 High Bound -118.44
+Moltyp:     6 Units:     1     2     3     4 Count: 2 Mean:  -64.75 Std Dev: 3110.22 Low Bound: -118.44 High Bound    0.00
+Moltyp:     6 Units:     1     2     3     4 Count: 3 Mean:   64.75 Std Dev: 3110.22 Low Bound:    0.00 High Bound  118.44
+Moltyp:     6 Units:     1     2     3     6 Count: 1 Mean: -180.00 Std Dev:  373.83 Low Bound: -258.48 High Bound -101.52
+Moltyp:     6 Units:     1     2     3     6 Count: 2 Mean:    0.00 Std Dev: 3969.29 Low Bound: -101.52 High Bound  101.52
+Moltyp:     6 Units:     2     3     4     5 Count: 1 Mean: -180.00 Std Dev: 3969.29 Low Bound: -281.52 High Bound  -78.48
+Moltyp:     6 Units:     2     3     4     5 Count: 2 Mean:    0.00 Std Dev:  373.83 Low Bound:  -78.48 High Bound   78.48
+Moltyp:     6 Units:     4     3     2     1 Count: 1 Mean: -180.00 Std Dev: 7996.35 Low Bound: -241.56 High Bound -118.44
+Moltyp:     6 Units:     4     3     2     1 Count: 2 Mean:  -64.75 Std Dev: 3110.22 Low Bound: -118.44 High Bound    0.00
+Moltyp:     6 Units:     4     3     2     1 Count: 3 Mean:   64.75 Std Dev: 3110.22 Low Bound:    0.00 High Bound  118.44
+Moltyp:     6 Units:     5     4     3     2 Count: 1 Mean: -180.00 Std Dev: 3969.29 Low Bound: -281.52 High Bound  -78.48
+Moltyp:     6 Units:     5     4     3     2 Count: 2 Mean:    0.00 Std Dev:  373.83 Low Bound:  -78.48 High Bound   78.48
+Moltyp:     6 Units:     5     4     3     6 Count: 1 Mean: -180.00 Std Dev:  373.83 Low Bound: -258.48 High Bound -101.52
+Moltyp:     6 Units:     5     4     3     6 Count: 2 Mean:    0.00 Std Dev: 3969.29 Low Bound: -101.52 High Bound  101.52
+Moltyp:     6 Units:     6     3     2     1 Count: 1 Mean: -180.00 Std Dev:  373.83 Low Bound: -258.48 High Bound -101.52
+Moltyp:     6 Units:     6     3     2     1 Count: 2 Mean:    0.00 Std Dev: 3969.29 Low Bound: -101.52 High Bound  101.52
+Moltyp:     6 Units:     6     3     4     5 Count: 1 Mean: -180.00 Std Dev:  373.83 Low Bound: -258.48 High Bound -101.52
+Moltyp:     6 Units:     6     3     4     5 Count: 2 Mean:    0.00 Std Dev: 3969.29 Low Bound: -101.52 High Bound  101.52
