@@ -6796,10 +6796,10 @@ c     --- variables passed to/from the subroutine
 c     --- local variables
       integer ibtemp,iitemp,ijtemp,ixtemp
 c     --- storage variable
-      double precision hinverse
-      dimension hinverse(MAXBXD,MAXBOX,3,3)
-      save hinverse
-      target hinverse
+       double precision hinverse
+       dimension hinverse(MAXBXD,MAXBOX,3,3)
+       target hinverse
+       common /hot_hinverse/ hinverse
 
       if ( flag .eq. GLB_GET ) then
          dvalue = hinverse(bxdflag,ibox,idim,jdim)
@@ -10149,8 +10149,9 @@ c     --- variables passed to/from this subroutine
       integer flag
       logical lvalue
 c     --- information variables
-      logical lusecom
-      save lusecom
+       logical lusecom
+       common /hot_lusecom/ lusecom
+       target lusecom
 
       if ( flag .eq. GLB_GET ) then
          lvalue = lusecom
@@ -14529,8 +14530,9 @@ c     --- variables passed to/from this subroutine
       integer flag
       double precision dvalue
 c     --- information variables
-      double precision rcutinsq
-      save rcutinsq
+       double precision rcutinsq
+       common /hot_rcutinsq/ rcutinsq
+       target rcutinsq
 
       if ( flag .eq. GLB_GET ) then
          dvalue = rcutinsq

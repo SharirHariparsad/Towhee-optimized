@@ -172,8 +172,8 @@ c     * rewritten from engmolec 08-05-2006 by M.G. Martin              *
 c     * last modified 04-02-2018 by M.G. Martin                        *
 c     ******************************************************************
 #ifdef HOT_PATH_INLINE
-      use engtotal_globals, only: ntype_arr, luse_c_arr, luse_v_arr
-     &     , nunit_arr
+       use engtotal_globals, only: ntype_arr, luse_c_arr, luse_v_arr
+     &     , nunit_arr, coord_real_arr, coord_temp_arr
 #endif
       implicit none
 #define FUNCTION_CMP_GT
@@ -194,28 +194,48 @@ c     --- local variables
       logical lvalid,lcompute,leval_v,leval_c,lusecom,lelect
       logical luse_ci,luse_cj,luse_vi,luse_vj
 c     --- integer scalars
-      integer cutstyle,testcrd,testchain,ichainmove,imolty,jmolty,jlist
-      integer jchain,itest,jj,ntjj,iunit,ntii,lambda,boxreal,nmolty,ncmt
-      integer scp_num_foreign_lambda,testmolty,liststart,listend,jcrd
+       integer cutstyle,testcrd,testchain,ichainmove,imolty,jmolty,jlist
+       integer jchain,itest,jj,ntjj,iunit,ntii,lambda,boxreal,nmolty,ncmt
+       integer scp_num_foreign_lambda,testmolty,liststart,listend,jcrd
+#ifdef HOT_PATH_INLINE
+       integer gpos_test,gpos_j,i_atom,j_atom
+       double precision c_rcelect_p6, c_rcutinsq_p6
+       dimension c_rcelect_p6(MAXBXD,MAXBOX)
+       common /hot_rcelect/ c_rcelect_p6
+       common /hot_rcutinsq/ c_rcutinsq_p6
+       logical c_lelect_p6, c_lusecom_p6
+       common /hot_lelect/ c_lelect_p6
+       common /hot_lusecom/ c_lusecom_p6
+#endif
 c     --- double precision scalars
-      double precision rxi,ryi,rzi,rxj,ryj,rzj,rxij,ryij,rzij,rij
-      double precision xcmi,ycmi,zcmi,rcmi,rijsq,rcm,rcmsq,dvdllj,dvdlc
-      double precision venergy,xcmj,ycmj,zcmj,rcmj,rcutinsq
-      double precision rcmreal,rcelect
+       double precision rxi,ryi,rzi,rxj,ryj,rzj,rxij,ryij,rzij,rij
+       double precision xcmi,ycmi,zcmi,rcmi,rijsq,rcm,rcmsq,dvdllj,dvdlc
+       double precision venergy,xcmj,ycmj,zcmj,rcmj,rcutinsq
+       double precision rcmreal,rcelect
 c     --- double precision arrays
-      double precision vf
-      dimension vf(MAX_FOREIGN_LAMBDA)
+       double precision vf
+       dimension vf(MAX_FOREIGN_LAMBDA)
 
 c     --- no two-body intermolecular energy in box 0
-      if ( activebox .eq. 0 ) return
+       if ( activebox .eq. 0 ) return
 
+#ifdef HOT_PATH_INLINE
+c     --- Phase 6 P6: hoisted box-global scalars via COMMON zero-copy
+       call twh_nmolty(GLB_GET,nmolty)
+       call twh_scp_num_foreign_lambda(GLB_GET,scp_num_foreign_lambda)
+       lusecom = c_lusecom_p6
+       rcelect = c_rcelect_p6(bxdflag,activebox)
+       lelect = c_lelect_p6
+       rcutinsq = c_rcutinsq_p6
+#else
 c     --- retrieve constant
-      call twh_nmolty(GLB_GET,nmolty)
-      call twh_scp_num_foreign_lambda(GLB_GET,scp_num_foreign_lambda)
-      call twh_lusecom(GLB_GET,lusecom)
-      call twh_rcelect(GLB_GET,bxdflag,activebox,rcelect)
-      call twh_lelect(GLB_GET,lelect)
-      call twh_rcutinsq(GLB_GET,rcutinsq)
+       call twh_nmolty(GLB_GET,nmolty)
+       call twh_scp_num_foreign_lambda(GLB_GET,scp_num_foreign_lambda)
+       call twh_lusecom(GLB_GET,lusecom)
+       call twh_rcelect(GLB_GET,bxdflag,activebox,rcelect)
+       call twh_lelect(GLB_GET,lelect)
+       call twh_rcutinsq(GLB_GET,rcutinsq)
+#endif
 
 #if DEBUG_ENG_TWO_BODY
       write(6,*) 'nchainmove:',nchainmove
@@ -236,7 +256,12 @@ c           --- chain identifier
             write(6,*) 'testchain:',testchain
 #endif
             call twh_moltyp(GLB_GET,testchain,imolty)
+#ifdef HOT_PATH_INLINE
+            numiunit = nunit_arr(imolty)
+            call twh_globalpos(GLB_GET,testchain,gpos_test)
+#else
             call twh_nunit(GLB_GET,imolty,numiunit)
+#endif
             if ( lusecom ) then
                if ( lgetcom ) then
 c                 --- store the real coordinate center of mass radius
@@ -329,29 +354,47 @@ c                          --- add in the com radius components
                      endif
                   endif
 
-                   if ( lcompute ) then
+                    if ( lcompute ) then
 #ifdef HOT_PATH_INLINE
 c                    --- inline path: bypass twh_* dispatch for
 c                    --- ntype, luse_c, luse_v, nunit via module.
-c                    --- Physics calls (vtwobody, vcoulomb, mimage,
-c                    --- coordinates) kept intact.
-                      numjunit = nunit_arr(jmolty)
-                      do jj = 1, numjunit
-                         ntjj = ntype_arr(jmolty, jj)
-                         call twh_coordinates(GLB_GET,jcrd,jchain
-     &                       ,jj,rxj,ryj,rzj)
-                         luse_cj = luse_c_arr(jmolty, jj)
-                         luse_vj = luse_v_arr(jmolty, jj)
+c                    --- Phase 6 P6: flat coordinate zero-copy via
+c                    --- engtotal_globals coord_real/temp arrays.
+c                    --- Hoist globalpos per molecule (1 call vs N)
+                       numjunit = nunit_arr(jmolty)
+                       call twh_globalpos(GLB_GET,jchain,gpos_j)
+                       do jj = 1, numjunit
+                          ntjj = ntype_arr(jmolty, jj)
+                          j_atom = (gpos_j + 3*(jj-1) + 2)/3
+                          if (jcrd .eq. CRD_REAL) then
+                             rxj = coord_real_arr(1,j_atom)
+                             ryj = coord_real_arr(2,j_atom)
+                             rzj = coord_real_arr(3,j_atom)
+                          else
+                             rxj = coord_temp_arr(1,j_atom)
+                             ryj = coord_temp_arr(2,j_atom)
+                             rzj = coord_temp_arr(3,j_atom)
+                          endif
+                          luse_cj = luse_c_arr(jmolty, jj)
+                          luse_vj = luse_v_arr(jmolty, jj)
 c                       --- loop over all beads iunit of testchain
-                         do iunit = 1,numiunit
-                            ntii = ntype_arr(imolty, iunit)
-                            luse_vi = luse_v_arr(imolty, iunit)
-                            leval_v = luse_vi .and. luse_vj
-                            luse_ci = luse_c_arr(imolty, iunit)
-                            leval_c = luse_ci .and. luse_cj
-                            if (leval_v .or. leval_c) then
-                               call twh_coordinates(GLB_GET,testcrd
-     &                             ,testchain,iunit,rxi,ryi,rzi)
+                          do iunit = 1,numiunit
+                             ntii = ntype_arr(imolty, iunit)
+                             luse_vi = luse_v_arr(imolty, iunit)
+                             leval_v = luse_vi .and. luse_vj
+                             luse_ci = luse_c_arr(imolty, iunit)
+                             leval_c = luse_ci .and. luse_cj
+                             if (leval_v .or. leval_c) then
+                                i_atom = (gpos_test + 3*(iunit-1) +2)/3
+                                if (testcrd .eq. CRD_REAL) then
+                                   rxi = coord_real_arr(1,i_atom)
+                                   ryi = coord_real_arr(2,i_atom)
+                                   rzi = coord_real_arr(3,i_atom)
+                                else
+                                   rxi = coord_temp_arr(1,i_atom)
+                                   ryi = coord_temp_arr(2,i_atom)
+                                   rzi = coord_temp_arr(3,i_atom)
+                                endif
 c                             --- minimum image the pair separation
                                call twh_mimage (bxdflag,activebox
      &                             ,rxi,ryi,rzi

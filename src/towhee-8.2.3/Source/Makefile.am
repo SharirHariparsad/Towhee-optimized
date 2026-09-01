@@ -37,6 +37,10 @@ VEC_CFLAGS =
 else
 VEC_FFLAGS = -O3 -march=native -ffast-math -funroll-loops -ftree-vectorize
 VEC_CFLAGS = -O3 -march=native -ffast-math -funroll-loops -ftree-vectorize
+# Phase 6 P11: LTO for cross-TU inlining (vtwobody, getnbtype, dotproduct)
+# Added via VEC so --enable-safe-compare still disables; requires -flto at link
+VEC_FFLAGS += -flto -ffat-lto-objects
+VEC_CFLAGS += -flto -ffat-lto-objects
 endif
 
 # If configured with --disable-command-line-args, command line arguments
@@ -54,7 +58,7 @@ AM_FFLAGS = $(VEC_FFLAGS)
 AM_FFLAGS += $(SC_FFLAGS) $(FG_FFLAGS) $(DM_FFLAGS) $(OMP_FFLAGS)
 AM_CFLAGS = $(VEC_CFLAGS)
 AM_FCFLAGS = -ffree-form $(AM_FFLAGS)
-AM_LDFLAGS = $(OMP_FFLAGS)
+AM_LDFLAGS = $(OMP_FFLAGS) $(VEC_FFLAGS)
 # To build with hot-path inlining:
 #    make clean && make HOT_PATH_CPPFLAGS="-DHOT_PATH_INLINE"
 HOT_PATH_CPPFLAGS =

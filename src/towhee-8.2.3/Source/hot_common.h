@@ -75,6 +75,21 @@ C     --- RMINSQ: squared hard-core inner radius ---
       target rminsq
 
 C     --- EWALD_CALP: Ewald real-space cutoff parameter calp=kalp/boxlen ---
-      double precision ewald_calp
-      common /hot_ewald_calp/ ewald_calp(MAXBXD,0:MAXBOX)
-      target ewald_calp
+       double precision ewald_calp
+       common /hot_ewald_calp/ ewald_calp(MAXBXD,0:MAXBOX)
+       target ewald_calp
+
+C     --- HINVERSE: inverse box matrix (Phase 6 P9.1) ---
+       double precision hinverse
+       common /hot_hinverse/ hinverse(MAXBXD,MAXBOX,3,3)
+       target hinverse
+
+C     --- RCUTINSQ: inner cutoff squared (Phase 6 P6) ---
+       double precision rcutinsq
+       common /hot_rcutinsq/ rcutinsq
+       target rcutinsq
+
+C     --- LUSECOM: COM cutoff flag (Phase 6 P6) ---
+       logical lusecom
+       common /hot_lusecom/ lusecom
+       target lusecom

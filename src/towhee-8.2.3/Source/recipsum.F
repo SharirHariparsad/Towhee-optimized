@@ -41,15 +41,22 @@ c     --- integer scalars
       integer nkx,nky,nkz,nky_min,nky_max,nkz_min,nkz_max
       integer ichain,iunit,imolty,ncount,nchain,nunit,kmax,testboxi
 c     --- double precision scalars
-      double precision ksqr,sumr,sumi,arg,invvol,invalpsq4
-      double precision n_one,n_two,n_thr,rxui,ryui,rzui,twopi,qqfact
-      double precision charge,kx,ky,kz,prefact,calp
-      double precision hinv1,hinv2,hinv3,boxvolume
+       double precision ksqr,sumr,sumi,arg,invvol,invalpsq4
+       double precision n_one,n_two,n_thr,rxui,ryui,rzui,twopi,qqfact
+       double precision charge,kx,ky,kz,prefact,calp
+       double precision boxvolume
+       double precision hinv
+       dimension hinv(3,3)
 #ifdef HOT_PATH_INLINE
 c     --- Phase 5: calp zero-copy via COMMON (shared with globaldata.F)
-      double precision c_ewald_calp
-      dimension c_ewald_calp(MAXBXD,0:MAXBOX)
-      common /hot_ewald_calp/ c_ewald_calp
+       double precision c_ewald_calp
+       dimension c_ewald_calp(MAXBXD,0:MAXBOX)
+       common /hot_ewald_calp/ c_ewald_calp
+c     --- Phase 6 P9.1: hinverse zero-copy (shared with globaldata.F)
+c         Declared here for direct read; fallback to cached copy
+       double precision c_hinv
+       dimension c_hinv(MAXBXD,MAXBOX,3,3)
+       common /hot_hinverse/ c_hinv
 #endif
 
 c     --- retrieve constants
@@ -75,10 +82,35 @@ c        --- no vectors
 c     --- set up some ewald constants
       invalpsq4 = 1.0d0/(4.0d0*calp*calp)
 c     --- set up the inverse volume along with the charge factor
-      call twh_boxvolume(GLB_GET,bxdflag,ibox,boxvolume)
-      invvol = qqfact*2.0d0*twopi/boxvolume
+       call twh_boxvolume(GLB_GET,bxdflag,ibox,boxvolume)
+       invvol = qqfact*2.0d0*twopi/boxvolume
 
-      do nkx = 0, kmax
+c     --- Phase 6 P9.1: hoist hinverse (constant for this box)
+c         Was 9 x twh_hinverse per k-vector (~15k calls, 5184 vectors)
+c         Now 9 calls total. HPI path reads COMMON directly.
+#ifdef HOT_PATH_INLINE
+       hinv(1,1)=c_hinv(bxdflag,ibox,1,1)
+       hinv(1,2)=c_hinv(bxdflag,ibox,1,2)
+       hinv(1,3)=c_hinv(bxdflag,ibox,1,3)
+       hinv(2,1)=c_hinv(bxdflag,ibox,2,1)
+       hinv(2,2)=c_hinv(bxdflag,ibox,2,2)
+       hinv(2,3)=c_hinv(bxdflag,ibox,2,3)
+       hinv(3,1)=c_hinv(bxdflag,ibox,3,1)
+       hinv(3,2)=c_hinv(bxdflag,ibox,3,2)
+       hinv(3,3)=c_hinv(bxdflag,ibox,3,3)
+#else
+       call twh_hinverse(GLB_GET,bxdflag,ibox,1,1,hinv(1,1))
+       call twh_hinverse(GLB_GET,bxdflag,ibox,1,2,hinv(1,2))
+       call twh_hinverse(GLB_GET,bxdflag,ibox,1,3,hinv(1,3))
+       call twh_hinverse(GLB_GET,bxdflag,ibox,2,1,hinv(2,1))
+       call twh_hinverse(GLB_GET,bxdflag,ibox,2,2,hinv(2,2))
+       call twh_hinverse(GLB_GET,bxdflag,ibox,2,3,hinv(2,3))
+       call twh_hinverse(GLB_GET,bxdflag,ibox,3,1,hinv(3,1))
+       call twh_hinverse(GLB_GET,bxdflag,ibox,3,2,hinv(3,2))
+       call twh_hinverse(GLB_GET,bxdflag,ibox,3,3,hinv(3,3))
+#endif
+
+       do nkx = 0, kmax
 c        --- set the double precision version of nkx
          n_one = dble(nkx)
          nky_max = int(dsqrt(dble(kmax)**2 - n_one**2))
@@ -112,19 +144,13 @@ c              --- safety check total number of vectors
 c              --- set up the k vectors, these are written as variable
 c              --- h in the Dean Wheeler primer
 c              --- note that we are taking the dot products of n with
-c              --- hinverse-transpose
-               call twh_hinverse(GLB_GET,bxdflag,ibox,1,1,hinv1)
-               call twh_hinverse(GLB_GET,bxdflag,ibox,1,2,hinv2)
-               call twh_hinverse(GLB_GET,bxdflag,ibox,1,3,hinv3)
-               kx = twopi*(n_one*hinv1 + n_two*hinv2 + n_thr*hinv3)
-               call twh_hinverse(GLB_GET,bxdflag,ibox,2,1,hinv1)
-               call twh_hinverse(GLB_GET,bxdflag,ibox,2,2,hinv2)
-               call twh_hinverse(GLB_GET,bxdflag,ibox,2,3,hinv3)
-               ky = twopi*(n_one*hinv1 + n_two*hinv2 + n_thr*hinv3)
-               call twh_hinverse(GLB_GET,bxdflag,ibox,3,1,hinv1)
-               call twh_hinverse(GLB_GET,bxdflag,ibox,3,2,hinv2)
-               call twh_hinverse(GLB_GET,bxdflag,ibox,3,3,hinv3)
-               kz = twopi*(n_one*hinv1 + n_two*hinv2 + n_thr*hinv3)
+c              --- hinverse-transpose (Phase 6 P9.1: hoisted)
+                kx = twopi*(n_one*hinv(1,1) + n_two*hinv(1,2)
+     &               + n_thr*hinv(1,3))
+                ky = twopi*(n_one*hinv(2,1) + n_two*hinv(2,2)
+     &               + n_thr*hinv(2,3))
+                kz = twopi*(n_one*hinv(3,1) + n_two*hinv(3,2)
+     &               + n_thr*hinv(3,3))
                call twh_ewald_kvector(GLB_SET,crdflag,ncount,ibox
      &              ,kx,ky,kz)
 c              --- take the dot product of k with itself

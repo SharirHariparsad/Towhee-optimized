@@ -60,8 +60,18 @@ C     --- hmatrix / halfbox (Phase 1.1 zero-copy mimage) ---
       common /hot_halfbox/ halfbox
 
 C     --- Ewald calp (Phase 5: precomputed, vectorized) ---
-      real(8), target :: ewald_calp(hp_MAXBXD, 0:hp_MAXBOX)
-      common /hot_ewald_calp/ ewald_calp
+       real(8), target :: ewald_calp(hp_MAXBXD, 0:hp_MAXBOX)
+       common /hot_ewald_calp/ ewald_calp
+
+C     --- hinverse (Phase 6 P9.1) ---
+       real(8), target :: hinverse(hp_MAXBXD, hp_MAXBOX, 3, 3)
+       common /hot_hinverse/ hinverse
+
+C     --- rcutinsq / lusecom (Phase 6 P6) ---
+       real(8), target :: rcutinsq
+       common /hot_rcutinsq/ rcutinsq
+       logical, target :: lusecom
+       common /hot_lusecom/ lusecom
 
 C     --- POINTER aliases into COMMON storage (hot-path zero-copy) ---
       integer, pointer, contiguous :: ntype_arr(:,:) => null()
@@ -76,9 +86,12 @@ C     --- POINTER aliases into COMMON storage (hot-path zero-copy) ---
       logical, pointer :: lshift_val => null()
       logical, pointer :: lewald_val => null()
       logical, pointer :: lelect_val => null()
-      real(8), pointer, contiguous :: hmatrix_arr(:,:,:,:) => null()
-      real(8), pointer, contiguous :: halfbox_arr(:,:,:) => null()
-      real(8), pointer, contiguous :: ewald_calp_arr(:,:) => null()
+       real(8), pointer, contiguous :: hmatrix_arr(:,:,:,:) => null()
+       real(8), pointer, contiguous :: halfbox_arr(:,:,:) => null()
+       real(8), pointer, contiguous :: ewald_calp_arr(:,:) => null()
+       real(8), pointer, contiguous :: hinverse_arr(:,:,:,:) => null()
+       real(8), pointer :: rcutinsq_val => null()
+       logical, pointer :: lusecom_val => null()
 
 C     --- Zero-copy coordinate access (C-allocated arrays) ---
       real(8), pointer, contiguous :: coord_real_arr(:,:) => null()
@@ -136,9 +149,12 @@ C           globaldata.F accessor subroutines (zero-copy) ---
         lshift_val  => lshift
         lewald_val  => lewald
         lelect_val  => lelect
-        hmatrix_arr => hmatrix
-        halfbox_arr => halfbox
-        ewald_calp_arr => ewald_calp
+         hmatrix_arr => hmatrix
+         halfbox_arr => halfbox
+         ewald_calp_arr => ewald_calp
+         hinverse_arr => hinverse
+         rcutinsq_val => rcutinsq
+         lusecom_val => lusecom
 
 C       --- nbcoeff flat copies via accessor (not direct COMMON read)
 C           This guarantees post-mixing-rule values are captured.

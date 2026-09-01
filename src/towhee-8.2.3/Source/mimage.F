@@ -82,46 +82,47 @@ c           --- hmatrix operations
 c           --- find the minimum image
             idim = 1
 #ifdef HOT_PATH_INLINE
+c           --- Phase 6 P10: branchless min image via anint
             hmvalue = c_hmxc(bxdflag,ibox,idim,idim)
-            hbx = c_hbxc(bxdflag,ibox,idim)
+            rxuij = rxuij - anint(rxuij / hmvalue) * hmvalue
 #else
             call twh_hmatrix(GLB_GET,bxdflag,ibox,idim,idim,hmvalue)
             call twh_halfbox(GLB_GET,bxdflag,ibox,idim,hbx)
-#endif
             do while ( twh_cmp_gt(rxuij, hbx) )
                rxuij = rxuij - hmvalue
             enddo
             do while ( twh_cmp_lt(rxuij, -hbx) )
                rxuij = rxuij + hmvalue
             enddo
+#endif
             idim = 2
 #ifdef HOT_PATH_INLINE
             hmvalue = c_hmxc(bxdflag,ibox,idim,idim)
-            hbx = c_hbxc(bxdflag,ibox,idim)
+            ryuij = ryuij - anint(ryuij / hmvalue) * hmvalue
 #else
             call twh_hmatrix(GLB_GET,bxdflag,ibox,idim,idim,hmvalue)
             call twh_halfbox(GLB_GET,bxdflag,ibox,idim,hbx)
-#endif
             do while ( twh_cmp_gt(ryuij, hbx) )
                ryuij = ryuij - hmvalue
             enddo
             do while ( twh_cmp_lt(ryuij, -hbx) )
                ryuij = ryuij + hmvalue
             enddo
+#endif
             idim = 3
 #ifdef HOT_PATH_INLINE
             hmvalue = c_hmxc(bxdflag,ibox,idim,idim)
-            hbx = c_hbxc(bxdflag,ibox,idim)
+            rzuij = rzuij - anint(rzuij / hmvalue) * hmvalue
 #else
             call twh_hmatrix(GLB_GET,bxdflag,ibox,idim,idim,hmvalue)
             call twh_halfbox(GLB_GET,bxdflag,ibox,idim,hbx)
-#endif
             do while ( twh_cmp_gt(rzuij, hbx) )
                rzuij = rzuij - hmvalue
             enddo
             do while ( twh_cmp_lt(rzuij, -hbx) )
                rzuij = rzuij + hmvalue
             enddo
+#endif
          else
 c           --- non-rectangular simulation cell
 c           --- shift the coordinate system

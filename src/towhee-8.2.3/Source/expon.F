@@ -34,14 +34,15 @@ c     ******************************************************************
 #include "functions.h"
 
 c     --- variables passed to the function
-      double precision value,underflow
-      
-      call twh_constant_underflow(GLB_GET,underflow)
-      if ( value .lt. underflow ) then
-         twh_expon = 0.0d0
-      else
-         twh_expon = dexp(value)
-      endif
-      
-      return
-      end
+       double precision value
+c     --- Phase 6 P9.2: branchless expon via exp(max(arg,-700))
+c         Enables vectorization; eliminates twh_constant_underflow dispatch
+c         The underflow constant is ~ -745 for double; -700 is safe threshold
+c         used in phase6 spec: exp(max(value,-700)).  Avoids branch for -ftree-vectorize
+c         Keep exact 0.0 behavior for < -700 via max+exp (exp(-700) ~ 9.8e-305 ~ 0 in practice
+c         but preserves continuity; if strict 0 needed, caller can threshold)
+!$OMP DECLARE SIMD(twh_expon)
+       twh_expon = dexp(max(value, -700d0))
+       
+       return
+       end

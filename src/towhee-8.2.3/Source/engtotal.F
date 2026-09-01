@@ -270,47 +270,23 @@ C     Phase 4: DECLARE SIMD - allows vectorizer to call from SIMD loop
 C     ==================================================================
 !$OMP DECLARE SIMD(inline_mimage)
       subroutine inline_mimage(bxdflag, ibox, rxuij, ryuij, rzuij)
-        use engtotal_globals, only: halfbox_arr, hmatrix_arr
+        use engtotal_globals, only: hmatrix_arr
         implicit none
         integer, intent(in) :: bxdflag, ibox
         real(8), intent(inout) :: rxuij, ryuij, rzuij
-        integer :: idim
-        real(8) :: hmvalue, hbx
-
+        real(8) :: hmvalue
         if (ibox .eq. 0) return
-
-C       --- rectangular box: simple min image using halfbox lengths
-C       --- zero-copy: direct array access into COMMON storage shared
-C           with twh_hmatrix / twh_halfbox (Phase 1.1) ---
-        idim = 1
-        hbx = halfbox_arr(bxdflag, ibox, idim)
-        hmvalue = hmatrix_arr(bxdflag, ibox, idim, idim)
-        do while (rxuij .gt. hbx)
-           rxuij = rxuij - hmvalue
-        enddo
-        do while (rxuij .lt. -hbx)
-           rxuij = rxuij + hmvalue
-        enddo
-
-        idim = 2
-        hbx = halfbox_arr(bxdflag, ibox, idim)
-        hmvalue = hmatrix_arr(bxdflag, ibox, idim, idim)
-        do while (ryuij .gt. hbx)
-           ryuij = ryuij - hmvalue
-        enddo
-        do while (ryuij .lt. -hbx)
-           ryuij = ryuij + hmvalue
-        enddo
-
-        idim = 3
-        hbx = halfbox_arr(bxdflag, ibox, idim)
-        hmvalue = hmatrix_arr(bxdflag, ibox, idim, idim)
-        do while (rzuij .gt. hbx)
-           rzuij = rzuij - hmvalue
-        enddo
-        do while (rzuij .lt. -hbx)
-           rzuij = rzuij + hmvalue
-        enddo
+C       --- Phase 6 P10: branchless min image using nint
+C       --- replaces do while (rx > hbx) rx-=hm loops (trip 0-1)
+C           with single rounded shift.  Equivalent for orthorhombic:
+C           rx' = rx - nint(rx/hm)*hm  maps to [-hm/2, hm/2]
+C           Enables SIMD vectorization (no loop-carried branch)
+        hmvalue = hmatrix_arr(bxdflag, ibox, 1, 1)
+        rxuij = rxuij - anint(rxuij / hmvalue) * hmvalue
+        hmvalue = hmatrix_arr(bxdflag, ibox, 2, 2)
+        ryuij = ryuij - anint(ryuij / hmvalue) * hmvalue
+        hmvalue = hmatrix_arr(bxdflag, ibox, 3, 3)
+        rzuij = rzuij - anint(rzuij / hmvalue) * hmvalue
       end subroutine inline_mimage
 
 C     ==================================================================
@@ -372,7 +348,7 @@ c     * last modified 03-29-2020 by M.G. Martin                        *
 c     ******************************************************************
 #ifdef HOT_PATH_INLINE
       use engtotal_globals, only: ntype_arr, luse_c_arr, luse_v_arr
-     &     , qqscale_arr, rcutsq_val, rminsq_val, lelect_val
+     &     , nunit_arr, qqscale_arr, rcutsq_val, rminsq_val, lelect_val
      &     , lewald_val, lshift_val
      &     , coord_real_arr, coord_temp_arr
 #endif
@@ -410,8 +386,9 @@ c     --- vforeign
      &      vftwo(MAX_FOREIGN_LAMBDA)
 #ifdef HOT_PATH_INLINE
 c     --- inline path local variables
+c         Phase 6 P6: hoist globalpos per chain
        logical lonefour_global
-        integer ntij, i_atom, j_atom
+        integer ntij, i_atom, j_atom, gpos_i, gpos_j
         integer inline_atomnum
 c     --- inline function declarations (defined in vtwobody.F, vcoulomb.F)
        double precision inline_lj_12_6, inline_coulomb
@@ -451,14 +428,19 @@ c     --- precompute lonefour flag from cutstyle
       lonefour_global = (cutstyle .eq. 3)
 #endif
 #ifdef USEOPENMP
-!$OMP PARALLEL DO SCHEDULE(DYNAMIC, 8) PRIVATE(ichain, jchain, testboxi, testboxj, imolty, jmolty, numiunit, numjunit, lcompute, lmovemei, lmovemej, xcmi, ycmi, zcmi, rcmi, xcmj, ycmj, zcmj, rcmj, rcm, rcmsq, rijsq, rij, rxuij, ryuij, rzuij, rxui, ryui, rzui, rxuj, ryuj, rzuj, ii, jj, ntii, ntjj, luse_ci, luse_vi, luse_cj, luse_vj, leval_v, leval_c, ntij, vcoulomb, dvdl, l, vf, lovrlap) FIRSTPRIVATE(lfailure, lonefour_global) SHARED(nchain, ibox, crdflag, bxdflag, lmolecmove, lmovelist, cutstyle, lelect, lusecom, lmadelung, scp_num_foreign_lambda, rcelect, lomp_failure) REDUCTION(+:vtwointer, velectinter, dl_twointer, dl_elect) REDUCTION(+:vftwo, vfelec) REDUCTION(min:maddist)
+!$OMP PARALLEL DO SCHEDULE(DYNAMIC, 8) PRIVATE(ichain, jchain, testboxi, testboxj, imolty, jmolty, numiunit, numjunit, lcompute, lmovemei, lmovemej, xcmi, ycmi, zcmi, rcmi, xcmj, ycmj, zcmj, rcmj, rcm, rcmsq, rijsq, rij, rxuij, ryuij, rzuij, rxui, ryui, rzui, rxuj, ryuj, rzuj, ii, jj, ntii, ntjj, luse_ci, luse_vi, luse_cj, luse_vj, leval_v, leval_c, ntij, vcoulomb, dvdl, l, vf, lovrlap, i_atom, j_atom, gpos_i, gpos_j) FIRSTPRIVATE(lfailure, lonefour_global) SHARED(nchain, ibox, crdflag, bxdflag, lmolecmove, lmovelist, cutstyle, lelect, lusecom, lmadelung, scp_num_foreign_lambda, rcelect, lomp_failure) REDUCTION(+:vtwointer, velectinter, dl_twointer, dl_elect) REDUCTION(+:vftwo, vfelec) REDUCTION(min:maddist)
 #endif
       do ichain = 1, nchain - 1
 c        --- check if i is in relevant box
          call twh_nboxi(GLB_GET,ichain,testboxi)
          if ( testboxi .eq. ibox ) then
             call twh_moltyp(GLB_GET,ichain,imolty)
+#ifdef HOT_PATH_INLINE
+            numiunit = nunit_arr(imolty)
+            call twh_globalpos(GLB_GET,ichain,gpos_i)
+#else
             call twh_nunit(GLB_GET,imolty,numiunit)
+#endif
             if ( lmolecmove ) then
                call twh_com(GLB_GET,crdflag,ichain,xcmi,ycmi,zcmi)
                call twh_rcmu(GLB_GET,ichain,rcmi)
@@ -473,7 +455,12 @@ c              --- check for simulation box
                call twh_nboxi(GLB_GET,jchain,testboxj)
                if ( testboxj .eq. ibox ) then
                   call twh_moltyp(GLB_GET,jchain,jmolty)
+#ifdef HOT_PATH_INLINE
+                  numjunit = nunit_arr(jmolty)
+                  call twh_globalpos(GLB_GET,jchain,gpos_j)
+#else
                   call twh_nunit(GLB_GET,jmolty,numjunit)
+#endif
                   lcompute = .true.
                   if ( lmovelist ) then
 c                    --- see if at least one of these molecules is on
@@ -514,35 +501,36 @@ c                    --- for ntype, luse_c, luse_v, qqscale.
 c                    --- Coordinates use zero-copy coord_real_arr/coord_temp_arr
 c                    --- based on crdflag (CRD_REAL=3001, CRD_TEMP=3002).
                          do ii = 1,numiunit
-                            ntii = ntype_arr(imolty, ii)
-                            i_atom = (inline_atomnum(ichain, ii) + 2)/3
-                            if (crdflag .eq. 3001) then
-                               rxui = coord_real_arr(1, i_atom)
-                               ryui = coord_real_arr(2, i_atom)
-                               rzui = coord_real_arr(3, i_atom)
-                            else
-                               rxui = coord_temp_arr(1, i_atom)
-                               ryui = coord_temp_arr(2, i_atom)
-                               rzui = coord_temp_arr(3, i_atom)
-                            endif
-                             luse_ci = luse_c_arr(imolty, ii)
-                             luse_vi = luse_v_arr(imolty, ii)
+                             ntii = ntype_arr(imolty, ii)
+c                            --- Phase 6 P6: hoisted globalpos (one per chain)
+                             i_atom = (gpos_i + 3*(ii-1) + 2)/3
+                             if (crdflag .eq. 3001) then
+                                rxui = coord_real_arr(1, i_atom)
+                                ryui = coord_real_arr(2, i_atom)
+                                rzui = coord_real_arr(3, i_atom)
+                             else
+                                rxui = coord_temp_arr(1, i_atom)
+                                ryui = coord_temp_arr(2, i_atom)
+                                rzui = coord_temp_arr(3, i_atom)
+                             endif
+                              luse_ci = luse_c_arr(imolty, ii)
+                              luse_vi = luse_v_arr(imolty, ii)
 c                       --- loop over all beads jj of chain j
 c                       --- Phase 4: SIMD vectorize inner pair loop (branches
 c                           inside remain scalar but arithmetic is vectorized)
 !$OMP SIMD
-                            do jj = 1, numjunit
-                               ntjj = ntype_arr(jmolty, jj)
-                               j_atom = (inline_atomnum(jchain, jj) + 2)/3
-                              if (crdflag .eq. 3001) then
-                                 rxuj = coord_real_arr(1, j_atom)
-                                 ryuj = coord_real_arr(2, j_atom)
-                                 rzuj = coord_real_arr(3, j_atom)
-                              else
-                                 rxuj = coord_temp_arr(1, j_atom)
-                                 ryuj = coord_temp_arr(2, j_atom)
-                                 rzuj = coord_temp_arr(3, j_atom)
-                              endif
+                             do jj = 1, numjunit
+                                ntjj = ntype_arr(jmolty, jj)
+                                j_atom = (gpos_j + 3*(jj-1) + 2)/3
+                               if (crdflag .eq. 3001) then
+                                  rxuj = coord_real_arr(1, j_atom)
+                                  ryuj = coord_real_arr(2, j_atom)
+                                  rzuj = coord_real_arr(3, j_atom)
+                               else
+                                  rxuj = coord_temp_arr(1, j_atom)
+                                  ryuj = coord_temp_arr(2, j_atom)
+                                  rzuj = coord_temp_arr(3, j_atom)
+                               endif
                               luse_cj = luse_c_arr(jmolty, jj)
                               luse_vj = luse_v_arr(jmolty, jj)
 c                          --- check if nonzero interaction sites
