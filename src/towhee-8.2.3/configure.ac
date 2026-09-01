@@ -12,9 +12,6 @@ AM_INIT_AUTOMAKE([subdir-objects])
 # and automake.
 AM_MAINTAINER_MODE
 
-# Initialize stuff for automake
-AM_INIT_AUTOMAKE
-
 # Define the argument to configure script to use internal erfs
 AC_ARG_ENABLE(internal,
      [  --enable-interal   Compile version using internal erfs],
@@ -91,6 +88,16 @@ AM_CONDITIONAL(UseOpenMP, test x$UseOpenMP = xtrue)
 AS_IF([test "x$UseOpenMP" = xtrue], [
   AC_DEFINE([USEOPENMP], [1], [Define if OpenMP is enabled])
 ])
+
+# Phase 6 P11: PGO support
+AC_ARG_ENABLE(pgo,
+     [  --enable-pgo   Enable profile-guided optimization ( -fprofile-generate / -fprofile-use )],
+     [case "${enableval}" in
+       yes) UsePGO=true ;;
+       no)  UsePGO=false ;;
+       *) AC_MSG_ERROR(bad value ${enableval} for --enable-pgo) ;;
+     esac;echo "UsePGO is $UsePGO"],[UsePGO=false])
+AM_CONDITIONAL(UsePGO, test x$UsePGO = xtrue)
 
 # Phase 4: capture whether user set FFLAGS/CFLAGS before compilers set defaults.
 # Must be before AC_PROG_CC/F77 which would set defaults to -g -O2.
