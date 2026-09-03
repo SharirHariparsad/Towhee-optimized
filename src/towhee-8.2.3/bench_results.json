@@ -1,0 +1,15 @@
+[
+  {
+    "timestamp": "2026-09-01T09:07:17",
+    "simulation": "SPC_E_WATER",
+    "threads": 1,
+    "repeats": 3,
+    "original_mean": 6.1876287983333595,
+    "original_min": 6.154777820000163,
+    "original_stdev": 0.05516415361534052,
+    "optimized_mean": 4.68746148400002,
+    "optimized_min": 4.682129139000153,
+    "optimized_stdev": 0.005160212894963048,
+    "speedup": 1.3200383233982713
+  }
+]
