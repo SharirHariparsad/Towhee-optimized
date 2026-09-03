@@ -2,7 +2,7 @@
   "original": "/home/sharir/towhee-8.2.3/Source/towhee",
   "optimized": "src/towhee-8.2.3/Source/towhee",
   "run_dir": "tests/TraPPE_Pentane",
-  "threads": 8,
-  "repeats": 20,
+  "threads": 16,
+  "repeats": 50,
   "warmup": 5
 }
