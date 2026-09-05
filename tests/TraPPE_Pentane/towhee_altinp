@@ -19,7 +19,7 @@ numboxes
 stepstyle
 'cycles  '
 nstep
-           1
+          50
 controlstyle
 'manual              '
 printfreq
@@ -59,7 +59,7 @@ chempotperstep
 loutchempotdata
  F
 linit
- F
+ T
 initboxtype
 'dimensions          '
 initstyle

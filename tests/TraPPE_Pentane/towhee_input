@@ -11,7 +11,7 @@ numboxes
 stepstyle
 'cycles'
 nstep
-1
+50
 printfreq 
 1   
 blocksize 
@@ -31,7 +31,7 @@ trmaxdispfreq
 volmaxdispfreq
 1000
 linit   
-.false. 
+.true. 
 initboxtype
 'dimensions'
 initstyle
