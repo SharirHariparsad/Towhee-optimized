@@ -6,7 +6,7 @@
 
 Active work is documented in `openspec/live_specs/`: `optimization_plan.md` (Phases 1–5 complete, HPI serial deliverable) and `phase6_additional_improvements.md` (Phases 6+ proposal). The only build worktree is `src/towhee-8.2.3/`; everything else (`.git`, `openspec/`, `tests/`, root reports) is meta.
 
-**Current status (2026-09-01):** Phase 5 complete — Ewald `calp` COMMON zero-copy + `recipsum` SIMD, Phase 4 vector flags + SIMD + `1e-6` tolerance, Phase 3 MPI sync + `MPI_THREAD_FUNNELED`, Phases 1–2 accessor/CBMC zero-copy. **HPI serial (`HOT_PATH_INLINE`) is the production build** — `0 diff` vs `answer_current` on `tests/SPC_E_WATER`. OpenMP (`--enable-openmp`, `engtotal.F:335` `twh_engtotal_twobody`) is **out-of-scope**: pre-existing deterministic corruption from move 1 (see `optimization_plan.md:25`).
+**Current status (2026-09-20):** Phase 5 complete — Ewald `calp` COMMON zero-copy + `recipsum` SIMD, Phase 4 vector flags + SIMD + `1e-6` tolerance, Phase 3 MPI sync + `MPI_THREAD_FUNNELED`, Phases 1–2 accessor/CBMC zero-copy. OpenMP corruption **root-caused 2026-09-20**: missing `save` on Ewald `ssumi`/`ssuminew`/`ssumr`/`ssumrnew` (`globaldata.F:5592,5670`) exposed by `-fopenmp`→`-frecursive`; with the 2-line fix `--enable-openmp` passes SPC_E_WATER at 1T and 4T. **Known regressions in the current tree**: HPI serial crashes on the 5000-mol SPC_E_WATER input (`coord_temp_arr` index 15001, `energy.F:394` — Phase-6 P6 zero-copy bug), and `--enable-openmp` does not compile out of the box (see `optimization_plan.md:25`).
 
 ---
 
@@ -111,9 +111,9 @@ Regression matrix (`optimization_plan.md:358`): HPI serial `SPC_E_WATER` strict 
 
 P6 differential zero-copy (`energy.F:164` `twh_coordinates_` `65M/2.5%`, `twh_globalpos` `engtotal.F:256` → `atomnum_arr`), P7 RNG `initialize.F:42` `RANLUX 0 → DX_1597_2_7 5` (`11% → ~2%`), P10 branchless `mimage.F:199`, P8 coeff caches (`vangle.F:126`), P9 Ewald hoist (`recipsum.F:116` `15k→9`), P11 LTO/PGO, P12 I/O + `cbmcbendinfo` layout, P13 cell list (`>50K` only). Projected `1.35–1.55×` small / `1.80–2.50×` large `/ 5–10× (>50K with cell list)` vs plain.
 
-### OpenMP Scope Decision
+### OpenMP Scope Decision — CORRECTED 2026-09-20
 
-**Dropped.** OMP on `engtotal.F:335` ceiling `1.03×` (`0.25%`). Build corrupts from move 1 even with `PARALLEL DO` disabled / `-fno-recursive`; plain `--enable-openmp` without HPI fails `121 diff` at `1T`. Suspected `gfortran -fopenmp → -frecursive` vs F77 `SAVE`/`COMMON`. HPI serial is the deliverable.
+**Not a runtime/parallel bug — root cause found.** The "corruption from move 1" was a **missing `save` on the Ewald partial-sum locals** in `globaldata.F:5592,5670` (`ssumi`/`ssuminew`/`ssumr`/`ssumrnew` — only the `*old` arrays are `save`d), exposed by gfortran's `-fopenmp`→ implied `-frecursive` (F77 locals become stack-automatic). Proof: `-frecursive` **alone** (no OpenMP) reproduces the corruption **byte-identically** to `--enable-openmp`; per-file `-frecursive` bisection isolated it to `globaldata.o`; the 2-line `save` fix makes a full `-frecursive` build byte-identical to plain serial. **`--enable-openmp` now passes SPC_E_WATER at 1T and 4T** (with the `save` fix + declaring `i_atom/j_atom/gpos_i/gpos_j` in the `#else` block of `engtotal.F:392`, since the `!$OMP PARALLEL DO` `PRIVATE` clause referenced HPI-only locals). Still latency-limited: OMP target `engtotal.F:335` is `0.25%` → Amdahl ceiling `1.03×`. **Known current-tree breakages**: Phase-4 `!$OMP DECLARE SIMD` on `vtwobody.F:887` fails to compile under `-fopenmp`, and HPI serial crashes on the 5000-mol SPC_E_WATER input (`coord_temp_arr` index 15001 at `energy.F:394`, Phase-6 P6 zero-copy bug, independent of OpenMP). Full detail: `optimization_plan.md:25`.
 
 ### Historical Fixes Consolidated (from `BUILD_RECIPE.md`)
 

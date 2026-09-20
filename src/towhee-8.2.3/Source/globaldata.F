@@ -5610,6 +5610,7 @@ c     --- storage variable
       double precision ssumiold
       dimension ssumiold(VECTORMAX,MAXBOX)
       save ssumiold
+      save ssumi,ssuminew
 
       if ( flag .eq. GLB_GET ) then
          if ( cordflag .eq. CRD_REAL ) then
@@ -5688,6 +5689,7 @@ c     --- storage variable
       double precision ssumrold
       dimension ssumrold(VECTORMAX,MAXBOX)
       save ssumrold
+      save ssumr,ssumrnew
 
       if ( flag .eq. GLB_GET ) then
          if ( cordflag .eq. CRD_REAL ) then

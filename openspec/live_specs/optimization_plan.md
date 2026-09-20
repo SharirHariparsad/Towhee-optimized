@@ -22,19 +22,31 @@
 
 ---
 
-## OpenMP Scope Decision (2026-08-31)
+## OpenMP Scope Decision — CORRECTED 2026-09-20 (was "dropped"; root cause found)
 
-**Decision**: OpenMP is dropped from scope for Phase 1.1. The deliverable is the **HOT_PATH_INLINE (HPI) serial** build, which passes the SPC_E_WATER regression exactly (0 diff lines vs `answer_current`). The OpenMP build is **not usable** — see below.
+**Original decision (2026-08-31)**: OpenMP dropped from scope — "the `-fopenmp`/`--enable-openmp` configuration itself deterministically corrupts shared program state ... suspected interaction of the gfortran OpenMP runtime with F77 static locals / COMMON memory layout, high-effort, out of scope."
 
-**Findings (isolated by experiment, all deterministic)**:
+**Corrected root cause (verified by isolated experiments, 2026-09-20)**: the corruption is **NOT** an OpenMP runtime issue, a race, or the parallel region. It is a **missing `save` on the Ewald reciprocal-space partial-sum arrays**, which gfortran's `-fopenmp` exposes via its implied `-frecursive` flag:
 
-1. **The OpenMP build corrupts results from the very first MC move.** The 2nd energy call reads the same CRD_REAL coordinate buffer but at atom 241 instead of 85 (wrong `inline_atomnum`/molecule-to-atom mapping), producing an impossible negative VDW energy. The trajectory then diverges from step 0.
-2. **Not the parallel loop.** With the `!$OMP PARALLEL DO` directive disabled (plain serial loop), the `-fopenmp` build still reproduces the identical wrong energy on call 2.
-3. **Not `-frecursive`.** Adding `-fno-recursive` (gfortran OpenMP implies `-frecursive`, breaking F77 implicit-SAVE statics) does not change the corruption.
-4. **Not an OpenMP-gated code path elsewhere.** `engtotal.F` is the only file with `#ifdef USEOPENMP`; the RNG has no OpenMP branches.
-5. **Pre-existing, independent of HPI.** `--enable-openmp` WITHOUT `HOT_PATH_INLINE` also fails: 121 diff lines vs gold at `OMP_NUM_THREADS=1`.
+- `globaldata.F:5592` `twh_ewald_ssumi` declares `ssumi`/`ssuminew` as **implicit-SAVE locals** (only `ssumiold` gets `save` at `globaldata.F:5612`).
+- `globaldata.F:5670` `twh_ewald_ssumr` has the same pattern (`ssumr`/`ssumrnew` un-saved; `ssumrold` saved at 5690).
+- These arrays persist **across calls** (CRD_REAL/CRD_TEMP/TRL_NEW partial sums accumulate over multiple `twh_ewald_ssumi`/`twh_ewald_ssumr` invocations). Under `-frecursive` they become stack-automatic and their contents are clobbered between calls → garbage Ewald terms → wrong energies from move 1.
+- **Fix (2 lines)**: add `save ssumi,ssuminew` and `save ssumr,ssumrnew`. With this fix, a **full `-frecursive` build is byte-identical to plain serial** on SPC_E_WATER.
 
-**Conclusion**: the `-fopenmp`/`--enable-openmp` configuration itself deterministically corrupts shared program state (atom indexing) from the first move, in code untouched by the HPI path. Root-causing it (suspected interaction of the gfortran OpenMP runtime with F77 static locals / COMMON memory layout) is a separate, high-effort effort and is explicitly **out of scope** for Phase 1.1.
+**Evidence (isolated builds, `--enable-safe-compare`, SPC_E_WATER, 5000-mol input)**:
+1. `-frecursive` **alone** (no OpenMP anywhere) reproduces the corruption **byte-identically** to the `--enable-openmp` build (203 diff lines, same first divergence `-0.2661E+04/40` → `-0.2565E+04/43`). → proves compiler-flag side effect, not runtime.
+2. `-fopenmp` with **all `!$OMP` directives stripped** (libgomp linked, zero pragmas active) corrupts identically too. → not the parallel region.
+3. `-finit-integer=-777` does not change the corrupt output → not an uninitialized integer; `-finit-real=nan` hangs in the swap/chempot path → an uninitialized **real**.
+4. Per-file `-frecursive` bisection isolated the corruption to **`globaldata.o`**; the compiler's own `-Wmaybe-uninitialized` flags (`ssumi`,`ssuminew`,`ssumr`,`ssumrnew`) matched exactly.
+5. `-fno-recursive` does **not** cleanly undo it (changes the failure to a bounds error) — consistent with flag ordering; the earlier "-fno-recursive didn't fix" test is therefore not evidence against `-frecursive`.
+
+**Status after fix (2026-09-20)**: `--enable-openmp` (non-HPI) with (a) the 2-line `save` fix and (b) declaring `i_atom,j_atom,gpos_i,gpos_j` in the `#else` block of `engtotal.F:392` (the `!$OMP PARALLEL DO` `PRIVATE` clause referenced HPI-only locals, breaking the plain build's compile) now **passes SPC_E_WATER at both `OMP_NUM_THREADS=1` and `=4`**. OpenMP is no longer "unusable"; it is only latency-limited (`engtotal_twobody` = 0.25% → Amdahl ceiling ~1.03×). NOTE: thread-safety of `ssumi`/`ssumr` inside the parallel region is not yet audited.
+
+**Two additional compile-time breakages found in the current tree** (the original "corrupts at move 1 / 121 diff" report predates them):
+- Phase-4 `!$OMP DECLARE SIMD(vtb_lennard_jones)` at `vtwobody.F:887` fails to compile under `-fopenmp`.
+- Plain `--enable-openmp` (no HPI) fails to compile: `engtotal.F:428` `PRIVATE` clause references HPI-only locals (fixed above).
+
+**Separate pre-existing bug (not OpenMP-related)**: plain **HPI serial** crashes on the current 5000-mol SPC_E_WATER input with `coord_temp_arr` index `15001` at `energy.F:394` (out of `15000`). This is the Phase-6 P6 zero-copy differential path indexing a CBMC newly-grown test chain's `globalpos` that is not valid in the flat array — the non-HPI path (which passes) avoids it. Independent of OpenMP and `-frecursive`; must be fixed before HPI is a valid production build for CBMC-insertion systems.
 
 **Benchmark note (SPC_E_WATER)**: HPI serial vs plain serial run at parity (~1.32 s vs ~1.33 s min of 3). The plan's own profile shows `engtotal_twobody` at 0.25% of runtime, so Phase 1.1's accessor-elimination gain is below measurement noise on this example. Real Phase 1 gains require tackling the dominant hotspots (accessor chains in CBMC/move code, `twh_cbmcbendinfo`).
 
@@ -358,9 +370,9 @@ def compare_outputs(ref, test, tol=1e-6):
 ### Test Matrix
 | Config | Threads | Tolerance | Status |
 |--------|---------|-----------|--------|
-| SPC_E_WATER, HPI serial | 1 | 1e-6 | ✅ (0 diff, byte-identical) |
+| SPC_E_WATER, HPI serial | 1 | 1e-6 | ⚠️ **HPI crashes on 5000-mol input** — `coord_temp_arr` index 15001 at `energy.F:394` (Phase-6 P6 zero-copy bug; old 270-mol gold unaffected). Non-HPI plain ✅ |
 | SPC_E_WATER, plain serial (baseline) | 1 | 1e-6 | ✅ |
-| SPC_E_WATER, OMP (any) | 1/16 | 1e-6 | ❌ **out of scope** — pre-existing corruption from move 1 (see above) |
+| SPC_E_WATER, OMP (non-HPI, `save` fix + PRIVATE-clause decl fix) | 1/4 | 1e-6 | ✅ **now passing** (2026-09-20) — see OpenMP Scope Decision |
 | Wall_Water (HPI) | 1 | 1e-6 | ⚠️ **HPI diverges** — initial CBMC coordinate -0.314 vs 0.0 (4 lines), strict fail; baseline+Vec (no HPI) ✅ 1.03× pass |
 | TraPPE_Pentane (HPI) | 1 | 1e-6 | ✅ 1.05× pass |
 | EPM_VLCC (HPI) | 1 | 1e-6 | ⚠️ 1.11× but energy 26019→26016 (1.2e-4 >1e-6) fail — fast-math |

@@ -4,7 +4,7 @@
 **Base**: `openspec/live_specs/optimization_plan.md:1` Phase 5 complete (HPI+Vec+Ewald, 1.02-1.15x on `tests/SPC_E_WATER`, `src/TMMC/SPC_E_WATER`, `tests/TraPPE_Pentane` small examples)
 **Goal**: Extend single-node headroom after Phase 5 and close gap to `optimization_plan.md:4` target `5-10x` single-node, near-linear MPI to 64 nodes
 **Compiler**: `gfortran + OpenMPI` `-O3 -march=native -ffast-math -fopenmp` `Source/Makefile.am:38` `VEC_FFLAGS`
-**Regression**: `1e-6` relative `tests/comparison_benchmark.py:compare_outputs` + `src/towhee-8.2.3/Examples/tolerance_diff.py`; OpenMP `USEOPENMP` out-of-scope `optimization_plan.md:25` (deterministic corruption from move 1)
+**Regression**: `1e-6` relative `tests/comparison_benchmark.py:compare_outputs` + `src/towhee-8.2.3/Examples/tolerance_diff.py`; OpenMP `USEOPENMP` was previously out-of-scope `optimization_plan.md:25` (deterministic corruption from move 1) — **root-caused 2026-09-20** as a missing `save` on Ewald `ssumi/ssuminew/ssumr/ssumrnew` (`globaldata.F:5592,5670`), exposed by `-fopenmp`→`-frecursive`; `--enable-openmp` (non-HPI) now passes SPC_E_WATER at 1T/4T with the 2-line `save` fix
 
 ---
 
