@@ -1,7 +1,7 @@
 ensemble
 'nvt'
 temperature
-360.0d0
+336.0d0
 nmolty
 1
 nmolectyp
@@ -11,19 +11,19 @@ numboxes
 stepstyle
 'cycles'
 nstep
-100000
+1
 printfreq 
-1000   
+1   
 blocksize 
-1000
+2000
 moviefreq
-5000
+100000
 backupfreq  
-5000
+1000
 runoutput
 'full'
 pdb_output_freq
-5000
+100000
 pressure_virial_freq
 20
 trmaxdispfreq
@@ -31,7 +31,7 @@ trmaxdispfreq
 volmaxdispfreq
 1000
 linit   
-.true. 
+.false. 
 initboxtype
 'dimensions'
 initstyle
@@ -47,9 +47,9 @@ inix iniy iniz
 8    8    7   
 4    4    4   
 hmatrix
-38.5d0 0.0d0 0.0d0
-0.0d0 38.5d0 0.0d0
-0.0d0 0.0d0 38.5d0
+30.0d0 0.0d0 0.0d0
+0.0d0 30.0d0 0.0d0
+0.0d0 0.0d0 30.0d0
 60.d0 0.0d0 0.0d0
 0.0d0  60.d0 0.0d0
 0.0d0 0.0d0  60.d0
@@ -62,7 +62,7 @@ pmvol
           tavol
           0.5d0
 pmcell
-0.002d0
+0.0d0
           pmcellpr
           1.0d0
           pmcellpt
@@ -72,7 +72,7 @@ pmcell
           tacell
           0.5d0
 pm2boxrbswap
-0.002d0     
+0.0d0     
           pm2rbswmt
           1.0d0
           pm2rbswpr
@@ -84,7 +84,7 @@ pm2boxcbswap
           pm2cbswpr
           1.0d0
 pm1boxcbswap
-0.01d0     
+0.0d0     
           pm1cbswmt
           1.0d0
 pmavb1
@@ -98,7 +98,7 @@ pmavb1
           avb1rad
           8.0d0
 pmavb2
-0.02d0
+0.0d0
           pmavb2in
           0.5d0
           pmavb2mt
@@ -108,7 +108,7 @@ pmavb2
           avb2rad
           8.0d0
 pmavb3
-0.02d0
+0.0d0
           pmavb3mt
           1.0d0
           pmavb3ct
@@ -122,35 +122,35 @@ pmcb
           pmall
           0.0d0 
 pmback
-0.33d0
+0.0d0
           pmbkmt
           1.0d0
 pmpivot
-0.33d0
+0.0d0
           pmpivmt
           1.0d0
 pmconrot
-0.33d0
+0.0d0
           pmcrmt
 	  1.0d0
 pmcrback
-0.33d0
+0.0d0
           pmcrbmt
 	  1.0d0
 pmplane
-0.33d0
+0.0d0
           pmplanebox
           0.5d0 1.0d0
           planewidth
           3.0d0
 pmrow
-0.33d0
+0.0d0
           pmrowbox
           0.5d0 1.0d0
           rowwidth
           3.0d0
 pmtraat
-0.33d0	  
+0.0d0	  
           pmtamt
           1.0d0
           rmtraa
