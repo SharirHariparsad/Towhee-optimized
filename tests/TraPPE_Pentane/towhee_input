@@ -1,3 +1,9 @@
+random_number_generator
+'DX-1597-2-7'
+random_seed
+1302002
+random_allow_restart
+.true.
 ensemble
 'nvt'
 temperature
@@ -11,25 +17,26 @@ numboxes
 stepstyle
 'cycles'
 nstep
-1
+200
 printfreq 
-1   
+50
 blocksize 
-2000
+50
 moviefreq
-100000
+0
 backupfreq  
-1000
+0
 runoutput
 'full'
 pdb_output_freq
-100000
+0
 pressure_virial_freq
 20
 trmaxdispfreq
-1000
+0
 volmaxdispfreq
-1000
+0
+# Timed run: requires an equilibrated towhee_initial with tuned displacements.
 linit   
 .false. 
 initboxtype
@@ -47,12 +54,12 @@ inix iniy iniz
 8    8    7   
 4    4    4   
 hmatrix
-30.0d0 0.0d0 0.0d0
-0.0d0 30.0d0 0.0d0
-0.0d0 0.0d0 30.0d0
-60.d0 0.0d0 0.0d0
-0.0d0  60.d0 0.0d0
-0.0d0 0.0d0  60.d0
+37.5d0 0.0d0 0.0d0
+0.0d0 37.5d0 0.0d0
+0.0d0 0.0d0 37.5d0
+90.0d0 0.0d0 0.0d0
+0.0d0 90.0d0 0.0d0
+0.0d0 0.0d0 90.0d0
 pmvol
 0.002d0   
           pmvlpr
@@ -78,7 +85,7 @@ pm2boxrbswap
           pm2rbswpr
           1.0d0
 pm2boxcbswap
-0.01d0     
+0.05d0
           pm2cbswmt
           1.0d0
           pm2cbswpr
@@ -88,7 +95,7 @@ pm1boxcbswap
           pm1cbswmt
           1.0d0
 pmavb1
-0.02d0
+0.06d0
           pmavb1in
           0.5d0
           pmavb1mt
@@ -116,7 +123,7 @@ pmavb3
           avb3rad
           8.0d0
 pmcb
-0.33d0     
+0.36d0
           pmcbmt
           1.0d0
           pmall
@@ -158,7 +165,7 @@ pmtraat
           tatraa
           0.5d0
 pmtracm
-0.67d0	  
+0.68d0
           pmtcmt
           1.0d0
           rmtrac
@@ -170,7 +177,7 @@ pmrotate
           pmromt
           1.0d0
           rmrot
-          0.05d0
+          0.2d0
           tarot
           0.5d0
 cbmc_formulation
@@ -180,7 +187,7 @@ cbmc_setting_style
 ffnumber
 1
 ff_filename
-/towheebase/ForceFields/towhee_ff_TraPPE-UA
+../../src/towhee-8.2.3/ForceFields/towhee_ff_TraPPE-UA
 classical_potential
 'Lennard-Jones'       
 classical_mixrule
