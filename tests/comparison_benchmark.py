@@ -6,6 +6,10 @@ Minimal A/B speed comparison: run the original towhee binary and your
 optimized version N times each (same input, same thread count) and report
 mean/min/stdev + speedup.
 
+For linit .false., supply an equilibrated towhee_initial in --run-dir.
+The same checkpoint is restored for every warmup, measured run, and
+tolerance check. Checkpoint restoration is excluded from the timings.
+
 Usage:
     python compare_towhee.py --original /path/to/og/towhee \
                               --optimized /path/to/opt/towhee \
@@ -20,7 +24,6 @@ import re
 import statistics
 import subprocess
 import time
-import shutil
 from pathlib import Path
 
 # Phase 4: tolerance-based regression (1e-6 relative)
@@ -89,13 +92,38 @@ def compare_outputs(ref_path: Path, test_path: Path, tol: float = DEFAULT_TOL,
     return passed, diffs
 
 
+def load_restart(run_dir: Path) -> bytes | None:
+    """Snapshot the restart input and reject missing checkpoints before cleanup."""
+    lines = []
+    for line in (run_dir / "towhee_input").read_text().splitlines():
+        line = re.split(r"[#!]", line, maxsplit=1)[0].strip()
+        if line:
+            lines.append(line.lower())
+    try:
+        linit = lines[lines.index("linit") + 1].strip(".")
+    except (ValueError, IndexError):
+        raise ValueError("towhee_input must specify linit followed by .true. or .false.")
+    if linit not in {"true", "t", "false", "f"}:
+        raise ValueError(f"Invalid linit value in towhee_input: {linit}")
+
+    checkpoint = run_dir / "towhee_initial"
+    if checkpoint.is_file():
+        data = checkpoint.read_bytes()
+        if not data and linit in {"false", "f"}:
+            raise ValueError(f"linit .false. requires a nonempty checkpoint: {checkpoint}")
+        return data
+    if linit in {"false", "f"}:
+        raise ValueError(f"linit .false. requires an equilibrated checkpoint: {checkpoint}")
+    return None
+
+
 def clean_run_dir(run_dir: Path):
-    """Remove all towhee output files to ensure clean state."""
+    """Remove generated outputs, preserving the simulation and restart inputs."""
     # Files to preserve
-    preserve = {"towhee_input"}
+    preserve = {"towhee_input", "towhee_initial"}
     patterns = [
         "towhee_altinp", "towhee_cbmc", "towhee_citations", "towhee_final",
-        "towhee_backup", "towhee_movie", "towhee_initial",
+        "towhee_backup", "towhee_movie",
         "towhee_his*", "towhee_nfl*", "towhee_pvs*", "towhee_ostwald",
         "box_*_step_*.pdb", "*.dat", "gmon.out",
         "*.backup", "*.final", "*.movie", "*.cbmc", "*.citations",
@@ -109,37 +137,53 @@ def clean_run_dir(run_dir: Path):
                     pass
 
 
-def run_once(exe: Path, run_dir: Path, threads: int) -> float:
-    """Run one towhee execution, return wall-clock seconds."""
+def run_once(exe: Path, run_dir: Path, threads: int,
+             restart_data: bytes | None = None, output_path: Path | None = None) -> float:
+    """Run from a fixed checkpoint and return execution-only wall-clock seconds."""
+    if restart_data is None:
+        restart_data = load_restart(run_dir)
     clean_run_dir(run_dir)
+    checkpoint = run_dir / "towhee_initial"
+    if restart_data is not None:
+        checkpoint.write_bytes(restart_data)
     env = os.environ.copy()
     env["OMP_NUM_THREADS"] = str(threads)
 
-    start = time.perf_counter()
-    result = subprocess.run(
-        [str(exe.resolve())],
-        cwd=str(run_dir),
-        env=env,
-        capture_output=True,
-        text=True,
-    )
-    elapsed = time.perf_counter() - start
+    try:
+        start = time.perf_counter()
+        result = subprocess.run(
+            [str(exe.resolve())],
+            cwd=str(run_dir),
+            env=env,
+            capture_output=True,
+            text=True,
+        )
+        elapsed = time.perf_counter() - start
+    finally:
+        # Preserve the caller's checkpoint even if the executable changes it or fails.
+        if restart_data is not None:
+            checkpoint.write_bytes(restart_data)
 
     if result.returncode != 0:
         print(f"  !! run failed (exit {result.returncode})")
+        print(result.stdout[-1000:])
         print(result.stderr[-1000:])
         raise RuntimeError(f"{exe} failed")
 
+    if output_path is not None:
+        output_path.write_text(result.stdout)
     return elapsed
 
 
 def benchmark(label: str, exe: Path, run_dir: Path, threads: int,
-              repeats: int, warmup: int) -> list:
+              repeats: int, warmup: int, restart_data: bytes | None = None) -> list:
     """Run warmup + measured repeats for one binary, return measured timings."""
+    if restart_data is None:
+        restart_data = load_restart(run_dir)
     print(f"\n-- {label}: {exe} --")
     timings = []
     for i in range(warmup + repeats):
-        elapsed = run_once(exe, run_dir, threads)
+        elapsed = run_once(exe, run_dir, threads, restart_data=restart_data)
         tag = "warmup" if i < warmup else "measured"
         print(f"  run {i+1}/{warmup+repeats} [{tag}]: {elapsed:.3f}s")
         if tag == "measured":
@@ -268,15 +312,21 @@ def main():
     if not (Path(run_dir) / "towhee_input").is_file():
         raise SystemExit(f"ERROR: no towhee_input in {run_dir}")
 
+    # Capture once for both binaries, including warmups and tolerance checks.
+    try:
+        restart_data = load_restart(Path(run_dir))
+    except (OSError, ValueError) as exc:
+        raise SystemExit(f"ERROR: {exc}") from exc
+
     sim_name = Path(run_dir).resolve().name
 
     print(f"Simulation: {sim_name}  Threads: {threads}  Repeats: {repeats}  "
           f"Warmup: {warmup}")
 
     og_timings = benchmark("original", Path(original), Path(run_dir),
-                           threads, repeats, warmup)
+                           threads, repeats, warmup, restart_data=restart_data)
     opt_timings = benchmark("optimized", Path(optimized), Path(run_dir),
-                            threads, repeats, warmup)
+                            threads, repeats, warmup, restart_data=restart_data)
 
     print("\n" + "=" * 40)
     og_stats = summarize("original ", og_timings)
@@ -300,33 +350,26 @@ def main():
     })
 
     if args.check_tolerance:
-        # Phase 4: compare latest outputs with tolerance
-        # After benchmark, each binary's last run left its output in run_dir
-        # We re-run each once more capturing to temp files for clean compare
+        # Re-run both binaries from the same checkpoint for a clean comparison.
         print(f"\n-- tolerance check (tol={args.tolerance}) --")
         # run each once capturing stdout to file for comparison
         ref_out = Path(run_dir) / "answer_ref_tol"
         test_out = Path(run_dir) / "answer_test_tol"
-        for exe, out in [(Path(original), ref_out), (Path(optimized), test_out)]:
-            clean_run_dir(Path(run_dir))
-            env = os.environ.copy()
-            env["OMP_NUM_THREADS"] = str(threads)
-            result = subprocess.run([str(exe.resolve())], cwd=str(Path(run_dir)),
-                                    env=env, capture_output=True, text=True)
-            out.write_text(result.stdout)
-        passed, diffs = compare_outputs(ref_out, test_out, tol=args.tolerance)
+        try:
+            for exe, out in [(Path(original), ref_out), (Path(optimized), test_out)]:
+                run_once(exe, Path(run_dir), threads, restart_data=restart_data,
+                         output_path=out)
+            passed, diffs = compare_outputs(ref_out, test_out, tol=args.tolerance)
+        finally:
+            for out in [ref_out, test_out]:
+                out.unlink(missing_ok=True)
         if passed:
             print(f"  tolerance check PASSED (tol={args.tolerance})")
         else:
             print(f"  tolerance check FAILED (tol={args.tolerance}):")
             for d in diffs[:20]:
                 print(f"    {d}")
-        # cleanup
-        for p in [ref_out, test_out]:
-            try:
-                p.unlink()
-            except OSError:
-                pass
+            raise SystemExit(1)
 
 
 if __name__ == "__main__":
